@@ -608,7 +608,6 @@
         let pendingChangesExist = false;
         let backupRosterData = null;
 
-        // GitHub API Config State
         let githubConfig = {
             token: '',
             owner: '',
@@ -680,7 +679,6 @@
 
         let rawRosterData = JSON.parse(JSON.stringify(defaultHardcodedRosterData));
 
-        // Fetch published roster.json from GitHub Repository on load
         async function fetchLivePublicRoster() {
             try {
                 const response = await fetch('./roster.json?v=' + new Date().getTime());
@@ -853,7 +851,6 @@
                 const { token, owner, repo, path } = githubConfig;
                 const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
 
-                // Fetch current file details to get required SHA
                 const getRes = await fetch(url, {
                     headers: { 'Authorization': `token ${token}` }
                 });
@@ -864,11 +861,9 @@
                     sha = fileMeta.sha;
                 }
 
-                // Base64 encode JSON roster data
                 const jsonContent = JSON.stringify(rawRosterData, null, 2);
                 const encodedContent = btoa(unescape(encodeURIComponent(jsonContent)));
 
-                // Commit update via GitHub API
                 const putRes = await fetch(url, {
                     method: 'PUT',
                     headers: {
@@ -1041,8 +1036,14 @@
         }
 
         function getActiveWeekData() {
-            const found = rawRosterData.find(w => w.month === currentMonth && w.week_num === currentWeekNum);
-            return found || {
+            const targetIndex = rawRosterData.findIndex(w => w.month === currentMonth && w.week_num === currentWeekNum);
+            if (targetIndex !== -1) {
+                return rawRosterData[targetIndex];
+            }
+            if (rawRosterData.length > 0) {
+                return rawRosterData[0];
+            }
+            const fallback = {
                 month: currentMonth,
                 week_num: currentWeekNum,
                 dates: ["N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A"],
@@ -1052,14 +1053,17 @@
                 total_headcount_6am: [0,0,0,0,0,0,0],
                 total_headcount_10am: [0,0,0,0,0,0,0]
             };
+            rawRosterData.push(fallback);
+            return fallback;
         }
 
         function recalculateHeadcount(weekData) {
+            if (!weekData || !Array.isArray(weekData.employees)) return;
             const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
             const hc6am = [0,0,0,0,0,0,0];
             const hc10am = [0,0,0,0,0,0,0];
 
-            (weekData.employees || []).forEach(emp => {
+            weekData.employees.forEach(emp => {
                 days.forEach((day, idx) => {
                     const shift = (emp.shifts && emp.shifts[day]) ? emp.shifts[day] : '';
                     if (shift.includes("06:00") || shift.includes("6:00") || shift === "1st Half Off") hc6am[idx]++;
@@ -1434,8 +1438,11 @@
             }
 
             const weekData = getActiveWeekData();
-            const newEmp = {
-                sg_id: parseInt(sgIdVal) || sgIdVal,
+            const parsedSgId = parseInt(sgIdVal) || sgIdVal;
+
+            const existingIndex = weekData.employees.findIndex(e => String(e.sg_id) === String(parsedSgId));
+            const newEmpObj = {
+                sg_id: parsedSgId,
                 name: nameVal,
                 skilling: skillingVal,
                 default_start: "06:00 AM",
@@ -1452,7 +1459,12 @@
                 }
             };
 
-            weekData.employees.push(newEmp);
+            if (existingIndex !== -1) {
+                weekData.employees[existingIndex] = newEmpObj;
+            } else {
+                weekData.employees.push(newEmpObj);
+            }
+
             triggerPendingChangesState();
             recalculateHeadcount(weekData);
             closeAddEmployeeModal();
@@ -1461,10 +1473,15 @@
 
         function deleteEmployee(sgId, empName) {
             const weekData = getActiveWeekData();
-            weekData.employees = weekData.employees.filter(e => String(e.sg_id) !== String(sgId));
-            triggerPendingChangesState();
-            recalculateHeadcount(weekData);
-            renderView();
+            if (!weekData || !Array.isArray(weekData.employees)) return;
+
+            const targetIdx = weekData.employees.findIndex(e => String(e.sg_id) === String(sgId));
+            if (targetIdx !== -1) {
+                weekData.employees.splice(targetIdx, 1);
+                triggerPendingChangesState();
+                recalculateHeadcount(weekData);
+                renderView();
+            }
         }
 
         function updateCharts() {
