@@ -1331,76 +1331,7 @@
       "17/10/26",
       "18/10/26"
     ],
-    "employees": [
-      {
-        "sg_id": 223267,
-        "name": "Vaibhav Kalyankar",
-        "skilling": "ATS",
-        "default_start": "06:00 AM",
-        "default_end": "03:00 PM",
-        "days_office": "Tue/Wed/Thu",
-        "shifts": {
-          "Monday": "WO",
-          "Tuesday": "06:00 AM - 03:00 PM",
-          "Wednesday": "06:00 AM - 03:00 PM",
-          "Thursday": "06:00 AM - 03:00 PM",
-          "Friday": "06:00 AM - 03:00 PM",
-          "Saturday": "06:00 AM - 03:00 PM",
-          "Sunday": "WO"
-        }
-      },
-      {
-        "sg_id": 223258,
-        "name": "Md. Shahbaz",
-        "skilling": "ATS",
-        "default_start": "06:00 AM",
-        "default_end": "03:00 PM",
-        "days_office": "Tue/Wed/Thu",
-        "shifts": {
-          "Monday": "06:00 AM - 03:00 PM",
-          "Tuesday": "06:00 AM - 03:00 PM",
-          "Wednesday": "06:00 AM - 03:00 PM",
-          "Thursday": "06:00 AM - 03:00 PM",
-          "Friday": "06:00 AM - 03:00 PM",
-          "Saturday": "WO",
-          "Sunday": "WO"
-        }
-      },
-      {
-        "sg_id": 316090,
-        "name": "Sunil M",
-        "skilling": "ATS",
-        "default_start": "10:00 AM",
-        "default_end": "07:00 PM",
-        "days_office": "Tue/Wed/Thu",
-        "shifts": {
-          "Monday": "WO",
-          "Tuesday": "10:00 AM - 07:00 PM",
-          "Wednesday": "10:00 AM - 07:00 PM",
-          "Thursday": "10:00 AM - 07:00 PM",
-          "Friday": "10:00 AM - 07:00 PM",
-          "Saturday": "11:00 AM - 08:00 PM",
-          "Sunday": "WO"
-        }
-      },
-      {
-        "sg_id": 313253,
-        "name": "Pramod.K",
-        "skilling": "ATS - Hybrid",
-        "default_start": "10:00 AM",
-        "default_end": "07:00 PM",
-        "days_office": "Tue/Wed/Thu",
-        "shifts": {
-          "Monday": "10:00 AM - 07:00 PM",
-          "Tuesday": "10:00 AM - 07:00 PM",
-          "Wednesday": "10:00 AM - 07:00 PM",
-          "Thursday": "10:00 AM - 07:00 PM",
-          "Friday": "10:00 AM - 07:00 PM",
-          "Saturday": "WO",
-          "Sunday": "WO"
-        }
-      }
-    ],
+    "employees": [],
     "qm_staff_6am": {
       "Monday": "Unassigned",
       "Tuesday": "Unassigned",
@@ -1420,20 +1351,20 @@
       "Sunday": "Unassigned"
     },
     "total_headcount_6am": [
-      1,
-      2,
-      2,
-      2,
-      2,
-      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
       0
     ],
     "total_headcount_10am": [
-      1,
-      2,
-      2,
-      2,
-      2,
+      0,
+      0,
+      0,
+      0,
+      0,
       0,
       0
     ],
@@ -1443,7 +1374,7 @@
       0,
       0,
       0,
-      1,
+      0,
       0
     ]
   }
