@@ -475,9 +475,9 @@
             <div class="bg-white p-4 sm:p-5 rounded-xl card-3d">
                 <div class="flex items-center justify-between mb-3 sm:mb-4">
                     <h3 class="font-bold text-slate-800 text-xs sm:text-sm flex items-center gap-2">
-                        <i data-lucide="pie-chart" class="w-4 h-4 text-indigo-600"></i> Shift Distribution
+                        <i data-lucide="pie-chart" class="w-4 h-4 text-indigo-600"></i> Daily Shift Distribution
                     </h3>
-                    <span class="text-[10px] sm:text-xs text-slate-400">Selected Week</span>
+                    <span id="distChartSubtitle" class="text-[10px] sm:text-xs font-bold text-indigo-600">Active Day</span>
                 </div>
                 <div class="chart-container-wrapper flex items-center justify-center">
                     <canvas id="distributionChart"></canvas>
@@ -790,7 +790,7 @@
             });
         }
 
-        // Cleaned dataset (Only 5 valid weeks from Excel file)
+        // Cleaned dataset (Only 5 valid weeks from Excel file, Sunil M removed)
         const defaultHardcodedRosterData = [
             {
                 "month": "September",
@@ -811,9 +811,9 @@
                     {"sg_id": 709312, "name": "Manisha Kumari", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "SL", "Tuesday": "SL", "Wednesday": "08:00 AM - 05:00 PM", "Thursday": "08:00 AM - 05:00 PM", "Friday": "08:00 AM - 05:00 PM", "Saturday": "WO", "Sunday": "WO"}}
                 ],
                 "qm_staff_6am": {"Monday": "Srinivas Reddy", "Tuesday": "Srinivas Reddy", "Wednesday": "Srinivas Reddy", "Thursday": "Srinivas Reddy", "Friday": "Srinivas Reddy", "Saturday": "Md. Shahbaz", "Sunday": "Md. Shahbaz"},
-                "qm_staff_10am": {"Monday": "Sanjay Kumar", "Tuesday": "Sanjay Kumar", "Wednesday": "Sanjay Kumar", "Thursday": "Sanjay Kumar", "Friday": "Deepak K", "Saturday": "Sunil M", "Sunday": "Sanjay Kumar"},
-                "total_headcount_6am": [6, 5, 6, 6, 6, 1, 1],
-                "total_headcount_8am": [1, 1, 1, 1, 1, 0, 0],
+                "qm_staff_10am": {"Monday": "Sanjay Kumar", "Tuesday": "Sanjay Kumar", "Wednesday": "Sanjay Kumar", "Thursday": "Sanjay Kumar", "Friday": "Deepak K", "Saturday": "Unassigned", "Sunday": "Sanjay Kumar"},
+                "total_headcount_6am": [5, 5, 6, 5, 5, 1, 1],
+                "total_headcount_8am": [2, 2, 2, 2, 2, 0, 0],
                 "total_headcount_10am": [2, 1, 4, 3, 2, 1, 1]
             },
             {
@@ -836,8 +836,8 @@
                 ],
                 "qm_staff_6am": {"Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"},
                 "qm_staff_10am": {"Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"},
-                "total_headcount_6am": [5, 6, 6, 5, 5, 1, 1],
-                "total_headcount_8am": [1, 2, 2, 1, 2, 0, 0],
+                "total_headcount_6am": [4, 6, 6, 5, 5, 1, 1],
+                "total_headcount_8am": [1, 3, 2, 2, 2, 0, 0],
                 "total_headcount_10am": [2, 2, 3, 2, 2, 1, 1]
             },
             {
@@ -895,7 +895,6 @@
                 "employees": [
                     {"sg_id": 316092, "name": "Lelin Patra", "skilling": "ATS 2L", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
                     {"sg_id": 227186, "name": "Sanjay Kumar", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Tue/Wed/Thu", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 316090, "name": "Sunil M", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Tue/Wed/Thu", "shifts": {"Monday": "WO", "Tuesday": "WO", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "06:00 AM - 03:00 PM", "Sunday": "06:00 AM - 03:00 PM"}},
                     {"sg_id": 223255, "name": "Deepak K", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "08:00 AM - 05:00 PM", "Tuesday": "08:00 AM - 05:00 PM", "Wednesday": "08:00 AM - 05:00 PM", "Thursday": "08:00 AM - 05:00 PM", "Friday": "08:00 AM - 05:00 PM", "Saturday": "WO", "Sunday": "WO"}},
                     {"sg_id": 223254, "name": "Srinivas Reddy", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Tue/Wed/Thu", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "WO", "Sunday": "WO"}},
                     {"sg_id": 709454, "name": "Prathavi", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "WO", "Sunday": "WO"}},
@@ -904,12 +903,13 @@
                     {"sg_id": 709115, "name": "Gokul Krishna Lokesh", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "08:00 AM - 05:00 PM", "Tuesday": "08:00 AM - 05:00 PM", "Wednesday": "08:00 AM - 05:00 PM", "Thursday": "08:00 AM - 05:00 PM", "Friday": "08:00 AM - 05:00 PM", "Saturday": "WO", "Sunday": "WO"}},
                     {"sg_id": 709312, "name": "Manisha Kumari", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "08:00 AM - 05:00 PM", "Tuesday": "08:00 AM - 05:00 PM", "Wednesday": "08:00 AM - 05:00 PM", "Thursday": "08:00 AM - 05:00 PM", "Friday": "08:00 AM - 05:00 PM", "Saturday": "WO", "Sunday": "WO"}},
                     {"sg_id": 709424, "name": "Bhargav R", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "6:00 AM - 03:00 PM", "Tuesday": "6:00 AM - 03:00 PM", "Wednesday": "6:00 AM - 03:00 PM", "Thursday": "6:00 AM - 03:00 PM", "Friday": "6:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 709283, "name": "Nidhi Taku", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "6:00 AM - 03:00 PM", "Tuesday": "6:00 AM - 03:00 PM", "Wednesday": "6:00 AM - 03:00 PM", "Thursday": "6:00 AM - 03:00 PM", "Friday": "6:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}}
+                    {"sg_id": 709283, "name": "Nidhi Taku", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "6:00 AM - 03:00 PM", "Tuesday": "6:00 AM - 03:00 PM", "Wednesday": "6:00 AM - 03:00 PM", "Thursday": "6:00 AM - 03:00 PM", "Friday": "6:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 223258, "name": "Md. Shahbaz", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Mon/Tue/Wed", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "WO", "Friday": "WO", "Saturday": "06:00 AM - 03:00 PM", "Sunday": "06:30 AM - 03:30 PM"}}
                 ],
                 "qm_staff_6am": {"Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"},
                 "qm_staff_10am": {"Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"},
-                "total_headcount_6am": [4, 4, 5, 5, 5, 1, 1],
-                "total_headcount_8am": [4, 4, 4, 4, 4, 0, 0],
+                "total_headcount_6am": [5, 5, 5, 4, 4, 1, 1],
+                "total_headcount_8am": [3, 3, 3, 3, 3, 0, 0],
                 "total_headcount_10am": [4, 4, 4, 4, 4, 0, 0]
             }
         ];
@@ -1428,7 +1428,6 @@
                 return;
             }
 
-            // Apply modifications across ALL weeks for consistency
             rawRosterData.forEach(w => {
                 const emp = w.employees.find(e => String(e.sg_id) === String(oldSgId));
                 if (emp) {
@@ -1737,7 +1736,7 @@
             const totalEmps = employees.length;
             const dates = weekData.dates || ["N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A"];
 
-            let todayDayName = "Monday";
+            let todayDayName = "Wednesday";
             const todayIdx = dates.indexOf(TODAY_DATE_STR);
             if (todayIdx !== -1) {
                 todayDayName = days[todayIdx];
@@ -1818,7 +1817,6 @@
                 bodyHTML = `<tr><td colspan="${isAdminMode ? 10 : 9}" class="p-8 text-center text-slate-400 text-xs sm:text-sm">No employee records found for ${currentMonth} - Week ${currentWeekNum}</td></tr>`;
             } else {
                 filteredEmployees.forEach(e => {
-                    // EDITABLE EMPLOYEE INFO ON CLICK IN ADMIN MODE
                     const nameClickAttr = isAdminMode ? `onclick="openEditEmployeeModal('${e.sg_id}')" class="cursor-pointer group group-hover:text-indigo-600"` : '';
                     const editHint = isAdminMode ? `<i data-lucide="pencil" class="inline-block w-3 h-3 text-slate-400 ml-1 opacity-0 group-hover:opacity-100 transition-opacity"></i>` : '';
 
@@ -2111,10 +2109,11 @@
             }
         }
 
-        // UPDATED BAR CHART GENERATION (SYNCS DISTRIBUTION DIRECTLY FROM TREND DATA)
+        // UPDATED CHART FUNCTION: DAILY SHIFT DISTRIBUTION FULLY INTEGRATED
         function updateCharts() {
             const weekData = getActiveWeekData();
             const daysShort = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+            const fullDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
             recalculateHeadcount(weekData);
 
@@ -2122,27 +2121,40 @@
             const hc8am = weekData.total_headcount_8am || [0,0,0,0,0,0,0];
             const hc10am = weekData.total_headcount_10am || [0,0,0,0,0,0,0];
 
-            // Sum totals directly from daily coverage trend
-            const total06 = hc6am.reduce((sum, val) => sum + val, 0);
-            const total08 = hc8am.reduce((sum, val) => sum + val, 0);
-            const total10 = hc10am.reduce((sum, val) => sum + val, 0);
-
-            let totalWO = 0, totalLeave = 0;
-            const fullDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-
-            (weekData.employees || []).forEach(e => {
-                fullDays.forEach(d => {
-                    const s = e.shifts ? e.shifts[d] : 'WO';
-                    if (!s || s === 'WO') totalWO++;
-                    else if (s === 'PTO' || s === 'PH' || s === 'SL' || s === 'HD SL' || s.includes('Half Off')) totalLeave++;
-                });
-            });
-
+            // Calculate Daily Trend Bar Chart Labels
             const labelsWithTotalActiveWorking = daysShort.map((day, idx) => {
                 const totalWorkingExcludingLeave = (hc6am[idx] || 0) + (hc8am[idx] || 0) + (hc10am[idx] || 0);
                 return `${day} (${totalWorkingExcludingLeave})`;
             });
 
+            // Determine active day name (matches today or defaults to Wednesday)
+            let activeDayName = "Wednesday";
+            const todayIdx = weekData.dates ? weekData.dates.indexOf(TODAY_DATE_STR) : -1;
+            if (todayIdx !== -1) {
+                activeDayName = fullDays[todayIdx];
+            } else {
+                const dayNameIndex = new Date().getDay();
+                activeDayName = fullDays[dayNameIndex === 0 ? 6 : dayNameIndex - 1];
+            }
+
+            let dayIdx = fullDays.indexOf(activeDayName);
+            if (dayIdx === -1) dayIdx = 2;
+
+            document.getElementById('distChartSubtitle').innerText = `${activeDayName} Breakdown`;
+
+            let daily06 = hc6am[dayIdx] || 0;
+            let daily08 = hc8am[dayIdx] || 0;
+            let daily10 = hc10am[dayIdx] || 0;
+            let dailyWO = 0;
+            let dailyLeave = 0;
+
+            (weekData.employees || []).forEach(e => {
+                const s = e.shifts ? e.shifts[activeDayName] : 'WO';
+                if (!s || s === 'WO') dailyWO++;
+                else if (s === 'PTO' || s === 'PH' || s === 'SL' || s === 'HD SL' || s.includes('Half Off')) dailyLeave++;
+            });
+
+            // Render Bar Chart (Daily Shift Coverage Trend)
             const ctx1 = document.getElementById('coverageChart').getContext('2d');
             if(coverageChartInstance) coverageChartInstance.destroy();
 
@@ -2223,15 +2235,16 @@
                 }
             });
 
+            // Render Doughnut Chart (Daily Shift Distribution)
             const ctx2 = document.getElementById('distributionChart').getContext('2d');
             if(distChartInstance) distChartInstance.destroy();
 
             distChartInstance = new Chart(ctx2, {
                 type: 'doughnut',
                 data: {
-                    labels: ['06:00 / 06:30 / 07:00 Shift', '08:00 AM Shift', '10:00 AM Shift', 'Off Days', 'PTO / Leave / Half Off'],
+                    labels: ['06:00/06:30/07:00 Shift', '08:00 AM Shift', '10:00 AM Shift', 'Off Days', 'PTO / Leave / Half Off'],
                     datasets: [{
-                        data: [total06, total08, total10, totalWO, totalLeave],
+                        data: [daily06, daily08, daily10, dailyWO, dailyLeave],
                         backgroundColor: ['#10b981', '#3b82f6', '#f59e0b', '#cbd5e1', '#f43f5e']
                     }]
                 },
