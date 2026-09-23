@@ -1298,7 +1298,7 @@
         "default_end": "03:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
         "shifts": {
-          "Monday": "06:00 AM - 03:00 PM",
+          "Monday": "PH",
           "Tuesday": "06:00 AM - 03:00 PM",
           "Wednesday": "06:00 AM - 03:00 PM",
           "Thursday": "06:00 AM - 03:00 PM",
@@ -1412,7 +1412,7 @@
       "Sunday": "Unassigned"
     },
     "total_headcount_6am": [
-      11,
+      10,
       12,
       12,
       11,
