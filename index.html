@@ -439,12 +439,20 @@
                     <label for="monthSelect" class="text-[10px] sm:text-xs font-semibold uppercase text-slate-400">Month:</label>
                     <select id="monthSelect" onchange="onMonthChange()" class="bg-slate-50 border border-slate-300 text-slate-800 text-xs font-semibold rounded-lg px-2 sm:px-3 py-1 sm:py-1.5 focus:ring-2 focus:ring-indigo-500 card-3d">
                     </select>
+                    <!-- ADMIN DELETE MONTH BUTTON -->
+                    <button id="adminDeleteMonthBtn" onclick="deleteCurrentMonth()" class="hidden p-1.5 text-rose-600 hover:text-rose-800 hover:bg-rose-50 rounded-lg border border-rose-200" title="Delete Selected Month">
+                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                    </button>
                 </div>
 
                 <div id="weekNavigator" class="flex items-center space-x-1.5 sm:space-x-2">
                     <label for="weekSelect" class="text-[10px] sm:text-xs font-semibold uppercase text-slate-400">Week Range:</label>
                     <select id="weekSelect" onchange="onWeekChange()" class="bg-slate-50 border border-slate-300 text-slate-800 text-xs font-semibold rounded-lg px-2 sm:px-3 py-1 sm:py-1.5 focus:ring-2 focus:ring-indigo-500 card-3d">
                     </select>
+                    <!-- ADMIN DELETE WEEK BUTTON -->
+                    <button id="adminDeleteWeekBtn" onclick="deleteCurrentWeek()" class="hidden p-1.5 text-rose-600 hover:text-rose-800 hover:bg-rose-50 rounded-lg border border-rose-200" title="Delete Selected Week">
+                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -583,6 +591,37 @@
             <div class="flex justify-end gap-2 pt-2 border-t border-slate-200">
                 <button onclick="closeAddWeekModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-lg text-xs btn-3d">Cancel</button>
                 <button onclick="confirmAddWeek()" class="px-4 py-2 bg-teal-600 hover:bg-teal-500 text-white font-bold rounded-lg text-xs btn-3d">Add Week</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Editing Employee Profile (Admin Only) -->
+    <div id="editEmployeeModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-white rounded-xl card-3d w-full max-w-md p-6 space-y-4">
+            <div class="flex justify-between items-center border-b border-slate-200 pb-3">
+                <h3 class="font-extrabold text-slate-900 text-base sm:text-lg flex items-center gap-2">
+                    <i data-lucide="user-cog" class="text-indigo-600 w-5 h-5"></i> Edit Employee Profile
+                </h3>
+                <button onclick="closeEditEmployeeModal()" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+            <input type="hidden" id="editEmpOldSgId">
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">SG ID</label>
+                    <input type="number" id="editEmpSgId" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs font-semibold focus:ring-2 focus:ring-indigo-500 input-3d">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Full Name</label>
+                    <input type="text" id="editEmpName" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs font-semibold focus:ring-2 focus:ring-indigo-500 input-3d">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Skilling / Level</label>
+                    <input type="text" id="editEmpSkilling" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs font-semibold focus:ring-2 focus:ring-indigo-500 input-3d">
+                </div>
+            </div>
+            <div class="flex justify-end gap-2 pt-2 border-t border-slate-200">
+                <button onclick="closeEditEmployeeModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-lg text-xs btn-3d">Cancel</button>
+                <button onclick="confirmEditEmployee()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-lg text-xs btn-3d">Save Profile</button>
             </div>
         </div>
     </div>
@@ -751,7 +790,7 @@
             });
         }
 
-        // Direct imported data from ATS Sep_26_Roster_ .xlsx
+        // Cleaned dataset (Only 5 valid weeks from Excel file)
         const defaultHardcodedRosterData = [
             {
                 "month": "September",
@@ -872,22 +911,6 @@
                 "total_headcount_6am": [4, 4, 5, 5, 5, 1, 1],
                 "total_headcount_8am": [4, 4, 4, 4, 4, 0, 0],
                 "total_headcount_10am": [4, 4, 4, 4, 4, 0, 0]
-            },
-            {
-                "month": "October",
-                "week_num": 2,
-                "dates": ["12/10/26", "13/10/26", "14/10/26", "15/10/26", "16/10/26", "17/10/26", "18/10/26"],
-                "employees": [
-                    {"sg_id": 223267, "name": "Vaibhav Kalyankar", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Tue/Wed/Thu", "shifts": {"Monday": "WO", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "06:00 AM - 03:00 PM", "Sunday": "WO"}},
-                    {"sg_id": 223258, "name": "Md. Shahbaz", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Tue/Wed/Thu", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 316090, "name": "Sunil M", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Tue/Wed/Thu", "shifts": {"Monday": "WO", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "11:00 AM - 08:00 PM", "Sunday": "WO"}},
-                    {"sg_id": 313253, "name": "Pramod.K", "skilling": "ATS - Hybrid", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Tue/Wed/Thu", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "WO", "Sunday": "WO"}}
-                ],
-                "qm_staff_6am": {"Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"},
-                "qm_staff_10am": {"Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"},
-                "total_headcount_6am": [1, 2, 2, 2, 2, 1, 0],
-                "total_headcount_8am": [0, 0, 0, 0, 0, 0, 0],
-                "total_headcount_10am": [1, 2, 2, 2, 2, 0, 0]
             }
         ];
 
@@ -1254,6 +1277,57 @@
             alert(`Month "${selectedMonthName}" with ${weeksCount} weeks added! Click "Apply & Save File" to commit changes.`);
         }
 
+        // ADMIN DELETE ENTIRE MONTH
+        function deleteCurrentMonth() {
+            if (!isAdminMode) return;
+            const confirmDel = confirm(`Are you sure you want to delete the entire month "${currentMonth}" and all its weeks?`);
+            if (!confirmDel) return;
+
+            rawRosterData = rawRosterData.filter(w => w.month !== currentMonth);
+            triggerPendingChangesState();
+
+            const availableMonths = [...new Set(rawRosterData.map(w => w.month))];
+            if (availableMonths.length > 0) {
+                currentMonth = availableMonths[0];
+                currentWeekNum = 1;
+            } else {
+                currentMonth = "September";
+                currentWeekNum = 1;
+            }
+
+            updateMonthDropdown();
+            updateWeekOptions();
+            renderView();
+        }
+
+        // ADMIN DELETE SPECIFIC WEEK
+        function deleteCurrentWeek() {
+            if (!isAdminMode) return;
+            const confirmDel = confirm(`Are you sure you want to delete Week ${currentWeekNum} of "${currentMonth}"?`);
+            if (!confirmDel) return;
+
+            const weekIndex = rawRosterData.findIndex(w => w.month === currentMonth && w.week_num === currentWeekNum);
+            if (weekIndex !== -1) {
+                rawRosterData.splice(weekIndex, 1);
+                
+                let remainingWeeks = rawRosterData.filter(w => w.month === currentMonth).sort((a,b) => a.week_num - b.week_num);
+                remainingWeeks.forEach((wObj, idx) => {
+                    wObj.week_num = idx + 1;
+                });
+
+                triggerPendingChangesState();
+
+                if (remainingWeeks.length > 0) {
+                    currentWeekNum = remainingWeeks[0].week_num;
+                } else {
+                    currentWeekNum = 1;
+                }
+
+                updateWeekOptions();
+                renderView();
+            }
+        }
+
         function openAddWeekModal() {
             document.getElementById('addWeekMonthTitle').innerText = currentMonth;
             
@@ -1324,6 +1398,51 @@
             alert(`Week ${nextWeekNum} added to "${currentMonth}"! Click "Apply & Save File" to commit.`);
         }
 
+        // EDIT EMPLOYEE MODAL FUNCTIONS
+        function openEditEmployeeModal(sgId) {
+            if (!isAdminMode) return;
+            const weekData = getActiveWeekData();
+            const emp = weekData.employees.find(e => String(e.sg_id) === String(sgId));
+            if (!emp) return;
+
+            document.getElementById('editEmpOldSgId').value = emp.sg_id;
+            document.getElementById('editEmpSgId').value = emp.sg_id;
+            document.getElementById('editEmpName').value = emp.name;
+            document.getElementById('editEmpSkilling').value = emp.skilling || 'ATS';
+
+            document.getElementById('editEmployeeModal').classList.remove('hidden');
+        }
+
+        function closeEditEmployeeModal() {
+            document.getElementById('editEmployeeModal').classList.add('hidden');
+        }
+
+        function confirmEditEmployee() {
+            const oldSgId = document.getElementById('editEmpOldSgId').value;
+            const newSgId = document.getElementById('editEmpSgId').value.trim();
+            const newName = document.getElementById('editEmpName').value.trim();
+            const newSkilling = document.getElementById('editEmpSkilling').value.trim();
+
+            if (!newSgId || !newName) {
+                alert("SG ID and Employee Name are required.");
+                return;
+            }
+
+            // Apply modifications across ALL weeks for consistency
+            rawRosterData.forEach(w => {
+                const emp = w.employees.find(e => String(e.sg_id) === String(oldSgId));
+                if (emp) {
+                    emp.sg_id = parseInt(newSgId) || newSgId;
+                    emp.name = newName;
+                    emp.skilling = newSkilling;
+                }
+            });
+
+            triggerPendingChangesState();
+            closeEditEmployeeModal();
+            renderView();
+        }
+
         function createRipple(e) {
             const button = e.currentTarget;
             if (!button) return;
@@ -1374,6 +1493,7 @@
 
         function updateMonthDropdown() {
             const monthSelect = document.getElementById('monthSelect');
+            const deleteMonthBtn = document.getElementById('adminDeleteMonthBtn');
             const availableMonths = [...new Set(rawRosterData.map(w => w.month))];
             
             monthSelect.innerHTML = '';
@@ -1400,10 +1520,17 @@
                 }
                 monthSelect.value = currentMonth;
             }
+
+            if (isAdminMode) {
+                deleteMonthBtn.classList.remove('hidden');
+            } else {
+                deleteMonthBtn.classList.add('hidden');
+            }
         }
 
         function updateWeekOptions() {
             const weekSelect = document.getElementById('weekSelect');
+            const deleteWeekBtn = document.getElementById('adminDeleteWeekBtn');
             const monthWeeks = rawRosterData.filter(w => w.month === currentMonth).sort((a,b) => a.week_num - b.week_num);
             
             weekSelect.innerHTML = '';
@@ -1431,6 +1558,12 @@
                 currentWeekNum = availableNums[0] || 1;
             }
             weekSelect.value = currentWeekNum;
+
+            if (isAdminMode) {
+                deleteWeekBtn.classList.remove('hidden');
+            } else {
+                deleteWeekBtn.classList.add('hidden');
+            }
         }
 
         function onMonthChange() {
@@ -1492,7 +1625,6 @@
             weekData.employees.forEach(emp => {
                 days.forEach((day, idx) => {
                     const shift = (emp.shifts && emp.shifts[day]) ? emp.shifts[day] : '';
-                    // EXCLUDE LEAVE
                     if (shift === 'WO' || shift === 'PTO' || shift === 'PH' || shift === 'SL' || shift === 'HD SL') {
                         return;
                     }
@@ -1686,12 +1818,20 @@
                 bodyHTML = `<tr><td colspan="${isAdminMode ? 10 : 9}" class="p-8 text-center text-slate-400 text-xs sm:text-sm">No employee records found for ${currentMonth} - Week ${currentWeekNum}</td></tr>`;
             } else {
                 filteredEmployees.forEach(e => {
+                    // EDITABLE EMPLOYEE INFO ON CLICK IN ADMIN MODE
+                    const nameClickAttr = isAdminMode ? `onclick="openEditEmployeeModal('${e.sg_id}')" class="cursor-pointer group group-hover:text-indigo-600"` : '';
+                    const editHint = isAdminMode ? `<i data-lucide="pencil" class="inline-block w-3 h-3 text-slate-400 ml-1 opacity-0 group-hover:opacity-100 transition-opacity"></i>` : '';
+
                     bodyHTML += `<tr class="hover:bg-slate-100/80 border-b border-slate-200">
                         <td class="p-2.5 sm:p-4 sticky left-0 bg-white border-r border-slate-200 shadow-sm">
-                            <div class="text-xs sm:text-base font-extrabold text-slate-950 tracking-tight">${e.name || 'Unknown'}</div>
+                            <div ${nameClickAttr}>
+                                <span class="text-xs sm:text-base font-extrabold text-slate-950 tracking-tight">${e.name || 'Unknown'}</span>${editHint}
+                            </div>
                             <div class="text-slate-600 font-bold text-[10px] sm:text-xs mt-0.5">SG ID: ${e.sg_id || 'N/A'}</div>
                         </td>
-                        <td class="p-2.5 sm:p-4 text-center border-r border-slate-100"><span class="px-2 sm:px-3 py-0.5 sm:py-1 bg-slate-200 border border-slate-300 rounded text-slate-800 text-[10px] sm:text-xs font-bold">${e.skilling || 'ATS'}</span></td>`;
+                        <td class="p-2.5 sm:p-4 text-center border-r border-slate-100">
+                            <span ${isAdminMode ? `onclick="openEditEmployeeModal('${e.sg_id}')"` : ''} class="px-2 sm:px-3 py-0.5 sm:py-1 bg-slate-200 border border-slate-300 rounded text-slate-800 text-[10px] sm:text-xs font-bold ${isAdminMode ? 'cursor-pointer hover:bg-indigo-100 hover:border-indigo-300' : ''}">${e.skilling || 'ATS'}</span>
+                        </td>`;
                     
                     days.forEach((d, idx) => {
                         const dateLabel = dates[idx];
@@ -1971,7 +2111,7 @@
             }
         }
 
-        // UPDATED BAR CHART GENERATION
+        // UPDATED BAR CHART GENERATION (SYNCS DISTRIBUTION DIRECTLY FROM TREND DATA)
         function updateCharts() {
             const weekData = getActiveWeekData();
             const daysShort = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -1982,17 +2122,19 @@
             const hc8am = weekData.total_headcount_8am || [0,0,0,0,0,0,0];
             const hc10am = weekData.total_headcount_10am || [0,0,0,0,0,0,0];
 
-            let shift06 = 0, shift10 = 0, shift08 = 0, shiftWO = 0, shiftLeave = 0;
+            // Sum totals directly from daily coverage trend
+            const total06 = hc6am.reduce((sum, val) => sum + val, 0);
+            const total08 = hc8am.reduce((sum, val) => sum + val, 0);
+            const total10 = hc10am.reduce((sum, val) => sum + val, 0);
+
+            let totalWO = 0, totalLeave = 0;
             const fullDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
             (weekData.employees || []).forEach(e => {
                 fullDays.forEach(d => {
                     const s = e.shifts ? e.shifts[d] : 'WO';
-                    if(!s || s === 'WO') shiftWO++;
-                    else if(s === 'PTO' || s === 'PH' || s === 'SL' || s === 'HD SL' || s.includes('Half Off')) shiftLeave++;
-                    else if(s.includes('10:00')) shift10++;
-                    else if(s.includes('08:00') || s.includes('8:00')) shift08++;
-                    else if(s.includes('06:00') || s.includes('6:00') || s.includes('06:30') || s.includes('6:30') || s.includes('07:00') || s.includes('7:00')) shift06++;
+                    if (!s || s === 'WO') totalWO++;
+                    else if (s === 'PTO' || s === 'PH' || s === 'SL' || s === 'HD SL' || s.includes('Half Off')) totalLeave++;
                 });
             });
 
@@ -2089,7 +2231,7 @@
                 data: {
                     labels: ['06:00 / 06:30 / 07:00 Shift', '08:00 AM Shift', '10:00 AM Shift', 'Off Days', 'PTO / Leave / Half Off'],
                     datasets: [{
-                        data: [shift06, shift08, shift10, shiftWO, shiftLeave],
+                        data: [total06, total08, total10, totalWO, totalLeave],
                         backgroundColor: ['#10b981', '#3b82f6', '#f59e0b', '#cbd5e1', '#f43f5e']
                     }]
                 },
