@@ -69,20 +69,6 @@
         }
       },
       {
-        "sg_id": "316090",
-        "name": "Sunil M",
-        "skilling": "ATS",
-        "shifts": {
-          "Monday": "WO",
-          "Tuesday": "WO",
-          "Wednesday": "06:00 AM - 03:00 PM",
-          "Thursday": "06:00 AM - 03:00 PM",
-          "Friday": "06:00 AM - 03:00 PM",
-          "Saturday": "06:00 AM - 03:00 PM",
-          "Sunday": "06:30 AM - 03:30 PM"
-        }
-      },
-      {
         "sg_id": "316092",
         "name": "Lelin Patra",
         "skilling": "ATS 2L",
@@ -200,10 +186,10 @@
     "total_headcount_6am": [
       4,
       3,
-      4,
-      4,
-      4,
-      1,
+      3,
+      3,
+      3,
+      0,
       0
     ],
     "total_headcount_10am": [
