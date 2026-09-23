@@ -311,6 +311,10 @@
                 </div>
                 
                 <div id="adminImportContainer" class="hidden flex items-center gap-2">
+                    <button onclick="openAddMonthModal()" class="flex items-center space-x-1.5 bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors" title="Create a New Roster Month">
+                        <i data-lucide="calendar-plus" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+                        <span class="hidden xs:inline">Add Month</span>
+                    </button>
                     <button onclick="openAddEmployeeModal()" class="flex items-center space-x-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors">
                         <i data-lucide="user-plus" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
                         <span class="hidden xs:inline">Add Employee</span>
@@ -503,6 +507,28 @@
         </div>
     </div>
 
+    <!-- Modal for Adding New Month (Admin Only) -->
+    <div id="addMonthModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-white rounded-xl card-3d w-full max-w-md p-6 space-y-4">
+            <div class="flex justify-between items-center border-b border-slate-200 pb-3">
+                <h3 class="font-extrabold text-slate-900 text-base sm:text-lg flex items-center gap-2">
+                    <i data-lucide="calendar-plus" class="text-amber-600 w-5 h-5"></i> Add New Roster Month
+                </h3>
+                <button onclick="closeAddMonthModal()" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Select / Type Month Name</label>
+                    <input type="text" id="newMonthName" placeholder="e.g. November, December, January" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs font-semibold focus:ring-2 focus:ring-amber-500 input-3d">
+                </div>
+            </div>
+            <div class="flex justify-end gap-2 pt-2 border-t border-slate-200">
+                <button onclick="closeAddMonthModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-lg text-xs btn-3d">Cancel</button>
+                <button onclick="confirmAddMonth()" class="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-lg text-xs btn-3d">Create Month</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Admin Login Modal -->
     <div id="adminLoginModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-50 flex items-center justify-center hidden p-4">
         <div class="bg-white rounded-xl card-3d w-full max-w-md p-6 space-y-4 shadow-2xl">
@@ -679,23 +705,37 @@
 
         let rawRosterData = JSON.parse(JSON.stringify(defaultHardcodedRosterData));
 
+        // Year Filtering Rule: 2026 data automatically disappears starting February 2027
+        function filterYearData(dataArray) {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = now.getMonth(); // 0 = Jan, 1 = Feb
+
+            if (year > 2027 || (year === 2027 && month >= 1)) {
+                return dataArray.filter(item => item.month.toLowerCase() !== 'september' && item.month.toLowerCase() !== 'october' && item.month.toLowerCase() !== 'november' && item.month.toLowerCase() !== 'december');
+            }
+            return dataArray;
+        }
+
         async function fetchLivePublicRoster() {
             try {
                 const response = await fetch('./roster.json?v=' + new Date().getTime());
                 if (response.ok) {
                     const liveData = await response.json();
                     if (liveData && Array.isArray(liveData) && liveData.length > 0) {
-                        rawRosterData = liveData;
+                        rawRosterData = filterYearData(liveData);
                     }
                 }
             } catch (err) {
                 console.log("Using default fallback roster data:", err);
+                rawRosterData = filterYearData(rawRosterData);
             }
             initializePortal();
         }
 
         const SHIFT_OPTIONS = [
             "06:00 AM - 03:00 PM",
+            "07:00 AM - 04:00 PM",
             "08:00 AM - 05:00 PM",
             "10:00 AM - 07:00 PM",
             "WO",
@@ -901,6 +941,78 @@
             }
         }
 
+        function openAddMonthModal() {
+            document.getElementById('addMonthModal').classList.remove('hidden');
+        }
+
+        function closeAddMonthModal() {
+            document.getElementById('addMonthModal').classList.add('hidden');
+            document.getElementById('newMonthName').value = '';
+        }
+
+        function confirmAddMonth() {
+            const monthNameInput = document.getElementById('newMonthName').value.trim();
+            if (!monthNameInput) {
+                alert("Please enter a valid month name.");
+                return;
+            }
+
+            const formattedMonthName = monthNameInput.charAt(0).toUpperCase() + monthNameInput.slice(1);
+            
+            const monthExists = rawRosterData.some(w => w.month.toLowerCase() === formattedMonthName.toLowerCase());
+            if (monthExists) {
+                alert(`The month "${formattedMonthName}" already exists in the roster.`);
+                return;
+            }
+
+            const referenceEmployees = rawRosterData.length > 0 && rawRosterData[0].employees ? rawRosterData[0].employees : [];
+            const baseEmployees = referenceEmployees.map(emp => ({
+                sg_id: emp.sg_id,
+                name: emp.name,
+                skilling: emp.skilling || 'ATS',
+                default_start: emp.default_start || "06:00 AM",
+                default_end: emp.default_end || "03:00 PM",
+                days_office: emp.days_office || "Mon/Tue/Wed/Thu/Fri",
+                shifts: {
+                    "Monday": "06:00 AM - 03:00 PM",
+                    "Tuesday": "06:00 AM - 03:00 PM",
+                    "Wednesday": "06:00 AM - 03:00 PM",
+                    "Thursday": "06:00 AM - 03:00 PM",
+                    "Friday": "06:00 AM - 03:00 PM",
+                    "Saturday": "WO",
+                    "Sunday": "WO"
+                }
+            }));
+
+            for (let w = 1; w <= 4; w++) {
+                const newWeekObj = {
+                    month: formattedMonthName,
+                    week_num: w,
+                    dates: ["01/01/26", "02/01/26", "03/01/26", "04/01/26", "05/01/26", "06/01/26", "07/01/26"],
+                    employees: JSON.parse(JSON.stringify(baseEmployees)),
+                    qm_staff_6am: {
+                        "Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"
+                    },
+                    qm_staff_10am: {
+                        "Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"
+                    },
+                    total_headcount_6am: [0,0,0,0,0,0,0],
+                    total_headcount_10am: [0,0,0,0,0,0,0]
+                };
+                recalculateHeadcount(newWeekObj);
+                rawRosterData.push(newWeekObj);
+            }
+
+            currentMonth = formattedMonthName;
+            currentWeekNum = 1;
+            triggerPendingChangesState();
+            closeAddMonthModal();
+            updateMonthDropdown();
+            updateWeekOptions();
+            renderView();
+            alert(`Month "${formattedMonthName}" added with 4 default weeks! Remember to click "Apply & Save File" to commit to GitHub.`);
+        }
+
         function createRipple(e) {
             const button = e.currentTarget;
             if (!button) return;
@@ -1066,7 +1178,7 @@
             weekData.employees.forEach(emp => {
                 days.forEach((day, idx) => {
                     const shift = (emp.shifts && emp.shifts[day]) ? emp.shifts[day] : '';
-                    if (shift.includes("06:00") || shift.includes("6:00") || shift === "1st Half Off") hc6am[idx]++;
+                    if (shift.includes("06:00") || shift.includes("6:00") || shift.includes("07:00") || shift.includes("7:00") || shift === "1st Half Off") hc6am[idx]++;
                     if (shift.includes("10:00") || shift === "2nd Half Off") hc10am[idx]++;
                 });
             });
@@ -1119,6 +1231,8 @@
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-orange-100 text-orange-900 border border-orange-400 shadow-sm" title="2nd Half Off">2nd Half Off</span>`;
             } else if (shift.includes("06:00") || shift.includes("6:00")) {
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-emerald-100 text-emerald-900 border border-emerald-400 shadow-sm" title="${shift}">06:00 AM</span>`;
+            } else if (shift.includes("07:00") || shift.includes("7:00")) {
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-teal-100 text-teal-900 border border-teal-400 shadow-sm" title="${shift}">07:00 AM</span>`;
             } else if (shift.includes("10:00")) {
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-amber-100 text-amber-900 border border-amber-400 shadow-sm" title="${shift}">10:00 AM</span>`;
             } else if (shift.includes("08:00") || shift.includes("8:00")) {
@@ -1496,7 +1610,7 @@
                     const s = e.shifts ? e.shifts[d] : 'WO';
                     if(!s || s === 'WO') shiftWO++;
                     else if(s === 'PTO' || s === 'PH' || s.includes('Half Off')) shiftLeave++;
-                    else if(s.includes('06:00') || s.includes('6:00')) shift06++;
+                    else if(s.includes('06:00') || s.includes('6:00') || s.includes('07:00') || s.includes('7:00')) shift06++;
                     else if(s.includes('10:00')) shift10++;
                     else if(s.includes('08:00') || s.includes('8:00')) shift08++;
                 });
@@ -1548,7 +1662,7 @@
                     labels: labelsWithHeadcount,
                     datasets: [
                         {
-                            label: '06:00 AM Headcount',
+                            label: '06:00 / 07:00 AM Headcount',
                             data: hc6am,
                             backgroundColor: bgColors6am
                         },
@@ -1594,7 +1708,7 @@
             distChartInstance = new Chart(ctx2, {
                 type: 'doughnut',
                 data: {
-                    labels: ['06:00 Shift', '10:00 Shift', '08:00 Shift', 'Off Days', 'PTO / Leave / Half Off'],
+                    labels: ['06:00 / 07:00 Shift', '10:00 Shift', '08:00 Shift', 'Off Days', 'PTO / Leave / Half Off'],
                     datasets: [{
                         data: [shift06, shift10, shift08, shiftWO, shiftLeave],
                         backgroundColor: ['#10b981', '#f59e0b', '#3b82f6', '#cbd5e1', '#f43f5e']
@@ -1744,7 +1858,7 @@
                 employees.forEach(emp => {
                     days.forEach((day, idx) => {
                         const shift = emp.shifts[day] || '';
-                        if (shift.includes("06:00") || shift.includes("6:00") || shift === "1st Half Off") hc6am[idx]++;
+                        if (shift.includes("06:00") || shift.includes("6:00") || shift.includes("07:00") || shift.includes("7:00") || shift === "1st Half Off") hc6am[idx]++;
                         if (shift.includes("10:00") || shift === "2nd Half Off") hc10am[idx]++;
                     });
                 });
@@ -1762,7 +1876,7 @@
             });
 
             if (newRosterData.length > 0) {
-                rawRosterData = newRosterData;
+                rawRosterData = filterYearData(newRosterData);
                 
                 const currentDetect = detectCurrentPeriod();
                 currentMonth = currentDetect.month;
