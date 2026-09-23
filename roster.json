@@ -218,25 +218,25 @@
       }
     ],
     "qm_staff_6am": {
-      "Monday": "Srinivas Reddy",
-      "Tuesday": "Srinivas Reddy",
-      "Wednesday": "Srinivas Reddy",
-      "Thursday": "Srinivas Reddy",
-      "Friday": "Srinivas Reddy",
-      "Saturday": "Md. Shahbaz",
-      "Sunday": "Md. Shahbaz"
+      "Monday": "Unassigned",
+      "Tuesday": "Unassigned",
+      "Wednesday": "Unassigned",
+      "Thursday": "Unassigned",
+      "Friday": "Unassigned",
+      "Saturday": "Unassigned",
+      "Sunday": "Unassigned"
     },
     "qm_staff_10am": {
-      "Monday": "Sanjay Kumar",
-      "Tuesday": "Sanjay Kumar",
-      "Wednesday": "Sanjay Kumar",
-      "Thursday": "Sanjay Kumar",
-      "Friday": "Deepak K",
+      "Monday": "Unassigned",
+      "Tuesday": "Unassigned",
+      "Wednesday": "Unassigned",
+      "Thursday": "Unassigned",
+      "Friday": "Unassigned",
       "Saturday": "Unassigned",
-      "Sunday": "Sanjay Kumar"
+      "Sunday": "Unassigned"
     },
-    "total_headcount_6am": [6, 5, 6, 6, 6, 1, 1],
-    "total_headcount_8am": [1, 1, 1, 1, 1, 0, 0],
+    "total_headcount_6am": [5, 5, 6, 5, 5, 1, 1],
+    "total_headcount_8am": [2, 2, 2, 2, 2, 0, 0],
     "total_headcount_10am": [2, 1, 4, 3, 2, 1, 1]
   },
   {
@@ -475,9 +475,9 @@
       "Saturday": "Unassigned",
       "Sunday": "Unassigned"
     },
-    "total_headcount_6am": [5, 6, 6, 5, 5, 1, 1],
-    "total_headcount_8am": [1, 2, 2, 1, 2, 0, 0],
-    "total_headcount_10am": [2, 2, 3, 2, 2, 1, 1]
+    "total_headcount_6am": [4, 6, 6, 5, 5, 1, 1],
+    "total_headcount_10am": [2, 2, 3, 2, 2, 1, 1],
+    "total_headcount_8am": [1, 3, 2, 2, 2, 0, 0]
   },
   {
     "month": "September",
@@ -715,9 +715,33 @@
       "Saturday": "Unassigned",
       "Sunday": "Unassigned"
     },
-    "total_headcount_6am": [6, 6, 6, 5, 5, 1, 1],
-    "total_headcount_8am": [2, 2, 2, 2, 2, 0, 0],
-    "total_headcount_10am": [4, 4, 4, 3, 3, 1, 1]
+    "total_headcount_6am": [
+      6,
+      6,
+      6,
+      5,
+      5,
+      1,
+      1
+    ],
+    "total_headcount_10am": [
+      4,
+      4,
+      4,
+      3,
+      3,
+      1,
+      1
+    ],
+    "total_headcount_8am": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      0,
+      0
+    ]
   },
   {
     "month": "September",
@@ -955,9 +979,33 @@
       "Saturday": "Unassigned",
       "Sunday": "Unassigned"
     },
-    "total_headcount_6am": [5, 5, 5, 5, 4, 1, 1],
-    "total_headcount_8am": [2, 2, 2, 2, 2, 0, 0],
-    "total_headcount_10am": [3, 4, 4, 3, 2, 1, 1]
+    "total_headcount_6am": [
+      5,
+      5,
+      5,
+      5,
+      4,
+      1,
+      1
+    ],
+    "total_headcount_10am": [
+      3,
+      4,
+      4,
+      3,
+      2,
+      1,
+      1
+    ],
+    "total_headcount_8am": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      0,
+      0
+    ]
   },
   {
     "month": "October",
@@ -1158,6 +1206,23 @@
           "Saturday": "WO",
           "Sunday": "WO"
         }
+      },
+      {
+        "sg_id": 223258,
+        "name": "Md. Shahbaz",
+        "skilling": "ATS",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
+        "days_office": "Mon/Tue/Wed",
+        "shifts": {
+          "Monday": "06:00 AM - 03:00 PM",
+          "Tuesday": "06:00 AM - 03:00 PM",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "WO",
+          "Friday": "WO",
+          "Saturday": "06:00 AM - 03:00 PM",
+          "Sunday": "06:30 AM - 03:30 PM"
+        }
       }
     ],
     "qm_staff_6am": {
@@ -1178,8 +1243,32 @@
       "Saturday": "Unassigned",
       "Sunday": "Unassigned"
     },
-    "total_headcount_6am": [4, 4, 4, 4, 4, 0, 0],
-    "total_headcount_8am": [4, 4, 4, 4, 4, 0, 0],
-    "total_headcount_10am": [4, 4, 4, 4, 4, 0, 0]
+    "total_headcount_6am": [
+      5,
+      5,
+      5,
+      4,
+      4,
+      1,
+      1
+    ],
+    "total_headcount_10am": [
+      4,
+      4,
+      4,
+      4,
+      4,
+      0,
+      0
+    ],
+    "total_headcount_8am": [
+      3,
+      3,
+      3,
+      3,
+      3,
+      0,
+      0
+    ]
   }
 ]
