@@ -236,13 +236,13 @@
       "Sunday": "Unassigned"
     },
     "total_headcount_6am": [
-      7,
+      5,
+      5,
       6,
-      10,
-      8,
-      7,
-      2,
-      2
+      5,
+      5,
+      1,
+      1
     ],
     "total_headcount_10am": [
       2,
@@ -252,6 +252,15 @@
       2,
       1,
       1
+    ],
+    "total_headcount_8am": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      0,
+      0
     ]
   },
   {
@@ -491,13 +500,13 @@
       "Sunday": "Unassigned"
     },
     "total_headcount_6am": [
+      4,
       6,
-      8,
-      9,
-      7,
-      7,
-      2,
-      2
+      6,
+      5,
+      5,
+      1,
+      1
     ],
     "total_headcount_10am": [
       2,
@@ -507,6 +516,15 @@
       2,
       1,
       1
+    ],
+    "total_headcount_8am": [
+      1,
+      3,
+      2,
+      2,
+      2,
+      0,
+      0
     ]
   },
   {
@@ -728,31 +746,31 @@
       }
     ],
     "qm_staff_6am": {
-      "Monday": "Unassigned",
-      "Tuesday": "Unassigned",
-      "Wednesday": "Unassigned",
-      "Thursday": "Unassigned",
-      "Friday": "Unassigned",
-      "Saturday": "Unassigned",
-      "Sunday": "Unassigned"
+      "Monday": "Srinivas Reddy",
+      "Tuesday": "Srinivas Reddy",
+      "Wednesday": "Md. Shahbaz",
+      "Thursday": "Srinivas Reddy",
+      "Friday": "Srinivas Reddy",
+      "Saturday": "Md. Shahbaz",
+      "Sunday": "Md. Shahbaz"
     },
     "qm_staff_10am": {
-      "Monday": "Unassigned",
-      "Tuesday": "Unassigned",
-      "Wednesday": "Unassigned",
-      "Thursday": "Unassigned",
-      "Friday": "Unassigned",
-      "Saturday": "Unassigned",
-      "Sunday": "Unassigned"
+      "Monday": "Deepak K",
+      "Tuesday": "Deepak K",
+      "Wednesday": "Deepak K",
+      "Thursday": "Deepak K",
+      "Friday": "Deepak K",
+      "Saturday": "Sanjay Kumar",
+      "Sunday": "Sanjay Kumar"
     },
     "total_headcount_6am": [
-      10,
-      10,
-      10,
-      8,
-      8,
-      2,
-      2
+      6,
+      6,
+      6,
+      5,
+      5,
+      1,
+      1
     ],
     "total_headcount_10am": [
       4,
@@ -762,6 +780,15 @@
       3,
       1,
       1
+    ],
+    "total_headcount_8am": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      0,
+      0
     ]
   },
   {
@@ -1001,13 +1028,13 @@
       "Sunday": "Unassigned"
     },
     "total_headcount_6am": [
-      8,
-      9,
-      9,
-      8,
-      7,
-      2,
-      2
+      5,
+      5,
+      5,
+      5,
+      5,
+      1,
+      1
     ],
     "total_headcount_10am": [
       3,
@@ -1017,6 +1044,15 @@
       2,
       1,
       1
+    ],
+    "total_headcount_8am": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      0,
+      0
     ]
   },
   {
@@ -1256,11 +1292,11 @@
       "Sunday": "Unassigned"
     },
     "total_headcount_6am": [
-      8,
-      8,
-      9,
-      9,
-      9,
+      4,
+      4,
+      5,
+      5,
+      5,
       1,
       1
     ],
@@ -1270,6 +1306,15 @@
       4,
       4,
       4,
+      0,
+      0
+    ],
+    "total_headcount_8am": [
+      3,
+      3,
+      3,
+      3,
+      3,
       0,
       0
     ]
@@ -1375,11 +1420,11 @@
       "Sunday": "Unassigned"
     },
     "total_headcount_6am": [
-      3,
-      5,
-      5,
-      5,
-      5,
+      1,
+      2,
+      2,
+      2,
+      2,
       1,
       0
     ],
@@ -1390,6 +1435,15 @@
       2,
       2,
       0,
+      0
+    ],
+    "total_headcount_8am": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
       0
     ]
   }
