@@ -773,7 +773,8 @@
                 ],
                 "qm_staff_6am": {"Monday": "Srinivas Reddy", "Tuesday": "Srinivas Reddy", "Wednesday": "Srinivas Reddy", "Thursday": "Srinivas Reddy", "Friday": "Srinivas Reddy", "Saturday": "Md. Shahbaz", "Sunday": "Md. Shahbaz"},
                 "qm_staff_10am": {"Monday": "Sanjay Kumar", "Tuesday": "Sanjay Kumar", "Wednesday": "Sanjay Kumar", "Thursday": "Sanjay Kumar", "Friday": "Deepak K", "Saturday": "Sunil M", "Sunday": "Sanjay Kumar"},
-                "total_headcount_6am": [7, 6, 10, 8, 7, 2, 2],
+                "total_headcount_6am": [6, 5, 6, 6, 6, 1, 1],
+                "total_headcount_8am": [1, 1, 1, 1, 1, 0, 0],
                 "total_headcount_10am": [2, 1, 4, 3, 2, 1, 1]
             },
             {
@@ -796,7 +797,8 @@
                 ],
                 "qm_staff_6am": {"Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"},
                 "qm_staff_10am": {"Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"},
-                "total_headcount_6am": [6, 8, 9, 7, 7, 2, 2],
+                "total_headcount_6am": [5, 6, 6, 5, 5, 1, 1],
+                "total_headcount_8am": [1, 2, 2, 1, 2, 0, 0],
                 "total_headcount_10am": [2, 2, 3, 2, 2, 1, 1]
             },
             {
@@ -819,7 +821,8 @@
                 ],
                 "qm_staff_6am": {"Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"},
                 "qm_staff_10am": {"Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"},
-                "total_headcount_6am": [10, 10, 10, 8, 8, 2, 2],
+                "total_headcount_6am": [6, 6, 6, 5, 5, 1, 1],
+                "total_headcount_8am": [2, 2, 2, 2, 2, 0, 0],
                 "total_headcount_10am": [4, 4, 4, 3, 3, 1, 1]
             },
             {
@@ -842,7 +845,8 @@
                 ],
                 "qm_staff_6am": {"Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"},
                 "qm_staff_10am": {"Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"},
-                "total_headcount_6am": [8, 9, 9, 8, 7, 2, 2],
+                "total_headcount_6am": [5, 5, 5, 5, 4, 1, 1],
+                "total_headcount_8am": [2, 2, 2, 2, 2, 0, 0],
                 "total_headcount_10am": [3, 4, 4, 3, 2, 1, 1]
             },
             {
@@ -865,7 +869,8 @@
                 ],
                 "qm_staff_6am": {"Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"},
                 "qm_staff_10am": {"Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"},
-                "total_headcount_6am": [8, 8, 9, 9, 9, 1, 1],
+                "total_headcount_6am": [4, 4, 5, 5, 5, 1, 1],
+                "total_headcount_8am": [4, 4, 4, 4, 4, 0, 0],
                 "total_headcount_10am": [4, 4, 4, 4, 4, 0, 0]
             },
             {
@@ -880,7 +885,8 @@
                 ],
                 "qm_staff_6am": {"Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"},
                 "qm_staff_10am": {"Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"},
-                "total_headcount_6am": [3, 5, 5, 5, 5, 1, 0],
+                "total_headcount_6am": [1, 2, 2, 2, 2, 1, 0],
+                "total_headcount_8am": [0, 0, 0, 0, 0, 0, 0],
                 "total_headcount_10am": [1, 2, 2, 2, 2, 0, 0]
             }
         ];
@@ -894,7 +900,7 @@
 
             days.forEach(day => {
                 const shift = empShifts[day] || '';
-                if (shift && shift !== 'WO' && shift !== 'PTO' && shift !== 'PH') {
+                if (shift && shift !== 'WO' && shift !== 'PTO' && shift !== 'PH' && shift !== 'SL' && shift !== 'HD SL') {
                     if (shift.includes("10:00")) minTime = Math.min(minTime, 1000);
                     else if (shift.includes("06:00") || shift.includes("6:00")) minTime = Math.min(minTime, 600);
                     else if (shift.includes("06:30") || shift.includes("6:30")) minTime = Math.min(minTime, 630);
@@ -961,7 +967,6 @@
                 }
             }
 
-            // Robust Fallback: Default to first entry in roster data if today's date isn't found
             return { month: rawRosterData[0].month, week_num: rawRosterData[0].week_num };
         }
 
@@ -1232,6 +1237,7 @@
                         "Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"
                     },
                     total_headcount_6am: [0,0,0,0,0,0,0],
+                    total_headcount_8am: [0,0,0,0,0,0,0],
                     total_headcount_10am: [0,0,0,0,0,0,0]
                 };
                 recalculateHeadcount(newWeekObj);
@@ -1303,6 +1309,7 @@
                     "Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"
                 },
                 total_headcount_6am: [0,0,0,0,0,0,0],
+                total_headcount_8am: [0,0,0,0,0,0,0],
                 total_headcount_10am: [0,0,0,0,0,0,0]
             };
 
@@ -1467,23 +1474,33 @@
                 qm_staff_6am: {},
                 qm_staff_10am: {},
                 total_headcount_6am: [0,0,0,0,0,0,0],
+                total_headcount_8am: [0,0,0,0,0,0,0],
                 total_headcount_10am: [0,0,0,0,0,0,0]
             };
             rawRosterData.push(fallback);
             return fallback;
         }
 
+        // RECALCULATE HEADCOUNT - EXCLUDES LEAVES (PTO, PH, SL, HD SL)
         function recalculateHeadcount(weekData) {
             if (!weekData || !Array.isArray(weekData.employees)) return;
             const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
             const hc6am = [0,0,0,0,0,0,0];
+            const hc8am = [0,0,0,0,0,0,0];
             const hc10am = [0,0,0,0,0,0,0];
 
             weekData.employees.forEach(emp => {
                 days.forEach((day, idx) => {
                     const shift = (emp.shifts && emp.shifts[day]) ? emp.shifts[day] : '';
+                    // EXCLUDE LEAVE
+                    if (shift === 'WO' || shift === 'PTO' || shift === 'PH' || shift === 'SL' || shift === 'HD SL') {
+                        return;
+                    }
+
                     if (shift.includes("10:00") || shift === "2nd Half Off") {
                         hc10am[idx]++;
+                    } else if (shift.includes("08:00") || shift.includes("8:00")) {
+                        hc8am[idx]++;
                     } else if (shift.includes("06:00") || shift.includes("6:00") || shift.includes("06:30") || shift.includes("6:30") || shift.includes("07:00") || shift.includes("7:00") || shift === "1st Half Off") {
                         hc6am[idx]++;
                     }
@@ -1491,6 +1508,7 @@
             });
 
             weekData.total_headcount_6am = hc6am;
+            weekData.total_headcount_8am = hc8am;
             weekData.total_headcount_10am = hc10am;
         }
 
@@ -1539,17 +1557,18 @@
             } else if (shift === 'PH') {
                 // PURPLE for Public Holiday
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-purple-100 text-purple-900 border border-purple-400 shadow-sm">PH</span>`;
+            } else if (shift === 'SL' || shift === 'HD SL') {
+                // ROSE for Sick Leave
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-rose-100 text-rose-900 border border-rose-400 shadow-sm">${shift}</span>`;
             } else if (shift === '1st Half Off') {
-                // ORANGE for 1st Half Off
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-orange-100 text-orange-950 border border-orange-400 shadow-sm" title="1st Half Off">1st Half Off</span>`;
             } else if (shift === '2nd Half Off') {
-                // AMBER/BROWN for 2nd Half Off
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-amber-200 text-amber-950 border border-amber-500 shadow-sm" title="2nd Half Off">2nd Half Off</span>`;
             } else if (shift.includes("10:00")) {
                 // AMBER for 10:00 AM Shift
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-amber-100 text-amber-950 border border-amber-400 shadow-sm" title="${shift}">10:00 AM</span>`;
             } else if (shift.includes("06:30") || shift.includes("6:30")) {
-                // EMERALD GREEN for 06:30 AM Shift
+                // GREEN for 06:30 AM Shift
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-emerald-200 text-emerald-950 border border-emerald-500 shadow-sm" title="${shift}">06:30 AM</span>`;
             } else if (shift.includes("06:00") || shift.includes("6:00")) {
                 // GREEN for 06:00 AM Shift
@@ -1558,7 +1577,7 @@
                 // TEAL for 07:00 AM Shift
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-teal-100 text-teal-900 border border-teal-400 shadow-sm" title="${shift}">07:00 AM</span>`;
             } else if (shift.includes("08:00") || shift.includes("8:00")) {
-                // BLUE for 08:00 AM Shift
+                // SKY BLUE for 08:00 AM Shift
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-blue-100 text-blue-900 border border-blue-400 shadow-sm" title="${shift}">08:00 AM</span>`;
             } else {
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-indigo-100 text-indigo-900 border border-indigo-400 shadow-sm">${shift}</span>`;
@@ -1952,9 +1971,16 @@
             }
         }
 
+        // UPDATED BAR CHART GENERATION
         function updateCharts() {
             const weekData = getActiveWeekData();
             const daysShort = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+            recalculateHeadcount(weekData);
+
+            const hc6am = weekData.total_headcount_6am || [0,0,0,0,0,0,0];
+            const hc8am = weekData.total_headcount_8am || [0,0,0,0,0,0,0];
+            const hc10am = weekData.total_headcount_10am || [0,0,0,0,0,0,0];
 
             let shift06 = 0, shift10 = 0, shift08 = 0, shiftWO = 0, shiftLeave = 0;
             const fullDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
@@ -1963,26 +1989,20 @@
                 fullDays.forEach(d => {
                     const s = e.shifts ? e.shifts[d] : 'WO';
                     if(!s || s === 'WO') shiftWO++;
-                    else if(s === 'PTO' || s === 'PH' || s.includes('Half Off')) shiftLeave++;
+                    else if(s === 'PTO' || s === 'PH' || s === 'SL' || s === 'HD SL' || s.includes('Half Off')) shiftLeave++;
                     else if(s.includes('10:00')) shift10++;
-                    else if(s.includes('06:00') || s.includes('6:00') || s.includes('06:30') || s.includes('6:30') || s.includes('07:00') || s.includes('7:00')) shift06++;
                     else if(s.includes('08:00') || s.includes('8:00')) shift08++;
+                    else if(s.includes('06:00') || s.includes('6:00') || s.includes('06:30') || s.includes('6:30') || s.includes('07:00') || s.includes('7:00')) shift06++;
                 });
+            });
+
+            const labelsWithTotalActiveWorking = daysShort.map((day, idx) => {
+                const totalWorkingExcludingLeave = (hc6am[idx] || 0) + (hc8am[idx] || 0) + (hc10am[idx] || 0);
+                return `${day} (${totalWorkingExcludingLeave})`;
             });
 
             const ctx1 = document.getElementById('coverageChart').getContext('2d');
             if(coverageChartInstance) coverageChartInstance.destroy();
-
-            const hc6am = weekData.total_headcount_6am || [0,0,0,0,0,0,0];
-            const hc10am = weekData.total_headcount_10am || [0,0,0,0,0,0,0];
-
-            const labelsWithHeadcount = daysShort.map((day, idx) => {
-                const totalDailyHeadcount = (hc6am[idx] || 0) + (hc10am[idx] || 0);
-                return `${day} (${totalDailyHeadcount})`;
-            });
-
-            const bgColors6am = hc6am.map(() => '#10b981');
-            const bgColors10am = hc10am.map(() => '#f59e0b');
 
             const thresholdLinePlugin = {
                 id: 'thresholdLine',
@@ -2013,17 +2033,22 @@
             coverageChartInstance = new Chart(ctx1, {
                 type: 'bar',
                 data: {
-                    labels: labelsWithHeadcount,
+                    labels: labelsWithTotalActiveWorking,
                     datasets: [
                         {
-                            label: '06:00 / 06:30 / 07:00 AM Headcount',
+                            label: '06:00 / 06:30 / 07:00 AM Shift',
                             data: hc6am,
-                            backgroundColor: bgColors6am
+                            backgroundColor: '#10b981' // Green
                         },
                         {
-                            label: '10:00 AM Headcount',
+                            label: '08:00 AM Shift',
+                            data: hc8am,
+                            backgroundColor: '#3b82f6' // Sky Blue
+                        },
+                        {
+                            label: '10:00 AM Shift',
                             data: hc10am,
-                            backgroundColor: bgColors10am
+                            backgroundColor: '#f59e0b' // Amber
                         }
                     ]
                 },
@@ -2045,7 +2070,7 @@
                         y: { 
                             beginAtZero: true, 
                             ticks: { stepSize: 1 },
-                            suggestedMax: 5
+                            suggestedMax: 10
                         },
                         x: {
                             ticks: {
@@ -2062,10 +2087,10 @@
             distChartInstance = new Chart(ctx2, {
                 type: 'doughnut',
                 data: {
-                    labels: ['06:00 / 06:30 / 07:00 Shift', '10:00 Shift', '08:00 Shift', 'Off Days', 'PTO / Leave / Half Off'],
+                    labels: ['06:00 / 06:30 / 07:00 Shift', '08:00 AM Shift', '10:00 AM Shift', 'Off Days', 'PTO / Leave / Half Off'],
                     datasets: [{
-                        data: [shift06, shift10, shift08, shiftWO, shiftLeave],
-                        backgroundColor: ['#10b981', '#f59e0b', '#3b82f6', '#cbd5e1', '#f43f5e']
+                        data: [shift06, shift08, shift10, shiftWO, shiftLeave],
+                        backgroundColor: ['#10b981', '#3b82f6', '#f59e0b', '#cbd5e1', '#f43f5e']
                     }]
                 },
                 options: {
@@ -2204,32 +2229,21 @@
             Object.keys(structuredMap).forEach(key => {
                 const item = structuredMap[key];
                 const employees = Object.values(item.employeesMap);
-                
-                const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-                const hc6am = [0,0,0,0,0,0,0];
-                const hc10am = [0,0,0,0,0,0,0];
 
-                employees.forEach(emp => {
-                    days.forEach((day, idx) => {
-                        const shift = emp.shifts[day] || '';
-                        if (shift.includes("10:00") || shift === "2nd Half Off") {
-                            hc10am[idx]++;
-                        } else if (shift.includes("06:00") || shift.includes("6:00") || shift.includes("06:30") || shift.includes("6:30") || shift.includes("07:00") || shift.includes("7:00") || shift === "1st Half Off") {
-                            hc6am[idx]++;
-                        }
-                    });
-                });
-
-                newRosterData.push({
+                const weekObj = {
                     month: item.month,
                     week_num: item.week_num,
                     dates: item.dates,
                     employees: employees,
                     qm_staff_6am: item.qm_staff_6am,
                     qm_staff_10am: item.qm_staff_10am,
-                    total_headcount_6am: hc6am,
-                    total_headcount_10am: hc10am
-                });
+                    total_headcount_6am: [0,0,0,0,0,0,0],
+                    total_headcount_8am: [0,0,0,0,0,0,0],
+                    total_headcount_10am: [0,0,0,0,0,0,0]
+                };
+
+                recalculateHeadcount(weekObj);
+                newRosterData.push(weekObj);
             });
 
             if (newRosterData.length > 0) {
