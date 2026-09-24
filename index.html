@@ -974,6 +974,7 @@
             "1st Half Off",
             "2nd Half Off",
             "PTO",
+            "SL",
             "PH"
         ];
 
@@ -1689,8 +1690,8 @@
                 // PURPLE for Public Holiday
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-purple-100 text-purple-900 border border-purple-400 shadow-sm">PH</span>`;
             } else if (shift === 'SL' || shift === 'HD SL') {
-                // ROSE for Sick Leave
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-rose-100 text-rose-900 border border-rose-400 shadow-sm">${shift}</span>`;
+                // ROSE for Sick Leave (Light Rose to match PTO theme)
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-rose-100 text-rose-800 border border-rose-300 shadow-sm">${shift}</span>`;
             } else if (shift === '1st Half Off') {
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-orange-100 text-orange-950 border border-orange-400 shadow-sm" title="1st Half Off">1st Half Off</span>`;
             } else if (shift === '2nd Half Off') {
