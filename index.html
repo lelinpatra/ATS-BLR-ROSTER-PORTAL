@@ -20,6 +20,23 @@
             position: relative;
             background-color: #cbd5e1;
         }
+
+        /* Blurred body backdrop when modal is active */
+        body.auth-locked > main,
+        body.auth-locked > header,
+        body.auth-locked > footer,
+        body.auth-locked > #worldClocksContainer,
+        body.auth-locked > #cloudContainer,
+        body.auth-locked > #freeFlightPlane {
+            filter: blur(12px) opacity(0.2);
+            pointer-events: none;
+            user-select: none;
+        }
+
+        #empAuthModal {
+            z-index: 9999;
+        }
+
         .font-orbitron { font-family: 'Orbitron', sans-serif; }
         .font-mono-digital { font-family: 'JetBrains Mono', monospace; }
 
@@ -247,7 +264,7 @@
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col w-full overflow-x-hidden relative pb-16">
+<body class="min-h-screen flex flex-col w-full overflow-x-hidden relative pb-16 auth-locked">
 
     <!-- 3D American Airlines White Aircraft -->
     <div id="freeFlightPlane">
@@ -557,6 +574,62 @@
 
     </main>
 
+    <!-- Employee Access & Password Reset Modal -->
+    <div id="empAuthModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-lg flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl card-3d w-full max-w-md p-6 sm:p-8 space-y-5 shadow-2xl relative border border-slate-200">
+            
+            <!-- Header -->
+            <div class="text-center space-y-2">
+                <div class="w-12 h-12 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center mx-auto btn-3d">
+                    <i data-lucide="lock" class="w-6 h-6"></i>
+                </div>
+                <h2 id="authTitle" class="text-xl font-extrabold text-slate-900">Employee Portal Sign-In</h2>
+                <p id="authSubtitle" class="text-xs text-slate-500">Please enter your Employee ID and Password to view roster data.</p>
+            </div>
+
+            <!-- Login View -->
+            <div id="loginFormSection" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Employee ID</label>
+                    <input type="text" id="loginEmpId" placeholder="e.g. 316092" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 input-3d">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Password</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 input-3d">
+                </div>
+                <div id="authError" class="hidden text-rose-600 text-xs font-bold text-center bg-rose-50 p-2 rounded border border-rose-200"></div>
+                <button onclick="handleEmployeeLogin()" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-lg text-sm btn-3d shadow-lg transition-all">Sign In</button>
+            </div>
+
+            <!-- Change Password View -->
+            <div id="changePasswordSection" class="space-y-4 hidden">
+                <!-- Criteria Display Box -->
+                <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 text-xs space-y-1">
+                    <p class="font-bold text-amber-900 flex items-center gap-1">
+                        <i data-lucide="info" class="w-3.5 h-3.5"></i> Password Security Requirements:
+                    </p>
+                    <ul class="list-disc list-inside text-amber-800 space-y-0.5 text-[11px] font-medium">
+                        <li>Exactly 8 characters long</li>
+                        <li>Letters and numbers only (Alphanumeric)</li>
+                        <li>Case sensitive</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">New Password</label>
+                    <input type="password" id="newPasswordInput" maxlength="8" placeholder="Enter 8-char password" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 input-3d">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Confirm Password</label>
+                    <input type="password" id="confirmPasswordInput" maxlength="8" placeholder="Confirm password" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 input-3d">
+                </div>
+                <div id="changePassError" class="hidden text-rose-600 text-xs font-bold text-center bg-rose-50 p-2 rounded border border-rose-200"></div>
+                <button onclick="handlePasswordChangeSubmit()" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg text-sm btn-3d shadow-lg transition-all">Save New Password & Access</button>
+            </div>
+
+        </div>
+    </div>
+
     <!-- Admin Bottom Actions Bar -->
     <div id="adminActionDock" class="fixed bottom-0 inset-x-0 bg-slate-900/95 backdrop-blur-md text-white border-t border-slate-700 py-3 px-4 sm:px-12 z-50 flex items-center justify-between hidden shadow-2xl">
         <div class="flex items-center space-x-2">
@@ -785,6 +858,189 @@
     </footer>
 
     <script>
+        // Official Temporary Password and Expiry Constants
+        const TEMP_PASSWORD = "3E4R5T6Y";
+        const PASSWORD_EXPIRY_DAYS = 90;
+
+        let employeeUserStore = {};
+        let activeAuthenticatingEmpId = null;
+
+        function validatePasswordCriteria(pwd) {
+            const regex = /^[a-zA-Z0-9]{8}$/;
+            return regex.test(pwd);
+        }
+
+        async function loadCloudUserStore() {
+            try {
+                const response = await fetch('./emp_users.json?v=' + new Date().getTime());
+                if (response.ok) {
+                    employeeUserStore = await response.json();
+                }
+            } catch (e) {
+                const localData = localStorage.getItem('emp_users_data');
+                if (localData) {
+                    employeeUserStore = JSON.parse(localData);
+                }
+            }
+        }
+
+        async function saveCloudUserStore() {
+            localStorage.setItem('emp_users_data', JSON.stringify(employeeUserStore));
+
+            if (githubConfig.token && githubConfig.owner && githubConfig.repo) {
+                try {
+                    const url = `https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}/contents/emp_users.json`;
+                    const getRes = await fetch(url, { headers: { 'Authorization': `token ${githubConfig.token}` } });
+                    let sha = getRes.ok ? (await getRes.json()).sha : undefined;
+
+                    const jsonContent = JSON.stringify(employeeUserStore, null, 2);
+                    const encodedContent = btoa(unescape(encodeURIComponent(jsonContent)));
+
+                    await fetch(url, {
+                        method: 'PUT',
+                        headers: {
+                            'Authorization': `token ${githubConfig.token}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            message: "Update Employee Auth Credentials & 90-day expiry",
+                            content: encodedContent,
+                            sha: sha
+                        })
+                    });
+                } catch (err) {
+                    console.error("Cloud Auth Save Error:", err);
+                }
+            }
+        }
+
+        async function checkPortalAuthentication() {
+            document.body.classList.add('auth-locked');
+            await loadCloudUserStore();
+
+            const savedEmpId = localStorage.getItem('logged_emp_id');
+            const savedTokenTime = localStorage.getItem('logged_emp_time');
+
+            if (savedEmpId && savedTokenTime) {
+                const userData = employeeUserStore[savedEmpId];
+                if (userData && userData.passwordUpdatedDate) {
+                    const lastUpdate = new Date(userData.passwordUpdatedDate);
+                    const now = new Date();
+                    const diffDays = Math.floor((now - lastUpdate) / (1000 * 60 * 60 * 24));
+
+                    if (diffDays < PASSWORD_EXPIRY_DAYS) {
+                        unlockPortalPage();
+                        return;
+                    }
+                }
+            }
+
+            document.getElementById('empAuthModal').classList.remove('hidden');
+        }
+
+        function unlockPortalPage() {
+            document.body.classList.remove('auth-locked');
+            document.getElementById('empAuthModal').classList.add('hidden');
+        }
+
+        function handleEmployeeLogin() {
+            const inputId = document.getElementById('loginEmpId').value.trim();
+            const inputPwd = document.getElementById('loginPassword').value.trim();
+            const errEl = document.getElementById('authError');
+
+            errEl.classList.add('hidden');
+
+            if (!inputId || !inputPwd) {
+                errEl.innerText = "Please enter both Employee ID and Password.";
+                errEl.classList.remove('hidden');
+                return;
+            }
+
+            const activeWeek = getActiveWeekData();
+            const validEmployee = activeWeek.employees.find(e => String(e.sg_id) === inputId);
+
+            if (!validEmployee) {
+                errEl.innerText = "Invalid Employee ID. Access denied.";
+                errEl.classList.remove('hidden');
+                return;
+            }
+
+            activeAuthenticatingEmpId = inputId;
+            const userRecord = employeeUserStore[inputId];
+
+            if (inputPwd === TEMP_PASSWORD) {
+                showPasswordChangeForm();
+                return;
+            }
+
+            if (userRecord && userRecord.password === inputPwd) {
+                const lastUpdate = new Date(userRecord.passwordUpdatedDate);
+                const now = new Date();
+                const diffDays = Math.floor((now - lastUpdate) / (1000 * 60 * 60 * 24));
+
+                if (diffDays >= PASSWORD_EXPIRY_DAYS) {
+                    errEl.innerText = "Your password has expired (90 days limit). Please set a new password.";
+                    errEl.classList.remove('hidden');
+                    showPasswordChangeForm();
+                    return;
+                }
+
+                localStorage.setItem('logged_emp_id', inputId);
+                localStorage.setItem('logged_emp_time', new Date().toISOString());
+                unlockPortalPage();
+                return;
+            }
+
+            errEl.innerText = "Invalid Password. Please try again.";
+            errEl.classList.remove('hidden');
+        }
+
+        function showPasswordChangeForm() {
+            document.getElementById('authTitle').innerText = "Create New Password";
+            document.getElementById('authSubtitle').innerText = "Temporary password detected or password expired. Set a new password.";
+            document.getElementById('loginFormSection').classList.add('hidden');
+            document.getElementById('changePasswordSection').classList.remove('hidden');
+        }
+
+        async function handlePasswordChangeSubmit() {
+            const newPwd = document.getElementById('newPasswordInput').value.trim();
+            const confirmPwd = document.getElementById('confirmPasswordInput').value.trim();
+            const errEl = document.getElementById('changePassError');
+
+            errEl.classList.add('hidden');
+
+            if (!newPwd || !confirmPwd) {
+                errEl.innerText = "Please enter and confirm your new password.";
+                errEl.classList.remove('hidden');
+                return;
+            }
+
+            if (newPwd !== confirmPwd) {
+                errEl.innerText = "New password and Confirm password do not match.";
+                errEl.classList.remove('hidden');
+                return;
+            }
+
+            if (!validatePasswordCriteria(newPwd)) {
+                errEl.innerText = "Password must be exactly 8 characters with letters and numbers only.";
+                errEl.classList.remove('hidden');
+                return;
+            }
+
+            employeeUserStore[activeAuthenticatingEmpId] = {
+                password: newPwd,
+                passwordUpdatedDate: new Date().toISOString()
+            };
+
+            await saveCloudUserStore();
+
+            localStorage.setItem('logged_emp_id', activeAuthenticatingEmpId);
+            localStorage.setItem('logged_emp_time', new Date().toISOString());
+
+            alert("Password updated successfully! Valid for 90 days.");
+            unlockPortalPage();
+        }
+
         // OFFICIAL COMPLETE SABRE 2026 GLOBAL HOLIDAY DATA
         const SABRE_2026_HOLIDAYS = [
             { date: "2026-01-01", day: "Thursday", name: "New Year's Day", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
@@ -942,102 +1198,6 @@
                 "total_headcount_6am": [5, 5, 6, 5, 5, 1, 1],
                 "total_headcount_8am": [2, 2, 2, 2, 2, 0, 0],
                 "total_headcount_10am": [2, 1, 4, 3, 2, 1, 1]
-            },
-            {
-                "month": "September",
-                "week_num": 2,
-                "dates": ["14/09/26", "15/09/26", "16/09/26", "17/09/26", "18/09/26", "19/09/26", "20/09/26"],
-                "employees": [
-                    {"sg_id": 316092, "name": "Lelin Patra", "skilling": "ATS 2L", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Tue/Wed/Thu/Fri", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 223254, "name": "Srinivas Reddy", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Tue/Wed/Thu", "shifts": {"Monday": "WO", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "10:00 AM - 07:00 PM", "Sunday": "WO"}},
-                    {"sg_id": 223258, "name": "Md. Shahbaz", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Tue/Wed", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "WO", "Friday": "WO", "Saturday": "06:00 AM - 03:00 PM", "Sunday": "06:30 AM - 03:30 PM"}},
-                    {"sg_id": 709139, "name": "Rupesh C P", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Tue/Wed/Thu/Fri", "shifts": {"Monday": "PH", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 223255, "name": "Deepak K", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Tue/Wed/Thu/Fri", "shifts": {"Monday": "PH", "Tuesday": "8:00 AM - 05:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "8:00 AM - 05:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 227186, "name": "Sanjay Kumar", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Tue/Wed/Thu", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "WO", "Saturday": "WO", "Sunday": "10:00 AM - 07:00 PM"}},
-                    {"sg_id": 709454, "name": "Prathvi Shetty", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Tue/Wed/Thu/Fri", "shifts": {"Monday": "PH", "Tuesday": "PTO", "Wednesday": "PTO", "Thursday": "PTO", "Friday": "PTO", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 709282, "name": "Preethi P", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Tue/Wed/Thu/Fri", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 709424, "name": "Bhargav R", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Tue/Wed/Thu/Fri", "shifts": {"Monday": "PH", "Tuesday": "08:00 AM - 05:00 PM", "Wednesday": "08:00 AM - 05:00 PM", "Thursday": "08:00 AM - 05:00 PM", "Friday": "08:00 AM - 05:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 709283, "name": "Nidhi Taku", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Tue/Wed/Thu/Fri", "shifts": {"Monday": "8:00 AM - 05:00 PM", "Tuesday": "6:00 AM - 03:00 PM", "Wednesday": "6:00 AM - 03:00 PM", "Thursday": "6:00 AM - 03:00 PM", "Friday": "6:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 709115, "name": "Gokul Krishna Lokesh", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Tue/Wed/Thu/Fri", "shifts": {"Monday": "6:00 AM - 03:00 PM", "Tuesday": "6:00 AM - 03:00 PM", "Wednesday": "6:00 AM - 03:00 PM", "Thursday": "6:00 AM - 03:00 PM", "Friday": "6:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 709312, "name": "Manisha Kumari", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Tue/Wed/Thu/Fri", "shifts": {"Monday": "6:00 AM - 03:00 PM", "Tuesday": "08:00 AM - 05:00 PM", "Wednesday": "08:00 AM - 05:00 PM", "Thursday": "PTO", "Friday": "08:00 AM - 05:00 PM", "Saturday": "WO", "Sunday": "WO"}}
-                ],
-                "qm_staff_6am": {"Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"},
-                "qm_staff_10am": {"Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"},
-                "total_headcount_6am": [4, 6, 6, 5, 5, 1, 1],
-                "total_headcount_8am": [1, 3, 2, 2, 2, 0, 0],
-                "total_headcount_10am": [2, 2, 3, 2, 2, 1, 1]
-            },
-            {
-                "month": "September",
-                "week_num": 3,
-                "dates": ["21/09/26", "22/09/26", "23/09/26", "24/09/26", "25/09/26", "26/09/26", "27/09/26"],
-                "employees": [
-                    {"sg_id": 316092, "name": "Lelin Patra", "skilling": "ATS 2L", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 223254, "name": "Srinivas Reddy", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Mon/Tue/", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 223258, "name": "Md. Shahbaz", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Tue/Wed/Thu", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "WO", "Friday": "WO", "Saturday": "06:00 AM - 03:00 PM", "Sunday": "06:30 AM - 03:30 PM"}},
-                    {"sg_id": 709139, "name": "Rupesh C P", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 223255, "name": "Deepak K", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 227186, "name": "Sanjay Kumar", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "WO", "Friday": "WO", "Saturday": "10:00 AM - 07:00 PM", "Sunday": "10:00 AM - 07:00 PM"}},
-                    {"sg_id": 709454, "name": "Prathvi Shetty", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 709282, "name": "Preethi P", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 709424, "name": "Bhargav R", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "6:00 AM - 03:00 PM", "Tuesday": "6:00 AM - 03:00 PM", "Wednesday": "6:00 AM - 03:00 PM", "Thursday": "6:00 AM - 03:00 PM", "Friday": "6:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 709283, "name": "Nidhi Taku", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "08:00 AM - 05:00 PM", "Tuesday": "08:00 AM - 05:00 PM", "Wednesday": "08:00 AM - 05:00 PM", "Thursday": "08:00 AM - 05:00 PM", "Friday": "08:00 AM - 05:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 709115, "name": "Gokul Krishna Lokesh", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "08:00 AM - 05:00 PM", "Tuesday": "08:00 AM - 05:00 PM", "Wednesday": "08:00 AM - 05:00 PM", "Thursday": "08:00 AM - 05:00 PM", "Friday": "08:00 AM - 05:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 709312, "name": "Manisha Kumari", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "6:00 AM - 03:00 PM", "Tuesday": "6:00 AM - 03:00 PM", "Wednesday": "6:00 AM - 03:00 PM", "Thursday": "6:00 AM - 03:00 PM", "Friday": "6:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}}
-                ],
-                "qm_staff_6am": {"Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"},
-                "qm_staff_10am": {"Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"},
-                "total_headcount_6am": [6, 6, 6, 5, 5, 1, 1],
-                "total_headcount_8am": [2, 2, 2, 2, 2, 0, 0],
-                "total_headcount_10am": [4, 4, 4, 3, 3, 1, 1]
-            },
-            {
-                "month": "September",
-                "week_num": 4,
-                "dates": ["28/09/26", "29/09/26", "30/09/26", "01/10/26", "02/10/26", "03/10/26", "04/10/26"],
-                "employees": [
-                    {"sg_id": 316092, "name": "Lelin Patra", "skilling": "ATS 2L", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Mon/Tue/Wed/Thu", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 223254, "name": "Srinivas Reddy", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "No", "shifts": {"Monday": "WO", "Tuesday": "PTO", "Wednesday": "PTO", "Thursday": "PTO", "Friday": "10:00 AM - 07:00 PM", "Saturday": "10:00 AM - 07:00 PM", "Sunday": "WO"}},
-                    {"sg_id": 223258, "name": "Md. Shahbaz", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Mon/Tue/Wed", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "WO", "Friday": "WO", "Saturday": "06:00 AM - 03:00 PM", "Sunday": "06:30 AM - 03:30 PM"}},
-                    {"sg_id": 709139, "name": "Rupesh C P", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Mon/Tue/Wed/Thu", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 223255, "name": "Deepak K", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Mon/Tue/Wed/Thu", "shifts": {"Monday": "WO", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "07:00 AM -04:00 PM", "Friday": "07:00 AM -04:00 PM", "Saturday": "WO", "Sunday": "10:00 AM - 07:00 PM"}},
-                    {"sg_id": 227186, "name": "Sanjay Kumar", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Mon/Tue/Wed/Thu", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "PH", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 709454, "name": "Prathvi Shetty", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Mon/Tue/Wed/Thu", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 709282, "name": "Preethi P", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Mon/Tue/Wed/Thu", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "PH", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 709424, "name": "Bhargav R", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu", "shifts": {"Monday": "6:00 AM - 03:00 PM", "Tuesday": "6:00 AM - 03:00 PM", "Wednesday": "6:00 AM - 03:00 PM", "Thursday": "6:00 AM - 03:00 PM", "Friday": "6:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 709283, "name": "Nidhi Taku", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu", "shifts": {"Monday": "08:00 AM - 05:00 PM", "Tuesday": "08:00 AM - 05:00 PM", "Wednesday": "08:00 AM - 05:00 PM", "Thursday": "08:00 AM - 05:00 PM", "Friday": "08:00 AM - 05:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 709115, "name": "Gokul Krishna Lokesh", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu", "shifts": {"Monday": "08:00 AM - 05:00 PM", "Tuesday": "08:00 AM - 05:00 PM", "Wednesday": "08:00 AM - 05:00 PM", "Thursday": "08:00 AM - 05:00 PM", "Friday": "08:00 AM - 05:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 709312, "name": "Manisha Kumari", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu", "shifts": {"Monday": "6:00 AM - 03:00 PM", "Tuesday": "6:00 AM - 03:00 PM", "Wednesday": "6:00 AM - 03:00 PM", "Thursday": "6:00 AM - 03:00 PM", "Friday": "6:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}}
-                ],
-                "qm_staff_6am": {"Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"},
-                "qm_staff_10am": {"Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"},
-                "total_headcount_6am": [5, 5, 5, 5, 4, 1, 1],
-                "total_headcount_8am": [2, 2, 2, 2, 2, 0, 0],
-                "total_headcount_10am": [3, 4, 4, 3, 2, 1, 1]
-            },
-            {
-                "month": "October",
-                "week_num": 1,
-                "dates": ["05/10/26", "06/10/26", "07/10/26", "08/10/26", "09/10/26", "10/10/26", "11/10/26"],
-                "employees": [
-                    {"sg_id": 316092, "name": "Lelin Patra", "skilling": "ATS 2L", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 227186, "name": "Sanjay Kumar", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Tue/Wed/Thu", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 223255, "name": "Deepak K", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "08:00 AM - 05:00 PM", "Tuesday": "08:00 AM - 05:00 PM", "Wednesday": "08:00 AM - 05:00 PM", "Thursday": "08:00 AM - 05:00 PM", "Friday": "08:00 AM - 05:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 223254, "name": "Srinivas Reddy", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Tue/Wed/Thu", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 709454, "name": "Prathavi", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 709282, "name": "Preethi P", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 709139, "name": "Rupesh C P", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 709115, "name": "Gokul Krishna Lokesh", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "08:00 AM - 05:00 PM", "Tuesday": "08:00 AM - 05:00 PM", "Wednesday": "08:00 AM - 05:00 PM", "Thursday": "08:00 AM - 05:00 PM", "Friday": "08:00 AM - 05:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 709312, "name": "Manisha Kumari", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "08:00 AM - 05:00 PM", "Tuesday": "08:00 AM - 05:00 PM", "Wednesday": "08:00 AM - 05:00 PM", "Thursday": "08:00 AM - 05:00 PM", "Friday": "08:00 AM - 05:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 709424, "name": "Bhargav R", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "6:00 AM - 03:00 PM", "Tuesday": "6:00 AM - 03:00 PM", "Wednesday": "6:00 AM - 03:00 PM", "Thursday": "6:00 AM - 03:00 PM", "Friday": "6:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 709283, "name": "Nidhi Taku", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "6:00 AM - 03:00 PM", "Tuesday": "6:00 AM - 03:00 PM", "Wednesday": "6:00 AM - 03:00 PM", "Thursday": "6:00 AM - 03:00 PM", "Friday": "6:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 223258, "name": "Md. Shahbaz", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Mon/Tue/Wed", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "WO", "Friday": "WO", "Saturday": "06:00 AM - 03:00 PM", "Sunday": "06:30 AM - 03:30 PM"}}
-                ],
-                "qm_staff_6am": {"Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"},
-                "qm_staff_10am": {"Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"},
-                "total_headcount_6am": [5, 5, 5, 4, 4, 1, 1],
-                "total_headcount_8am": [3, 3, 3, 3, 3, 0, 0],
-                "total_headcount_10am": [4, 4, 4, 4, 4, 0, 0]
             }
         ];
 
@@ -1119,6 +1279,7 @@
         let distChartInstance = null;
 
         document.addEventListener("DOMContentLoaded", () => {
+            checkPortalAuthentication();
             const urlParams = new URLSearchParams(window.location.search);
             const isRequestedAdmin = urlParams.get('admin') === 'true';
 
@@ -2146,7 +2307,6 @@
             document.getElementById('mainDisplayArea').innerHTML = html;
         }
 
-        // SABRE 2026 GLOBAL HOLIDAY CALENDAR VIEW RENDERER
         function renderHolidaysView() {
             let filteredHolidays = SABRE_2026_HOLIDAYS.filter(h => {
                 const matchSearch = !searchQuery || 
