@@ -399,6 +399,13 @@
                             class="bg-slate-800 text-xs sm:text-sm text-slate-200 placeholder-slate-400 rounded-lg pl-9 pr-4 py-1.5 focus:outline-none focus:ring-2 focus:ring-indigo-500 w-48 sm:w-64 lg:w-80 border border-slate-700 input-3d">
                         <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-2.5"></i>
                     </div>
+
+                    <!-- Admin Notifications for Password Resets -->
+                    <button id="adminResetNotifBtn" onclick="openAdminResetRequestsModal()" class="hidden relative p-2 bg-amber-500/20 text-amber-400 hover:bg-amber-500/30 rounded-lg border border-amber-500/40 text-xs font-bold flex items-center gap-1.5 transition-all">
+                        <i data-lucide="bell" class="w-4 h-4 text-amber-400 animate-bounce"></i>
+                        <span>Reset Requests</span>
+                        <span id="adminResetNotifBadge" class="bg-rose-600 text-white text-[10px] px-1.5 py-0.2 rounded-full font-extrabold ml-0.5">0</span>
+                    </button>
                     
                     <div id="adminImportContainer" class="hidden flex items-center gap-2">
                         <button onclick="openAddMonthModal()" class="flex items-center space-x-1.5 bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors" title="Create a New Roster Month">
@@ -641,7 +648,61 @@
                 <button type="submit" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl text-sm btn-3d shadow-indigo-200 shadow-xl transition-all">
                     Sign In to View Portal
                 </button>
+
+                <!-- Forgot Password Trigger Link -->
+                <div class="text-center pt-2">
+                    <button type="button" onclick="openForgotPasswordModal()" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 hover:underline">
+                        Forgot Password?
+                    </button>
+                </div>
             </form>
+        </div>
+    </div>
+
+    <!-- FORGOT PASSWORD MODAL (EMPLOYEE SIDE) -->
+    <div id="forgotPasswordModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[115] flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl card-3d w-full max-w-md p-6 sm:p-8 space-y-4 shadow-2xl border border-slate-200">
+            <div class="text-center space-y-1">
+                <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center mx-auto mb-2 btn-3d">
+                    <i data-lucide="help-circle" class="w-6 h-6"></i>
+                </div>
+                <h3 class="font-extrabold text-slate-900 text-lg">Request Password Reset</h3>
+                <p class="text-slate-500 text-xs">Enter your Employee ID to notify Admin to issue a 24-hour temporary login password.</p>
+            </div>
+
+            <div class="space-y-3 pt-2">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Employee ID</label>
+                    <input type="text" id="forgotEmpIdInput" placeholder="e.g. 316092 or 223174" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm font-semibold focus:ring-2 focus:ring-amber-500 input-3d">
+                </div>
+
+                <div id="forgotStatusMsg" class="hidden text-xs font-bold rounded-lg p-2.5 text-center"></div>
+            </div>
+
+            <div class="flex justify-end gap-2 pt-2 border-t border-slate-200">
+                <button onclick="closeForgotPasswordModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs btn-3d w-1/2">Cancel</button>
+                <button onclick="submitForgotPasswordRequest()" class="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-xl text-xs btn-3d w-1/2">Send Request to Admin</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMIN RESET REQUESTS MANAGEMENT MODAL -->
+    <div id="adminResetRequestsModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-[120] flex items-center justify-center hidden p-4">
+        <div class="bg-white rounded-2xl card-3d w-full max-w-lg p-6 space-y-4 shadow-2xl">
+            <div class="flex justify-between items-center border-b border-slate-200 pb-3">
+                <h3 class="font-extrabold text-slate-900 text-base sm:text-lg flex items-center gap-2">
+                    <i data-lucide="key-round" class="text-amber-600 w-5 h-5"></i> Employee Password Reset Requests
+                </h3>
+                <button onclick="closeAdminResetRequestsModal()" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+
+            <div id="adminResetRequestsList" class="space-y-3 max-h-80 overflow-y-auto pr-1">
+                <!-- Dynamically Populated List of Pending Reset Requests -->
+            </div>
+
+            <div class="flex justify-end pt-2 border-t border-slate-200">
+                <button onclick="closeAdminResetRequestsModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs btn-3d">Close</button>
+            </div>
         </div>
     </div>
 
@@ -909,9 +970,10 @@
     </div>
 
     <script>
-        // --- CENTRALIZED CROSS-DEVICE EMPLOYEE AUTHENTICATION ---
+        // --- CENTRALIZED CROSS-DEVICE EMPLOYEE AUTHENTICATION & RESET SYSTEM ---
         const DEFAULT_TEMP_PASS = "3E4R5T6Y";
         const NINETY_DAYS_MS = 90 * 24 * 60 * 60 * 1000;
+        const TWENTY_FOUR_HOURS_MS = 24 * 60 * 60 * 1000;
         let currentAuthenticatedEmployee = null;
 
         // MANAGER EXCEPTION DATA
@@ -921,17 +983,16 @@
             skilling: "Manager"
         };
 
-        // Extract central credentials map directly from live dataset
+        // Get live credentials map
         function getCentralUserDb() {
             let db = {};
             if (rawRosterData && rawRosterData._user_db) {
                 db = rawRosterData._user_db;
+            } else {
+                try {
+                    db = JSON.parse(localStorage.getItem('ats_user_db')) || {};
+                } catch (e) {}
             }
-            // Fallback to local storage cache if network is offline
-            try {
-                const localDb = JSON.parse(localStorage.getItem('ats_user_db')) || {};
-                db = Object.assign({}, localDb, db);
-            } catch (e) {}
             return db;
         }
 
@@ -939,6 +1000,38 @@
             localStorage.setItem('ats_user_db', JSON.stringify(db));
             if (!rawRosterData) rawRosterData = [];
             rawRosterData._user_db = db;
+        }
+
+        // Get Live Reset Requests Array
+        function getResetRequestsDb() {
+            let reqs = [];
+            if (rawRosterData && Array.isArray(rawRosterData._reset_requests)) {
+                reqs = rawRosterData._reset_requests;
+            } else {
+                try {
+                    reqs = JSON.parse(localStorage.getItem('ats_reset_requests')) || [];
+                } catch (e) {}
+            }
+            return reqs;
+        }
+
+        function saveResetRequestsDb(reqs) {
+            localStorage.setItem('ats_reset_requests', JSON.stringify(reqs));
+            if (!rawRosterData) rawRosterData = [];
+            rawRosterData._reset_requests = reqs;
+        }
+
+        function updateAdminNotifUI() {
+            const reqs = getResetRequestsDb().filter(r => r.status === 'PENDING');
+            const notifBtn = document.getElementById('adminResetNotifBtn');
+            const badge = document.getElementById('adminResetNotifBadge');
+            
+            if (isAdminMode && reqs.length > 0) {
+                if (notifBtn) notifBtn.classList.remove('hidden');
+                if (badge) badge.innerText = reqs.length;
+            } else {
+                if (notifBtn) notifBtn.classList.add('hidden');
+            }
         }
 
         function checkEmployeeAuthStatus() {
@@ -956,18 +1049,28 @@
                 return;
             }
 
-            // Check 90 days password expiry
             const now = Date.now();
-            if (userRecord.passUpdatedAt && (now - userRecord.passUpdatedAt > NINETY_DAYS_MS)) {
+            
+            // Check 24 hour temp password expiry
+            if (userRecord.is24HourTemp && userRecord.tempExpiry && now > userRecord.tempExpiry) {
+                showAuthOverlay();
+                const errEl = document.getElementById('empAuthError');
+                errEl.innerText = "24-Hour Temporary password has expired. Please request a new password reset.";
+                errEl.classList.remove('hidden');
+                return;
+            }
+
+            // Check 90 days password expiry
+            if (!userRecord.isTemp && !userRecord.is24HourTemp && userRecord.passUpdatedAt && (now - userRecord.passUpdatedAt > NINETY_DAYS_MS)) {
                 currentAuthenticatedEmployee = userRecord;
                 showChangePasswordModal("Your 90-day password period has expired. Please update your password.");
                 return;
             }
 
-            // Check if user still needs to change default temporary password
-            if (userRecord.isTemp) {
+            // Check if user needs to change temporary password
+            if (userRecord.isTemp || userRecord.is24HourTemp) {
                 currentAuthenticatedEmployee = userRecord;
-                showChangePasswordModal("You are logged in with a temporary password. Please set a new password.");
+                showChangePasswordModal(userRecord.is24HourTemp ? "Logged in with 24-Hour temporary password. Please set a new permanent password." : "Logged in with default temporary password. Please set a new password.");
                 return;
             }
 
@@ -1012,7 +1115,6 @@
         function isListedEmployee(empId) {
             const searchId = String(empId).trim();
             
-            // Explicit exception check for Manager Rajesh Warvadkar (ID: 223174)
             if (searchId === String(MANAGER_EXCEPTION.sg_id)) {
                 return MANAGER_EXCEPTION;
             }
@@ -1052,10 +1154,20 @@
                     name: listedEmp.name,
                     password: DEFAULT_TEMP_PASS,
                     isTemp: true,
+                    is24HourTemp: false,
+                    tempExpiry: 0,
                     passUpdatedAt: 0
                 };
             } else {
                 userRecord.name = listedEmp.name; // Keep name synced
+            }
+
+            // Validate 24-hour expiry
+            const now = Date.now();
+            if (userRecord.is24HourTemp && userRecord.tempExpiry && now > userRecord.tempExpiry) {
+                errorEl.innerText = "24-Hour Temporary password has expired. Please request a new reset.";
+                errorEl.classList.remove('hidden');
+                return;
             }
 
             if (inputPass !== userRecord.password) {
@@ -1064,12 +1176,11 @@
                 return;
             }
 
-            // Valid login - store session across browser tabs
+            // Valid login
             sessionStorage.setItem('ats_logged_emp_id', userRecord.sg_id);
             currentAuthenticatedEmployee = userRecord;
 
-            const now = Date.now();
-            if (userRecord.isTemp || (userRecord.passUpdatedAt && (now - userRecord.passUpdatedAt > NINETY_DAYS_MS))) {
+            if (userRecord.isTemp || userRecord.is24HourTemp || (userRecord.passUpdatedAt && (now - userRecord.passUpdatedAt > NINETY_DAYS_MS))) {
                 showChangePasswordModal();
             } else {
                 grantPortalAccess();
@@ -1107,6 +1218,8 @@
                 name: currentAuthenticatedEmployee.name,
                 password: newPass,
                 isTemp: false,
+                is24HourTemp: false,
+                tempExpiry: 0,
                 passUpdatedAt: Date.now()
             };
 
@@ -1114,13 +1227,155 @@
             currentAuthenticatedEmployee = db[currentAuthenticatedEmployee.sg_id];
             sessionStorage.setItem('ats_logged_emp_id', currentAuthenticatedEmployee.sg_id);
 
-            // Attempt cloud sync if token is available, otherwise stored locally for session
             if (githubConfig.token && githubConfig.owner && githubConfig.repo) {
                 await commitDataToGitHubRepository();
             }
 
             alert("Password successfully updated! Saved permanently for 90 days across all devices.");
             grantPortalAccess();
+        }
+
+        // Forgot Password Logic
+        function openForgotPasswordModal() {
+            document.getElementById('forgotEmpIdInput').value = document.getElementById('empAuthId').value.trim();
+            document.getElementById('forgotStatusMsg').classList.add('hidden');
+            document.getElementById('forgotPasswordModal').classList.remove('hidden');
+        }
+
+        function closeForgotPasswordModal() {
+            document.getElementById('forgotPasswordModal').classList.add('hidden');
+        }
+
+        async function submitForgotPasswordRequest() {
+            const inputId = document.getElementById('forgotEmpIdInput').value.trim();
+            const statusEl = document.getElementById('forgotStatusMsg');
+            
+            const emp = isListedEmployee(inputId);
+            if (!emp) {
+                statusEl.innerText = "Employee ID not found in roster list.";
+                statusEl.className = "text-xs font-bold rounded-lg p-2.5 text-center bg-rose-50 text-rose-600 block";
+                return;
+            }
+
+            const reqs = getResetRequestsDb();
+            const existingPending = reqs.find(r => String(r.sg_id) === String(emp.sg_id) && r.status === 'PENDING');
+
+            if (!existingPending) {
+                reqs.push({
+                    sg_id: emp.sg_id,
+                    name: emp.name,
+                    requestedAt: Date.now(),
+                    status: 'PENDING'
+                });
+                saveResetRequestsDb(reqs);
+
+                if (githubConfig.token && githubConfig.owner && githubConfig.repo) {
+                    await commitDataToGitHubRepository();
+                }
+            }
+
+            statusEl.innerText = `Reset request submitted for ${emp.name} (${emp.sg_id}). Admin has been notified.`;
+            statusEl.className = "text-xs font-bold rounded-lg p-2.5 text-center bg-emerald-50 text-emerald-700 block";
+            updateAdminNotifUI();
+        }
+
+        function openAdminResetRequestsModal() {
+            if (!isAdminMode) return;
+            renderAdminResetRequestsList();
+            document.getElementById('adminResetRequestsModal').classList.remove('hidden');
+        }
+
+        function closeAdminResetRequestsModal() {
+            document.getElementById('adminResetRequestsModal').classList.add('hidden');
+        }
+
+        function generateRandom8CharPassword() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let pass = '';
+            for (let i = 0; i < 8; i++) {
+                pass += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return pass;
+        }
+
+        async function adminGenerateResetPass(sgId) {
+            const db = getCentralUserDb();
+            const reqs = getResetRequestsDb();
+            const emp = isListedEmployee(sgId);
+
+            if (!emp) return;
+
+            const autoPass = generateRandom8CharPassword();
+            const expiry = Date.now() + TWENTY_FOUR_HOURS_MS;
+
+            db[sgId] = {
+                sg_id: emp.sg_id,
+                name: emp.name,
+                password: autoPass,
+                isTemp: false,
+                is24HourTemp: true,
+                tempExpiry: expiry,
+                passUpdatedAt: Date.now()
+            };
+
+            // Update request status
+            const reqObj = reqs.find(r => String(r.sg_id) === String(sgId) && r.status === 'PENDING');
+            if (reqObj) {
+                reqObj.status = 'RESOLVED';
+                reqObj.generatedPass = autoPass;
+            }
+
+            saveCentralUserDb(db);
+            saveResetRequestsDb(reqs);
+
+            if (githubConfig.token && githubConfig.owner && githubConfig.repo) {
+                await commitDataToGitHubRepository();
+            }
+
+            updateAdminNotifUI();
+            renderAdminResetRequestsList();
+
+            alert(`24-Hour Temporary Password generated for ${emp.name} (${sgId}):\n\n${autoPass}\n\nThis password is valid for 24 hours. The employee must login with this password and set a new password.`);
+        }
+
+        function renderAdminResetRequestsList() {
+            const listContainer = document.getElementById('adminResetRequestsList');
+            const reqs = getResetRequestsDb();
+
+            if (reqs.length === 0) {
+                listContainer.innerHTML = `<div class="p-6 text-center text-slate-400 text-xs font-semibold">No password reset requests pending.</div>`;
+                return;
+            }
+
+            let html = '';
+            reqs.slice().reverse().forEach(r => {
+                const isPending = r.status === 'PENDING';
+                const dateStr = new Date(r.requestedAt).toLocaleString();
+
+                html += `
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-3.5 flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="font-extrabold text-slate-900 text-sm">${r.name}</span>
+                                <span class="bg-slate-200 text-slate-700 text-[10px] font-bold px-2 py-0.5 rounded">ID: ${r.sg_id}</span>
+                            </div>
+                            <span class="text-[10px] font-medium text-slate-500 block mt-0.5">Requested: ${dateStr}</span>
+                            ${r.generatedPass ? `<span class="text-[11px] font-mono-digital font-bold text-emerald-700 block mt-1 bg-emerald-100 px-2 py-0.5 rounded w-fit">24h Pass: ${r.generatedPass}</span>` : ''}
+                        </div>
+                        <div>
+                            ${isPending ? `
+                                <button onclick="adminGenerateResetPass('${r.sg_id}')" class="px-3 py-1.5 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-lg text-xs btn-3d transition-all">
+                                    Generate 24h Pass
+                                </button>
+                            ` : `
+                                <span class="px-2.5 py-1 bg-emerald-100 text-emerald-800 text-[10px] font-extrabold rounded-lg border border-emerald-300">Resolved</span>
+                            `}
+                        </div>
+                    </div>
+                `;
+            });
+
+            listContainer.innerHTML = html;
         }
 
         // OFFICIAL COMPLETE SABRE 2026 GLOBAL HOLIDAY DATA
@@ -1418,6 +1673,7 @@
             }
             initializePortal();
             checkEmployeeAuthStatus();
+            updateAdminNotifUI();
         }
 
         const BASE_SHIFT_OPTIONS = [
@@ -1517,6 +1773,7 @@
                 document.getElementById('pageBlurWrapper').classList.remove('page-blur');
                 document.getElementById('employeeAuthModal').classList.add('hidden');
 
+                updateAdminNotifUI();
                 renderView();
             } else {
                 errorEl.classList.remove('hidden');
@@ -1546,6 +1803,7 @@
             document.getElementById('adminImportContainer').classList.add('hidden');
             document.getElementById('adminBadge').classList.add('hidden');
             document.getElementById('adminActionDock').classList.add('hidden');
+            updateAdminNotifUI();
 
             const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
             window.history.replaceState({ path: newUrl }, '', newUrl);
