@@ -83,7 +83,7 @@
       {
         "sg_id": 223255,
         "name": "Deepak K",
-        "skilling": "ATS",
+        "skilling": "ATS 2L",
         "default_start": "10:00 AM",
         "default_end": "07:00 PM",
         "days_office": "Wed/Thu/Fri",
@@ -235,9 +235,33 @@
       "Saturday": "Unassigned",
       "Sunday": "Unassigned"
     },
-    "total_headcount_6am": [5, 5, 6, 5, 5, 1, 1],
-    "total_headcount_8am": [2, 2, 2, 2, 2, 0, 0],
-    "total_headcount_10am": [2, 1, 4, 3, 2, 1, 1]
+    "total_headcount_6am": [
+      5,
+      5,
+      6,
+      5,
+      5,
+      1,
+      1
+    ],
+    "total_headcount_8am": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      0,
+      0
+    ],
+    "total_headcount_10am": [
+      2,
+      1,
+      4,
+      3,
+      2,
+      1,
+      1
+    ]
   },
   {
     "month": "September",
@@ -323,7 +347,7 @@
       {
         "sg_id": 223255,
         "name": "Deepak K",
-        "skilling": "ATS",
+        "skilling": "ATS 2L",
         "default_start": "10:00 AM",
         "default_end": "07:00 PM",
         "days_office": "Tue/Wed/Thu/Fri",
@@ -475,9 +499,33 @@
       "Saturday": "Unassigned",
       "Sunday": "Unassigned"
     },
-    "total_headcount_6am": [4, 6, 6, 5, 5, 1, 1],
-    "total_headcount_10am": [2, 2, 3, 2, 2, 1, 1],
-    "total_headcount_8am": [1, 3, 2, 2, 2, 0, 0]
+    "total_headcount_6am": [
+      4,
+      6,
+      6,
+      5,
+      5,
+      1,
+      1
+    ],
+    "total_headcount_10am": [
+      2,
+      2,
+      3,
+      2,
+      2,
+      1,
+      1
+    ],
+    "total_headcount_8am": [
+      1,
+      3,
+      2,
+      2,
+      2,
+      0,
+      0
+    ]
   },
   {
     "month": "September",
@@ -563,7 +611,7 @@
       {
         "sg_id": 223255,
         "name": "Deepak K",
-        "skilling": "ATS",
+        "skilling": "ATS 2L",
         "default_start": "10:00 AM",
         "default_end": "07:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
@@ -639,7 +687,7 @@
           "Monday": "6:00 AM - 03:00 PM",
           "Tuesday": "6:00 AM - 03:00 PM",
           "Wednesday": "6:00 AM - 03:00 PM",
-          "Thursday": "6:00 AM - 03:00 PM",
+          "Thursday": "SL",
           "Friday": "6:00 AM - 03:00 PM",
           "Saturday": "WO",
           "Sunday": "WO"
@@ -655,7 +703,7 @@
         "shifts": {
           "Monday": "08:00 AM - 05:00 PM",
           "Tuesday": "08:00 AM - 05:00 PM",
-          "Wednesday": "08:00 AM - 05:00 PM",
+          "Wednesday": "SL",
           "Thursday": "08:00 AM - 05:00 PM",
           "Friday": "08:00 AM - 05:00 PM",
           "Saturday": "WO",
@@ -719,7 +767,7 @@
       6,
       6,
       6,
-      5,
+      4,
       5,
       1,
       1
@@ -736,7 +784,7 @@
     "total_headcount_8am": [
       2,
       2,
-      2,
+      1,
       2,
       2,
       0,
@@ -827,7 +875,7 @@
       {
         "sg_id": 223255,
         "name": "Deepak K",
-        "skilling": "ATS",
+        "skilling": "ATS 2L",
         "default_start": "10:00 AM",
         "default_end": "07:00 PM",
         "days_office": "Mon/Tue/Wed/Thu",
@@ -984,7 +1032,7 @@
       5,
       5,
       5,
-      4,
+      5,
       1,
       1
     ],
@@ -1057,7 +1105,7 @@
       {
         "sg_id": 223255,
         "name": "Deepak K",
-        "skilling": "ATS",
+        "skilling": "ATS 2L",
         "default_start": "08:00 AM",
         "default_end": "05:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
