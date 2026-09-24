@@ -253,7 +253,6 @@
     <div id="freeFlightPlane">
         <svg viewBox="0 0 200 200" width="100%" height="100%">
             <defs>
-                <!-- Fuselage White Gradient -->
                 <linearGradient id="aaFuselageGrad" x1="0%" y1="0%" x2="100%" y2="0%">
                     <stop offset="0%" stop-color="#dbe1e8"/>
                     <stop offset="25%" stop-color="#ffffff"/>
@@ -262,27 +261,23 @@
                     <stop offset="100%" stop-color="#94a3b8"/>
                 </linearGradient>
 
-                <!-- Metallic Wing Gradient -->
                 <linearGradient id="aaWingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stop-color="#e2e8f0"/>
                     <stop offset="50%" stop-color="#cbd5e1"/>
                     <stop offset="100%" stop-color="#64748b"/>
                 </linearGradient>
 
-                <!-- Engine Gradient -->
                 <linearGradient id="aaEngineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
                     <stop offset="0%" stop-color="#475569"/>
                     <stop offset="50%" stop-color="#1e293b"/>
                     <stop offset="100%" stop-color="#0f172a"/>
                 </linearGradient>
 
-                <!-- Cockpit Glass Gradient -->
                 <linearGradient id="aaCockpitGrad" x1="0%" y1="0%" x2="0%" y2="100%">
                     <stop offset="0%" stop-color="#0284c7"/>
                     <stop offset="100%" stop-color="#0369a1"/>
                 </linearGradient>
 
-                <!-- Tail Fin Red/Blue Gradient Stripe -->
                 <linearGradient id="aaTailRed" x1="0%" y1="0%" x2="100%" y2="0%">
                     <stop offset="0%" stop-color="#ef4444"/>
                     <stop offset="100%" stop-color="#dc2626"/>
@@ -293,74 +288,44 @@
                     <stop offset="100%" stop-color="#1d4ed8"/>
                 </linearGradient>
 
-                <!-- 3D Shadow -->
                 <filter id="planeShadow" x="-20%" y="-20%" width="140%" height="140%">
                     <feDropShadow dx="0" dy="12" stdDeviation="6" flood-color="#020617" flood-opacity="0.35"/>
                 </filter>
             </defs>
 
             <g filter="url(#planeShadow)">
-                <!-- Left Wing Shadow/Base -->
                 <path d="M 92,100 L 10,135 L 20,148 L 94,118 Z" fill="#475569" opacity="0.3"/>
-                <!-- Right Wing Shadow/Base -->
                 <path d="M 108,100 L 190,135 L 180,148 L 106,118 Z" fill="#334155" opacity="0.4"/>
 
-                <!-- Left Engine -->
                 <rect x="52" y="112" width="10" height="24" rx="5" fill="url(#aaEngineGrad)"/>
                 <ellipse cx="57" cy="112" rx="5" ry="2" fill="#94a3b8"/>
                 
-                <!-- Right Engine -->
                 <rect x="138" y="112" width="10" height="24" rx="5" fill="url(#aaEngineGrad)"/>
                 <ellipse cx="143" cy="112" rx="5" ry="2" fill="#94a3b8"/>
 
-                <!-- Left Main Wing -->
                 <path d="M 94,85 L 12,132 C 8,134 10,139 16,139 L 40,138 L 95,110 Z" fill="url(#aaWingGrad)" stroke="#94a3b8" stroke-width="0.5"/>
-                <!-- Left Wingtip Red Trim -->
                 <path d="M 12,132 L 8,130 L 10,136 L 16,139 Z" fill="#dc2626"/>
 
-                <!-- Right Main Wing -->
                 <path d="M 106,85 L 188,132 C 192,134 190,139 184,139 L 160,138 L 105,110 Z" fill="url(#aaWingGrad)" stroke="#64748b" stroke-width="0.5"/>
-                <!-- Right Wingtip Red Trim -->
                 <path d="M 188,132 L 192,130 L 190,136 L 184,139 Z" fill="#dc2626"/>
 
-                <!-- Horizontal Stabilizers (Tail Wings) -->
                 <path d="M 97,165 L 55,186 C 52,188 53,192 57,191 L 98,178 Z" fill="url(#aaWingGrad)"/>
                 <path d="M 103,165 L 145,186 C 148,188 147,192 143,191 L 102,178 Z" fill="url(#aaWingGrad)"/>
 
-                <!-- Main Fuselage Body (Pure White 3D Metallic) -->
-                <path d="M 100,8 
-                         C 86,30 84,130 88,172 
-                         C 90,188 95,195 100,195 
-                         C 105,195 110,188 112,172 
-                         C 116,130 114,30 100,8 Z" 
-                      fill="url(#aaFuselageGrad)" 
-                      stroke="#cbd5e1" 
-                      stroke-width="1"/>
+                <path d="M 100,8 C 86,30 84,130 88,172 C 90,188 95,195 100,195 C 105,195 110,188 112,172 C 116,130 114,30 100,8 Z" fill="url(#aaFuselageGrad)" stroke="#cbd5e1" stroke-width="1"/>
 
-                <!-- American Airlines Signature Tail Fin (Flag Livery Stripes) -->
-                <!-- Tail Base -->
                 <path d="M 100,155 L 96,192 C 100,196 100,196 104,192 Z" fill="#f8fafc"/>
                 
-                <!-- AA Red/White/Blue Stripes on Tail Fin -->
-                <!-- Top Red Stripe -->
                 <path d="M 99,158 L 97,166 L 103,166 L 101,158 Z" fill="url(#aaTailRed)"/>
-                <!-- White Stripe -->
                 <path d="M 97,166 L 96,172 L 104,172 L 103,166 Z" fill="#ffffff"/>
-                <!-- Blue Stripe -->
                 <path d="M 96,172 L 95,180 L 105,180 L 104,172 Z" fill="url(#aaTailBlue)"/>
-                <!-- Bottom Red Stripe -->
                 <path d="M 95,180 L 96,190 L 104,190 L 105,180 Z" fill="url(#aaTailRed)"/>
 
-                <!-- Cockpit Windshield (3D Curved Visor) -->
                 <path d="M 93,28 C 96,24 104,24 107,28 C 108,34 92,34 93,28 Z" fill="url(#aaCockpitGrad)"/>
                 
-                <!-- Passenger Windows Line (Left & Right Sides) -->
-                <!-- Left Windows -->
                 <line x1="91" y1="42" x2="91" y2="140" stroke="#0284c7" stroke-width="1.2" stroke-dasharray="1.5, 2.5" opacity="0.8"/>
-                <!-- Right Windows -->
                 <line x1="109" y1="42" x2="109" y2="140" stroke="#0284c7" stroke-width="1.2" stroke-dasharray="1.5, 2.5" opacity="0.8"/>
 
-                <!-- American Airlines Mid-Fuselage Logo Stripe Accent -->
                 <path d="M 92,62 L 92,72 L 91,72 L 91,62 Z" fill="#2563eb"/>
                 <path d="M 92,72 L 92,82 L 91,82 L 91,72 Z" fill="#dc2626"/>
             </g>
@@ -396,7 +361,7 @@
             
             <div class="flex items-center space-x-3">
                 <div class="relative hidden sm:block">
-                    <input type="text" id="searchInput" placeholder="Search employee or skill..." 
+                    <input type="text" id="searchInput" placeholder="Search employee, skill, holiday..." 
                         class="bg-slate-800 text-xs sm:text-sm text-slate-200 placeholder-slate-400 rounded-lg pl-9 pr-4 py-1.5 focus:outline-none focus:ring-2 focus:ring-indigo-500 w-48 sm:w-64 lg:w-80 border border-slate-700 input-3d">
                     <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-2.5"></i>
                 </div>
@@ -420,7 +385,6 @@
                     </label>
                     <input type="file" id="excelFileInput" accept=".xlsx, .xls" class="hidden" onchange="importExcelData(event)">
 
-                    <!-- Admin Logout Button -->
                     <button onclick="logoutAdmin()" class="flex items-center space-x-1.5 bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors" title="Logout from Admin Mode">
                         <i data-lucide="log-out" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
                         <span class="hidden xs:inline">Logout</span>
@@ -428,10 +392,9 @@
                 </div>
             </div>
         </div>
-        <!-- Mobile Search Bar -->
         <div class="p-2 sm:hidden bg-slate-950 border-t border-slate-800">
             <div class="relative w-full">
-                <input type="text" id="searchInputMobile" placeholder="Search employee or skill..." 
+                <input type="text" id="searchInputMobile" placeholder="Search employee, skill, holiday..." 
                     class="bg-slate-800 text-xs text-slate-200 placeholder-slate-400 rounded-lg pl-8 pr-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-indigo-500 w-full border border-slate-700 input-3d"
                     oninput="document.getElementById('searchInput').value = this.value; searchQuery = this.value.toLowerCase(); renderView();">
                 <i data-lucide="search" class="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2"></i>
@@ -534,6 +497,10 @@
                 <button onclick="switchCategory('qm', event)" id="tabQM" class="tab-btn tab-3d text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg flex items-center gap-1.5 sm:gap-2 transition-all">
                     <i data-lucide="shield-check" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i> QM Staff Allocation
                 </button>
+                <!-- Sabre 2026 Global Holiday Calendar Tab -->
+                <button onclick="switchCategory('holidays', event)" id="tabHolidays" class="tab-btn tab-3d text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg flex items-center gap-1.5 sm:gap-2 transition-all">
+                    <i data-lucide="globe" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i> Sabre 2026 Global Holiday Calendar
+                </button>
             </div>
 
             <div id="periodNavigator" class="flex flex-wrap items-center gap-3 sm:gap-4">
@@ -541,7 +508,6 @@
                     <label for="monthSelect" class="text-[10px] sm:text-xs font-semibold uppercase text-slate-400">Month:</label>
                     <select id="monthSelect" onchange="onMonthChange()" class="bg-slate-50 border border-slate-300 text-slate-800 text-xs font-semibold rounded-lg px-2 sm:px-3 py-1 sm:py-1.5 focus:ring-2 focus:ring-indigo-500 card-3d">
                     </select>
-                    <!-- ADMIN DELETE MONTH BUTTON -->
                     <button id="adminDeleteMonthBtn" onclick="deleteCurrentMonth()" class="hidden p-1.5 text-rose-600 hover:text-rose-800 hover:bg-rose-50 rounded-lg border border-rose-200" title="Delete Selected Month">
                         <i data-lucide="trash-2" class="w-4 h-4"></i>
                     </button>
@@ -551,7 +517,6 @@
                     <label for="weekSelect" class="text-[10px] sm:text-xs font-semibold uppercase text-slate-400">Week Range:</label>
                     <select id="weekSelect" onchange="onWeekChange()" class="bg-slate-50 border border-slate-300 text-slate-800 text-xs font-semibold rounded-lg px-2 sm:px-3 py-1 sm:py-1.5 focus:ring-2 focus:ring-indigo-500 card-3d">
                     </select>
-                    <!-- ADMIN DELETE WEEK BUTTON -->
                     <button id="adminDeleteWeekBtn" onclick="deleteCurrentWeek()" class="hidden p-1.5 text-rose-600 hover:text-rose-800 hover:bg-rose-50 rounded-lg border border-rose-200" title="Delete Selected Week">
                         <i data-lucide="trash-2" class="w-4 h-4"></i>
                     </button>
@@ -592,7 +557,7 @@
 
     </main>
 
-    <!-- Admin Bottom Save/Cancel Actions Dock Bar -->
+    <!-- Admin Bottom Actions Bar -->
     <div id="adminActionDock" class="fixed bottom-0 inset-x-0 bg-slate-900/95 backdrop-blur-md text-white border-t border-slate-700 py-3 px-4 sm:px-12 z-50 flex items-center justify-between hidden shadow-2xl">
         <div class="flex items-center space-x-2">
             <span class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse"></span>
@@ -820,6 +785,65 @@
     </footer>
 
     <script>
+        // OFFICIAL COMPLETE SABRE 2026 GLOBAL HOLIDAY DATA
+        const SABRE_2026_HOLIDAYS = [
+            { date: "2026-01-01", day: "Thursday", name: "New Year's Day", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
+            { date: "2026-01-02", day: "Friday", name: "Sabre Year End Break", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
+            { date: "2026-01-06", day: "Tuesday", name: "Epiphany", offices: ["KRK"] },
+            { date: "2026-01-15", day: "Thursday", name: "Makara Sankranti", offices: ["BLR"] },
+            { date: "2026-01-19", day: "Monday", name: "Martin Luther King, Jr. Day", offices: ["US"] },
+            { date: "2026-01-26", day: "Monday", name: "Republic Day", offices: ["BLR"] },
+            { date: "2026-02-16", day: "Monday", name: "Presidents' Day", offices: ["US"] },
+            { date: "2026-02-16", day: "Monday", name: "Carnival (non-working)", offices: ["MVD"] },
+            { date: "2026-02-17", day: "Tuesday", name: "Carnival", offices: ["MVD"] },
+            { date: "2026-02-17", day: "Tuesday", name: "Chinese/Lunar New Year", offices: ["SGP"] },
+            { date: "2026-02-18", day: "Wednesday", name: "Chinese/Lunar New Year", offices: ["SGP"] },
+            { date: "2026-03-04", day: "Wednesday", name: "Holi", offices: ["BLR"] },
+            { date: "2026-03-19", day: "Thursday", name: "Ugadi / Gudhi Padwa", offices: ["BLR"] },
+            { date: "2026-03-21", day: "Saturday", name: "Hari Raya Haji", offices: ["SGP"] },
+            { date: "2026-04-02", day: "Thursday", name: "Holy Week (non-working)", offices: ["MVD"] },
+            { date: "2026-04-03", day: "Friday", name: "Good Friday", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
+            { date: "2026-04-06", day: "Monday", name: "Easter Monday", offices: ["UK", "KRK"] },
+            { date: "2026-05-01", day: "Friday", name: "May Day / Labor Day", offices: ["UK", "KRK", "MVD", "SGP"] },
+            { date: "2026-05-04", day: "Monday", name: "Early May Bank Holiday", offices: ["UK"] },
+            { date: "2026-05-25", day: "Monday", name: "Spring Bank / Memorial Day", offices: ["US", "UK"] },
+            { date: "2026-05-27", day: "Wednesday", name: "Hari Raya Puasa", offices: ["SGP"] },
+            { date: "2026-05-28", day: "Thursday", name: "Bakrid", offices: ["BLR"] },
+            { date: "2026-06-01", day: "Monday", name: "Vesak Day (replacement)", offices: ["SGP"] },
+            { date: "2026-06-04", day: "Thursday", name: "Corpus Christi", offices: ["KRK"] },
+            { date: "2026-06-19", day: "Friday", name: "Juneteenth", offices: ["US"] },
+            { date: "2026-07-03", day: "Friday", name: "Independence Day (observed)", offices: ["US"] },
+            { date: "2026-07-18", day: "Saturday", name: "Constitution Day (non-working)", offices: ["MVD"] },
+            { date: "2026-08-10", day: "Monday", name: "National Day (replacement)", offices: ["SGP"] },
+            { date: "2026-08-14", day: "Friday", name: "Assumption Day (obs.)", offices: ["KRK"] },
+            { date: "2026-08-15", day: "Saturday", name: "Independence Day", offices: ["BLR"] },
+            { date: "2026-08-25", day: "Tuesday", name: "Independence Day (non-working)", offices: ["MVD"] },
+            { date: "2026-08-31", day: "Monday", name: "Summer Bank Holiday", offices: ["UK"] },
+            { date: "2026-09-04", day: "Friday", name: "Janmashtami", offices: ["BLR"] },
+            { date: "2026-09-07", day: "Monday", name: "Labor Day", offices: ["US"] },
+            { date: "2026-09-14", day: "Monday", name: "Ganesh Chaturthi", offices: ["BLR"] },
+            { date: "2026-10-02", day: "Friday", name: "Gandhi Jayanti", offices: ["BLR"] },
+            { date: "2026-10-12", day: "Monday", name: "Columbus Day", offices: ["US"] },
+            { date: "2026-10-20", day: "Tuesday", name: "Dussehra / Vijayadashami", offices: ["BLR"] },
+            { date: "2026-11-01", day: "Sunday", name: "Kannada Rajyotsava", offices: ["BLR"] },
+            { date: "2026-11-09", day: "Monday", name: "Deepavali (replacement)", offices: ["SGP"] },
+            { date: "2026-11-10", day: "Tuesday", name: "Deepavali", offices: ["BLR"] },
+            { date: "2026-11-11", day: "Wednesday", name: "Independence / Veterans Day", offices: ["US", "KRK"] },
+            { date: "2026-11-24", day: "Tuesday", name: "Guru Nanak's Birthday", offices: ["BLR"] },
+            { date: "2026-11-26", day: "Thursday", name: "Thanksgiving Day", offices: ["US"] },
+            { date: "2026-11-27", day: "Friday", name: "Thanksgiving Friday", offices: ["US"] },
+            { date: "2026-12-23", day: "Wednesday", name: "Boxing Day (observed)", offices: ["UK"] },
+            { date: "2026-12-24", day: "Thursday", name: "Christmas Eve", offices: ["KRK", "MVD"] },
+            { date: "2026-12-25", day: "Friday", name: "Christmas Day", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
+            { date: "2026-12-26", day: "Saturday", name: "Boxing Day", offices: ["UK", "KRK"] },
+            { date: "2026-12-28", day: "Monday", name: "Sabre Year End Break", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
+            { date: "2026-12-29", day: "Tuesday", name: "Sabre Year End Break", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
+            { date: "2026-12-30", day: "Wednesday", name: "Sabre Year End Break", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
+            { date: "2026-12-31", day: "Thursday", name: "Sabre Year End Break", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] }
+        ];
+
+        let selectedHolidayOffice = 'ALL';
+
         function getTodayFormatted() {
             const today = new Date();
             const day = String(today.getDate()).padStart(2, '0');
@@ -893,7 +917,7 @@
             });
         }
 
-        // Cleaned dataset (Only 5 valid weeks from Excel file, Sunil M removed)
+        // FULL 5-WEEK COMPLETE ROSTER DATA
         const defaultHardcodedRosterData = [
             {
                 "month": "September",
@@ -1041,29 +1065,18 @@
             return minTime;
         }
 
-        function filterYearData(dataArray) {
-            const now = new Date();
-            const year = now.getFullYear();
-            const month = now.getMonth();
-
-            if (year > 2027 || (year === 2027 && month >= 1)) {
-                return dataArray.filter(item => item.month.toLowerCase() !== 'september' && item.month.toLowerCase() !== 'october' && item.month.toLowerCase() !== 'november' && item.month.toLowerCase() !== 'december');
-            }
-            return dataArray;
-        }
-
         async function fetchLivePublicRoster() {
             try {
                 const response = await fetch('./roster.json?v=' + new Date().getTime());
                 if (response.ok) {
                     const liveData = await response.json();
                     if (liveData && Array.isArray(liveData) && liveData.length > 0) {
-                        rawRosterData = filterYearData(liveData);
+                        rawRosterData = liveData;
                     }
                 }
             } catch (err) {
                 console.log("Using default fallback roster data:", err);
-                rawRosterData = filterYearData(rawRosterData);
+                rawRosterData = JSON.parse(JSON.stringify(defaultHardcodedRosterData));
             }
             initializePortal();
         }
@@ -1381,7 +1394,6 @@
             alert(`Month "${selectedMonthName}" with ${weeksCount} weeks added! Click "Apply & Save File" to commit changes.`);
         }
 
-        // ADMIN DELETE ENTIRE MONTH
         function deleteCurrentMonth() {
             if (!isAdminMode) return;
             const confirmDel = confirm(`Are you sure you want to delete the entire month "${currentMonth}" and all its weeks?`);
@@ -1404,7 +1416,6 @@
             renderView();
         }
 
-        // ADMIN DELETE SPECIFIC WEEK
         function deleteCurrentWeek() {
             if (!isAdminMode) return;
             const confirmDel = confirm(`Are you sure you want to delete Week ${currentWeekNum} of "${currentMonth}"?`);
@@ -1502,7 +1513,6 @@
             alert(`Week ${nextWeekNum} added to "${currentMonth}"! Click "Apply & Save File" to commit.`);
         }
 
-        // EDIT EMPLOYEE MODAL FUNCTIONS
         function openEditEmployeeModal(sgId) {
             if (!isAdminMode) return;
             const weekData = getActiveWeekData();
@@ -1575,18 +1585,26 @@
             if(cat === 'weekly') document.getElementById('tabWeekly').classList.add('active');
             if(cat === 'individual') document.getElementById('tabIndividual').classList.add('active');
             if(cat === 'qm') document.getElementById('tabQM').classList.add('active');
+            if(cat === 'holidays') document.getElementById('tabHolidays').classList.add('active');
 
             if(cat === 'weekly') {
+                document.getElementById('periodNavigator').classList.remove('hidden');
                 document.getElementById('weekNavigator').classList.remove('hidden');
                 document.getElementById('chartSection').classList.remove('hidden');
                 document.getElementById('kpiContainer').classList.remove('hidden');
             } else if(cat === 'individual') {
+                document.getElementById('periodNavigator').classList.remove('hidden');
                 document.getElementById('weekNavigator').classList.add('hidden');
                 document.getElementById('chartSection').classList.add('hidden');
                 document.getElementById('kpiContainer').classList.add('hidden');
                 individualMonthFilter = currentMonth;
             } else if(cat === 'qm') {
+                document.getElementById('periodNavigator').classList.remove('hidden');
                 document.getElementById('weekNavigator').classList.remove('hidden');
+                document.getElementById('chartSection').classList.add('hidden');
+                document.getElementById('kpiContainer').classList.add('hidden');
+            } else if(cat === 'holidays') {
+                document.getElementById('periodNavigator').classList.add('hidden');
                 document.getElementById('chartSection').classList.add('hidden');
                 document.getElementById('kpiContainer').classList.add('hidden');
             }
@@ -1717,7 +1735,6 @@
             return fallback;
         }
 
-        // RECALCULATE HEADCOUNT - EXCLUDES LEAVES (PTO, PH, SL, HD SL)
         function recalculateHeadcount(weekData) {
             if (!weekData || !Array.isArray(weekData.employees)) return;
             const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
@@ -1752,6 +1769,7 @@
             if(activeCategory === 'weekly') renderWeeklyView();
             else if(activeCategory === 'individual') renderIndividualView();
             else if(activeCategory === 'qm') renderQMView();
+            else if(activeCategory === 'holidays') renderHolidaysView();
             
             if(activeCategory === 'weekly') updateCharts();
             lucide.createIcons();
@@ -1787,32 +1805,24 @@
             if (!shift || shift === 'WO') {
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-bold bg-slate-100 text-slate-700 border border-slate-300 shadow-sm">WO</span>`;
             } else if (shift === 'PTO') {
-                // RED for PTO
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-rose-600 text-white border border-rose-700 shadow-md">PTO</span>`;
             } else if (shift === 'PH') {
-                // PURPLE for Public Holiday
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-purple-100 text-purple-900 border border-purple-400 shadow-sm">PH</span>`;
             } else if (shift === 'SL' || shift === 'HD SL') {
-                // ROSE for Sick Leave (Light Rose to match PTO theme)
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-rose-100 text-rose-800 border border-rose-300 shadow-sm">${shift}</span>`;
             } else if (shift === '1st Half Off') {
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-orange-100 text-orange-950 border border-orange-400 shadow-sm" title="1st Half Off">1st Half Off</span>`;
             } else if (shift === '2nd Half Off') {
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-amber-200 text-amber-950 border border-amber-500 shadow-sm" title="2nd Half Off">2nd Half Off</span>`;
             } else if (shift.includes("10:00")) {
-                // AMBER for 10:00 AM Shift
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-amber-100 text-amber-950 border border-amber-400 shadow-sm" title="${shift}">10:00 AM</span>`;
             } else if (shift.includes("06:30") || shift.includes("6:30")) {
-                // GREEN for 06:30 AM Shift
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-emerald-200 text-emerald-950 border border-emerald-500 shadow-sm" title="${shift}">06:30 AM</span>`;
             } else if (shift.includes("06:00") || shift.includes("6:00")) {
-                // GREEN for 06:00 AM Shift
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-emerald-100 text-emerald-900 border border-emerald-400 shadow-sm" title="${shift}">06:00 AM</span>`;
             } else if (shift.includes("07:00") || shift.includes("7:00")) {
-                // TEAL for 07:00 AM Shift
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-teal-100 text-teal-900 border border-teal-400 shadow-sm" title="${shift}">07:00 AM</span>`;
             } else if (shift.includes("08:00") || shift.includes("8:00")) {
-                // SKY BLUE for 08:00 AM Shift
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-blue-100 text-blue-900 border border-blue-400 shadow-sm" title="${shift}">08:00 AM</span>`;
             } else {
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-indigo-100 text-indigo-900 border border-indigo-400 shadow-sm">${shift}</span>`;
@@ -2136,6 +2146,110 @@
             document.getElementById('mainDisplayArea').innerHTML = html;
         }
 
+        // SABRE 2026 GLOBAL HOLIDAY CALENDAR VIEW RENDERER
+        function renderHolidaysView() {
+            let filteredHolidays = SABRE_2026_HOLIDAYS.filter(h => {
+                const matchSearch = !searchQuery || 
+                    h.name.toLowerCase().includes(searchQuery) || 
+                    h.day.toLowerCase().includes(searchQuery) ||
+                    h.date.includes(searchQuery) ||
+                    h.offices.some(o => o.toLowerCase().includes(searchQuery));
+
+                const matchOffice = selectedHolidayOffice === 'ALL' || h.offices.includes(selectedHolidayOffice);
+
+                return matchSearch && matchOffice;
+            });
+
+            const officeBadgeColors = {
+                "US": "bg-blue-100 text-blue-800 border-blue-300",
+                "UK": "bg-cyan-100 text-cyan-800 border-cyan-300",
+                "BLR": "bg-emerald-100 text-emerald-800 border-emerald-300",
+                "KRK": "bg-purple-100 text-purple-800 border-purple-300",
+                "MVD": "bg-amber-100 text-amber-800 border-amber-300",
+                "SGP": "bg-rose-100 text-rose-800 border-rose-300"
+            };
+
+            const officeFilterBtns = [
+                { code: 'ALL', label: 'All Offices' },
+                { code: 'BLR', label: 'India (BLR)' },
+                { code: 'US', label: 'United States' },
+                { code: 'UK', label: 'United Kingdom' },
+                { code: 'KRK', label: 'Poland (KRK)' },
+                { code: 'SGP', label: 'Singapore' },
+                { code: 'MVD', label: 'Uruguay (MVD)' }
+            ];
+
+            let filterButtonsHTML = `<div class="flex flex-wrap gap-2 mb-4">`;
+            officeFilterBtns.forEach(btn => {
+                const activeClass = selectedHolidayOffice === btn.code 
+                    ? 'bg-indigo-600 text-white font-bold border-indigo-700 shadow-md' 
+                    : 'bg-slate-100 text-slate-700 font-semibold hover:bg-slate-200 border-slate-300';
+                filterButtonsHTML += `<button onclick="filterHolidayOffice('${btn.code}')" class="px-3 py-1.5 rounded-lg text-xs border transition-all btn-3d ${activeClass}">${btn.label}</button>`;
+            });
+            filterButtonsHTML += `</div>`;
+
+            let tableRowsHTML = '';
+            if (filteredHolidays.length === 0) {
+                tableRowsHTML = `<tr><td colspan="4" class="p-8 text-center text-slate-400 text-xs sm:text-sm">No holidays found matching selected filter or search term.</td></tr>`;
+            } else {
+                filteredHolidays.forEach(h => {
+                    const formattedDate = formatDateToDDMMYY(h.date);
+                    const badges = h.offices.map(o => {
+                        const style = officeBadgeColors[o] || "bg-slate-100 text-slate-800 border-slate-300";
+                        return `<span class="inline-block px-2 py-0.5 text-[10px] font-extrabold rounded border ${style}">${o}</span>`;
+                    }).join(" ");
+
+                    tableRowsHTML += `
+                        <tr class="hover:bg-slate-50 border-b border-slate-200 transition-colors">
+                            <td class="p-3 sm:p-4 text-xs font-mono-digital font-bold text-slate-900">${formattedDate}</td>
+                            <td class="p-3 sm:p-4 text-xs font-semibold text-slate-600">${h.day}</td>
+                            <td class="p-3 sm:p-4 text-xs sm:text-sm font-extrabold text-slate-950">${h.name}</td>
+                            <td class="p-3 sm:p-4"><div class="flex flex-wrap gap-1">${badges}</div></td>
+                        </tr>
+                    `;
+                });
+            }
+
+            document.getElementById('mainDisplayArea').innerHTML = `
+                <div class="bg-white p-4 sm:p-6 rounded-xl card-3d space-y-4 w-full">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-200 pb-3 gap-2">
+                        <div>
+                            <h3 class="font-extrabold text-slate-900 text-base sm:text-lg flex items-center gap-2">
+                                <i data-lucide="globe" class="text-indigo-600 w-5 h-5"></i> Sabre 2026 Global Holiday Calendar
+                            </h3>
+                            <p class="text-slate-500 text-xs mt-0.5">Official Sabre global observances across international office locations</p>
+                        </div>
+                        <span class="px-3 py-1 bg-indigo-50 border border-indigo-200 text-indigo-700 font-bold rounded-lg text-xs self-start md:self-auto">Total: ${filteredHolidays.length} Holidays</span>
+                    </div>
+
+                    ${filterButtonsHTML}
+
+                    <div class="bg-white rounded-xl table-3d overflow-hidden w-full">
+                        <div class="overflow-x-auto w-full">
+                            <table class="w-full border-collapse text-left">
+                                <thead>
+                                    <tr class="bg-slate-900 text-white text-[10px] sm:text-xs uppercase font-semibold border-b border-slate-950">
+                                        <th class="p-3 sm:p-4">Date</th>
+                                        <th class="p-3 sm:p-4">Day</th>
+                                        <th class="p-3 sm:p-4">Holiday Name</th>
+                                        <th class="p-3 sm:p-4">Applicable Offices</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${tableRowsHTML}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function filterHolidayOffice(code) {
+            selectedHolidayOffice = code;
+            renderHolidaysView();
+        }
+
         function updateQmStaffInteractive(qmKey, day, selectElem) {
             const newStaff = selectElem.value;
             const weekData = getActiveWeekData();
@@ -2213,7 +2327,6 @@
             }
         }
 
-        // UPDATED CHART FUNCTION: DAILY SHIFT DISTRIBUTION FULLY INTEGRATED
         function updateCharts() {
             const weekData = getActiveWeekData();
             const daysShort = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -2225,13 +2338,11 @@
             const hc8am = weekData.total_headcount_8am || [0,0,0,0,0,0,0];
             const hc10am = weekData.total_headcount_10am || [0,0,0,0,0,0,0];
 
-            // Calculate Daily Trend Bar Chart Labels
             const labelsWithTotalActiveWorking = daysShort.map((day, idx) => {
                 const totalWorkingExcludingLeave = (hc6am[idx] || 0) + (hc8am[idx] || 0) + (hc10am[idx] || 0);
                 return `${day} (${totalWorkingExcludingLeave})`;
             });
 
-            // Determine active day name (matches today or defaults to Wednesday)
             let activeDayName = "Wednesday";
             const todayIdx = weekData.dates ? weekData.dates.indexOf(TODAY_DATE_STR) : -1;
             if (todayIdx !== -1) {
@@ -2258,7 +2369,6 @@
                 else if (s === 'PTO' || s === 'PH' || s === 'SL' || s === 'HD SL' || s.includes('Half Off')) dailyLeave++;
             });
 
-            // Render Bar Chart (Daily Shift Coverage Trend)
             const ctx1 = document.getElementById('coverageChart').getContext('2d');
             if(coverageChartInstance) coverageChartInstance.destroy();
 
@@ -2296,17 +2406,17 @@
                         {
                             label: '06:00 / 06:30 / 07:00 AM Shift',
                             data: hc6am,
-                            backgroundColor: '#10b981' // Green
+                            backgroundColor: '#10b981'
                         },
                         {
                             label: '08:00 AM Shift',
                             data: hc8am,
-                            backgroundColor: '#3b82f6' // Sky Blue
+                            backgroundColor: '#3b82f6'
                         },
                         {
                             label: '10:00 AM Shift',
                             data: hc10am,
-                            backgroundColor: '#f59e0b' // Amber
+                            backgroundColor: '#f59e0b'
                         }
                     ]
                 },
@@ -2339,7 +2449,6 @@
                 }
             });
 
-            // Render Doughnut Chart (Daily Shift Distribution)
             const ctx2 = document.getElementById('distributionChart').getContext('2d');
             if(distChartInstance) distChartInstance.destroy();
 
@@ -2506,7 +2615,7 @@
             });
 
             if (newRosterData.length > 0) {
-                rawRosterData = filterYearData(newRosterData);
+                rawRosterData = newRosterData;
                 
                 const currentDetect = detectCurrentPeriod();
                 currentMonth = currentDetect.month;
