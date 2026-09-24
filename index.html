@@ -665,7 +665,7 @@
 
                 <!-- Forgot Password Trigger Link -->
                 <div class="text-center pt-2">
-                    <button type="button" onclick="openForgotPasswordModal()" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 hover:underline">
+                    <button type="button" onclick="openForgotPasswordModal()" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 hover:underline cursor-pointer">
                         Forgot Password?
                     </button>
                 </div>
@@ -1042,6 +1042,13 @@
             }
         });
 
+        // Background Polling Timer for Live Admin Notifications (Checks every 5 sec)
+        setInterval(() => {
+            if (isAdminMode) {
+                fetchLivePublicRoster();
+            }
+        }, 5000);
+
         // MANAGER EXCEPTION DATA
         const MANAGER_EXCEPTION = {
             sg_id: 223174,
@@ -1108,7 +1115,8 @@
             
             const modal = document.getElementById('adminPopUpModal');
             document.getElementById('popUpEmpName').innerText = reqObj.name;
-            document.getElementById('popUpEmpId').innerText = `Employee ID: ${reqObj.sg_id}`;             document.getElementById('popUpReqTime').innerText = `Requested: ${new Date(reqObj.requestedAt).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+            document.getElementById('popUpEmpId').innerText = `Employee ID: ${reqObj.sg_id}`;
+            document.getElementById('popUpReqTime').innerText = `Requested: ${new Date(reqObj.requestedAt).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
             
             const btn = document.getElementById('popUpActionBtn');
             btn.onclick = function() {
@@ -1359,7 +1367,7 @@
             grantPortalAccess();
         }
 
-        // Forgot Password Logic
+        // Forgot Password Logic with Fallback Relay
         function openForgotPasswordModal() {
             document.getElementById('forgotEmpIdInput').value = document.getElementById('empAuthId').value.trim();
             document.getElementById('forgotStatusMsg').classList.add('hidden');
