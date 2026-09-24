@@ -13,40 +13,15 @@
     <!-- SheetJS (xlsx) for Excel Importing -->
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;700;900&family=JetBrains+Mono:wght@500;700;800&display=swap');
         
         body { 
             font-family: 'Inter', sans-serif;
             position: relative;
             background-color: #cbd5e1;
         }
-
-        /* Slightly transparent & lighter blur backdrop when auth modal is active */
-        body.auth-locked > main,
-        body.auth-locked > header,
-        body.auth-locked > footer,
-        body.auth-locked > #worldClocksContainer,
-        body.auth-locked > #cloudContainer,
-        body.auth-locked > #freeFlightPlane {
-            filter: blur(6px) opacity(0.55);
-            pointer-events: none;
-            user-select: none;
-            transition: filter 0.3s ease, opacity 0.3s ease;
-        }
-
-        #empAuthModal {
-            z-index: 9999;
-        }
-
         .font-orbitron { font-family: 'Orbitron', sans-serif; }
         .font-mono-digital { font-family: 'JetBrains Mono', monospace; }
-
-        /* Crisp, High-Contrast Title Styling for Maximum Eye Comfort */
-        .title-high-visibility {
-            font-family: 'Orbitron', sans-serif;
-            color: #0f172a;
-            letter-spacing: 0.05em;
-        }
 
         .custom-scrollbar::-webkit-scrollbar { height: 6px; width: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
@@ -272,7 +247,7 @@
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col w-full overflow-x-hidden relative pb-16 auth-locked">
+<body class="min-h-screen flex flex-col w-full overflow-x-hidden relative pb-16">
 
     <!-- 3D American Airlines White Aircraft -->
     <div id="freeFlightPlane">
@@ -386,7 +361,7 @@
             
             <div class="flex items-center space-x-3">
                 <div class="relative hidden sm:block">
-                    <input type="text" id="searchInput" placeholder="Search employee name or SG ID..." 
+                    <input type="text" id="searchInput" placeholder="Search employee, skill, holiday..." 
                         class="bg-slate-800 text-xs sm:text-sm text-slate-200 placeholder-slate-400 rounded-lg pl-9 pr-4 py-1.5 focus:outline-none focus:ring-2 focus:ring-indigo-500 w-48 sm:w-64 lg:w-80 border border-slate-700 input-3d">
                     <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-2.5"></i>
                 </div>
@@ -409,32 +384,17 @@
                         <span class="hidden xs:inline">Import Excel</span>
                     </label>
                     <input type="file" id="excelFileInput" accept=".xlsx, .xls" class="hidden" onchange="importExcelData(event)">
-                </div>
 
-                <!-- User Profile Menu (Top Right) -->
-                <div id="userProfileHeaderMenu" class="relative hidden flex items-center">
-                    <button onclick="toggleUserDropdown()" class="flex items-center space-x-2 bg-slate-800 hover:bg-slate-700 text-white px-3 py-1.5 rounded-lg border border-slate-700 text-xs sm:text-sm font-bold btn-3d transition-all">
-                        <div class="w-6 h-6 rounded-full bg-indigo-600 text-white flex items-center justify-center font-extrabold text-[10px]" id="userAvatarInitials">LP</div>
-                        <span id="loggedInUserName">Lelin Patra</span>
-                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400"></i>
+                    <button onclick="logoutAdmin()" class="flex items-center space-x-1.5 bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors" title="Logout from Admin Mode">
+                        <i data-lucide="log-out" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+                        <span class="hidden xs:inline">Logout</span>
                     </button>
-
-                    <!-- Dropdown Menu -->
-                    <div id="userDropdownMenu" class="absolute right-0 top-11 w-48 bg-white rounded-xl shadow-2xl border border-slate-200 py-1.5 hidden z-50 text-slate-800 text-xs font-semibold">
-                        <button id="adminModeToggleBtn" onclick="toggleAdminModeState()" class="w-full text-left px-4 py-2 hover:bg-indigo-50 text-indigo-700 font-bold flex items-center gap-2 border-b border-slate-100">
-                            <i data-lucide="shield" class="w-4 h-4 text-indigo-600"></i> <span id="adminToggleLabel">Switch to Admin</span>
-                        </button>
-                        <button onclick="logoutEmployee()" class="w-full text-left px-4 py-2 hover:bg-rose-50 text-rose-600 font-bold flex items-center gap-2">
-                            <i data-lucide="log-out" class="w-4 h-4 text-rose-600"></i> Sign Out
-                        </button>
-                    </div>
                 </div>
-
             </div>
         </div>
         <div class="p-2 sm:hidden bg-slate-950 border-t border-slate-800">
             <div class="relative w-full">
-                <input type="text" id="searchInputMobile" placeholder="Search employee name or SG ID..." 
+                <input type="text" id="searchInputMobile" placeholder="Search employee, skill, holiday..." 
                     class="bg-slate-800 text-xs text-slate-200 placeholder-slate-400 rounded-lg pl-8 pr-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-indigo-500 w-full border border-slate-700 input-3d"
                     oninput="document.getElementById('searchInput').value = this.value; searchQuery = this.value.toLowerCase(); renderView();">
                 <i data-lucide="search" class="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2"></i>
@@ -443,18 +403,6 @@
     </header>
 
     <main class="flex-grow w-full px-3 sm:px-6 lg:px-12 py-4 sm:py-6 space-y-4 sm:space-y-6 relative z-10">
-
-        <!-- Admin Pending Password Resets Pop-up Banner -->
-        <div id="adminResetRequestsBanner" class="hidden bg-amber-500/10 border-2 border-amber-500 text-slate-900 rounded-xl p-4 shadow-lg backdrop-blur-md space-y-3">
-            <div class="flex items-center justify-between border-b border-amber-500/30 pb-2">
-                <div class="flex items-center space-x-2 text-amber-700">
-                    <i data-lucide="bell" class="w-5 h-5 animate-bounce"></i>
-                    <h3 class="font-extrabold text-sm sm:text-base">Pending Password Reset Requests</h3>
-                </div>
-                <span id="resetReqCountBadge" class="bg-amber-600 text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full">0 Pending</span>
-            </div>
-            <div id="resetRequestsList" class="space-y-2 max-h-48 overflow-y-auto pr-1"></div>
-        </div>
 
         <div id="worldClocksContainer" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2.5 sm:gap-4 w-full">
             <div class="clock-futuristic-3d p-2.5 sm:p-3.5 rounded-xl flex flex-col justify-between h-20 sm:h-24">
@@ -549,6 +497,7 @@
                 <button onclick="switchCategory('qm', event)" id="tabQM" class="tab-btn tab-3d text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg flex items-center gap-1.5 sm:gap-2 transition-all">
                     <i data-lucide="shield-check" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i> QM Staff Allocation
                 </button>
+                <!-- Sabre 2026 Global Holiday Calendar Tab -->
                 <button onclick="switchCategory('holidays', event)" id="tabHolidays" class="tab-btn tab-3d text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg flex items-center gap-1.5 sm:gap-2 transition-all">
                     <i data-lucide="globe" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i> Sabre 2026 Global Holiday Calendar
                 </button>
@@ -607,115 +556,6 @@
         </div>
 
     </main>
-
-    <!-- Employee Access, Password Reset & Forgot Password Modal -->
-    <div id="empAuthModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-lg flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl card-3d w-full max-w-md shadow-2xl relative border border-slate-200 overflow-hidden">
-            
-            <!-- Sabre Banner Top (Dark Header with Sabre Logo) -->
-            <div class="bg-slate-950 py-2.5 px-6 text-center border-b-2 border-indigo-600">
-                <img src="SABRE-LOGO-REGISTERED-SCREEN-WHITE-WIP.svg" alt="Sabre" class="h-8 w-auto mx-auto object-contain" />
-            </div>
-
-            <div class="p-6 sm:p-8 pt-3 space-y-3.5">
-                <div class="text-center space-y-1">
-                    <h2 id="authTitle" class="text-xl sm:text-2xl font-extrabold title-high-visibility drop-shadow-[0_1px_2px_rgba(0,0,0,0.15)] uppercase">ATS BLR ROSTER PORTAL</h2>
-                    <p id="authSubtitle" class="text-xs text-slate-600 font-semibold leading-relaxed">Enter your Employee ID and password to unlock a fresh, dynamic view of your roster.</p>
-                </div>
-
-                <!-- Login Form Section -->
-                <div id="loginFormSection" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 mb-1">Employee ID</label>
-                        <div class="relative flex items-center">
-                            <input type="text" id="loginEmpId" placeholder="123456" class="w-full bg-slate-50 border border-slate-300 rounded-lg pl-10 pr-3 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 input-3d">
-                            <span class="absolute left-3 text-slate-400 flex items-center justify-center pointer-events-none">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                            </span>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 mb-1">Password</label>
-                        <div class="relative flex items-center">
-                            <input type="password" id="loginPassword" placeholder="••••••••" class="w-full bg-slate-50 border border-slate-300 rounded-lg pl-10 pr-10 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 input-3d">
-                            <span class="absolute left-3 text-slate-400 flex items-center justify-center pointer-events-none">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3"/></svg>
-                            </span>
-                            <!-- Password Toggle Eye Button -->
-                            <button type="button" onclick="togglePasswordVisibility('loginPassword', 'eyeIconLogin')" class="absolute right-3 text-slate-400 hover:text-slate-600 focus:outline-none p-1 flex items-center justify-center">
-                                <svg id="eyeIconLogin" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
-                            </button>
-                        </div>
-                    </div>
-                    <div id="authError" class="hidden text-rose-600 text-xs font-bold text-center bg-rose-50 p-2 rounded border border-rose-200"></div>
-                    <button onclick="handleEmployeeLogin()" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-lg text-sm btn-3d shadow-lg transition-all">Sign In</button>
-                    <div class="text-center pt-1">
-                        <button onclick="showForgotPasswordForm()" class="text-xs text-indigo-600 hover:text-indigo-800 font-bold hover:underline transition-colors">Forgot password?</button>
-                    </div>
-                </div>
-
-                <!-- Forgot Password View -->
-                <div id="forgotPasswordSection" class="space-y-4 hidden">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 mb-1">Employee ID</label>
-                        <div class="relative flex items-center">
-                            <input type="text" id="forgotEmpId" placeholder="123456" class="w-full bg-slate-50 border border-slate-300 rounded-lg pl-10 pr-3 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 input-3d">
-                            <span class="absolute left-3 text-slate-400 flex items-center justify-center pointer-events-none">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                            </span>
-                        </div>
-                    </div>
-                    <div id="forgotPassMessage" class="hidden text-emerald-700 text-xs font-bold text-center bg-emerald-50 p-2.5 rounded border border-emerald-200"></div>
-                    <button onclick="handleResetPasswordRequest()" class="w-full py-2.5 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-lg text-sm btn-3d shadow-lg transition-all">Reset Password</button>
-                    <div class="text-center pt-1">
-                        <button onclick="showLoginForm()" class="text-xs text-slate-500 hover:text-slate-800 font-bold hover:underline transition-colors">← Back to Sign In</button>
-                    </div>
-                </div>
-
-                <!-- Change Password View -->
-                <div id="changePasswordSection" class="space-y-4 hidden">
-                    <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 text-xs space-y-1">
-                        <p class="font-bold text-amber-900 flex items-center gap-1">
-                            <i data-lucide="info" class="w-3.5 h-3.5"></i> Password Security Requirements:
-                        </p>
-                        <ul class="list-disc list-inside text-amber-800 space-y-0.5 text-[11px] font-medium">
-                            <li>Exactly 8 characters long</li>
-                            <li>Letters and numbers only (Alphanumeric)</li>
-                            <li>Case sensitive</li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 mb-1">New Password</label>
-                        <div class="relative flex items-center">
-                            <input type="password" id="newPasswordInput" maxlength="8" placeholder="Enter 8-char password" class="w-full bg-slate-50 border border-slate-300 rounded-lg pl-10 pr-10 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 input-3d">
-                            <span class="absolute left-3 text-slate-400 flex items-center justify-center pointer-events-none">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3"/></svg>
-                            </span>
-                            <button type="button" onclick="togglePasswordVisibility('newPasswordInput', 'eyeIconNew')" class="absolute right-3 text-slate-400 hover:text-slate-600 focus:outline-none p-1 flex items-center justify-center">
-                                <svg id="eyeIconNew" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
-                            </button>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 mb-1">Confirm Password</label>
-                        <div class="relative flex items-center">
-                            <input type="password" id="confirmPasswordInput" maxlength="8" placeholder="Confirm password" class="w-full bg-slate-50 border border-slate-300 rounded-lg pl-10 pr-10 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 input-3d">
-                            <span class="absolute left-3 text-slate-400 flex items-center justify-center pointer-events-none">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3"/></svg>
-                            </span>
-                            <button type="button" onclick="togglePasswordVisibility('confirmPasswordInput', 'eyeIconConfirm')" class="absolute right-3 text-slate-400 hover:text-slate-600 focus:outline-none p-1 flex items-center justify-center">
-                                <svg id="eyeIconConfirm" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
-                            </button>
-                        </div>
-                    </div>
-                    <div id="changePassError" class="hidden text-rose-600 text-xs font-bold text-center bg-rose-50 p-2 rounded border border-rose-200"></div>
-                    <button onclick="handlePasswordChangeSubmit()" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg text-sm btn-3d shadow-lg transition-all">Save New Password & Access</button>
-                </div>
-            </div>
-
-        </div>
-    </div>
 
     <!-- Admin Bottom Actions Bar -->
     <div id="adminActionDock" class="fixed bottom-0 inset-x-0 bg-slate-900/95 backdrop-blur-md text-white border-t border-slate-700 py-3 px-4 sm:px-12 z-50 flex items-center justify-between hidden shadow-2xl">
@@ -867,7 +707,7 @@
                 <div class="grid grid-cols-2 gap-2">
                     <div>
                         <label class="block text-[11px] font-bold text-slate-700 mb-1">Employee ID</label>
-                        <input type="text" id="adminEmpId" placeholder="123456" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs font-semibold focus:ring-2 focus:ring-indigo-500 input-3d">
+                        <input type="text" id="adminEmpId" placeholder="SG0316092" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs font-semibold focus:ring-2 focus:ring-indigo-500 input-3d">
                     </div>
                     <div>
                         <label class="block text-[11px] font-bold text-slate-700 mb-1">Password</label>
@@ -945,559 +785,6 @@
     </footer>
 
     <script>
-        // CRITICAL DECLARATIONS PLACED AT TOP TO AVOID EXECUTION ERRORS
-        const TEMP_PASSWORD = "3E4R5T6Y";
-        const PASSWORD_EXPIRY_DAYS = 90;
-        const ADMIN_EMP_ID = "316092"; // Lelin Patra is Admin User
-
-        const SPECIAL_MANAGER_ACCOUNTS = {
-            "223174": "Rajesh Warvadkar"
-        };
-
-        const HARDCODED_EMPLOYEE_IDS = [
-            "316092", "223254", "223258", "709139", "223255", 
-            "227186", "709454", "709282", "709424", "709283", 
-            "709115", "709312", "223174"
-        ];
-
-        const JSONBIN_URL = "https://api.jsonbin.io/v3/b/66f272a5acd3cb34a88b502d"; 
-        const JSONBIN_KEY = "$2a$10$UaF1.qQeZ2cWnKq.SgI7x.6.H2pE64V8P0eA3T8Z1Y7M6K1Y8S9m"; 
-
-        let employeeUserStore = {};
-        let activeAuthenticatingEmpId = null;
-
-        function togglePasswordVisibility(inputId, eyeIconId) {
-            const input = document.getElementById(inputId);
-            const iconSvg = document.getElementById(eyeIconId);
-            if (!input || !iconSvg) return;
-
-            if (input.type === "password") {
-                input.type = "text";
-                iconSvg.innerHTML = `<path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.52 13.52 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/>`;
-            } else {
-                input.type = "password";
-                iconSvg.innerHTML = `<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>`;
-            }
-        }
-
-        function sanitizeEmpId(id) {
-            if (!id) return '';
-            return id.toString().trim().toUpperCase().replace(/^SG0*/, '').replace(/^0+/, '');
-        }
-
-        function validatePasswordCriteria(pwd) {
-            const regex = /^[a-zA-Z0-9]{8}$/;
-            return regex.test(pwd);
-        }
-
-        function generateRandom8CharTempPassword() {
-            const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-            let result = "";
-            for (let i = 0; i < 8; i++) {
-                result += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            return result;
-        }
-
-        async function loadCloudUserStore() {
-            try {
-                const response = await fetch('./emp_users.json?v=' + new Date().getTime());
-                if (response.ok) {
-                    employeeUserStore = await response.json();
-                    return;
-                }
-            } catch (e) {}
-
-            try {
-                const response = await fetch(JSONBIN_URL, {
-                    headers: { 'X-Master-Key': JSONBIN_KEY }
-                });
-                if (response.ok) {
-                    const data = await response.json();
-                    if (data && data.record) {
-                        employeeUserStore = data.record;
-                        return;
-                    }
-                }
-            } catch (e) {}
-
-            const localData = localStorage.getItem('emp_users_data');
-            if (localData) {
-                employeeUserStore = JSON.parse(localData);
-            }
-        }
-
-        async function saveCloudUserStore() {
-            localStorage.setItem('emp_users_data', JSON.stringify(employeeUserStore));
-
-            try {
-                await fetch(JSONBIN_URL, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-Master-Key': JSONBIN_KEY
-                    },
-                    body: JSON.stringify(employeeUserStore)
-                });
-            } catch(e) {
-                console.warn("JsonBin Cloud save fallback failed:", e);
-            }
-
-            if (githubConfig.token && githubConfig.owner && githubConfig.repo) {
-                try {
-                    const url = `https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}/contents/emp_users.json`;
-                    const getRes = await fetch(url, { headers: { 'Authorization': `token ${githubConfig.token}` } });
-                    let sha = getRes.ok ? (await getRes.json()).sha : undefined;
-
-                    const jsonContent = JSON.stringify(employeeUserStore, null, 2);
-                    const encodedContent = btoa(unescape(encodeURIComponent(jsonContent)));
-
-                    await fetch(url, {
-                        method: 'PUT',
-                        headers: {
-                            'Authorization': `token ${githubConfig.token}`,
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            message: "Update Employee Cloud Passwords & Resets",
-                            content: encodedContent,
-                            sha: sha
-                        })
-                    });
-                } catch (err) {
-                    console.error("GitHub Auth File Commit Error:", err);
-                }
-            }
-        }
-
-        async function checkPortalAuthentication() {
-            document.body.classList.add('auth-locked');
-            await loadCloudUserStore();
-
-            const savedEmpId = localStorage.getItem('logged_emp_id');
-            const savedTokenTime = localStorage.getItem('logged_emp_time');
-
-            if (savedEmpId && savedTokenTime) {
-                const userData = employeeUserStore[savedEmpId];
-                if (userData && userData.passwordUpdatedDate) {
-                    const lastUpdate = new Date(userData.passwordUpdatedDate);
-                    const now = new Date();
-                    const diffDays = Math.floor((now - lastUpdate) / (1000 * 60 * 60 * 24));
-
-                    if (diffDays < PASSWORD_EXPIRY_DAYS) {
-                        unlockPortalPage(savedEmpId);
-                        return;
-                    }
-                }
-            }
-
-            document.getElementById('empAuthModal').classList.remove('hidden');
-            lucide.createIcons();
-        }
-
-        function unlockPortalPage(empId) {
-            document.body.classList.remove('auth-locked');
-            document.getElementById('empAuthModal').classList.add('hidden');
-
-            const targetId = empId || localStorage.getItem('logged_emp_id');
-            updateTopRightUserHeader(targetId);
-        }
-
-        function updateTopRightUserHeader(empId) {
-            const headerMenu = document.getElementById('userProfileHeaderMenu');
-            const nameEl = document.getElementById('loggedInUserName');
-            const avatarEl = document.getElementById('userAvatarInitials');
-            const adminToggleBtn = document.getElementById('adminModeToggleBtn');
-            const adminToggleLabel = document.getElementById('adminToggleLabel');
-
-            const cleanId = sanitizeEmpId(empId);
-            let empName = "";
-
-            if (SPECIAL_MANAGER_ACCOUNTS[cleanId]) {
-                empName = SPECIAL_MANAGER_ACCOUNTS[cleanId];
-            } else if (targetEmpIdExistsInRoster(cleanId)) {
-                try {
-                    const activeWeek = getActiveWeekData();
-                    const empObj = activeWeek.employees.find(e => sanitizeEmpId(e.sg_id) === cleanId);
-                    empName = empObj ? empObj.name : "Employee User";
-                } catch(e) {
-                    empName = "Employee User";
-                }
-            } else {
-                empName = "Employee User";
-            }
-
-            if (nameEl) nameEl.innerText = empName;
-            if (avatarEl) {
-                const parts = empName.split(' ');
-                avatarEl.innerText = parts.length > 1 ? parts[0][0] + parts[parts.length - 1][0] : empName.substring(0, 2).toUpperCase();
-            }
-
-            if (cleanId === ADMIN_EMP_ID) {
-                if (adminToggleBtn) adminToggleBtn.classList.remove('hidden');
-                if (adminToggleLabel) {
-                    adminToggleLabel.innerText = isAdminMode ? "Switch to Normal Mode" : "Switch to Admin";
-                }
-            } else {
-                if (adminToggleBtn) adminToggleBtn.classList.add('hidden');
-            }
-
-            if (headerMenu) headerMenu.classList.remove('hidden');
-            lucide.createIcons();
-        }
-
-        function toggleAdminModeState() {
-            toggleUserDropdown();
-
-            if (isAdminMode) {
-                isAdminMode = false;
-                pendingChangesExist = false;
-
-                if (backupRosterData) {
-                    rawRosterData = JSON.parse(JSON.stringify(backupRosterData));
-                }
-
-                document.getElementById('adminImportContainer').classList.add('hidden');
-                document.getElementById('adminBadge').classList.add('hidden');
-                document.getElementById('adminActionDock').classList.add('hidden');
-
-                const savedEmpId = localStorage.getItem('logged_emp_id');
-                updateTopRightUserHeader(savedEmpId);
-                renderView();
-                alert("Switched back to Normal View Mode.");
-            } else {
-                triggerAdminModalFromMenu();
-            }
-        }
-
-        function targetEmpIdExistsInRoster(empId) {
-            if (!empId) return false;
-            const cleanId = sanitizeEmpId(empId);
-            if (SPECIAL_MANAGER_ACCOUNTS[cleanId]) return true;
-            if (HARDCODED_EMPLOYEE_IDS.includes(cleanId)) return true;
-
-            if (rawRosterData && rawRosterData.length > 0) {
-                try {
-                    const activeWeek = getActiveWeekData();
-                    if (activeWeek && Array.isArray(activeWeek.employees)) {
-                        return activeWeek.employees.some(e => sanitizeEmpId(e.sg_id) === cleanId);
-                    }
-                } catch(e) {}
-            }
-            return false;
-        }
-
-        function toggleUserDropdown() {
-            const dropdown = document.getElementById('userDropdownMenu');
-            if (dropdown) dropdown.classList.toggle('hidden');
-        }
-
-        function triggerAdminModalFromMenu() {
-            document.getElementById('adminEmpId').value = ADMIN_EMP_ID;
-            document.getElementById('adminLoginModal').classList.remove('hidden');
-            lucide.createIcons();
-        }
-
-        function logoutEmployee() {
-            localStorage.removeItem('logged_emp_id');
-            localStorage.removeItem('logged_emp_time');
-            location.reload();
-        }
-
-        function handleEmployeeLogin() {
-            const rawId = document.getElementById('loginEmpId').value;
-            const inputId = sanitizeEmpId(rawId);
-            const inputPwd = document.getElementById('loginPassword').value.trim();
-            const errEl = document.getElementById('authError');
-
-            if (errEl) errEl.classList.add('hidden');
-
-            if (!inputId || !inputPwd) {
-                if (errEl) {
-                    errEl.innerText = "Please enter both Employee ID and Password.";
-                    errEl.classList.remove('hidden');
-                }
-                return;
-            }
-
-            const isSpecialManager = Boolean(SPECIAL_MANAGER_ACCOUNTS[inputId]);
-            let isRosterEmp = HARDCODED_EMPLOYEE_IDS.includes(inputId);
-
-            if (!isRosterEmp && rawRosterData && rawRosterData.length > 0) {
-                try {
-                    const activeWeek = getActiveWeekData();
-                    if (activeWeek && Array.isArray(activeWeek.employees)) {
-                        isRosterEmp = activeWeek.employees.some(e => sanitizeEmpId(e.sg_id) === inputId);
-                    }
-                } catch(e) {}
-            }
-
-            if (!isRosterEmp && !isSpecialManager) {
-                if (errEl) {
-                    errEl.innerText = "Invalid Employee ID. Access denied.";
-                    errEl.classList.remove('hidden');
-                }
-                return;
-            }
-
-            activeAuthenticatingEmpId = inputId;
-            const userRecord = employeeUserStore[inputId];
-
-            // 1. Temporary Password Login
-            if (inputPwd === TEMP_PASSWORD) {
-                showPasswordChangeForm();
-                return;
-            }
-
-            // 2. Updated Cloud Password Login
-            if (userRecord && userRecord.password === inputPwd) {
-                const lastUpdate = new Date(userRecord.passwordUpdatedDate);
-                const now = new Date();
-                const diffDays = Math.floor((now - lastUpdate) / (1000 * 60 * 60 * 24));
-
-                if (diffDays >= PASSWORD_EXPIRY_DAYS) {
-                    if (errEl) {
-                        errEl.innerText = "Your password has expired (90 days limit). Please reset using temporary password or enter new password.";
-                        errEl.classList.remove('hidden');
-                    }
-                    showPasswordChangeForm();
-                    return;
-                }
-
-                localStorage.setItem('logged_emp_id', inputId);
-                localStorage.setItem('logged_emp_time', new Date().toISOString());
-                unlockPortalPage(inputId);
-                return;
-            }
-
-            if (errEl) {
-                errEl.innerText = "Invalid Password. Please try again.";
-                errEl.classList.remove('hidden');
-            }
-        }
-
-        function showForgotPasswordForm() {
-            document.getElementById('authSubtitle').innerText = "Enter your Employee ID to request a password reset";
-            document.getElementById('loginFormSection').classList.add('hidden');
-            document.getElementById('changePasswordSection').classList.add('hidden');
-            document.getElementById('forgotPasswordSection').classList.remove('hidden');
-            document.getElementById('forgotPassMessage').classList.add('hidden');
-            lucide.createIcons();
-        }
-
-        function showLoginForm() {
-            document.getElementById('authSubtitle').innerText = "Enter your Employee ID and password to unlock a fresh, dynamic view of your roster.";
-            document.getElementById('forgotPasswordSection').classList.add('hidden');
-            document.getElementById('changePasswordSection').classList.add('hidden');
-            document.getElementById('loginFormSection').classList.remove('hidden');
-            lucide.createIcons();
-        }
-
-        async function handleResetPasswordRequest() {
-            const rawId = document.getElementById('forgotEmpId').value;
-            const inputId = sanitizeEmpId(rawId);
-            const msgEl = document.getElementById('forgotPassMessage');
-
-            if (!inputId) {
-                alert("Please enter your Employee ID.");
-                return;
-            }
-
-            let empName = SPECIAL_MANAGER_ACCOUNTS[inputId];
-
-            if (!empName && rawRosterData && rawRosterData.length > 0) {
-                try {
-                    const activeWeek = getActiveWeekData();
-                    if (activeWeek && Array.isArray(activeWeek.employees)) {
-                        const empObj = activeWeek.employees.find(e => sanitizeEmpId(e.sg_id) === inputId);
-                        if (empObj) empName = empObj.name;
-                    }
-                } catch(e) {}
-            }
-
-            if (!empName) {
-                const hardcodedNames = {
-                    "316092": "Lelin Patra",
-                    "223254": "Srinivas Reddy",
-                    "223258": "Md. Shahbaz",
-                    "709139": "Rupesh C P",
-                    "223255": "Deepak K",
-                    "227186": "Sanjay Kumar",
-                    "709454": "Prathvi Shetty",
-                    "709282": "Preethi P",
-                    "709424": "Bhargav R",
-                    "709283": "Nidhi Taku",
-                    "709115": "Gokul Krishna Lokesh",
-                    "709312": "Manisha Kumari",
-                    "223174": "Rajesh Warvadkar"
-                };
-                empName = hardcodedNames[inputId];
-            }
-
-            if (!empName) {
-                alert("Employee ID not found in system.");
-                return;
-            }
-
-            if (!employeeUserStore.__resetRequests) {
-                employeeUserStore.__resetRequests = {};
-            }
-
-            employeeUserStore.__resetRequests[inputId] = {
-                sg_id: inputId,
-                name: empName,
-                requestedAt: new Date().toLocaleString()
-            };
-
-            await saveCloudUserStore();
-
-            msgEl.innerText = "Password reset sent to admin user.";
-            msgEl.classList.remove('hidden');
-        }
-
-        function showPasswordChangeForm() {
-            document.getElementById('authSubtitle').innerText = "Temporary password or expiry detected. Set a new password.";
-            document.getElementById('loginFormSection').classList.add('hidden');
-            document.getElementById('forgotPasswordSection').classList.add('hidden');
-            document.getElementById('changePasswordSection').classList.remove('hidden');
-            lucide.createIcons();
-        }
-
-        async function handlePasswordChangeSubmit() {
-            const newPwd = document.getElementById('newPasswordInput').value.trim();
-            const confirmPwd = document.getElementById('confirmPasswordInput').value.trim();
-            const errEl = document.getElementById('changePassError');
-
-            if (errEl) errEl.classList.add('hidden');
-
-            if (!newPwd || !confirmPwd) {
-                if (errEl) {
-                    errEl.innerText = "Please enter and confirm your new password.";
-                    errEl.classList.remove('hidden');
-                }
-                return;
-            }
-
-            if (newPwd !== confirmPwd) {
-                if (errEl) {
-                    errEl.innerText = "New password and Confirm password do not match.";
-                    errEl.classList.remove('hidden');
-                }
-                return;
-            }
-
-            if (!validatePasswordCriteria(newPwd)) {
-                if (errEl) {
-                    errEl.innerText = "Password criteria failed: Exactly 8 characters with letters and numbers only.";
-                    errEl.classList.remove('hidden');
-                }
-                return;
-            }
-
-            employeeUserStore[activeAuthenticatingEmpId] = {
-                password: newPwd,
-                passwordUpdatedDate: new Date().toISOString()
-            };
-
-            await saveCloudUserStore();
-
-            localStorage.setItem('logged_emp_id', activeAuthenticatingEmpId);
-            localStorage.setItem('logged_emp_time', new Date().toISOString());
-
-            alert("Password changed and saved to cloud server! Valid for 90 days across all devices.");
-            unlockPortalPage(activeAuthenticatingEmpId);
-        }
-
-        function authenticateAdmin() {
-            const rawEmpId = document.getElementById('adminEmpId').value;
-            const empIdInput = sanitizeEmpId(rawEmpId);
-            const passwordInput = document.getElementById('adminPassword').value.trim();
-            const errorEl = document.getElementById('loginError');
-
-            if (empIdInput === ADMIN_EMP_ID && passwordInput === 'Callofduty@2026') {
-                githubConfig.token = document.getElementById('ghToken').value.trim();
-                githubConfig.owner = document.getElementById('ghOwner').value.trim();
-                githubConfig.repo = document.getElementById('ghRepo').value.trim();
-                githubConfig.path = document.getElementById('ghPath').value.trim() || 'roster.json';
-
-                isAdminMode = true;
-                document.getElementById('adminLoginModal').classList.add('hidden');
-                
-                backupRosterData = JSON.parse(JSON.stringify(rawRosterData));
-
-                const adminBtn = document.getElementById('adminImportContainer');
-                const adminBadge = document.getElementById('adminBadge');
-                if (adminBtn) adminBtn.classList.remove('hidden');
-                if (adminBadge) adminBadge.classList.remove('hidden');
-
-                const savedEmpId = localStorage.getItem('logged_emp_id');
-                updateTopRightUserHeader(savedEmpId);
-
-                renderView();
-                checkAndRenderAdminResetRequests();
-            } else {
-                if (errorEl) errorEl.classList.remove('hidden');
-            }
-        }
-
-        function checkAndRenderAdminResetRequests() {
-            const banner = document.getElementById('adminResetRequestsBanner');
-            const listEl = document.getElementById('resetRequestsList');
-            const badge = document.getElementById('resetReqCountBadge');
-
-            if (!isAdminMode) {
-                if (banner) banner.classList.add('hidden');
-                return;
-            }
-
-            const requests = employeeUserStore.__resetRequests || {};
-            const reqKeys = Object.keys(requests);
-
-            if (reqKeys.length === 0) {
-                if (banner) banner.classList.add('hidden');
-                return;
-            }
-
-            if (badge) badge.innerText = `${reqKeys.length} Pending`;
-            listEl.innerHTML = '';
-
-            reqKeys.forEach(empId => {
-                const req = requests[empId];
-                listEl.innerHTML += `
-                    <div class="flex items-center justify-between bg-white/90 border border-amber-300 rounded-lg p-3 shadow-sm">
-                        <div>
-                            <p class="font-extrabold text-xs text-slate-900">${req.name} <span class="text-indigo-600 font-bold ml-1">(ID: ${req.sg_id})</span></p>
-                            <p class="text-[10px] text-slate-500">Requested at: ${req.requestedAt}</p>
-                        </div>
-                        <button onclick="executeAdminPasswordReset('${req.sg_id}', '${req.name}')" class="px-3 py-1.5 bg-amber-600 hover:bg-amber-500 text-white rounded-md text-xs font-bold btn-3d shadow transition-all">
-                            Reset Password
-                        </button>
-                    </div>
-                `;
-            });
-
-            if (banner) banner.classList.remove('hidden');
-            lucide.createIcons();
-        }
-
-        async function executeAdminPasswordReset(empId, empName) {
-            const tempPwd = generateRandom8CharTempPassword();
-
-            employeeUserStore[empId] = {
-                password: tempPwd,
-                passwordUpdatedDate: new Date().toISOString()
-            };
-
-            if (employeeUserStore.__resetRequests && employeeUserStore.__resetRequests[empId]) {
-                delete employeeUserStore.__resetRequests[empId];
-            }
-
-            await saveCloudUserStore();
-
-            alert(`Temporary password generated for ${empName} (ID: ${empId}):\n\nPassword: ${tempPwd}\n\nPlease inform the employee to log in using this 8-character temporary password.`);
-            checkAndRenderAdminResetRequests();
-        }
-
         // OFFICIAL COMPLETE SABRE 2026 GLOBAL HOLIDAY DATA
         const SABRE_2026_HOLIDAYS = [
             { date: "2026-01-01", day: "Thursday", name: "New Year's Day", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
@@ -1655,24 +942,143 @@
                 "total_headcount_6am": [5, 5, 6, 5, 5, 1, 1],
                 "total_headcount_8am": [2, 2, 2, 2, 2, 0, 0],
                 "total_headcount_10am": [2, 1, 4, 3, 2, 1, 1]
+            },
+            {
+                "month": "September",
+                "week_num": 2,
+                "dates": ["14/09/26", "15/09/26", "16/09/26", "17/09/26", "18/09/26", "19/09/26", "20/09/26"],
+                "employees": [
+                    {"sg_id": 316092, "name": "Lelin Patra", "skilling": "ATS 2L", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Tue/Wed/Thu/Fri", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 223254, "name": "Srinivas Reddy", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Tue/Wed/Thu", "shifts": {"Monday": "WO", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "10:00 AM - 07:00 PM", "Sunday": "WO"}},
+                    {"sg_id": 223258, "name": "Md. Shahbaz", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Tue/Wed", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "WO", "Friday": "WO", "Saturday": "06:00 AM - 03:00 PM", "Sunday": "06:30 AM - 03:30 PM"}},
+                    {"sg_id": 709139, "name": "Rupesh C P", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Tue/Wed/Thu/Fri", "shifts": {"Monday": "PH", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 223255, "name": "Deepak K", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Tue/Wed/Thu/Fri", "shifts": {"Monday": "PH", "Tuesday": "8:00 AM - 05:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "8:00 AM - 05:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 227186, "name": "Sanjay Kumar", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Tue/Wed/Thu", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "WO", "Saturday": "WO", "Sunday": "10:00 AM - 07:00 PM"}},
+                    {"sg_id": 709454, "name": "Prathvi Shetty", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Tue/Wed/Thu/Fri", "shifts": {"Monday": "PH", "Tuesday": "PTO", "Wednesday": "PTO", "Thursday": "PTO", "Friday": "PTO", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709282, "name": "Preethi P", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Tue/Wed/Thu/Fri", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709424, "name": "Bhargav R", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Tue/Wed/Thu/Fri", "shifts": {"Monday": "PH", "Tuesday": "08:00 AM - 05:00 PM", "Wednesday": "08:00 AM - 05:00 PM", "Thursday": "08:00 AM - 05:00 PM", "Friday": "08:00 AM - 05:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709283, "name": "Nidhi Taku", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Tue/Wed/Thu/Fri", "shifts": {"Monday": "8:00 AM - 05:00 PM", "Tuesday": "6:00 AM - 03:00 PM", "Wednesday": "6:00 AM - 03:00 PM", "Thursday": "6:00 AM - 03:00 PM", "Friday": "6:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709115, "name": "Gokul Krishna Lokesh", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Tue/Wed/Thu/Fri", "shifts": {"Monday": "6:00 AM - 03:00 PM", "Tuesday": "6:00 AM - 03:00 PM", "Wednesday": "6:00 AM - 03:00 PM", "Thursday": "6:00 AM - 03:00 PM", "Friday": "6:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709312, "name": "Manisha Kumari", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Tue/Wed/Thu/Fri", "shifts": {"Monday": "6:00 AM - 03:00 PM", "Tuesday": "08:00 AM - 05:00 PM", "Wednesday": "08:00 AM - 05:00 PM", "Thursday": "PTO", "Friday": "08:00 AM - 05:00 PM", "Saturday": "WO", "Sunday": "WO"}}
+                ],
+                "qm_staff_6am": {"Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"},
+                "qm_staff_10am": {"Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"},
+                "total_headcount_6am": [4, 6, 6, 5, 5, 1, 1],
+                "total_headcount_8am": [1, 3, 2, 2, 2, 0, 0],
+                "total_headcount_10am": [2, 2, 3, 2, 2, 1, 1]
+            },
+            {
+                "month": "September",
+                "week_num": 3,
+                "dates": ["21/09/26", "22/09/26", "23/09/26", "24/09/26", "25/09/26", "26/09/26", "27/09/26"],
+                "employees": [
+                    {"sg_id": 316092, "name": "Lelin Patra", "skilling": "ATS 2L", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 223254, "name": "Srinivas Reddy", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Mon/Tue/", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 223258, "name": "Md. Shahbaz", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Tue/Wed/Thu", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "WO", "Friday": "WO", "Saturday": "06:00 AM - 03:00 PM", "Sunday": "06:30 AM - 03:30 PM"}},
+                    {"sg_id": 709139, "name": "Rupesh C P", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 223255, "name": "Deepak K", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 227186, "name": "Sanjay Kumar", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "WO", "Friday": "WO", "Saturday": "10:00 AM - 07:00 PM", "Sunday": "10:00 AM - 07:00 PM"}},
+                    {"sg_id": 709454, "name": "Prathvi Shetty", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709282, "name": "Preethi P", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709424, "name": "Bhargav R", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "6:00 AM - 03:00 PM", "Tuesday": "6:00 AM - 03:00 PM", "Wednesday": "6:00 AM - 03:00 PM", "Thursday": "6:00 AM - 03:00 PM", "Friday": "6:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709283, "name": "Nidhi Taku", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "08:00 AM - 05:00 PM", "Tuesday": "08:00 AM - 05:00 PM", "Wednesday": "08:00 AM - 05:00 PM", "Thursday": "08:00 AM - 05:00 PM", "Friday": "08:00 AM - 05:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709115, "name": "Gokul Krishna Lokesh", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "08:00 AM - 05:00 PM", "Tuesday": "08:00 AM - 05:00 PM", "Wednesday": "08:00 AM - 05:00 PM", "Thursday": "08:00 AM - 05:00 PM", "Friday": "08:00 AM - 05:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709312, "name": "Manisha Kumari", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "6:00 AM - 03:00 PM", "Tuesday": "6:00 AM - 03:00 PM", "Wednesday": "6:00 AM - 03:00 PM", "Thursday": "6:00 AM - 03:00 PM", "Friday": "6:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}}
+                ],
+                "qm_staff_6am": {"Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"},
+                "qm_staff_10am": {"Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"},
+                "total_headcount_6am": [6, 6, 6, 5, 5, 1, 1],
+                "total_headcount_8am": [2, 2, 2, 2, 2, 0, 0],
+                "total_headcount_10am": [4, 4, 4, 3, 3, 1, 1]
+            },
+            {
+                "month": "September",
+                "week_num": 4,
+                "dates": ["28/09/26", "29/09/26", "30/09/26", "01/10/26", "02/10/26", "03/10/26", "04/10/26"],
+                "employees": [
+                    {"sg_id": 316092, "name": "Lelin Patra", "skilling": "ATS 2L", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Mon/Tue/Wed/Thu", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 223254, "name": "Srinivas Reddy", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "No", "shifts": {"Monday": "WO", "Tuesday": "PTO", "Wednesday": "PTO", "Thursday": "PTO", "Friday": "10:00 AM - 07:00 PM", "Saturday": "10:00 AM - 07:00 PM", "Sunday": "WO"}},
+                    {"sg_id": 223258, "name": "Md. Shahbaz", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Mon/Tue/Wed", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "WO", "Friday": "WO", "Saturday": "06:00 AM - 03:00 PM", "Sunday": "06:30 AM - 03:30 PM"}},
+                    {"sg_id": 709139, "name": "Rupesh C P", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Mon/Tue/Wed/Thu", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 223255, "name": "Deepak K", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Mon/Tue/Wed/Thu", "shifts": {"Monday": "WO", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "07:00 AM -04:00 PM", "Friday": "07:00 AM -04:00 PM", "Saturday": "WO", "Sunday": "10:00 AM - 07:00 PM"}},
+                    {"sg_id": 227186, "name": "Sanjay Kumar", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Mon/Tue/Wed/Thu", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "PH", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709454, "name": "Prathvi Shetty", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Mon/Tue/Wed/Thu", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709282, "name": "Preethi P", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Mon/Tue/Wed/Thu", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "PH", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709424, "name": "Bhargav R", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu", "shifts": {"Monday": "6:00 AM - 03:00 PM", "Tuesday": "6:00 AM - 03:00 PM", "Wednesday": "6:00 AM - 03:00 PM", "Thursday": "6:00 AM - 03:00 PM", "Friday": "6:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709283, "name": "Nidhi Taku", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu", "shifts": {"Monday": "08:00 AM - 05:00 PM", "Tuesday": "08:00 AM - 05:00 PM", "Wednesday": "08:00 AM - 05:00 PM", "Thursday": "08:00 AM - 05:00 PM", "Friday": "08:00 AM - 05:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709115, "name": "Gokul Krishna Lokesh", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu", "shifts": {"Monday": "08:00 AM - 05:00 PM", "Tuesday": "08:00 AM - 05:00 PM", "Wednesday": "08:00 AM - 05:00 PM", "Thursday": "08:00 AM - 05:00 PM", "Friday": "08:00 AM - 05:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709312, "name": "Manisha Kumari", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu", "shifts": {"Monday": "6:00 AM - 03:00 PM", "Tuesday": "6:00 AM - 03:00 PM", "Wednesday": "6:00 AM - 03:00 PM", "Thursday": "6:00 AM - 03:00 PM", "Friday": "6:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}}
+                ],
+                "qm_staff_6am": {"Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"},
+                "qm_staff_10am": {"Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"},
+                "total_headcount_6am": [5, 5, 5, 5, 4, 1, 1],
+                "total_headcount_8am": [2, 2, 2, 2, 2, 0, 0],
+                "total_headcount_10am": [3, 4, 4, 3, 2, 1, 1]
+            },
+            {
+                "month": "October",
+                "week_num": 1,
+                "dates": ["05/10/26", "06/10/26", "07/10/26", "08/10/26", "09/10/26", "10/10/26", "11/10/26"],
+                "employees": [
+                    {"sg_id": 316092, "name": "Lelin Patra", "skilling": "ATS 2L", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 227186, "name": "Sanjay Kumar", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Tue/Wed/Thu", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 223255, "name": "Deepak K", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "08:00 AM - 05:00 PM", "Tuesday": "08:00 AM - 05:00 PM", "Wednesday": "08:00 AM - 05:00 PM", "Thursday": "08:00 AM - 05:00 PM", "Friday": "08:00 AM - 05:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 223254, "name": "Srinivas Reddy", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Tue/Wed/Thu", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709454, "name": "Prathavi", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709282, "name": "Preethi P", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709139, "name": "Rupesh C P", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709115, "name": "Gokul Krishna Lokesh", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "08:00 AM - 05:00 PM", "Tuesday": "08:00 AM - 05:00 PM", "Wednesday": "08:00 AM - 05:00 PM", "Thursday": "08:00 AM - 05:00 PM", "Friday": "08:00 AM - 05:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709312, "name": "Manisha Kumari", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "08:00 AM - 05:00 PM", "Tuesday": "08:00 AM - 05:00 PM", "Wednesday": "08:00 AM - 05:00 PM", "Thursday": "08:00 AM - 05:00 PM", "Friday": "08:00 AM - 05:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709424, "name": "Bhargav R", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "6:00 AM - 03:00 PM", "Tuesday": "6:00 AM - 03:00 PM", "Wednesday": "6:00 AM - 03:00 PM", "Thursday": "6:00 AM - 03:00 PM", "Friday": "6:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709283, "name": "Nidhi Taku", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "6:00 AM - 03:00 PM", "Tuesday": "6:00 AM - 03:00 PM", "Wednesday": "6:00 AM - 03:00 PM", "Thursday": "6:00 AM - 03:00 PM", "Friday": "6:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 223258, "name": "Md. Shahbaz", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Mon/Tue/Wed", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "WO", "Friday": "WO", "Saturday": "06:00 AM - 03:00 PM", "Sunday": "06:30 AM - 03:30 PM"}}
+                ],
+                "qm_staff_6am": {"Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"},
+                "qm_staff_10am": {"Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"},
+                "total_headcount_6am": [5, 5, 5, 4, 4, 1, 1],
+                "total_headcount_8am": [3, 3, 3, 3, 3, 0, 0],
+                "total_headcount_10am": [4, 4, 4, 4, 4, 0, 0]
             }
         ];
 
         let rawRosterData = JSON.parse(JSON.stringify(defaultHardcodedRosterData));
 
-        function fetchLivePublicRoster() {
-            fetch('./roster.json?v=' + new Date().getTime())
-                .then(res => res.ok ? res.json() : null)
-                .then(liveData => {
+        function getEarliestShiftTime(empShifts) {
+            if (!empShifts) return 9999;
+            const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+            let minTime = 9999;
+
+            days.forEach(day => {
+                const shift = empShifts[day] || '';
+                if (shift && shift !== 'WO' && shift !== 'PTO' && shift !== 'PH' && shift !== 'SL' && shift !== 'HD SL') {
+                    if (shift.includes("10:00")) minTime = Math.min(minTime, 1000);
+                    else if (shift.includes("06:00") || shift.includes("6:00")) minTime = Math.min(minTime, 600);
+                    else if (shift.includes("06:30") || shift.includes("6:30")) minTime = Math.min(minTime, 630);
+                    else if (shift.includes("07:00") || shift.includes("7:00")) minTime = Math.min(minTime, 700);
+                    else if (shift.includes("08:00") || shift.includes("8:00")) minTime = Math.min(minTime, 800);
+                    else if (shift.includes("12:00")) minTime = Math.min(minTime, 1200);
+                    else if (shift.includes("1st Half Off")) minTime = Math.min(minTime, 600);
+                    else if (shift.includes("2nd Half Off")) minTime = Math.min(minTime, 1000);
+                }
+            });
+
+            return minTime;
+        }
+
+        async function fetchLivePublicRoster() {
+            try {
+                const response = await fetch('./roster.json?v=' + new Date().getTime());
+                if (response.ok) {
+                    const liveData = await response.json();
                     if (liveData && Array.isArray(liveData) && liveData.length > 0) {
                         rawRosterData = liveData;
                     }
-                    initializePortal();
-                })
-                .catch(() => {
-                    rawRosterData = JSON.parse(JSON.stringify(defaultHardcodedRosterData));
-                    initializePortal();
-                });
+                }
+            } catch (err) {
+                console.log("Using default fallback roster data:", err);
+                rawRosterData = JSON.parse(JSON.stringify(defaultHardcodedRosterData));
+            }
+            initializePortal();
         }
 
         const BASE_SHIFT_OPTIONS = [
@@ -1712,6 +1118,18 @@
         let coverageChartInstance = null;
         let distChartInstance = null;
 
+        document.addEventListener("DOMContentLoaded", () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const isRequestedAdmin = urlParams.get('admin') === 'true';
+
+            if (isRequestedAdmin) {
+                document.getElementById('adminLoginModal').classList.remove('hidden');
+                fetchLivePublicRoster();
+            } else {
+                fetchLivePublicRoster();
+            }
+        });
+
         function initializePortal() {
             const period = detectCurrentPeriod();
             currentMonth = period.month;
@@ -1719,13 +1137,10 @@
             individualMonthFilter = period.month;
 
             lucide.createIcons();
-            const searchEl = document.getElementById('searchInput');
-            if (searchEl) {
-                searchEl.addEventListener('input', (e) => {
-                    searchQuery = e.target.value.toLowerCase();
-                    renderView();
-                });
-            }
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                searchQuery = e.target.value.toLowerCase();
+                renderView();
+            });
 
             updateMonthDropdown();
             updateWeekOptions();
@@ -1736,6 +1151,429 @@
             setInterval(update3DClocks, 1000);
 
             initFreeFlightPlane();
+        }
+
+        function authenticateAdmin() {
+            const empIdInput = document.getElementById('adminEmpId').value.trim();
+            const passwordInput = document.getElementById('adminPassword').value.trim();
+            const errorEl = document.getElementById('loginError');
+
+            if (empIdInput === 'SG0316092' && passwordInput === 'Callofduty@2026') {
+                githubConfig.token = document.getElementById('ghToken').value.trim();
+                githubConfig.owner = document.getElementById('ghOwner').value.trim();
+                githubConfig.repo = document.getElementById('ghRepo').value.trim();
+                githubConfig.path = document.getElementById('ghPath').value.trim() || 'roster.json';
+
+                isAdminMode = true;
+                document.getElementById('adminLoginModal').classList.add('hidden');
+                
+                backupRosterData = JSON.parse(JSON.stringify(rawRosterData));
+
+                const adminBtn = document.getElementById('adminImportContainer');
+                const adminBadge = document.getElementById('adminBadge');
+                if (adminBtn) adminBtn.classList.remove('hidden');
+                if (adminBadge) adminBadge.classList.remove('hidden');
+
+                renderView();
+            } else {
+                errorEl.classList.remove('hidden');
+            }
+        }
+
+        function cancelAdminLogin() {
+            isAdminMode = false;
+            document.getElementById('adminLoginModal').classList.add('hidden');
+            renderView();
+        }
+
+        function logoutAdmin() {
+            if (pendingChangesExist) {
+                const userConfirmed = confirm("You have unsaved changes. Logging out will discard these changes. Continue?");
+                if (!userConfirmed) return;
+            }
+
+            isAdminMode = false;
+            pendingChangesExist = false;
+
+            if (backupRosterData) {
+                rawRosterData = JSON.parse(JSON.stringify(backupRosterData));
+            }
+
+            document.getElementById('adminImportContainer').classList.add('hidden');
+            document.getElementById('adminBadge').classList.add('hidden');
+            document.getElementById('adminActionDock').classList.add('hidden');
+
+            const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+            window.history.replaceState({ path: newUrl }, '', newUrl);
+
+            renderView();
+            alert("Logged out successfully. Switched back to public view.");
+        }
+
+        function triggerPendingChangesState() {
+            pendingChangesExist = true;
+            document.getElementById('adminActionDock').classList.remove('hidden');
+        }
+
+        function clearPendingChangesState() {
+            pendingChangesExist = false;
+            document.getElementById('adminActionDock').classList.add('hidden');
+        }
+
+        function promptApplyChanges() {
+            document.getElementById('confirmApplyModal').classList.remove('hidden');
+        }
+
+        function closeApplyModal() {
+            document.getElementById('confirmApplyModal').classList.add('hidden');
+        }
+
+        async function executeApplyChanges() {
+            closeApplyModal();
+
+            rawRosterData.forEach(week => recalculateHeadcount(week));
+
+            if (githubConfig.token && githubConfig.owner && githubConfig.repo) {
+                await commitDataToGitHubRepository();
+            } else {
+                alert("Changes applied locally! To commit permanently to GitHub Pages for all users, enter your GitHub Config details during Admin login.");
+                backupRosterData = JSON.parse(JSON.stringify(rawRosterData));
+                clearPendingChangesState();
+                renderView();
+            }
+        }
+
+        async function commitDataToGitHubRepository() {
+            try {
+                const { token, owner, repo, path } = githubConfig;
+                const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+
+                const getRes = await fetch(url, {
+                    headers: { 'Authorization': `token ${token}` }
+                });
+
+                let sha = '';
+                if (getRes.ok) {
+                    const fileMeta = await getRes.json();
+                    sha = fileMeta.sha;
+                }
+
+                const jsonContent = JSON.stringify(rawRosterData, null, 2);
+                const encodedContent = btoa(unescape(encodeURIComponent(jsonContent)));
+
+                const putRes = await fetch(url, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: `Admin Update Roster Shift Data - ${new Date().toLocaleString()}`,
+                        content: encodedContent,
+                        sha: sha || undefined
+                    })
+                });
+
+                if (putRes.ok) {
+                    backupRosterData = JSON.parse(JSON.stringify(rawRosterData));
+                    clearPendingChangesState();
+                    renderView();
+                    alert("Roster changes committed successfully to GitHub! All public users will now see updated data.");
+                } else {
+                    const errErr = await putRes.json();
+                    alert(`GitHub Commit Error: ${errErr.message || 'Check your Token/Repo config'}`);
+                }
+            } catch (err) {
+                console.error("GitHub Commit Failure:", err);
+                alert("Failed to connect to GitHub API: " + err.message);
+            }
+        }
+
+        function promptCancelChanges() {
+            const userConfirmed = confirm("Are you sure you want to discard all unsaved changes?");
+            if (userConfirmed && backupRosterData) {
+                rawRosterData = JSON.parse(JSON.stringify(backupRosterData));
+                clearPendingChangesState();
+                renderView();
+            }
+        }
+
+        function openAddMonthModal() {
+            document.getElementById('addMonthModal').classList.remove('hidden');
+            generateWeekDateInputs();
+        }
+
+        function closeAddMonthModal() {
+            document.getElementById('addMonthModal').classList.add('hidden');
+        }
+
+        function generateWeekDateInputs() {
+            const weeksCount = parseInt(document.getElementById('newMonthWeeksCount').value) || 4;
+            const container = document.getElementById('weekDatesContainer');
+            container.innerHTML = '';
+
+            for (let i = 1; i <= weeksCount; i++) {
+                container.innerHTML += `
+                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200">
+                        <label class="block text-xs font-bold text-slate-800 mb-1">Week ${i} Date Range</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <span class="text-[10px] text-slate-500 font-semibold block mb-0.5">Start Date (Mon)</span>
+                                <input type="date" id="mWeekStart_${i}" class="w-full bg-white border border-slate-300 rounded px-2 py-1 text-xs font-medium input-3d">
+                            </div>
+                            <div>
+                                <span class="text-[10px] text-slate-500 font-semibold block mb-0.5">End Date (Sun)</span>
+                                <input type="date" id="mWeekEnd_${i}" class="w-full bg-white border border-slate-300 rounded px-2 py-1 text-xs font-medium input-3d">
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function confirmAddMonth() {
+            const selectedMonthName = document.getElementById('newMonthSelect').value;
+            const weeksCount = parseInt(document.getElementById('newMonthWeeksCount').value) || 4;
+            
+            const monthExists = rawRosterData.some(w => w.month.toLowerCase() === selectedMonthName.toLowerCase());
+            if (monthExists) {
+                alert(`The month "${selectedMonthName}" already exists in the roster.`);
+                return;
+            }
+
+            const referenceEmployees = rawRosterData.length > 0 && rawRosterData[0].employees ? rawRosterData[0].employees : [];
+            const baseEmployees = referenceEmployees.map(emp => ({
+                sg_id: emp.sg_id,
+                name: emp.name,
+                skilling: emp.skilling || 'ATS',
+                default_start: emp.default_start || "06:00 AM",
+                default_end: emp.default_end || "03:00 PM",
+                days_office: emp.days_office || "Mon/Tue/Wed/Thu/Fri",
+                shifts: {
+                    "Monday": "06:00 AM - 03:00 PM",
+                    "Tuesday": "06:00 AM - 03:00 PM",
+                    "Wednesday": "06:00 AM - 03:00 PM",
+                    "Thursday": "06:00 AM - 03:00 PM",
+                    "Friday": "06:00 AM - 03:00 PM",
+                    "Saturday": "WO",
+                    "Sunday": "WO"
+                }
+            }));
+
+            for (let w = 1; w <= weeksCount; w++) {
+                const startVal = document.getElementById(`mWeekStart_${w}`).value;
+                const endVal = document.getElementById(`mWeekEnd_${w}`).value;
+                const datesArray = generate7DaysRange(startVal, endVal);
+
+                const newWeekObj = {
+                    month: selectedMonthName,
+                    week_num: w,
+                    dates: datesArray,
+                    employees: JSON.parse(JSON.stringify(baseEmployees)),
+                    qm_staff_6am: {
+                        "Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"
+                    },
+                    qm_staff_10am: {
+                        "Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"
+                    },
+                    total_headcount_6am: [0,0,0,0,0,0,0],
+                    total_headcount_8am: [0,0,0,0,0,0,0],
+                    total_headcount_10am: [0,0,0,0,0,0,0]
+                };
+                recalculateHeadcount(newWeekObj);
+                rawRosterData.push(newWeekObj);
+            }
+
+            currentMonth = selectedMonthName;
+            currentWeekNum = 1;
+            triggerPendingChangesState();
+            closeAddMonthModal();
+            updateMonthDropdown();
+            updateWeekOptions();
+            renderView();
+            alert(`Month "${selectedMonthName}" with ${weeksCount} weeks added! Click "Apply & Save File" to commit changes.`);
+        }
+
+        function deleteCurrentMonth() {
+            if (!isAdminMode) return;
+            const confirmDel = confirm(`Are you sure you want to delete the entire month "${currentMonth}" and all its weeks?`);
+            if (!confirmDel) return;
+
+            rawRosterData = rawRosterData.filter(w => w.month !== currentMonth);
+            triggerPendingChangesState();
+
+            const availableMonths = [...new Set(rawRosterData.map(w => w.month))];
+            if (availableMonths.length > 0) {
+                currentMonth = availableMonths[0];
+                currentWeekNum = 1;
+            } else {
+                currentMonth = "September";
+                currentWeekNum = 1;
+            }
+
+            updateMonthDropdown();
+            updateWeekOptions();
+            renderView();
+        }
+
+        function deleteCurrentWeek() {
+            if (!isAdminMode) return;
+            const confirmDel = confirm(`Are you sure you want to delete Week ${currentWeekNum} of "${currentMonth}"?`);
+            if (!confirmDel) return;
+
+            const weekIndex = rawRosterData.findIndex(w => w.month === currentMonth && w.week_num === currentWeekNum);
+            if (weekIndex !== -1) {
+                rawRosterData.splice(weekIndex, 1);
+                
+                let remainingWeeks = rawRosterData.filter(w => w.month === currentMonth).sort((a,b) => a.week_num - b.week_num);
+                remainingWeeks.forEach((wObj, idx) => {
+                    wObj.week_num = idx + 1;
+                });
+
+                triggerPendingChangesState();
+
+                if (remainingWeeks.length > 0) {
+                    currentWeekNum = remainingWeeks[0].week_num;
+                } else {
+                    currentWeekNum = 1;
+                }
+
+                updateWeekOptions();
+                renderView();
+            }
+        }
+
+        function openAddWeekModal() {
+            document.getElementById('addWeekMonthTitle').innerText = currentMonth;
+            
+            const monthWeeks = rawRosterData.filter(w => w.month === currentMonth);
+            const nextWeekNum = monthWeeks.length + 1;
+            document.getElementById('newWeekNumLabel').innerText = `Week ${nextWeekNum}`;
+            
+            document.getElementById('addWeekModal').classList.remove('hidden');
+        }
+
+        function closeAddWeekModal() {
+            document.getElementById('addWeekModal').classList.add('hidden');
+            document.getElementById('singleWeekStartDate').value = '';
+            document.getElementById('singleWeekEndDate').value = '';
+        }
+
+        function confirmAddWeek() {
+            const startVal = document.getElementById('singleWeekStartDate').value;
+            const endVal = document.getElementById('singleWeekEndDate').value;
+            const datesArray = generate7DaysRange(startVal, endVal);
+
+            const monthWeeks = rawRosterData.filter(w => w.month === currentMonth);
+            const nextWeekNum = monthWeeks.length + 1;
+
+            const referenceEmployees = rawRosterData.length > 0 && rawRosterData[0].employees ? rawRosterData[0].employees : [];
+            const baseEmployees = referenceEmployees.map(emp => ({
+                sg_id: emp.sg_id,
+                name: emp.name,
+                skilling: emp.skilling || 'ATS',
+                default_start: emp.default_start || "06:00 AM",
+                default_end: emp.default_end || "03:00 PM",
+                days_office: emp.days_office || "Mon/Tue/Wed/Thu/Fri",
+                shifts: {
+                    "Monday": "06:00 AM - 03:00 PM",
+                    "Tuesday": "06:00 AM - 03:00 PM",
+                    "Wednesday": "06:00 AM - 03:00 PM",
+                    "Thursday": "06:00 AM - 03:00 PM",
+                    "Friday": "06:00 AM - 03:00 PM",
+                    "Saturday": "WO",
+                    "Sunday": "WO"
+                }
+            }));
+
+            const newWeekObj = {
+                month: currentMonth,
+                week_num: nextWeekNum,
+                dates: datesArray,
+                employees: JSON.parse(JSON.stringify(baseEmployees)),
+                qm_staff_6am: {
+                    "Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"
+                },
+                qm_staff_10am: {
+                    "Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"
+                },
+                total_headcount_6am: [0,0,0,0,0,0,0],
+                total_headcount_8am: [0,0,0,0,0,0,0],
+                total_headcount_10am: [0,0,0,0,0,0,0]
+            };
+
+            recalculateHeadcount(newWeekObj);
+            rawRosterData.push(newWeekObj);
+
+            currentWeekNum = nextWeekNum;
+            triggerPendingChangesState();
+            closeAddWeekModal();
+            updateWeekOptions();
+            renderView();
+            alert(`Week ${nextWeekNum} added to "${currentMonth}"! Click "Apply & Save File" to commit.`);
+        }
+
+        function openEditEmployeeModal(sgId) {
+            if (!isAdminMode) return;
+            const weekData = getActiveWeekData();
+            const emp = weekData.employees.find(e => String(e.sg_id) === String(sgId));
+            if (!emp) return;
+
+            document.getElementById('editEmpOldSgId').value = emp.sg_id;
+            document.getElementById('editEmpSgId').value = emp.sg_id;
+            document.getElementById('editEmpName').value = emp.name;
+            document.getElementById('editEmpSkilling').value = emp.skilling || 'ATS';
+
+            document.getElementById('editEmployeeModal').classList.remove('hidden');
+        }
+
+        function closeEditEmployeeModal() {
+            document.getElementById('editEmployeeModal').classList.add('hidden');
+        }
+
+        function confirmEditEmployee() {
+            const oldSgId = document.getElementById('editEmpOldSgId').value;
+            const newSgId = document.getElementById('editEmpSgId').value.trim();
+            const newName = document.getElementById('editEmpName').value.trim();
+            const newSkilling = document.getElementById('editEmpSkilling').value.trim();
+
+            if (!newSgId || !newName) {
+                alert("SG ID and Employee Name are required.");
+                return;
+            }
+
+            rawRosterData.forEach(w => {
+                const emp = w.employees.find(e => String(e.sg_id) === String(oldSgId));
+                if (emp) {
+                    emp.sg_id = parseInt(newSgId) || newSgId;
+                    emp.name = newName;
+                    emp.skilling = newSkilling;
+                }
+            });
+
+            triggerPendingChangesState();
+            closeEditEmployeeModal();
+            renderView();
+        }
+
+        function createRipple(e) {
+            const button = e.currentTarget;
+            if (!button) return;
+            const circle = document.createElement("span");
+            const diameter = Math.max(button.clientWidth, button.clientHeight);
+            const radius = diameter / 2;
+            const rect = button.getBoundingClientRect();
+            circle.style.width = circle.style.height = `${diameter}px`;
+            circle.style.left = `${e.clientX - rect.left - radius}px`;
+            circle.style.top = `${e.clientY - rect.top - radius}px`;
+            circle.classList.add("ripple-effect");
+
+            const existingRipple = button.getElementsByClassName("ripple-effect")[0];
+            if (existingRipple) {
+                existingRipple.remove();
+            }
+
+            button.appendChild(circle);
         }
 
         function switchCategory(cat, event) {
@@ -2043,10 +1881,10 @@
                 </div>
             `;
 
-            // Employee-Only Filter Logic (Ignores Skills/Calendar/QM)
             let filteredEmployees = employees.filter(e => 
                 (e.name && e.name.toLowerCase().includes(searchQuery)) || 
-                (e.sg_id && String(e.sg_id).toLowerCase().includes(searchQuery))
+                (e.skilling && e.skilling.toLowerCase().includes(searchQuery)) ||
+                (e.sg_id && String(e.sg_id).includes(searchQuery))
             );
 
             filteredEmployees.sort((a, b) => {
@@ -2090,7 +1928,7 @@
 
             let bodyHTML = ``;
             if (filteredEmployees.length === 0) {
-                bodyHTML = `<tr><td colspan="${isAdminMode ? 10 : 9}" class="p-8 text-center text-slate-400 text-xs sm:text-sm">No employee records found matching "${searchQuery}"</td></tr>`;
+                bodyHTML = `<tr><td colspan="${isAdminMode ? 10 : 9}" class="p-8 text-center text-slate-400 text-xs sm:text-sm">No employee records found for ${currentMonth} - Week ${currentWeekNum}</td></tr>`;
             } else {
                 filteredEmployees.forEach(e => {
                     const nameClickAttr = isAdminMode ? `onclick="openEditEmployeeModal('${e.sg_id}')" class="cursor-pointer group group-hover:text-indigo-600"` : '';
@@ -2177,12 +2015,8 @@
                 html += `<div class="bg-white p-6 sm:p-8 rounded-xl card-3d text-center text-slate-400 text-xs sm:text-sm">No employee records available for selected month filter.</div>`;
             } else {
                 empNames.forEach(empName => {
+                    if(searchQuery && !empName.toLowerCase().includes(searchQuery)) return;
                     const emp = empMap[empName];
-                    const cleanSgId = String(emp.sg_id || '').toLowerCase();
-                    const cleanName = empName.toLowerCase();
-
-                    // Employee-Only Filter Check
-                    if (searchQuery && !cleanName.includes(searchQuery) && !cleanSgId.includes(searchQuery)) return;
 
                     html += `
                         <div class="bg-white p-4 sm:p-6 rounded-xl card-3d w-full">
@@ -2312,10 +2146,18 @@
             document.getElementById('mainDisplayArea').innerHTML = html;
         }
 
+        // SABRE 2026 GLOBAL HOLIDAY CALENDAR VIEW RENDERER
         function renderHolidaysView() {
             let filteredHolidays = SABRE_2026_HOLIDAYS.filter(h => {
+                const matchSearch = !searchQuery || 
+                    h.name.toLowerCase().includes(searchQuery) || 
+                    h.day.toLowerCase().includes(searchQuery) ||
+                    h.date.includes(searchQuery) ||
+                    h.offices.some(o => o.toLowerCase().includes(searchQuery));
+
                 const matchOffice = selectedHolidayOffice === 'ALL' || h.offices.includes(selectedHolidayOffice);
-                return matchOffice;
+
+                return matchSearch && matchOffice;
             });
 
             const officeBadgeColors = {
@@ -2348,7 +2190,7 @@
 
             let tableRowsHTML = '';
             if (filteredHolidays.length === 0) {
-                tableRowsHTML = `<tr><td colspan="4" class="p-8 text-center text-slate-400 text-xs sm:text-sm">No holidays found matching selected office filter.</td></tr>`;
+                tableRowsHTML = `<tr><td colspan="4" class="p-8 text-center text-slate-400 text-xs sm:text-sm">No holidays found matching selected filter or search term.</td></tr>`;
             } else {
                 filteredHolidays.forEach(h => {
                     const formattedDate = formatDateToDDMMYY(h.date);
@@ -2789,309 +2631,6 @@
             }
         }
 
-        function openAddMonthModal() {
-            document.getElementById('addMonthModal').classList.remove('hidden');
-            generateWeekDateInputs();
-        }
-
-        function closeAddMonthModal() {
-            document.getElementById('addMonthModal').classList.add('hidden');
-        }
-
-        function generateWeekDateInputs() {
-            const weeksCount = parseInt(document.getElementById('newMonthWeeksCount').value) || 4;
-            const container = document.getElementById('weekDatesContainer');
-            container.innerHTML = '';
-
-            for (let i = 1; i <= weeksCount; i++) {
-                container.innerHTML += `
-                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200">
-                        <label class="block text-xs font-bold text-slate-800 mb-1">Week ${i} Date Range</label>
-                        <div class="grid grid-cols-2 gap-2">
-                            <div>
-                                <span class="text-[10px] text-slate-500 font-semibold block mb-0.5">Start Date (Mon)</span>
-                                <input type="date" id="mWeekStart_${i}" class="w-full bg-white border border-slate-300 rounded px-2 py-1 text-xs font-medium input-3d">
-                            </div>
-                            <div>
-                                <span class="text-[10px] text-slate-500 font-semibold block mb-0.5">End Date (Sun)</span>
-                                <input type="date" id="mWeekEnd_${i}" class="w-full bg-white border border-slate-300 rounded px-2 py-1 text-xs font-medium input-3d">
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }
-        }
-
-        function confirmAddMonth() {
-            const selectedMonthName = document.getElementById('newMonthSelect').value;
-            const weeksCount = parseInt(document.getElementById('newMonthWeeksCount').value) || 4;
-            
-            const monthExists = rawRosterData.some(w => w.month.toLowerCase() === selectedMonthName.toLowerCase());
-            if (monthExists) {
-                alert(`The month "${selectedMonthName}" already exists in the roster.`);
-                return;
-            }
-
-            const referenceEmployees = rawRosterData.length > 0 && rawRosterData[0].employees ? rawRosterData[0].employees : [];
-            const baseEmployees = referenceEmployees.map(emp => ({
-                sg_id: emp.sg_id,
-                name: emp.name,
-                skilling: emp.skilling || 'ATS',
-                default_start: emp.default_start || "06:00 AM",
-                default_end: emp.default_end || "03:00 PM",
-                days_office: emp.days_office || "Mon/Tue/Wed/Thu/Fri",
-                shifts: {
-                    "Monday": "06:00 AM - 03:00 PM",
-                    "Tuesday": "06:00 AM - 03:00 PM",
-                    "Wednesday": "06:00 AM - 03:00 PM",
-                    "Thursday": "06:00 AM - 03:00 PM",
-                    "Friday": "06:00 AM - 03:00 PM",
-                    "Saturday": "WO",
-                    "Sunday": "WO"
-                }
-            }));
-
-            for (let w = 1; w <= weeksCount; w++) {
-                const startVal = document.getElementById(`mWeekStart_${w}`).value;
-                const endVal = document.getElementById(`mWeekEnd_${w}`).value;
-                const datesArray = generate7DaysRange(startVal, endVal);
-
-                const newWeekObj = {
-                    month: selectedMonthName,
-                    week_num: w,
-                    dates: datesArray,
-                    employees: JSON.parse(JSON.stringify(baseEmployees)),
-                    qm_staff_6am: {
-                        "Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"
-                    },
-                    qm_staff_10am: {
-                        "Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"
-                    },
-                    total_headcount_6am: [0,0,0,0,0,0,0],
-                    total_headcount_8am: [0,0,0,0,0,0,0],
-                    total_headcount_10am: [0,0,0,0,0,0,0]
-                };
-                recalculateHeadcount(newWeekObj);
-                rawRosterData.push(newWeekObj);
-            }
-
-            currentMonth = selectedMonthName;
-            currentWeekNum = 1;
-            triggerPendingChangesState();
-            closeAddMonthModal();
-            updateMonthDropdown();
-            updateWeekOptions();
-            renderView();
-            alert(`Month "${selectedMonthName}" with ${weeksCount} weeks added! Click "Apply & Save File" to commit changes.`);
-        }
-
-        function deleteCurrentMonth() {
-            if (!isAdminMode) return;
-            const confirmDel = confirm(`Are you sure you want to delete the entire month "${currentMonth}" and all its weeks?`);
-            if (!confirmDel) return;
-
-            rawRosterData = rawRosterData.filter(w => w.month !== currentMonth);
-            triggerPendingChangesState();
-
-            const availableMonths = [...new Set(rawRosterData.map(w => w.month))];
-            if (availableMonths.length > 0) {
-                currentMonth = availableMonths[0];
-                currentWeekNum = 1;
-            } else {
-                currentMonth = "September";
-                currentWeekNum = 1;
-            }
-
-            updateMonthDropdown();
-            updateWeekOptions();
-            renderView();
-        }
-
-        function openAddWeekModal() {
-            document.getElementById('addWeekMonthTitle').innerText = currentMonth;
-            
-            const monthWeeks = rawRosterData.filter(w => w.month === currentMonth);
-            const nextWeekNum = monthWeeks.length + 1;
-            document.getElementById('newWeekNumLabel').innerText = `Week ${nextWeekNum}`;
-            
-            document.getElementById('addWeekModal').classList.remove('hidden');
-        }
-
-        function closeAddWeekModal() {
-            document.getElementById('addWeekModal').classList.add('hidden');
-            document.getElementById('singleWeekStartDate').value = '';
-            document.getElementById('singleWeekEndDate').value = '';
-        }
-
-        function confirmAddWeek() {
-            const startVal = document.getElementById('singleWeekStartDate').value;
-            const endVal = document.getElementById('singleWeekEndDate').value;
-            const datesArray = generate7DaysRange(startVal, endVal);
-
-            const monthWeeks = rawRosterData.filter(w => w.month === currentMonth);
-            const nextWeekNum = monthWeeks.length + 1;
-
-            const referenceEmployees = rawRosterData.length > 0 && rawRosterData[0].employees ? rawRosterData[0].employees : [];
-            const baseEmployees = referenceEmployees.map(emp => ({
-                sg_id: emp.sg_id,
-                name: emp.name,
-                skilling: emp.skilling || 'ATS',
-                default_start: emp.default_start || "06:00 AM",
-                default_end: emp.default_end || "03:00 PM",
-                days_office: emp.days_office || "Mon/Tue/Wed/Thu/Fri",
-                shifts: {
-                    "Monday": "06:00 AM - 03:00 PM",
-                    "Tuesday": "06:00 AM - 03:00 PM",
-                    "Wednesday": "06:00 AM - 03:00 PM",
-                    "Thursday": "06:00 AM - 03:00 PM",
-                    "Friday": "06:00 AM - 03:00 PM",
-                    "Saturday": "WO",
-                    "Sunday": "WO"
-                }
-            }));
-
-            const newWeekObj = {
-                month: currentMonth,
-                week_num: nextWeekNum,
-                dates: datesArray,
-                employees: JSON.parse(JSON.stringify(baseEmployees)),
-                qm_staff_6am: {
-                    "Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"
-                },
-                qm_staff_10am: {
-                    "Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"
-                },
-                total_headcount_6am: [0,0,0,0,0,0,0],
-                total_headcount_8am: [0,0,0,0,0,0,0],
-                total_headcount_10am: [0,0,0,0,0,0,0]
-            };
-
-            recalculateHeadcount(newWeekObj);
-            rawRosterData.push(newWeekObj);
-
-            currentWeekNum = nextWeekNum;
-            triggerPendingChangesState();
-            closeAddWeekModal();
-            updateWeekOptions();
-            renderView();
-            alert(`Week ${nextWeekNum} added to "${currentMonth}"! Click "Apply & Save File" to commit.`);
-        }
-
-        function deleteCurrentWeek() {
-            if (!isAdminMode) return;
-            const confirmDel = confirm(`Are you sure you want to delete Week ${currentWeekNum} of "${currentMonth}"?`);
-            if (!confirmDel) return;
-
-            const weekIndex = rawRosterData.findIndex(w => w.month === currentMonth && w.week_num === currentWeekNum);
-            if (weekIndex !== -1) {
-                rawRosterData.splice(weekIndex, 1);
-                
-                let remainingWeeks = rawRosterData.filter(w => w.month === currentMonth).sort((a,b) => a.week_num - b.week_num);
-                remainingWeeks.forEach((wObj, idx) => {
-                    wObj.week_num = idx + 1;
-                });
-
-                triggerPendingChangesState();
-
-                if (remainingWeeks.length > 0) {
-                    currentWeekNum = remainingWeeks[0].week_num;
-                } else {
-                    currentWeekNum = 1;
-                }
-
-                updateWeekOptions();
-                renderView();
-            }
-        }
-
-        function triggerPendingChangesState() {
-            pendingChangesExist = true;
-            document.getElementById('adminActionDock').classList.remove('hidden');
-        }
-
-        function clearPendingChangesState() {
-            pendingChangesExist = false;
-            document.getElementById('adminActionDock').classList.add('hidden');
-        }
-
-        function promptApplyChanges() {
-            document.getElementById('confirmApplyModal').classList.remove('hidden');
-        }
-
-        function closeApplyModal() {
-            document.getElementById('confirmApplyModal').classList.add('hidden');
-        }
-
-        async function executeApplyChanges() {
-            closeApplyModal();
-
-            rawRosterData.forEach(week => recalculateHeadcount(week));
-
-            if (githubConfig.token && githubConfig.owner && githubConfig.repo) {
-                await commitDataToGitHubRepository();
-            } else {
-                alert("Changes applied locally! To commit permanently to GitHub Pages for all users, enter your GitHub Config details during Admin login.");
-                backupRosterData = JSON.parse(JSON.stringify(rawRosterData));
-                clearPendingChangesState();
-                renderView();
-            }
-        }
-
-        async function commitDataToGitHubRepository() {
-            try {
-                const { token, owner, repo, path } = githubConfig;
-                const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
-
-                const getRes = await fetch(url, {
-                    headers: { 'Authorization': `token ${token}` }
-                });
-
-                let sha = '';
-                if (getRes.ok) {
-                    const fileMeta = await getRes.json();
-                    sha = fileMeta.sha;
-                }
-
-                const jsonContent = JSON.stringify(rawRosterData, null, 2);
-                const encodedContent = btoa(unescape(encodeURIComponent(jsonContent)));
-
-                const putRes = await fetch(url, {
-                    method: 'PUT',
-                    headers: {
-                        'Authorization': `token ${token}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        message: `Admin Update Roster Shift Data - ${new Date().toLocaleString()}`,
-                        content: encodedContent,
-                        sha: sha || undefined
-                    })
-                });
-
-                if (putRes.ok) {
-                    backupRosterData = JSON.parse(JSON.stringify(rawRosterData));
-                    clearPendingChangesState();
-                    renderView();
-                    alert("Roster changes committed successfully to GitHub! All public users will now see updated data.");
-                } else {
-                    const errErr = await putRes.json();
-                    alert(`GitHub Commit Error: ${errErr.message || 'Check your Token/Repo config'}`);
-                }
-            } catch (err) {
-                console.error("GitHub Commit Failure:", err);
-                alert("Failed to connect to GitHub API: " + err.message);
-            }
-        }
-
-        function promptCancelChanges() {
-            const userConfirmed = confirm("Are you sure you want to discard all unsaved changes?");
-            if (userConfirmed && backupRosterData) {
-                rawRosterData = JSON.parse(JSON.stringify(backupRosterData));
-                clearPendingChangesState();
-                renderView();
-            }
-        }
-
         function initFreeFlightPlane() {
             const plane = document.getElementById('freeFlightPlane');
             if (!plane) return;
@@ -3168,12 +2707,6 @@
 
             animateFreeFlight();
         }
-
-        // Initialize Application
-        document.addEventListener("DOMContentLoaded", () => {
-            fetchLivePublicRoster();
-            checkPortalAuthentication();
-        });
     </script>
 </body>
 </html>
