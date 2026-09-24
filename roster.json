@@ -122,7 +122,7 @@
         "default_end": "07:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
         "shifts": {
-          "Monday": "HD SL",
+          "Monday": "2nd Half Off",
           "Tuesday": "SL",
           "Wednesday": "10:00 AM - 07:00 PM",
           "Thursday": "10:00 AM - 07:00 PM",
@@ -254,7 +254,7 @@
       0
     ],
     "total_headcount_10am": [
-      2,
+      3,
       1,
       4,
       3,
