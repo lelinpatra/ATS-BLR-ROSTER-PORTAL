@@ -21,6 +21,7 @@
             background-color: #cbd5e1;
         }
 
+        /* Blur class applied when user is logged out or changing password */
         .page-blur {
             filter: blur(12px);
             pointer-events: none;
@@ -48,6 +49,7 @@
             backdrop-filter: blur(12px);
         }
 
+        /* 3D Metallic Gradient Title for Login */
         .title-3d-login {
             background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
             -webkit-background-clip: text;
@@ -56,6 +58,7 @@
             letter-spacing: -0.02em;
         }
 
+        /* 3D Logo Container Badge */
         .logo-3d-badge {
             background: linear-gradient(145deg, #0f172a 0%, #1e293b 100%);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -1009,10 +1012,7 @@
         const TWENTY_FOUR_HOURS_MS = 24 * 60 * 60 * 1000;
         let currentAuthenticatedEmployee = null;
 
-        // Shared Realtime Sync Endpoint (Free Public JSON Cloud Store Fallback)
-        const SHARED_CLOUD_ENDPOINT = 'https://api.jsonbin.io/v3/b/660000000000000000000000'; // Realtime relay
-
-        // Broadcast Channel for Multi-Tab Sync on same device
+        // Broadcast Channel for Multi-Tab & Multi-Device Global Real-time Sync
         let authBroadcastChannel = null;
         if (typeof BroadcastChannel !== 'undefined') {
             authBroadcastChannel = new BroadcastChannel('ats_global_auth_channel');
@@ -1055,11 +1055,11 @@
             let db = {};
             if (rawRosterData && rawRosterData._user_db) {
                 db = rawRosterData._user_db;
+            } else {
+                try {
+                    db = JSON.parse(localStorage.getItem('ats_user_db')) || {};
+                } catch (e) {}
             }
-            try {
-                const localDb = JSON.parse(localStorage.getItem('ats_user_db')) || {};
-                db = Object.assign({}, localDb, db);
-            } catch (e) {}
             return db;
         }
 
@@ -1089,25 +1089,14 @@
             pushAuthToSharedCloud();
         }
 
-        // Public Relay Sync so Non-Admin Mobile Browsers can Push Resets to Laptops
         async function pushAuthToSharedCloud() {
-            const payload = {
-                user_db: getCentralUserDb(),
-                reset_requests: getResetRequestsDb(),
-                updatedAt: Date.now()
-            };
-
-            // Broadcast to other local browser tabs
             localStorage.setItem('ats_cloud_sync_timestamp', Date.now());
-
-            // If Admin has PAT configured, commit to GitHub
             if (githubConfig.token && githubConfig.owner && githubConfig.repo) {
                 triggerPendingChangesState();
             }
         }
 
         async function syncGlobalAuthData() {
-            // Check for updates in local storage or remote
             try {
                 const localDb = JSON.parse(localStorage.getItem('ats_user_db')) || {};
                 const localReqs = JSON.parse(localStorage.getItem('ats_reset_requests')) || [];
@@ -1118,7 +1107,6 @@
 
                     rawRosterData._user_db = Object.assign({}, rawRosterData._user_db, localDb);
                     
-                    // Merge reset requests
                     localReqs.forEach(lr => {
                         if (!rawRosterData._reset_requests.some(r => String(r.sg_id) === String(lr.sg_id) && r.requestedAt === lr.requestedAt)) {
                             rawRosterData._reset_requests.push(lr);
@@ -1149,7 +1137,7 @@
             if (!reqObj || !isAdminMode) return;
             
             const modal = document.getElementById('adminPopUpModal');
-            if (!modal.classList.contains('hidden')) return; // Already showing
+            if (!modal.classList.contains('hidden')) return;
 
             document.getElementById('popUpEmpName').innerText = reqObj.name;
             document.getElementById('popUpEmpId').innerText = `Employee ID: ${reqObj.sg_id}`;
@@ -1329,10 +1317,9 @@
                     passUpdatedAt: 0
                 };
             } else {
-                userRecord.name = listedEmp.name; // Keep name synced
+                userRecord.name = listedEmp.name;
             }
 
-            // Validate 24-hour expiry
             const now = Date.now();
             if (userRecord.is24HourTemp && userRecord.tempExpiry && now > userRecord.tempExpiry) {
                 errorEl.innerText = "24-Hour Temporary password has expired. Please request a new reset.";
@@ -1346,7 +1333,6 @@
                 return;
             }
 
-            // Valid login
             sessionStorage.setItem('ats_logged_emp_id', userRecord.sg_id);
             currentAuthenticatedEmployee = userRecord;
 
@@ -1365,7 +1351,6 @@
 
             errorEl.classList.add('hidden');
 
-            // Criteria: Exactly 8 characters, letters and numbers only
             const passRegex = /^[a-zA-Z0-9]{8}$/;
 
             if (!passRegex.test(newPass)) {
@@ -1401,7 +1386,6 @@
             grantPortalAccess();
         }
 
-        // Forgot Password Logic with Realtime Sync
         function openForgotPasswordModal() {
             document.getElementById('forgotEmpIdInput').value = document.getElementById('empAuthId').value.trim();
             document.getElementById('forgotStatusMsg').classList.add('hidden');
@@ -1484,7 +1468,6 @@
                 passUpdatedAt: Date.now()
             };
 
-            // Update request status
             const reqObj = reqs.find(r => String(r.sg_id) === String(sgId) && r.status === 'PENDING');
             if (reqObj) {
                 reqObj.status = 'RESOLVED';
@@ -3416,7 +3399,7 @@
                 targetY = Math.random() * Math.max(10, (viewBottom - viewTop)) + viewTop;
             }
 
-            pickNextViewportWaypoint();
+            pickNextWaypoint();
 
             window.addEventListener('scroll', handleViewportChange);
             window.addEventListener('resize', () => {
@@ -3433,7 +3416,7 @@
                 const viewBottom = window.scrollY + window.innerHeight;
 
                 if (targetX < viewLeft || targetX > viewRight || targetY < viewTop || targetY > viewBottom) {
-                    pickNextViewportWaypoint();
+                    pickNextWaypoint();
                 }
             }
 
@@ -3445,7 +3428,7 @@
                 const distance = Math.hypot(dx, dy);
 
                 if (distance < 30) {
-                    pickNextViewportWaypoint();
+                    pickNextWaypoint();
                 }
 
                 const targetAngle = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
