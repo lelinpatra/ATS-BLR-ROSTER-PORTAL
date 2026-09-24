@@ -746,22 +746,22 @@
       }
     ],
     "qm_staff_6am": {
-      "Monday": "Unassigned",
-      "Tuesday": "Unassigned",
-      "Wednesday": "Unassigned",
-      "Thursday": "Unassigned",
-      "Friday": "Unassigned",
-      "Saturday": "Unassigned",
-      "Sunday": "Unassigned"
+      "Monday": "Md. Shahbaz",
+      "Tuesday": "Md. Shahbaz",
+      "Wednesday": "Md. Shahbaz",
+      "Thursday": "Srinivas Reddy",
+      "Friday": "Srinivas Reddy",
+      "Saturday": "Md. Shahbaz",
+      "Sunday": "Md. Shahbaz"
     },
     "qm_staff_10am": {
-      "Monday": "Unassigned",
-      "Tuesday": "Unassigned",
-      "Wednesday": "Unassigned",
-      "Thursday": "Unassigned",
-      "Friday": "Unassigned",
-      "Saturday": "Unassigned",
-      "Sunday": "Unassigned"
+      "Monday": "Deepak K",
+      "Tuesday": "Deepak K",
+      "Wednesday": "Deepak K",
+      "Thursday": "Deepak K",
+      "Friday": "Deepak K",
+      "Saturday": "Sanjay Kumar",
+      "Sunday": "Sanjay Kumar"
     },
     "total_headcount_6am": [
       6,
