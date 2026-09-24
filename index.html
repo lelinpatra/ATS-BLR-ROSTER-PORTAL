@@ -20,14 +20,6 @@
             position: relative;
             background-color: #cbd5e1;
         }
-
-        /* Blur class applied when user is logged out or changing password */
-        .page-blur {
-            filter: blur(12px);
-            pointer-events: none;
-            user-select: none;
-        }
-
         .font-orbitron { font-family: 'Orbitron', sans-serif; }
         .font-mono-digital { font-family: 'JetBrains Mono', monospace; }
 
@@ -47,23 +39,6 @@
             z-index: 10;
             background-color: rgba(255, 255, 255, 0.96);
             backdrop-filter: blur(12px);
-        }
-
-        /* 3D Metallic Gradient Title for Login */
-        .title-3d-login {
-            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0px 2px 3px rgba(0, 0, 0, 0.3));
-            letter-spacing: -0.02em;
-        }
-
-        /* 3D Logo Container Badge */
-        .logo-3d-badge {
-            background: linear-gradient(145deg, #0f172a 0%, #1e293b 100%);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-bottom: 3px solid #020617;
-            box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
         }
 
         .clock-futuristic-3d {
@@ -274,515 +249,313 @@
 </head>
 <body class="min-h-screen flex flex-col w-full overflow-x-hidden relative pb-16">
 
-    <!-- PAGE BLUR WRAPPER -->
-    <div id="pageBlurWrapper" class="page-blur transition-all duration-300 flex flex-col min-h-screen w-full">
+    <!-- 3D American Airlines White Aircraft -->
+    <div id="freeFlightPlane">
+        <svg viewBox="0 0 200 200" width="100%" height="100%">
+            <defs>
+                <linearGradient id="aaFuselageGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#dbe1e8"/>
+                    <stop offset="25%" stop-color="#ffffff"/>
+                    <stop offset="60%" stop-color="#f8fafc"/>
+                    <stop offset="85%" stop-color="#cbd5e1"/>
+                    <stop offset="100%" stop-color="#94a3b8"/>
+                </linearGradient>
 
-        <!-- 3D Aircraft -->
-        <div id="freeFlightPlane">
-            <svg viewBox="0 0 200 200" width="100%" height="100%">
-                <defs>
-                    <linearGradient id="aaFuselageGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stop-color="#dbe1e8"/>
-                        <stop offset="25%" stop-color="#ffffff"/>
-                        <stop offset="60%" stop-color="#f8fafc"/>
-                        <stop offset="85%" stop-color="#cbd5e1"/>
-                        <stop offset="100%" stop-color="#94a3b8"/>
-                    </linearGradient>
+                <linearGradient id="aaWingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#e2e8f0"/>
+                    <stop offset="50%" stop-color="#cbd5e1"/>
+                    <stop offset="100%" stop-color="#64748b"/>
+                </linearGradient>
 
-                    <linearGradient id="aaWingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#e2e8f0"/>
-                        <stop offset="50%" stop-color="#cbd5e1"/>
-                        <stop offset="100%" stop-color="#64748b"/>
-                    </linearGradient>
+                <linearGradient id="aaEngineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#475569"/>
+                    <stop offset="50%" stop-color="#1e293b"/>
+                    <stop offset="100%" stop-color="#0f172a"/>
+                </linearGradient>
 
-                    <linearGradient id="aaEngineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" stop-color="#475569"/>
-                        <stop offset="50%" stop-color="#1e293b"/>
-                        <stop offset="100%" stop-color="#0f172a"/>
-                    </linearGradient>
+                <linearGradient id="aaCockpitGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#0284c7"/>
+                    <stop offset="100%" stop-color="#0369a1"/>
+                </linearGradient>
 
-                    <linearGradient id="aaCockpitGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" stop-color="#0284c7"/>
-                        <stop offset="100%" stop-color="#0369a1"/>
-                    </linearGradient>
+                <linearGradient id="aaTailRed" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#ef4444"/>
+                    <stop offset="100%" stop-color="#dc2626"/>
+                </linearGradient>
 
-                    <linearGradient id="aaTailRed" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stop-color="#ef4444"/>
-                        <stop offset="100%" stop-color="#dc2626"/>
-                    </linearGradient>
+                <linearGradient id="aaTailBlue" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#2563eb"/>
+                    <stop offset="100%" stop-color="#1d4ed8"/>
+                </linearGradient>
 
-                    <linearGradient id="aaTailBlue" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stop-color="#2563eb"/>
-                        <stop offset="100%" stop-color="#1d4ed8"/>
-                    </linearGradient>
+                <filter id="planeShadow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feDropShadow dx="0" dy="12" stdDeviation="6" flood-color="#020617" flood-opacity="0.35"/>
+                </filter>
+            </defs>
 
-                    <filter id="planeShadow" x="-20%" y="-20%" width="140%" height="140%">
-                        <feDropShadow dx="0" dy="12" stdDeviation="6" flood-color="#020617" flood-opacity="0.35"/>
-                    </filter>
-                </defs>
+            <g filter="url(#planeShadow)">
+                <path d="M 92,100 L 10,135 L 20,148 L 94,118 Z" fill="#475569" opacity="0.3"/>
+                <path d="M 108,100 L 190,135 L 180,148 L 106,118 Z" fill="#334155" opacity="0.4"/>
 
-                <g filter="url(#planeShadow)">
-                    <path d="M 92,100 L 10,135 L 20,148 L 94,118 Z" fill="#475569" opacity="0.3"/>
-                    <path d="M 108,100 L 190,135 L 180,148 L 106,118 Z" fill="#334155" opacity="0.4"/>
+                <rect x="52" y="112" width="10" height="24" rx="5" fill="url(#aaEngineGrad)"/>
+                <ellipse cx="57" cy="112" rx="5" ry="2" fill="#94a3b8"/>
+                
+                <rect x="138" y="112" width="10" height="24" rx="5" fill="url(#aaEngineGrad)"/>
+                <ellipse cx="143" cy="112" rx="5" ry="2" fill="#94a3b8"/>
 
-                    <rect x="52" y="112" width="10" height="24" rx="5" fill="url(#aaEngineGrad)"/>
-                    <ellipse cx="57" cy="112" rx="5" ry="2" fill="#94a3b8"/>
-                    
-                    <rect x="138" y="112" width="10" height="24" rx="5" fill="url(#aaEngineGrad)"/>
-                    <ellipse cx="143" cy="112" rx="5" ry="2" fill="#94a3b8"/>
+                <path d="M 94,85 L 12,132 C 8,134 10,139 16,139 L 40,138 L 95,110 Z" fill="url(#aaWingGrad)" stroke="#94a3b8" stroke-width="0.5"/>
+                <path d="M 12,132 L 8,130 L 10,136 L 16,139 Z" fill="#dc2626"/>
 
-                    <path d="M 94,85 L 12,132 C 8,134 10,139 16,139 L 40,138 L 95,110 Z" fill="url(#aaWingGrad)" stroke="#94a3b8" stroke-width="0.5"/>
-                    <path d="M 12,132 L 8,130 L 10,136 L 16,139 Z" fill="#dc2626"/>
+                <path d="M 106,85 L 188,132 C 192,134 190,139 184,139 L 160,138 L 105,110 Z" fill="url(#aaWingGrad)" stroke="#64748b" stroke-width="0.5"/>
+                <path d="M 188,132 L 192,130 L 190,136 L 184,139 Z" fill="#dc2626"/>
 
-                    <path d="M 106,85 L 188,132 C 192,134 190,139 184,139 L 160,138 L 105,110 Z" fill="url(#aaWingGrad)" stroke="#64748b" stroke-width="0.5"/>
-                    <path d="M 188,132 L 192,130 L 190,136 L 184,139 Z" fill="#dc2626"/>
+                <path d="M 97,165 L 55,186 C 52,188 53,192 57,191 L 98,178 Z" fill="url(#aaWingGrad)"/>
+                <path d="M 103,165 L 145,186 C 148,188 147,192 143,191 L 102,178 Z" fill="url(#aaWingGrad)"/>
 
-                    <path d="M 97,165 L 55,186 C 52,188 53,192 57,191 L 98,178 Z" fill="url(#aaWingGrad)"/>
-                    <path d="M 103,165 L 145,186 C 148,188 147,192 143,191 L 102,178 Z" fill="url(#aaWingGrad)"/>
+                <path d="M 100,8 C 86,30 84,130 88,172 C 90,188 95,195 100,195 C 105,195 110,188 112,172 C 116,130 114,30 100,8 Z" fill="url(#aaFuselageGrad)" stroke="#cbd5e1" stroke-width="1"/>
 
-                    <path d="M 100,8 C 86,30 84,130 88,172 C 90,188 95,195 100,195 C 105,195 110,188 112,172 C 116,130 114,30 100,8 Z" fill="url(#aaFuselageGrad)" stroke="#cbd5e1" stroke-width="1"/>
+                <path d="M 100,155 L 96,192 C 100,196 100,196 104,192 Z" fill="#f8fafc"/>
+                
+                <path d="M 99,158 L 97,166 L 103,166 L 101,158 Z" fill="url(#aaTailRed)"/>
+                <path d="M 97,166 L 96,172 L 104,172 L 103,166 Z" fill="#ffffff"/>
+                <path d="M 96,172 L 95,180 L 105,180 L 104,172 Z" fill="url(#aaTailBlue)"/>
+                <path d="M 95,180 L 96,190 L 104,190 L 105,180 Z" fill="url(#aaTailRed)"/>
 
-                    <path d="M 100,155 L 96,192 C 100,196 100,196 104,192 Z" fill="#f8fafc"/>
-                    
-                    <path d="M 99,158 L 97,166 L 103,166 L 101,158 Z" fill="url(#aaTailRed)"/>
-                    <path d="M 97,166 L 96,172 L 104,172 L 103,166 Z" fill="#ffffff"/>
-                    <path d="M 96,172 L 95,180 L 105,180 L 104,172 Z" fill="url(#aaTailBlue)"/>
-                    <path d="M 95,180 L 96,190 L 104,190 L 105,180 Z" fill="url(#aaTailRed)"/>
+                <path d="M 93,28 C 96,24 104,24 107,28 C 108,34 92,34 93,28 Z" fill="url(#aaCockpitGrad)"/>
+                
+                <line x1="91" y1="42" x2="91" y2="140" stroke="#0284c7" stroke-width="1.2" stroke-dasharray="1.5, 2.5" opacity="0.8"/>
+                <line x1="109" y1="42" x2="109" y2="140" stroke="#0284c7" stroke-width="1.2" stroke-dasharray="1.5, 2.5" opacity="0.8"/>
 
-                    <path d="M 93,28 C 96,24 104,24 107,28 C 108,34 92,34 93,28 Z" fill="url(#aaCockpitGrad)"/>
-                    
-                    <line x1="91" y1="42" x2="91" y2="140" stroke="#0284c7" stroke-width="1.2" stroke-dasharray="1.5, 2.5" opacity="0.8"/>
-                    <line x1="109" y1="42" x2="109" y2="140" stroke="#0284c7" stroke-width="1.2" stroke-dasharray="1.5, 2.5" opacity="0.8"/>
+                <path d="M 92,62 L 92,72 L 91,72 L 91,62 Z" fill="#2563eb"/>
+                <path d="M 92,72 L 92,82 L 91,82 L 91,72 Z" fill="#dc2626"/>
+            </g>
+        </svg>
+    </div>
 
-                    <path d="M 92,62 L 92,72 L 91,72 L 91,62 Z" fill="#2563eb"/>
-                    <path d="M 92,72 L 92,82 L 91,82 L 91,72 Z" fill="#dc2626"/>
-                </g>
-            </svg>
-        </div>
+    <div id="cloudContainer">
+        <div class="bg-cloud cloud-1"></div>
+        <div class="bg-cloud cloud-2"></div>
+        <div class="bg-cloud cloud-3"></div>
+        <div class="bg-cloud cloud-4"></div>
+    </div>
 
-        <div id="cloudContainer">
-            <div class="bg-cloud cloud-1"></div>
-            <div class="bg-cloud cloud-2"></div>
-            <div class="bg-cloud cloud-3"></div>
-            <div class="bg-cloud cloud-4"></div>
-        </div>
-
-        <header class="bg-slate-900 text-white sticky top-0 z-50 border-b-2 border-slate-950 shadow-lg w-full relative">
-            <div class="w-full px-4 sm:px-6 lg:px-12 h-16 flex items-center justify-between relative z-10">
-                <div class="flex items-center space-x-3 sm:space-x-4">
-                    <div class="flex items-center pr-2 sm:pr-3 border-r border-slate-700">
-                        <img src="SABRE-LOGO-REGISTERED-SCREEN-WHITE-WIP.svg" alt="Sabre Logo" class="h-5 sm:h-6 w-auto object-contain" />
+    <header class="bg-slate-900 text-white sticky top-0 z-50 border-b-2 border-slate-950 shadow-lg w-full relative">
+        <div class="w-full px-4 sm:px-6 lg:px-12 h-16 flex items-center justify-between relative z-10">
+            <div class="flex items-center space-x-3 sm:space-x-4">
+                <div class="flex items-center pr-2 sm:pr-3 border-r border-slate-700">
+                    <img src="SABRE-LOGO-REGISTERED-SCREEN-WHITE-WIP.svg" alt="Sabre Logo" class="h-5 sm:h-6 w-auto object-contain" />
+                </div>
+                <div class="flex items-center space-x-2 sm:space-x-3">
+                    <div class="bg-indigo-600 p-1.5 sm:p-2 rounded-lg text-white btn-3d">
+                        <i data-lucide="calendar-check" class="w-4 h-4 sm:w-5 sm:h-5"></i>
                     </div>
-                    <div class="flex items-center space-x-2 sm:space-x-3">
-                        <div class="bg-indigo-600 p-1.5 sm:p-2 rounded-lg text-white btn-3d">
-                            <i data-lucide="calendar-check" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h1 class="font-bold text-sm sm:text-lg leading-none tracking-tight">ATS BLR ROSTER PORTAL</h1>
+                            <span id="adminBadge" class="hidden text-[10px] bg-rose-600 text-white font-extrabold px-1.5 py-0.5 rounded tracking-wide uppercase">Admin Mode</span>
                         </div>
-                        <div>
-                            <div class="flex items-center gap-2">
-                                <h1 class="font-bold text-sm sm:text-lg leading-none tracking-tight">ATS BLR ROSTER PORTAL</h1>
-                                <span id="adminBadge" class="hidden text-[10px] bg-rose-600 text-white font-extrabold px-1.5 py-0.5 rounded tracking-wide uppercase">Admin Mode</span>
-                            </div>
-                            <span id="portalSubhead" class="text-[10px] sm:text-xs text-slate-400 block mt-0.5">Live Interactive Schedule</span>
-                        </div>
+                        <span id="portalSubhead" class="text-[10px] sm:text-xs text-slate-400 block mt-0.5">Live Interactive Schedule</span>
                     </div>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-3">
+                <div class="relative hidden sm:block">
+                    <input type="text" id="searchInput" placeholder="Search employee, skill, holiday..." 
+                        class="bg-slate-800 text-xs sm:text-sm text-slate-200 placeholder-slate-400 rounded-lg pl-9 pr-4 py-1.5 focus:outline-none focus:ring-2 focus:ring-indigo-500 w-48 sm:w-64 lg:w-80 border border-slate-700 input-3d">
+                    <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-2.5"></i>
                 </div>
                 
-                <div class="flex items-center space-x-3">
-                    <!-- Interactive Employee Profile Tag with Logout Dropdown -->
-                    <div class="relative">
-                        <button id="userProfileTag" onclick="toggleUserLogoutMenu()" class="hidden flex items-center gap-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg px-3 py-1.5 text-xs font-bold text-slate-200 shadow-sm transition-all cursor-pointer">
-                            <i data-lucide="user-check" class="w-4 h-4 text-emerald-400"></i>
-                            <span id="loggedInEmpName">Employee</span>
-                            <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400 ml-0.5"></i>
-                        </button>
-                        
-                        <!-- Logout Dropdown Menu -->
-                        <div id="userLogoutMenu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-2xl border border-slate-200 py-1 z-50 text-slate-800 card-3d">
-                            <div class="px-3 py-2 border-b border-slate-100 bg-slate-50 rounded-t-xl">
-                                <span class="text-[10px] uppercase font-bold text-slate-400 block">Logged in as</span>
-                                <span id="menuEmpName" class="text-xs font-extrabold text-slate-900 block truncate">Employee</span>
-                            </div>
-                            <button onclick="logoutEmployee()" class="w-full text-left px-3 py-2 text-xs font-bold text-rose-600 hover:bg-rose-50 flex items-center gap-2 transition-colors">
-                                <i data-lucide="log-out" class="w-4 h-4"></i> Logout
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="relative hidden sm:block">
-                        <input type="text" id="searchInput" placeholder="Search employee, skill, holiday..." 
-                            class="bg-slate-800 text-xs sm:text-sm text-slate-200 placeholder-slate-400 rounded-lg pl-9 pr-4 py-1.5 focus:outline-none focus:ring-2 focus:ring-indigo-500 w-48 sm:w-64 lg:w-80 border border-slate-700 input-3d">
-                        <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-2.5"></i>
-                    </div>
-
-                    <!-- Admin Notifications Badge for Password Resets -->
-                    <button id="adminResetNotifBtn" onclick="openAdminResetRequestsModal()" class="hidden relative p-2 bg-amber-500/20 text-amber-400 hover:bg-amber-500/30 rounded-lg border border-amber-500/40 text-xs font-bold flex items-center gap-1.5 transition-all">
-                        <i data-lucide="bell" class="w-4 h-4 text-amber-400 animate-bounce"></i>
-                        <span>Reset Requests</span>
-                        <span id="adminResetNotifBadge" class="bg-rose-600 text-white text-[10px] px-1.5 py-0.2 rounded-full font-extrabold ml-0.5">0</span>
+                <div id="adminImportContainer" class="hidden flex items-center gap-2">
+                    <button onclick="openAddMonthModal()" class="flex items-center space-x-1.5 bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors" title="Create a New Roster Month">
+                        <i data-lucide="calendar-plus" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+                        <span class="hidden xs:inline">Add Month</span>
                     </button>
-                    
-                    <div id="adminImportContainer" class="hidden flex items-center gap-2">
-                        <button onclick="openAddMonthModal()" class="flex items-center space-x-1.5 bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors">
-                            <i data-lucide="calendar-plus" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
-                            <span class="hidden xs:inline">Add Month</span>
-                        </button>
-                        <button onclick="openAddWeekModal()" class="flex items-center space-x-1.5 bg-teal-600 hover:bg-teal-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors">
-                            <i data-lucide="plus-circle" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
-                            <span class="hidden xs:inline">Add Week</span>
-                        </button>
-                        <button onclick="openAddEmployeeModal()" class="flex items-center space-x-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors">
-                            <i data-lucide="user-plus" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
-                            <span class="hidden xs:inline">Add Employee</span>
-                        </button>
-                        <label for="excelFileInput" class="flex items-center space-x-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg cursor-pointer btn-3d transition-colors">
-                            <i data-lucide="upload" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
-                            <span class="hidden xs:inline">Import Excel</span>
-                        </label>
-                        <input type="file" id="excelFileInput" accept=".xlsx, .xls" class="hidden" onchange="importExcelData(event)">
-
-                        <button onclick="logoutAdmin()" class="flex items-center space-x-1.5 bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors">
-                            <i data-lucide="log-out" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
-                            <span class="hidden xs:inline">Logout</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="p-2 sm:hidden bg-slate-950 border-t border-slate-800">
-                <div class="relative w-full">
-                    <input type="text" id="searchInputMobile" placeholder="Search employee, skill, holiday..." 
-                        class="bg-slate-800 text-xs text-slate-200 placeholder-slate-400 rounded-lg pl-8 pr-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-indigo-500 w-full border border-slate-700 input-3d"
-                        oninput="document.getElementById('searchInput').value = this.value; searchQuery = this.value.toLowerCase(); renderView();">
-                    <i data-lucide="search" class="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2"></i>
-                </div>
-            </div>
-        </header>
-
-        <main class="flex-grow w-full px-3 sm:px-6 lg:px-12 py-4 sm:py-6 space-y-4 sm:space-y-6 relative z-10">
-
-            <div id="worldClocksContainer" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2.5 sm:gap-4 w-full">
-                <div class="clock-futuristic-3d p-2.5 sm:p-3.5 rounded-xl flex flex-col justify-between h-20 sm:h-24">
-                    <div class="flex items-center justify-between">
-                        <span class="text-[10px] sm:text-[11px] font-orbitron font-bold uppercase tracking-wider text-cyan-400 flex items-center gap-1 sm:gap-1.5">
-                            <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-cyan-400 animate-ping"></span> India
-                        </span>
-                        <span class="text-[8px] sm:text-[9px] font-mono-digital bg-cyan-950/80 text-cyan-300 px-1 sm:px-1.5 py-0.5 rounded border border-cyan-800/80 font-bold">IST</span>
-                    </div>
-                    <div id="clock-IST" class="text-base sm:text-xl font-bold text-white font-mono-digital tracking-tight my-0.5 sm:my-1 text-cyan-50 drop-shadow-[0_0_8px_rgba(34,211,238,0.4)]">--:--:--</div>
-                    <div id="date-IST" class="text-[9px] sm:text-[11px] text-slate-400 font-medium font-mono-digital">---</div>
-                </div>
-
-                <div class="clock-futuristic-3d p-2.5 sm:p-3.5 rounded-xl flex flex-col justify-between h-20 sm:h-24">
-                    <div class="flex items-center justify-between">
-                        <span class="text-[10px] sm:text-[11px] font-orbitron font-bold uppercase tracking-wider text-teal-400 flex items-center gap-1 sm:gap-1.5">
-                            <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-teal-400 animate-pulse"></span> Krakow
-                        </span>
-                        <span class="text-[8px] sm:text-[9px] font-mono-digital bg-teal-950/80 text-teal-300 px-1 sm:px-1.5 py-0.5 rounded border border-teal-800/80 font-bold">CEST</span>
-                    </div>
-                    <div id="clock-KRK" class="text-base sm:text-xl font-bold text-white font-mono-digital tracking-tight my-0.5 sm:my-1 text-teal-50 drop-shadow-[0_0_8px_rgba(45,212,191,0.4)]">--:--:--</div>
-                    <div id="date-KRK" class="text-[9px] sm:text-[11px] text-slate-400 font-medium font-mono-digital">---</div>
-                </div>
-
-                <div class="clock-futuristic-3d p-2.5 sm:p-3.5 rounded-xl flex flex-col justify-between h-20 sm:h-24">
-                    <div class="flex items-center justify-between">
-                        <span class="text-[10px] sm:text-[11px] font-orbitron font-bold uppercase tracking-wider text-sky-400 flex items-center gap-1 sm:gap-1.5">
-                            <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-sky-400 animate-pulse"></span> UK
-                        </span>
-                        <span class="text-[8px] sm:text-[9px] font-mono-digital bg-sky-950/80 text-sky-300 px-1 sm:px-1.5 py-0.5 rounded border border-sky-800/80 font-bold">GMT/BST</span>
-                    </div>
-                    <div id="clock-UK" class="text-base sm:text-xl font-bold text-white font-mono-digital tracking-tight my-0.5 sm:my-1 text-sky-50 drop-shadow-[0_0_8px_rgba(56,189,248,0.4)]">--:--:--</div>
-                    <div id="date-UK" class="text-[9px] sm:text-[11px] text-slate-400 font-medium font-mono-digital">---</div>
-                </div>
-
-                <div class="clock-futuristic-3d p-2.5 sm:p-3.5 rounded-xl flex flex-col justify-between h-20 sm:h-24">
-                    <div class="flex items-center justify-between">
-                        <span class="text-[10px] sm:text-[11px] font-orbitron font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1 sm:gap-1.5">
-                            <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-emerald-400 animate-pulse"></span> Australia
-                        </span>
-                        <span class="text-[8px] sm:text-[9px] font-mono-digital bg-emerald-950/80 text-emerald-300 px-1 sm:px-1.5 py-0.5 rounded border border-emerald-800/80 font-bold">AEST</span>
-                    </div>
-                    <div id="clock-AEST" class="text-base sm:text-xl font-bold text-white font-mono-digital tracking-tight my-0.5 sm:my-1 text-emerald-50 drop-shadow-[0_0_8px_rgba(52,211,153,0.4)]">--:--:--</div>
-                    <div id="date-AEST" class="text-[9px] sm:text-[11px] text-slate-400 font-medium font-mono-digital">---</div>
-                </div>
-
-                <div class="clock-futuristic-3d p-2.5 sm:p-3.5 rounded-xl flex flex-col justify-between h-20 sm:h-24">
-                    <div class="flex items-center justify-between">
-                        <span class="text-[10px] sm:text-[11px] font-orbitron font-bold uppercase tracking-wider text-amber-400 truncate" title="Singapore / Hongkong / Malaysia">SG / HK / MY</span>
-                        <span class="text-[8px] sm:text-[9px] font-mono-digital bg-amber-950/80 text-amber-300 px-1 sm:px-1.5 py-0.5 rounded border border-amber-800/80 font-bold">UTC+8</span>
-                    </div>
-                    <div id="clock-HKT" class="text-base sm:text-xl font-bold text-white font-mono-digital tracking-tight my-0.5 sm:my-1 text-amber-50 drop-shadow-[0_0_8px_rgba(251,191,36,0.4)]">--:--:--</div>
-                    <div id="date-HKT" class="text-[9px] sm:text-[11px] text-slate-400 font-medium font-mono-digital">---</div>
-                </div>
-
-                <div class="clock-futuristic-3d p-2.5 sm:p-3.5 rounded-xl flex flex-col justify-between h-20 sm:h-24">
-                    <div class="flex items-center justify-between">
-                        <span class="text-[10px] sm:text-[11px] font-orbitron font-bold uppercase tracking-wider text-indigo-400">EST</span>
-                        <span class="text-[8px] sm:text-[9px] font-mono-digital bg-indigo-950/80 text-indigo-300 px-1 sm:px-1.5 py-0.5 rounded border border-indigo-800/80 font-bold">UTC-5</span>
-                    </div>
-                    <div id="clock-EST" class="text-base sm:text-xl font-bold text-white font-mono-digital tracking-tight my-0.5 sm:my-1 text-indigo-50 drop-shadow-[0_0_8px_rgba(129,140,248,0.4)]">--:--:--</div>
-                    <div id="date-EST" class="text-[9px] sm:text-[11px] text-slate-400 font-medium font-mono-digital">---</div>
-                </div>
-
-                <div class="clock-futuristic-3d p-2.5 sm:p-3.5 rounded-xl flex flex-col justify-between h-20 sm:h-24">
-                    <div class="flex items-center justify-between">
-                        <span class="text-[10px] sm:text-[11px] font-orbitron font-bold uppercase tracking-wider text-purple-400">CST</span>
-                        <span class="text-[8px] sm:text-[9px] font-mono-digital bg-purple-950/80 text-purple-300 px-1 sm:px-1.5 py-0.5 rounded border border-purple-800/80 font-bold">UTC-6</span>
-                    </div>
-                    <div id="clock-CST" class="text-base sm:text-xl font-bold text-white font-mono-digital tracking-tight my-0.5 sm:my-1 text-purple-50 drop-shadow-[0_0_8px_rgba(192,132,252,0.4)]">--:--:--</div>
-                    <div id="date-CST" class="text-[9px] sm:text-[11px] text-slate-400 font-medium font-mono-digital">---</div>
-                </div>
-
-                <div class="clock-futuristic-3d p-2.5 sm:p-3.5 rounded-xl flex flex-col justify-between h-20 sm:h-24">
-                    <div class="flex items-center justify-between">
-                        <span class="text-[10px] sm:text-[11px] font-orbitron font-bold uppercase tracking-wider text-rose-400">MT / PST</span>
-                        <span class="text-[8px] sm:text-[9px] font-mono-digital bg-rose-950/80 text-rose-300 px-1 sm:px-1.5 py-0.5 rounded border border-rose-800/80 font-bold">US W</span>
-                    </div>
-                    <div id="clock-PST" class="text-base sm:text-xl font-bold text-white font-mono-digital tracking-tight my-0.5 sm:my-1 text-rose-50 drop-shadow-[0_0_8px_rgba(251,113,133,0.4)]">--:--:--</div>
-                    <div id="date-PST" class="text-[9px] sm:text-[11px] text-slate-400 font-medium font-mono-digital">---</div>
-                </div>
-            </div>
-
-            <div class="bg-white p-3 sm:p-4 rounded-xl card-3d flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4 w-full">
-                <div class="flex flex-wrap gap-1.5 sm:gap-2">
-                    <button onclick="switchCategory('weekly', event)" id="tabWeekly" class="tab-btn tab-3d active text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg flex items-center gap-1.5 sm:gap-2 transition-all">
-                        <i data-lucide="calendar" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i> Roster Schedule
+                    <button onclick="openAddWeekModal()" class="flex items-center space-x-1.5 bg-teal-600 hover:bg-teal-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors" title="Add Week to Current Month">
+                        <i data-lucide="plus-circle" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+                        <span class="hidden xs:inline">Add Week</span>
                     </button>
-                    <button onclick="switchCategory('individual', event)" id="tabIndividual" class="tab-btn tab-3d text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg flex items-center gap-1.5 sm:gap-2 transition-all">
-                        <i data-lucide="user" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i> Individual Profiles
+                    <button onclick="openAddEmployeeModal()" class="flex items-center space-x-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors">
+                        <i data-lucide="user-plus" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+                        <span class="hidden xs:inline">Add Employee</span>
                     </button>
-                    <button onclick="switchCategory('qm', event)" id="tabQM" class="tab-btn tab-3d text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg flex items-center gap-1.5 sm:gap-2 transition-all">
-                        <i data-lucide="shield-check" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i> QM Staff Allocation
-                    </button>
-                    <button onclick="switchCategory('holidays', event)" id="tabHolidays" class="tab-btn tab-3d text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg flex items-center gap-1.5 sm:gap-2 transition-all">
-                        <i data-lucide="globe" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i> Sabre 2026 Global Holiday Calendar
+                    <label for="excelFileInput" class="flex items-center space-x-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg cursor-pointer btn-3d transition-colors">
+                        <i data-lucide="upload" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+                        <span class="hidden xs:inline">Import Excel</span>
+                    </label>
+                    <input type="file" id="excelFileInput" accept=".xlsx, .xls" class="hidden" onchange="importExcelData(event)">
+
+                    <button onclick="logoutAdmin()" class="flex items-center space-x-1.5 bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors" title="Logout from Admin Mode">
+                        <i data-lucide="log-out" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+                        <span class="hidden xs:inline">Logout</span>
                     </button>
                 </div>
-
-                <div id="periodNavigator" class="flex flex-wrap items-center gap-3 sm:gap-4">
-                    <div class="flex items-center space-x-1.5 sm:space-x-2">
-                        <label for="monthSelect" class="text-[10px] sm:text-xs font-semibold uppercase text-slate-400">Month:</label>
-                        <select id="monthSelect" onchange="onMonthChange()" class="bg-slate-50 border border-slate-300 text-slate-800 text-xs font-semibold rounded-lg px-2 sm:px-3 py-1 sm:py-1.5 focus:ring-2 focus:ring-indigo-500 card-3d">
-                        </select>
-                        <button id="adminDeleteMonthBtn" onclick="deleteCurrentMonth()" class="hidden p-1.5 text-rose-600 hover:text-rose-800 hover:bg-rose-50 rounded-lg border border-rose-200" title="Delete Selected Month">
-                            <i data-lucide="trash-2" class="w-4 h-4"></i>
-                        </button>
-                    </div>
-
-                    <div id="weekNavigator" class="flex items-center space-x-1.5 sm:space-x-2">
-                        <label for="weekSelect" class="text-[10px] sm:text-xs font-semibold uppercase text-slate-400">Week Range:</label>
-                        <select id="weekSelect" onchange="onWeekChange()" class="bg-slate-50 border border-slate-300 text-slate-800 text-xs font-semibold rounded-lg px-2 sm:px-3 py-1 sm:py-1.5 focus:ring-2 focus:ring-indigo-500 card-3d">
-                        </select>
-                        <button id="adminDeleteWeekBtn" onclick="deleteCurrentWeek()" class="hidden p-1.5 text-rose-600 hover:text-rose-800 hover:bg-rose-50 rounded-lg border border-rose-200" title="Delete Selected Week">
-                            <i data-lucide="trash-2" class="w-4 h-4"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div id="kpiContainer" class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 w-full">
-            </div>
-
-            <div id="chartSection" class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 w-full">
-                <div class="lg:col-span-2 bg-white p-4 sm:p-5 rounded-xl card-3d">
-                    <div class="flex items-center justify-between mb-3 sm:mb-4">
-                        <h3 class="font-bold text-slate-800 text-xs sm:text-sm flex items-center gap-2">
-                            <i data-lucide="line-chart" class="w-4 h-4 text-indigo-600"></i> Daily Shift Coverage Trend
-                        </h3>
-                    </div>
-                    <div class="chart-container-wrapper">
-                        <canvas id="coverageChart"></canvas>
-                    </div>
-                </div>
-
-                <div class="bg-white p-4 sm:p-5 rounded-xl card-3d">
-                    <div class="flex items-center justify-between mb-3 sm:mb-4">
-                        <h3 class="font-bold text-slate-800 text-xs sm:text-sm flex items-center gap-2">
-                            <i data-lucide="pie-chart" class="w-4 h-4 text-indigo-600"></i> Daily Shift Distribution
-                        </h3>
-                        <span id="distChartSubtitle" class="text-[10px] sm:text-xs font-bold text-indigo-600">Active Day</span>
-                    </div>
-                    <div class="chart-container-wrapper flex items-center justify-center">
-                        <canvas id="distributionChart"></canvas>
-                    </div>
-                </div>
-            </div>
-
-            <div id="mainDisplayArea" class="w-full">
-            </div>
-
-        </main>
-
-        <footer class="bg-white border-t border-slate-300 py-4 mt-8 shadow-inner w-full relative z-10">
-            <div class="w-full px-4 text-center text-xs text-slate-500 font-medium">
-                ATS BLR ROSTER PORTAL • Enterprise Dynamic Schedule Management Portal
-            </div>
-        </footer>
-    </div>
-
-    <!-- EMPLOYEE LOGIN OVERLAY MODAL -->
-    <div id="employeeAuthModal" class="fixed inset-0 bg-slate-950/75 backdrop-blur-md z-[100] flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl card-3d w-full max-w-md p-6 sm:p-8 space-y-5 shadow-2xl border border-slate-200 relative overflow-hidden">
-            
-            <div class="text-center space-y-3">
-                <div class="logo-3d-badge inline-flex justify-center items-center py-2.5 px-6 rounded-2xl mx-auto border border-slate-700/60 shadow-xl">
-                    <img src="SABRE-LOGO-REGISTERED-SCREEN-WHITE-WIP.svg" alt="Sabre Logo" class="h-8 sm:h-9 w-auto object-contain drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]" />
-                </div>
-
-                <div>
-                    <h2 class="font-extrabold text-slate-900 text-xl sm:text-2xl font-orbitron tracking-tight title-3d-login uppercase leading-snug">
-                        ATS BLR ROSTER PORTAL LOGIN
-                    </h2>
-                    <p class="text-slate-500 text-xs font-medium mt-1">Please enter your Employee ID and Password to view roster data.</p>
-                </div>
-            </div>
-
-            <form id="empLoginForm" onsubmit="handleEmployeeLogin(event)" class="space-y-4 pt-1">
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Employee ID</label>
-                    <div class="relative">
-                        <input type="text" id="empAuthId" required placeholder="e.g. 123456" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-9 pr-3 py-2.5 text-sm font-semibold focus:ring-2 focus:ring-indigo-600 focus:outline-none input-3d">
-                        <i data-lucide="id-card" class="w-4 h-4 text-slate-400 absolute left-3 top-3"></i>
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Password</label>
-                    <div class="relative">
-                        <input type="password" id="empAuthPass" required placeholder="••••••••" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-9 pr-3 py-2.5 text-sm font-semibold focus:ring-2 focus:ring-indigo-600 focus:outline-none input-3d">
-                        <i data-lucide="key-round" class="w-4 h-4 text-slate-400 absolute left-3 top-3"></i>
-                    </div>
-                </div>
-
-                <div id="empAuthError" class="hidden text-rose-600 text-xs font-bold bg-rose-50 border border-rose-200 rounded-lg p-2.5 text-center">
-                    Invalid Employee ID or Password.
-                </div>
-
-                <button type="submit" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl text-sm btn-3d shadow-indigo-200 shadow-xl transition-all">
-                    Sign In to View Portal
-                </button>
-
-                <div class="text-center pt-2">
-                    <button type="button" onclick="openForgotPasswordModal()" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 hover:underline cursor-pointer">
-                        Forgot Password?
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- FORGOT PASSWORD MODAL (EMPLOYEE SIDE) -->
-    <div id="forgotPasswordModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[115] flex items-center justify-center p-4 hidden">
-        <div class="bg-white rounded-2xl card-3d w-full max-w-md p-6 sm:p-8 space-y-4 shadow-2xl border border-slate-200">
-            <div class="text-center space-y-1">
-                <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center mx-auto mb-2 btn-3d">
-                    <i data-lucide="help-circle" class="w-6 h-6"></i>
-                </div>
-                <h3 class="font-extrabold text-slate-900 text-lg">Request Password Reset</h3>
-                <p class="text-slate-500 text-xs">Enter your Employee ID to notify Admin to issue a 24-hour temporary login password.</p>
-            </div>
-
-            <div class="space-y-3 pt-2">
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Employee ID</label>
-                    <input type="text" id="forgotEmpIdInput" placeholder="e.g. 123456" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-sm font-semibold focus:ring-2 focus:ring-amber-500 input-3d">
-                </div>
-
-                <div id="forgotStatusMsg" class="hidden text-xs font-bold rounded-lg p-2.5 text-center"></div>
-            </div>
-
-            <div class="flex justify-end gap-2 pt-2 border-t border-slate-200">
-                <button onclick="closeForgotPasswordModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs btn-3d w-1/2">Cancel</button>
-                <button onclick="submitForgotPasswordRequest()" class="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-xl text-xs btn-3d w-1/2">Send Request to Admin</button>
             </div>
         </div>
-    </div>
+        <div class="p-2 sm:hidden bg-slate-950 border-t border-slate-800">
+            <div class="relative w-full">
+                <input type="text" id="searchInputMobile" placeholder="Search employee, skill, holiday..." 
+                    class="bg-slate-800 text-xs text-slate-200 placeholder-slate-400 rounded-lg pl-8 pr-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-indigo-500 w-full border border-slate-700 input-3d"
+                    oninput="document.getElementById('searchInput').value = this.value; searchQuery = this.value.toLowerCase(); renderView();">
+                <i data-lucide="search" class="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2"></i>
+            </div>
+        </div>
+    </header>
 
-    <!-- URGENT ADMIN RESET REQUEST POP-UP MODAL -->
-    <div id="adminPopUpModal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-[130] flex items-center justify-center hidden p-4">
-        <div class="bg-white rounded-2xl card-3d w-full max-w-md p-6 sm:p-8 space-y-4 shadow-2xl border-2 border-amber-500 animate-pulse">
-            <div class="text-center space-y-1">
-                <div class="w-14 h-14 rounded-2xl bg-amber-500 text-white flex items-center justify-center mx-auto shadow-lg btn-3d">
-                    <i data-lucide="alert-circle" class="w-8 h-8"></i>
+    <main class="flex-grow w-full px-3 sm:px-6 lg:px-12 py-4 sm:py-6 space-y-4 sm:space-y-6 relative z-10">
+
+        <div id="worldClocksContainer" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2.5 sm:gap-4 w-full">
+            <div class="clock-futuristic-3d p-2.5 sm:p-3.5 rounded-xl flex flex-col justify-between h-20 sm:h-24">
+                <div class="flex items-center justify-between">
+                    <span class="text-[10px] sm:text-[11px] font-orbitron font-bold uppercase tracking-wider text-cyan-400 flex items-center gap-1 sm:gap-1.5">
+                        <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-cyan-400 animate-ping"></span> India
+                    </span>
+                    <span class="text-[8px] sm:text-[9px] font-mono-digital bg-cyan-950/80 text-cyan-300 px-1 sm:px-1.5 py-0.5 rounded border border-cyan-800/80 font-bold">IST</span>
                 </div>
-                <h3 class="font-extrabold text-slate-900 text-xl">Password Reset Request!</h3>
-                <p class="text-slate-500 text-xs font-medium">An employee has requested a password reset.</p>
+                <div id="clock-IST" class="text-base sm:text-xl font-bold text-white font-mono-digital tracking-tight my-0.5 sm:my-1 text-cyan-50 drop-shadow-[0_0_8px_rgba(34,211,238,0.4)]">--:--:--</div>
+                <div id="date-IST" class="text-[9px] sm:text-[11px] text-slate-400 font-medium font-mono-digital">---</div>
             </div>
 
-            <div id="adminPopUpContent" class="bg-amber-50 border border-amber-200 rounded-xl p-4 text-center space-y-1">
-                <div id="popUpEmpName" class="font-extrabold text-slate-900 text-base">Employee Name</div>
-                <div id="popUpEmpId" class="text-xs font-bold text-amber-800">Employee ID: ------</div>
-                <div id="popUpReqTime" class="text-[10px] text-slate-500 font-medium">Requested: --:--</div>
+            <div class="clock-futuristic-3d p-2.5 sm:p-3.5 rounded-xl flex flex-col justify-between h-20 sm:h-24">
+                <div class="flex items-center justify-between">
+                    <span class="text-[10px] sm:text-[11px] font-orbitron font-bold uppercase tracking-wider text-teal-400 flex items-center gap-1 sm:gap-1.5">
+                        <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-teal-400 animate-pulse"></span> Krakow
+                    </span>
+                    <span class="text-[8px] sm:text-[9px] font-mono-digital bg-teal-950/80 text-teal-300 px-1 sm:px-1.5 py-0.5 rounded border border-teal-800/80 font-bold">CEST</span>
+                </div>
+                <div id="clock-KRK" class="text-base sm:text-xl font-bold text-white font-mono-digital tracking-tight my-0.5 sm:my-1 text-teal-50 drop-shadow-[0_0_8px_rgba(45,212,191,0.4)]">--:--:--</div>
+                <div id="date-KRK" class="text-[9px] sm:text-[11px] text-slate-400 font-medium font-mono-digital">---</div>
             </div>
 
-            <div class="flex flex-col gap-2 pt-2">
-                <button id="popUpActionBtn" onclick="" class="w-full py-3 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-xl text-xs btn-3d shadow-amber-200 shadow-xl transition-all">
-                    Generate 24-Hour Reset Password
+            <div class="clock-futuristic-3d p-2.5 sm:p-3.5 rounded-xl flex flex-col justify-between h-20 sm:h-24">
+                <div class="flex items-center justify-between">
+                    <span class="text-[10px] sm:text-[11px] font-orbitron font-bold uppercase tracking-wider text-sky-400 flex items-center gap-1 sm:gap-1.5">
+                        <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-sky-400 animate-pulse"></span> UK
+                    </span>
+                    <span class="text-[8px] sm:text-[9px] font-mono-digital bg-sky-950/80 text-sky-300 px-1 sm:px-1.5 py-0.5 rounded border border-sky-800/80 font-bold">GMT/BST</span>
+                </div>
+                <div id="clock-UK" class="text-base sm:text-xl font-bold text-white font-mono-digital tracking-tight my-0.5 sm:my-1 text-sky-50 drop-shadow-[0_0_8px_rgba(56,189,248,0.4)]">--:--:--</div>
+                <div id="date-UK" class="text-[9px] sm:text-[11px] text-slate-400 font-medium font-mono-digital">---</div>
+            </div>
+
+            <div class="clock-futuristic-3d p-2.5 sm:p-3.5 rounded-xl flex flex-col justify-between h-20 sm:h-24">
+                <div class="flex items-center justify-between">
+                    <span class="text-[10px] sm:text-[11px] font-orbitron font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1 sm:gap-1.5">
+                        <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-emerald-400 animate-pulse"></span> Australia
+                    </span>
+                    <span class="text-[8px] sm:text-[9px] font-mono-digital bg-emerald-950/80 text-emerald-300 px-1 sm:px-1.5 py-0.5 rounded border border-emerald-800/80 font-bold">AEST</span>
+                </div>
+                <div id="clock-AEST" class="text-base sm:text-xl font-bold text-white font-mono-digital tracking-tight my-0.5 sm:my-1 text-emerald-50 drop-shadow-[0_0_8px_rgba(52,211,153,0.4)]">--:--:--</div>
+                <div id="date-AEST" class="text-[9px] sm:text-[11px] text-slate-400 font-medium font-mono-digital">---</div>
+            </div>
+
+            <div class="clock-futuristic-3d p-2.5 sm:p-3.5 rounded-xl flex flex-col justify-between h-20 sm:h-24">
+                <div class="flex items-center justify-between">
+                    <span class="text-[10px] sm:text-[11px] font-orbitron font-bold uppercase tracking-wider text-amber-400 truncate" title="Singapore / Hongkong / Malaysia">SG / HK / MY</span>
+                    <span class="text-[8px] sm:text-[9px] font-mono-digital bg-amber-950/80 text-amber-300 px-1 sm:px-1.5 py-0.5 rounded border border-amber-800/80 font-bold">UTC+8</span>
+                </div>
+                <div id="clock-HKT" class="text-base sm:text-xl font-bold text-white font-mono-digital tracking-tight my-0.5 sm:my-1 text-amber-50 drop-shadow-[0_0_8px_rgba(251,191,36,0.4)]">--:--:--</div>
+                <div id="date-HKT" class="text-[9px] sm:text-[11px] text-slate-400 font-medium font-mono-digital">---</div>
+            </div>
+
+            <div class="clock-futuristic-3d p-2.5 sm:p-3.5 rounded-xl flex flex-col justify-between h-20 sm:h-24">
+                <div class="flex items-center justify-between">
+                    <span class="text-[10px] sm:text-[11px] font-orbitron font-bold uppercase tracking-wider text-indigo-400">EST</span>
+                    <span class="text-[8px] sm:text-[9px] font-mono-digital bg-indigo-950/80 text-indigo-300 px-1 sm:px-1.5 py-0.5 rounded border border-indigo-800/80 font-bold">UTC-5</span>
+                </div>
+                <div id="clock-EST" class="text-base sm:text-xl font-bold text-white font-mono-digital tracking-tight my-0.5 sm:my-1 text-indigo-50 drop-shadow-[0_0_8px_rgba(129,140,248,0.4)]">--:--:--</div>
+                <div id="date-EST" class="text-[9px] sm:text-[11px] text-slate-400 font-medium font-mono-digital">---</div>
+            </div>
+
+            <div class="clock-futuristic-3d p-2.5 sm:p-3.5 rounded-xl flex flex-col justify-between h-20 sm:h-24">
+                <div class="flex items-center justify-between">
+                    <span class="text-[10px] sm:text-[11px] font-orbitron font-bold uppercase tracking-wider text-purple-400">CST</span>
+                    <span class="text-[8px] sm:text-[9px] font-mono-digital bg-purple-950/80 text-purple-300 px-1 sm:px-1.5 py-0.5 rounded border border-purple-800/80 font-bold">UTC-6</span>
+                </div>
+                <div id="clock-CST" class="text-base sm:text-xl font-bold text-white font-mono-digital tracking-tight my-0.5 sm:my-1 text-purple-50 drop-shadow-[0_0_8px_rgba(192,132,252,0.4)]">--:--:--</div>
+                <div id="date-CST" class="text-[9px] sm:text-[11px] text-slate-400 font-medium font-mono-digital">---</div>
+            </div>
+
+            <div class="clock-futuristic-3d p-2.5 sm:p-3.5 rounded-xl flex flex-col justify-between h-20 sm:h-24">
+                <div class="flex items-center justify-between">
+                    <span class="text-[10px] sm:text-[11px] font-orbitron font-bold uppercase tracking-wider text-rose-400">MT / PST</span>
+                    <span class="text-[8px] sm:text-[9px] font-mono-digital bg-rose-950/80 text-rose-300 px-1 sm:px-1.5 py-0.5 rounded border border-rose-800/80 font-bold">US W</span>
+                </div>
+                <div id="clock-PST" class="text-base sm:text-xl font-bold text-white font-mono-digital tracking-tight my-0.5 sm:my-1 text-rose-50 drop-shadow-[0_0_8px_rgba(251,113,133,0.4)]">--:--:--</div>
+                <div id="date-PST" class="text-[9px] sm:text-[11px] text-slate-400 font-medium font-mono-digital">---</div>
+            </div>
+        </div>
+
+        <div class="bg-white p-3 sm:p-4 rounded-xl card-3d flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4 w-full">
+            <div class="flex flex-wrap gap-1.5 sm:gap-2">
+                <button onclick="switchCategory('weekly', event)" id="tabWeekly" class="tab-btn tab-3d active text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg flex items-center gap-1.5 sm:gap-2 transition-all">
+                    <i data-lucide="calendar" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i> Roster Schedule
                 </button>
-                <button onclick="closeAdminPopUpModal()" class="w-full py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs btn-3d">
-                    Dismiss
+                <button onclick="switchCategory('individual', event)" id="tabIndividual" class="tab-btn tab-3d text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg flex items-center gap-1.5 sm:gap-2 transition-all">
+                    <i data-lucide="user" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i> Individual Profiles
+                </button>
+                <button onclick="switchCategory('qm', event)" id="tabQM" class="tab-btn tab-3d text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg flex items-center gap-1.5 sm:gap-2 transition-all">
+                    <i data-lucide="shield-check" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i> QM Staff Allocation
+                </button>
+                <!-- Sabre 2026 Global Holiday Calendar Tab -->
+                <button onclick="switchCategory('holidays', event)" id="tabHolidays" class="tab-btn tab-3d text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg flex items-center gap-1.5 sm:gap-2 transition-all">
+                    <i data-lucide="globe" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i> Sabre 2026 Global Holiday Calendar
                 </button>
             </div>
+
+            <div id="periodNavigator" class="flex flex-wrap items-center gap-3 sm:gap-4">
+                <div class="flex items-center space-x-1.5 sm:space-x-2">
+                    <label for="monthSelect" class="text-[10px] sm:text-xs font-semibold uppercase text-slate-400">Month:</label>
+                    <select id="monthSelect" onchange="onMonthChange()" class="bg-slate-50 border border-slate-300 text-slate-800 text-xs font-semibold rounded-lg px-2 sm:px-3 py-1 sm:py-1.5 focus:ring-2 focus:ring-indigo-500 card-3d">
+                    </select>
+                    <button id="adminDeleteMonthBtn" onclick="deleteCurrentMonth()" class="hidden p-1.5 text-rose-600 hover:text-rose-800 hover:bg-rose-50 rounded-lg border border-rose-200" title="Delete Selected Month">
+                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <div id="weekNavigator" class="flex items-center space-x-1.5 sm:space-x-2">
+                    <label for="weekSelect" class="text-[10px] sm:text-xs font-semibold uppercase text-slate-400">Week Range:</label>
+                    <select id="weekSelect" onchange="onWeekChange()" class="bg-slate-50 border border-slate-300 text-slate-800 text-xs font-semibold rounded-lg px-2 sm:px-3 py-1 sm:py-1.5 focus:ring-2 focus:ring-indigo-500 card-3d">
+                    </select>
+                    <button id="adminDeleteWeekBtn" onclick="deleteCurrentWeek()" class="hidden p-1.5 text-rose-600 hover:text-rose-800 hover:bg-rose-50 rounded-lg border border-rose-200" title="Delete Selected Week">
+                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <!-- ADMIN RESET REQUESTS LIST MODAL -->
-    <div id="adminResetRequestsModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-[120] flex items-center justify-center hidden p-4">
-        <div class="bg-white rounded-2xl card-3d w-full max-w-lg p-6 space-y-4 shadow-2xl">
-            <div class="flex justify-between items-center border-b border-slate-200 pb-3">
-                <h3 class="font-extrabold text-slate-900 text-base sm:text-lg flex items-center gap-2">
-                    <i data-lucide="key-round" class="text-amber-600 w-5 h-5"></i> Employee Password Reset Requests
-                </h3>
-                <button onclick="closeAdminResetRequestsModal()" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
+        <div id="kpiContainer" class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 w-full">
+        </div>
+
+        <div id="chartSection" class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 w-full">
+            <div class="lg:col-span-2 bg-white p-4 sm:p-5 rounded-xl card-3d">
+                <div class="flex items-center justify-between mb-3 sm:mb-4">
+                    <h3 class="font-bold text-slate-800 text-xs sm:text-sm flex items-center gap-2">
+                        <i data-lucide="line-chart" class="w-4 h-4 text-indigo-600"></i> Daily Shift Coverage Trend
+                    </h3>
+                </div>
+                <div class="chart-container-wrapper">
+                    <canvas id="coverageChart"></canvas>
+                </div>
             </div>
 
-            <div id="adminResetRequestsList" class="space-y-3 max-h-80 overflow-y-auto pr-1">
-            </div>
-
-            <div class="flex justify-end pt-2 border-t border-slate-200">
-                <button onclick="closeAdminResetRequestsModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs btn-3d">Close</button>
+            <div class="bg-white p-4 sm:p-5 rounded-xl card-3d">
+                <div class="flex items-center justify-between mb-3 sm:mb-4">
+                    <h3 class="font-bold text-slate-800 text-xs sm:text-sm flex items-center gap-2">
+                        <i data-lucide="pie-chart" class="w-4 h-4 text-indigo-600"></i> Daily Shift Distribution
+                    </h3>
+                    <span id="distChartSubtitle" class="text-[10px] sm:text-xs font-bold text-indigo-600">Active Day</span>
+                </div>
+                <div class="chart-container-wrapper flex items-center justify-center">
+                    <canvas id="distributionChart"></canvas>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- CHANGE PASSWORD MODAL -->
-    <div id="changePasswordModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[110] flex items-center justify-center p-4 hidden">
-        <div class="bg-white rounded-2xl card-3d w-full max-w-md p-6 sm:p-8 space-y-5 shadow-2xl border border-slate-200">
-            <div class="text-center space-y-2">
-                <div class="w-14 h-14 rounded-2xl bg-amber-500 text-white flex items-center justify-center mx-auto shadow-lg btn-3d">
-                    <i data-lucide="key" class="w-7 h-7"></i>
-                </div>
-                <h2 class="font-extrabold text-slate-900 text-xl tracking-tight">Change Password Required</h2>
-                <p class="text-slate-500 text-xs font-medium">Temporary or expired password detected. Please set a new password.</p>
-            </div>
-
-            <div class="bg-amber-50 border border-amber-300 text-amber-950 rounded-xl p-3.5 text-xs font-medium space-y-1">
-                <span class="font-bold uppercase tracking-wider block text-[10px] text-amber-800">Password Criteria:</span>
-                <ul class="list-disc list-inside space-y-0.5 text-[11px] font-semibold text-amber-900">
-                    <li>Exactly 8 characters long</li>
-                    <li>Must contain only letters and numbers</li>
-                </ul>
-            </div>
-
-            <form id="changePassForm" onsubmit="handlePasswordChange(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">New Password</label>
-                    <input type="password" id="newPassInput" required maxlength="8" placeholder="8 letters & numbers" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 text-sm font-semibold focus:ring-2 focus:ring-indigo-600 focus:outline-none input-3d">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Confirm Password</label>
-                    <input type="password" id="confirmPassInput" required maxlength="8" placeholder="Re-enter new password" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 text-sm font-semibold focus:ring-2 focus:ring-indigo-600 focus:outline-none input-3d">
-                </div>
-
-                <div id="changePassError" class="hidden text-rose-600 text-xs font-bold bg-rose-50 border border-rose-200 rounded-lg p-2.5 text-center">
-                    Error message
-                </div>
-
-                <button type="submit" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-sm btn-3d shadow-emerald-200 shadow-xl transition-all">
-                    Update Password & Continue
-                </button>
-            </form>
+        <div id="mainDisplayArea" class="w-full">
         </div>
-    </div>
+
+    </main>
 
     <!-- Admin Bottom Actions Bar -->
     <div id="adminActionDock" class="fixed bottom-0 inset-x-0 bg-slate-900/95 backdrop-blur-md text-white border-t border-slate-700 py-3 px-4 sm:px-12 z-50 flex items-center justify-between hidden shadow-2xl">
@@ -1005,528 +778,13 @@
         </div>
     </div>
 
+    <footer class="bg-white border-t border-slate-300 py-4 mt-8 shadow-inner w-full relative z-10">
+        <div class="w-full px-4 text-center text-xs text-slate-500 font-medium">
+            ATS BLR ROSTER PORTAL • Enterprise Dynamic Schedule Management Portal
+        </div>
+    </footer>
+
     <script>
-        // --- CENTRALIZED REAL-TIME CROSS-DEVICE AUTHENTICATION ENGINE ---
-        const DEFAULT_TEMP_PASS = "3E4R5T6Y";
-        const NINETY_DAYS_MS = 90 * 24 * 60 * 60 * 1000;
-        const TWENTY_FOUR_HOURS_MS = 24 * 60 * 60 * 1000;
-        const MAX_ALLOWED_DEVICES = 10;
-        let currentAuthenticatedEmployee = null;
-
-        // Force reset initial cached user DB to clear old stale states
-        localStorage.removeItem('ats_user_db');
-        localStorage.removeItem('ats_reset_requests');
-
-        // Broadcast Channel for Multi-Tab Sync on same device
-        let authBroadcastChannel = null;
-        if (typeof BroadcastChannel !== 'undefined') {
-            authBroadcastChannel = new BroadcastChannel('ats_global_auth_channel');
-            authBroadcastChannel.onmessage = (event) => {
-                if (event.data === 'LOGOUT_ALL') {
-                    executeGlobalLogoutLocal();
-                } else if (event.data === 'RESET_REQUESTED') {
-                    if (isAdminMode) {
-                        fetchLivePublicRoster();
-                    }
-                }
-            };
-        }
-
-        // Cross-Tab Storage Event Listener
-        window.addEventListener('storage', (e) => {
-            if (e.key === 'ats_global_logout_event') {
-                executeGlobalLogoutLocal();
-            } else if (e.key === 'ats_reset_requests' && isAdminMode) {
-                updateAdminNotifUI();
-            }
-        });
-
-        // Background Polling Timer for Live Admin Notifications & Password Sync (Checks every 3 sec)
-        setInterval(() => {
-            syncGlobalAuthData();
-            if (isAdminMode) {
-                updateAdminNotifUI();
-            }
-        }, 3000);
-
-        // MANAGER EXCEPTION DATA
-        const MANAGER_EXCEPTION = {
-            sg_id: 223174,
-            name: "Rajesh Warvadkar",
-            skilling: "Manager"
-        };
-
-        function getCentralUserDb() {
-            let db = {};
-            if (rawRosterData && rawRosterData._user_db) {
-                db = rawRosterData._user_db;
-            } else {
-                try {
-                    db = JSON.parse(localStorage.getItem('ats_user_db')) || {};
-                } catch (e) {}
-            }
-            return db;
-        }
-
-        function saveCentralUserDb(db) {
-            localStorage.setItem('ats_user_db', JSON.stringify(db));
-            if (!rawRosterData) rawRosterData = [];
-            rawRosterData._user_db = db;
-            pushAuthToSharedCloud();
-        }
-
-        function getResetRequestsDb() {
-            let reqs = [];
-            if (rawRosterData && Array.isArray(rawRosterData._reset_requests)) {
-                reqs = rawRosterData._reset_requests;
-            } else {
-                try {
-                    reqs = JSON.parse(localStorage.getItem('ats_reset_requests')) || [];
-                } catch (e) {}
-            }
-            return reqs;
-        }
-
-        function saveResetRequestsDb(reqs) {
-            localStorage.setItem('ats_reset_requests', JSON.stringify(reqs));
-            if (!rawRosterData) rawRosterData = [];
-            rawRosterData._reset_requests = reqs;
-            pushAuthToSharedCloud();
-        }
-
-        async function pushAuthToSharedCloud() {
-            localStorage.setItem('ats_cloud_sync_timestamp', Date.now());
-            if (githubConfig.token && githubConfig.owner && githubConfig.repo) {
-                triggerPendingChangesState();
-            }
-        }
-
-        async function syncGlobalAuthData() {
-            try {
-                const localDb = JSON.parse(localStorage.getItem('ats_user_db')) || {};
-                const localReqs = JSON.parse(localStorage.getItem('ats_reset_requests')) || [];
-
-                if (rawRosterData) {
-                    if (!rawRosterData._user_db) rawRosterData._user_db = {};
-                    if (!rawRosterData._reset_requests) rawRosterData._reset_requests = [];
-
-                    rawRosterData._user_db = Object.assign({}, rawRosterData._user_db, localDb);
-                    
-                    localReqs.forEach(lr => {
-                        if (!rawRosterData._reset_requests.some(r => String(r.sg_id) === String(lr.sg_id) && r.requestedAt === lr.requestedAt)) {
-                            rawRosterData._reset_requests.push(lr);
-                        }
-                    });
-                }
-            } catch(e) {}
-        }
-
-        function updateAdminNotifUI() {
-            syncGlobalAuthData();
-            const reqs = getResetRequestsDb().filter(r => r.status === 'PENDING');
-            const notifBtn = document.getElementById('adminResetNotifBtn');
-            const badge = document.getElementById('adminResetNotifBadge');
-            
-            if (isAdminMode && reqs.length > 0) {
-                if (notifBtn) notifBtn.classList.remove('hidden');
-                if (badge) badge.innerText = reqs.length;
-
-                triggerAdminResetPopUp(reqs[0]);
-            } else {
-                if (notifBtn) notifBtn.classList.add('hidden');
-            }
-        }
-
-        function triggerAdminResetPopUp(reqObj) {
-            if (!reqObj || !isAdminMode) return;
-            
-            const modal = document.getElementById('adminPopUpModal');
-            if (!modal.classList.contains('hidden')) return;
-
-            document.getElementById('popUpEmpName').innerText = reqObj.name;
-            document.getElementById('popUpEmpId').innerText = `Employee ID: ${reqObj.sg_id}`;
-            document.getElementById('popUpReqTime').innerText = `Requested: ${new Date(reqObj.requestedAt).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
-            
-            const btn = document.getElementById('popUpActionBtn');
-            btn.onclick = function() {
-                adminGenerateResetPass(reqObj.sg_id);
-                closeAdminPopUpModal();
-            };
-
-            modal.classList.remove('hidden');
-        }
-
-        function closeAdminPopUpModal() {
-            document.getElementById('adminPopUpModal').classList.add('hidden');
-        }
-
-        function toggleUserLogoutMenu() {
-            const menu = document.getElementById('userLogoutMenu');
-            menu.classList.toggle('hidden');
-        }
-
-        document.addEventListener('click', (e) => {
-            const tag = document.getElementById('userProfileTag');
-            const menu = document.getElementById('userLogoutMenu');
-            if (tag && menu && !tag.contains(e.target) && !menu.contains(e.target)) {
-                menu.classList.add('hidden');
-            }
-        });
-
-        function logoutEmployee() {
-            const confirmLogout = confirm("Are you sure you want to log out from all devices?");
-            if (!confirmLogout) return;
-
-            localStorage.setItem('ats_global_logout_event', Date.now());
-            if (authBroadcastChannel) {
-                authBroadcastChannel.postMessage('LOGOUT_ALL');
-            }
-
-            executeGlobalLogoutLocal();
-        }
-
-        function executeGlobalLogoutLocal() {
-            sessionStorage.removeItem('ats_logged_emp_id');
-            currentAuthenticatedEmployee = null;
-            document.getElementById('userLogoutMenu').classList.add('hidden');
-            showAuthOverlay();
-        }
-
-        function checkEmployeeAuthStatus() {
-            syncGlobalAuthData();
-            const sessionEmpId = sessionStorage.getItem('ats_logged_emp_id');
-            if (!sessionEmpId) {
-                showAuthOverlay();
-                return;
-            }
-
-            const db = getCentralUserDb();
-            const userRecord = db[sessionEmpId];
-
-            if (!userRecord) {
-                showAuthOverlay();
-                return;
-            }
-
-            const now = Date.now();
-            
-            // Check 24 hour temp password expiry
-            if (userRecord.is24HourTemp && userRecord.tempExpiry && now > userRecord.tempExpiry) {
-                showAuthOverlay();
-                const errEl = document.getElementById('empAuthError');
-                errEl.innerText = "24-Hour Temporary password has expired. Please request a new password reset.";
-                errEl.classList.remove('hidden');
-                return;
-            }
-
-            // Check 90 days password expiry
-            if (!userRecord.isTemp && !userRecord.is24HourTemp && userRecord.passUpdatedAt && (now - userRecord.passUpdatedAt > NINETY_DAYS_MS)) {
-                currentAuthenticatedEmployee = userRecord;
-                showChangePasswordModal("Your 90-day password period has expired. Please update your password.");
-                return;
-            }
-
-            // Check if user needs to change temporary password
-            if (userRecord.isTemp || userRecord.is24HourTemp) {
-                currentAuthenticatedEmployee = userRecord;
-                showChangePasswordModal(userRecord.is24HourTemp ? "Logged in with 24-Hour temporary password. Please set a new permanent password." : "Logged in with default temporary password. Please set a new password.");
-                return;
-            }
-
-            // Authenticated successfully
-            currentAuthenticatedEmployee = userRecord;
-            grantPortalAccess();
-        }
-
-        function showAuthOverlay() {
-            document.getElementById('pageBlurWrapper').classList.add('page-blur');
-            document.getElementById('employeeAuthModal').classList.remove('hidden');
-            document.getElementById('changePasswordModal').classList.add('hidden');
-            document.getElementById('userProfileTag').classList.add('hidden');
-        }
-
-        function showChangePasswordModal(msg) {
-            document.getElementById('pageBlurWrapper').classList.add('page-blur');
-            document.getElementById('employeeAuthModal').classList.add('hidden');
-            
-            const errEl = document.getElementById('changePassError');
-            if (msg) {
-                errEl.innerText = msg;
-                errEl.classList.remove('hidden');
-            } else {
-                errEl.classList.add('hidden');
-            }
-            
-            document.getElementById('changePasswordModal').classList.remove('hidden');
-        }
-
-        function grantPortalAccess() {
-            document.getElementById('employeeAuthModal').classList.add('hidden');
-            document.getElementById('changePasswordModal').classList.add('hidden');
-            document.getElementById('pageBlurWrapper').classList.remove('page-blur');
-
-            if (currentAuthenticatedEmployee) {
-                document.getElementById('loggedInEmpName').innerText = currentAuthenticatedEmployee.name;
-                document.getElementById('menuEmpName').innerText = currentAuthenticatedEmployee.name;
-                document.getElementById('userProfileTag').classList.remove('hidden');
-            }
-        }
-
-        function isListedEmployee(empId) {
-            const searchId = String(empId).trim();
-            
-            if (searchId === String(MANAGER_EXCEPTION.sg_id)) {
-                return MANAGER_EXCEPTION;
-            }
-
-            if (!rawRosterData || rawRosterData.length === 0) return null;
-            
-            for (const week of rawRosterData) {
-                if (week.employees && Array.isArray(week.employees)) {
-                    const match = week.employees.find(e => String(e.sg_id).trim() === searchId);
-                    if (match) return match;
-                }
-            }
-            return null;
-        }
-
-        function handleEmployeeLogin(e) {
-            e.preventDefault();
-            syncGlobalAuthData();
-
-            const inputId = document.getElementById('empAuthId').value.trim();
-            const inputPass = document.getElementById('empAuthPass').value.trim();
-            const errorEl = document.getElementById('empAuthError');
-
-            errorEl.classList.add('hidden');
-
-            const listedEmp = isListedEmployee(inputId);
-            if (!listedEmp) {
-                errorEl.innerText = "Access Denied: Employee ID not found in roster list.";
-                errorEl.classList.remove('hidden');
-                return;
-            }
-
-            const db = getCentralUserDb();
-            let userRecord = db[inputId];
-
-            if (!userRecord) {
-                userRecord = {
-                    sg_id: listedEmp.sg_id,
-                    name: listedEmp.name,
-                    password: DEFAULT_TEMP_PASS,
-                    isTemp: true,
-                    is24HourTemp: false,
-                    tempExpiry: 0,
-                    passUpdatedAt: 0
-                };
-            } else {
-                userRecord.name = listedEmp.name;
-            }
-
-            const now = Date.now();
-            if (userRecord.is24HourTemp && userRecord.tempExpiry && now > userRecord.tempExpiry) {
-                errorEl.innerText = "24-Hour Temporary password has expired. Please request a new reset.";
-                errorEl.classList.remove('hidden');
-                return;
-            }
-
-            if (inputPass !== userRecord.password) {
-                errorEl.innerText = "Incorrect Password. Please try again.";
-                errorEl.classList.remove('hidden');
-                return;
-            }
-
-            sessionStorage.setItem('ats_logged_emp_id', userRecord.sg_id);
-            currentAuthenticatedEmployee = userRecord;
-
-            if (userRecord.isTemp || userRecord.is24HourTemp || (userRecord.passUpdatedAt && (now - userRecord.passUpdatedAt > NINETY_DAYS_MS))) {
-                showChangePasswordModal();
-            } else {
-                grantPortalAccess();
-            }
-        }
-
-        async function handlePasswordChange(e) {
-            e.preventDefault();
-            const newPass = document.getElementById('newPassInput').value.trim();
-            const confirmPass = document.getElementById('confirmPassInput').value.trim();
-            const errorEl = document.getElementById('changePassError');
-
-            errorEl.classList.add('hidden');
-
-            const passRegex = /^[a-zA-Z0-9]{8}$/;
-
-            if (!passRegex.test(newPass)) {
-                errorEl.innerText = "Password must be exactly 8 characters with letters and numbers only.";
-                errorEl.classList.remove('hidden');
-                return;
-            }
-
-            if (newPass !== confirmPass) {
-                errorEl.innerText = "New password and Confirm password do not match.";
-                errorEl.classList.remove('hidden');
-                return;
-            }
-
-            if (!currentAuthenticatedEmployee) return;
-
-            const db = getCentralUserDb();
-            db[currentAuthenticatedEmployee.sg_id] = {
-                sg_id: currentAuthenticatedEmployee.sg_id,
-                name: currentAuthenticatedEmployee.name,
-                password: newPass,
-                isTemp: false,
-                is24HourTemp: false,
-                tempExpiry: 0,
-                passUpdatedAt: Date.now()
-            };
-
-            saveCentralUserDb(db);
-            currentAuthenticatedEmployee = db[currentAuthenticatedEmployee.sg_id];
-            sessionStorage.setItem('ats_logged_emp_id', currentAuthenticatedEmployee.sg_id);
-
-            alert("Password successfully updated! Saved permanently for 90 days across all devices.");
-            grantPortalAccess();
-        }
-
-        function openForgotPasswordModal() {
-            document.getElementById('forgotEmpIdInput').value = document.getElementById('empAuthId').value.trim();
-            document.getElementById('forgotStatusMsg').classList.add('hidden');
-            document.getElementById('forgotPasswordModal').classList.remove('hidden');
-        }
-
-        function closeForgotPasswordModal() {
-            document.getElementById('forgotPasswordModal').classList.add('hidden');
-        }
-
-        async function submitForgotPasswordRequest() {
-            const inputId = document.getElementById('forgotEmpIdInput').value.trim();
-            const statusEl = document.getElementById('forgotStatusMsg');
-            
-            const emp = isListedEmployee(inputId);
-            if (!emp) {
-                statusEl.innerText = "Employee ID not found in roster list.";
-                statusEl.className = "text-xs font-bold rounded-lg p-2.5 text-center bg-rose-50 text-rose-600 block";
-                return;
-            }
-
-            const reqs = getResetRequestsDb();
-            const existingPending = reqs.find(r => String(r.sg_id) === String(emp.sg_id) && r.status === 'PENDING');
-
-            if (!existingPending) {
-                reqs.push({
-                    sg_id: emp.sg_id,
-                    name: emp.name,
-                    requestedAt: Date.now(),
-                    status: 'PENDING'
-                });
-                saveResetRequestsDb(reqs);
-
-                if (authBroadcastChannel) {
-                    authBroadcastChannel.postMessage('RESET_REQUESTED');
-                }
-            }
-
-            statusEl.innerText = `Reset request submitted for ${emp.name} (${emp.sg_id}). Admin has been notified.`;
-            statusEl.className = "text-xs font-bold rounded-lg p-2.5 text-center bg-emerald-50 text-emerald-700 block";
-            updateAdminNotifUI();
-        }
-
-        function openAdminResetRequestsModal() {
-            if (!isAdminMode) return;
-            renderAdminResetRequestsList();
-            document.getElementById('adminResetRequestsModal').classList.remove('hidden');
-        }
-
-        function closeAdminResetRequestsModal() {
-            document.getElementById('adminResetRequestsModal').classList.add('hidden');
-        }
-
-        function generateRandom8CharPassword() {
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            let pass = '';
-            for (let i = 0; i < 8; i++) {
-                pass += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            return pass;
-        }
-
-        async function adminGenerateResetPass(sgId) {
-            const db = getCentralUserDb();
-            const reqs = getResetRequestsDb();
-            const emp = isListedEmployee(sgId);
-
-            if (!emp) return;
-
-            const autoPass = generateRandom8CharPassword();
-            const expiry = Date.now() + TWENTY_FOUR_HOURS_MS;
-
-            db[sgId] = {
-                sg_id: emp.sg_id,
-                name: emp.name,
-                password: autoPass,
-                isTemp: false,
-                is24HourTemp: true,
-                tempExpiry: expiry,
-                passUpdatedAt: Date.now()
-            };
-
-            const reqObj = reqs.find(r => String(r.sg_id) === String(sgId) && r.status === 'PENDING');
-            if (reqObj) {
-                reqObj.status = 'RESOLVED';
-                reqObj.generatedPass = autoPass;
-            }
-
-            saveCentralUserDb(db);
-            saveResetRequestsDb(reqs);
-
-            updateAdminNotifUI();
-            renderAdminResetRequestsList();
-
-            alert(`24-Hour Temporary Password generated for ${emp.name} (${sgId}):\n\n${autoPass}\n\nThis password is valid for 24 hours. The employee must login with this password and set a new password.`);
-        }
-
-        function renderAdminResetRequestsList() {
-            const listContainer = document.getElementById('adminResetRequestsList');
-            const reqs = getResetRequestsDb();
-
-            if (reqs.length === 0) {
-                listContainer.innerHTML = `<div class="p-6 text-center text-slate-400 text-xs font-semibold">No password reset requests pending.</div>`;
-                return;
-            }
-
-            let html = '';
-            reqs.slice().reverse().forEach(r => {
-                const isPending = r.status === 'PENDING';
-                const dateStr = new Date(r.requestedAt).toLocaleString();
-
-                html += `
-                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-3.5 flex flex-col sm:flex-row justify-between sm:items-center gap-2">
-                        <div>
-                            <div class="flex items-center gap-2">
-                                <span class="font-extrabold text-slate-900 text-sm">${r.name}</span>
-                                <span class="bg-slate-200 text-slate-700 text-[10px] font-bold px-2 py-0.5 rounded">ID: ${r.sg_id}</span>
-                            </div>
-                            <span class="text-[10px] font-medium text-slate-500 block mt-0.5">Requested: ${dateStr}</span>
-                            ${r.generatedPass ? `<span class="text-[11px] font-mono-digital font-bold text-emerald-700 block mt-1 bg-emerald-100 px-2 py-0.5 rounded w-fit">24h Pass: ${r.generatedPass}</span>` : ''}
-                        </div>
-                        <div>
-                            ${isPending ? `
-                                <button onclick="adminGenerateResetPass('${r.sg_id}')" class="px-3 py-1.5 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-lg text-xs btn-3d transition-all">
-                                    Generate 24h Pass
-                                </button>
-                            ` : `
-                                <span class="px-2.5 py-1 bg-emerald-100 text-emerald-800 text-[10px] font-extrabold rounded-lg border border-emerald-300">Resolved</span>
-                            `}
-                        </div>
-                    </div>
-                `;
-            });
-
-            listContainer.innerHTML = html;
-        }
-
         // OFFICIAL COMPLETE SABRE 2026 GLOBAL HOLIDAY DATA
         const SABRE_2026_HOLIDAYS = [
             { date: "2026-01-01", day: "Thursday", name: "New Year's Day", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
@@ -1821,8 +1079,6 @@
                 rawRosterData = JSON.parse(JSON.stringify(defaultHardcodedRosterData));
             }
             initializePortal();
-            checkEmployeeAuthStatus();
-            updateAdminNotifUI();
         }
 
         const BASE_SHIFT_OPTIONS = [
@@ -1918,10 +1174,6 @@
                 if (adminBtn) adminBtn.classList.remove('hidden');
                 if (adminBadge) adminBadge.classList.remove('hidden');
 
-                document.getElementById('pageBlurWrapper').classList.remove('page-blur');
-                document.getElementById('employeeAuthModal').classList.add('hidden');
-
-                updateAdminNotifUI();
                 renderView();
             } else {
                 errorEl.classList.remove('hidden');
@@ -1931,7 +1183,6 @@
         function cancelAdminLogin() {
             isAdminMode = false;
             document.getElementById('adminLoginModal').classList.add('hidden');
-            checkEmployeeAuthStatus();
             renderView();
         }
 
@@ -1951,7 +1202,6 @@
             document.getElementById('adminImportContainer').classList.add('hidden');
             document.getElementById('adminBadge').classList.add('hidden');
             document.getElementById('adminActionDock').classList.add('hidden');
-            updateAdminNotifUI();
 
             const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
             window.history.replaceState({ path: newUrl }, '', newUrl);
@@ -3001,11 +2251,11 @@
         }
 
         function updateQmStaffInteractive(qmKey, day, selectElem) {
-            const newShift = selectElem.value;
+            const newStaff = selectElem.value;
             const weekData = getActiveWeekData();
             if (!weekData[qmKey]) weekData[qmKey] = {};
 
-            weekData[qmKey][day] = newShift;
+            weekData[qmKey][day] = newStaff;
             triggerPendingChangesState();
             renderView();
         }
