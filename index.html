@@ -37,56 +37,39 @@
             box-shadow: 0 10px 25px -3px rgba(15, 23, 42, 0.12), 0 4px 6px -2px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.9);
             position: relative;
             z-index: 10;
-            background-color: rgba(255, 255, 255, 0.96);
-            backdrop-filter: blur(12px);
+            background-color: #ffffff;
         }
 
-        .portal-hero-pane {
-            background: linear-gradient(160deg, #020617 0%, #0f172a 50%, #1e1b4b 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .portal-hero-pane::before {
-            content: '';
-            position: absolute;
-            width: 250px; height: 250px;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.25) 0%, rgba(0, 0, 0, 0) 70%);
-            top: -50px; left: -50px;
-            pointer-events: none;
-        }
-
-        .login-glass-card {
-            background: rgba(255, 255, 255, 0.97);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            border-bottom: 4px solid #4338ca;
-            box-shadow: 0 20px 40px -12px rgba(15, 23, 42, 0.35), 0 0 15px rgba(99, 102, 241, 0.15);
-            backdrop-filter: blur(16px);
-        }
-
-        .text-3d-split {
+        .text-depth-shadow {
             color: #0f172a;
-            font-weight: 900;
-            letter-spacing: -0.02em;
-            text-shadow: 1px 1px 0px #cbd5e1, 2px 2px 0px #94a3b8, 3px 3px 6px rgba(15, 23, 42, 0.15);
+            font-weight: 800;
+            letter-spacing: -0.01em;
+            filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.15)) 
+                    drop-shadow(0px 6px 8px rgba(15, 23, 42, 0.15));
         }
 
-        .sabre-hero-logo {
-            filter: drop-shadow(0 8px 12px rgba(225, 29, 72, 0.3)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.2));
-            transition: transform 0.3s ease;
+        .sabre-3d-banner {
+            background-color: #0f172a;
+            border: 1px solid #1e293b;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
 
-        .sabre-hero-logo:hover {
-            transform: scale(1.03) translateY(-2px);
+        .input-3d {
+            border: 1px solid #cbd5e1;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08);
+            transition: all 0.2s ease;
         }
 
-        .input-glow-focus {
-            transition: all 0.25s ease;
-        }
-
-        .input-glow-focus:focus {
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2), inset 0 1px 2px rgba(0, 0, 0, 0.05);
+        .input-3d:focus {
             border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2), inset 0 1px 2px rgba(0, 0, 0, 0.05);
+            background-color: #ffffff;
+        }
+
+        .btn-3d {
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            border-bottom: 2px solid rgba(0, 0, 0, 0.3);
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.25);
         }
 
         .clock-futuristic-3d {
@@ -101,8 +84,6 @@
             border-bottom: 4px solid #020617;
             border-top: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 0 12px rgba(14, 165, 233, 0.15);
-            backdrop-filter: blur(12px);
-            transition: all 0.25s ease-in-out;
             position: relative;
             overflow: hidden;
             z-index: 10;
@@ -163,17 +144,6 @@
             background-color: #ffffff;
         }
 
-        .btn-3d {
-            border: 1px solid rgba(0, 0, 0, 0.15);
-            border-bottom: 2px solid rgba(0, 0, 0, 0.3);
-            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.25);
-        }
-
-        .input-3d {
-            border: 1px solid #cbd5e1;
-            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08);
-        }
-
         #cloudContainer {
             position: fixed;
             inset: 0;
@@ -212,9 +182,6 @@
             filter: drop-shadow(0 16px 14px rgba(15, 23, 42, 0.45));
         }
 
-        .current-day-col { background-color: #f0f9ff !important; }
-        .current-day-header { background-color: #1e293b !important; color: #38bdf8 !important; }
-
         .chart-container-wrapper {
             position: relative;
             width: 100%; height: 16rem; max-height: 50vh;
@@ -223,121 +190,165 @@
 </head>
 <body class="min-h-screen flex flex-col w-full overflow-x-hidden relative pb-16">
 
-    <!-- COMPACT ASYMMETRICAL SPLIT-SCREEN PAGE ACCESS OVERLAY -->
-    <div id="pageAccessAuthOverlay" class="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/80 backdrop-blur-2xl p-4 transition-all duration-500 overflow-y-auto">
-        <div class="w-full max-w-2xl login-glass-card rounded-2xl overflow-hidden grid grid-cols-1 md:grid-cols-12 my-auto shadow-2xl">
+    <!-- PAGE ACCESS OVERLAY -->
+    <div id="pageAccessAuthOverlay" class="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/80 p-4 transition-all duration-500 overflow-y-auto">
+        <!-- Solid Card Component Matching Page Aesthetic -->
+        <div class="w-full max-w-md bg-white rounded-xl card-3d p-6 sm:p-8 space-y-5 my-auto">
             
-            <!-- Left Hero Panel -->
-            <div class="md:col-span-5 portal-hero-pane p-5 sm:p-6 flex flex-col justify-between text-white relative min-h-[160px] md:min-h-[380px]">
-                <div class="relative z-10">
-                    <img src="SABRE-LOGO-REGISTERED-SCREEN-WHITE-WIP.svg" alt="Sabre Logo" class="h-9 sm:h-10 w-auto object-contain sabre-hero-logo" />
-                </div>
-
-                <div class="relative z-10 pt-4">
-                    <div class="border-l-2 border-rose-500 pl-2.5">
-                        <p class="text-[10px] text-slate-300 font-mono-digital">ATS BLR LOCATION</p>
-                        <p class="text-sm font-black tracking-tight text-white uppercase">BANGALORE OPERATIONS</p>
-                    </div>
+            <!-- Sabre Logo Header -->
+            <div class="flex justify-center">
+                <div class="sabre-3d-banner px-8 py-3.5 rounded-xl flex items-center justify-center w-full">
+                    <img src="SABRE-LOGO-REGISTERED-SCREEN-WHITE-WIP.svg" alt="Sabre Logo" class="h-8 sm:h-9 w-auto object-contain" />
                 </div>
             </div>
 
-            <!-- Right Login Form Panel -->
-            <div class="md:col-span-7 bg-white/95 p-5 sm:p-7 flex flex-col justify-center space-y-4">
-                
-                <!-- Main Login View -->
-                <div id="loginFormContainer" class="space-y-4">
-                    <div>
-                        <h2 class="text-base sm:text-lg text-3d-split font-extrabold tracking-tight text-slate-900">
-                            ATS BLR ROSTER PORTAL LOGIN
-                        </h2>
-                        <p class="text-slate-500 text-xs mt-0.5 font-medium">
-                            Enter authorized Employee ID and Password
-                        </p>
-                    </div>
-
-                    <form onsubmit="handlePortalLogin(event)" class="space-y-3">
-                        <div>
-                            <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1 flex items-center gap-1.5">
-                                <i data-lucide="user" class="w-3.5 h-3.5 text-indigo-600"></i> Employee ID
-                            </label>
-                            <input type="text" id="portalEmpId" required placeholder="e.g. 316092" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3.5 py-2 text-xs font-semibold text-slate-900 placeholder-slate-400 focus:outline-none input-glow-focus input-3d">
-                        </div>
-
-                        <div>
-                            <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1 flex items-center gap-1.5">
-                                <i data-lucide="lock" class="w-3.5 h-3.5 text-indigo-600"></i> Password
-                            </label>
-                            <input type="password" id="portalPassword" required placeholder="••••••••" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3.5 py-2 text-xs font-semibold text-slate-900 placeholder-slate-400 focus:outline-none input-glow-focus input-3d">
-                        </div>
-
-                        <div id="portalLoginError" class="hidden text-rose-600 text-xs font-bold text-center bg-rose-50 p-2 rounded-lg border border-rose-200 leading-tight">
-                            Access Denied: Invalid Employee ID or Password.
-                        </div>
-
-                        <button type="submit" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold rounded-lg text-xs btn-3d transition-all flex items-center justify-center gap-1.5 shadow-md shadow-indigo-100 mt-1">
-                            <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Authenticate & Enter
-                        </button>
-                    </form>
+            <!-- Main Login Container -->
+            <div id="loginFormContainer" class="space-y-4">
+                <div class="text-center">
+                    <h2 class="text-base sm:text-lg text-depth-shadow tracking-tight">
+                        ATS BLR ROSTER PORTAL LOGIN
+                    </h2>
+                    <p class="text-slate-500 text-xs mt-1 font-medium">Please enter Employee ID and Password</p>
                 </div>
 
-                <!-- Password Change View (Shown on initial temp password or 90-day expiry) -->
-                <div id="changePasswordContainer" class="hidden space-y-3">
+                <form onsubmit="handlePortalLogin(event)" class="space-y-3 pt-1">
+                    <!-- Employee ID Field with Permanent User Icon -->
                     <div>
-                        <span id="passwordReasonBadge" class="inline-block px-2 py-0.5 text-[10px] font-extrabold bg-amber-100 text-amber-800 rounded border border-amber-300 mb-1">Mandatory Cloud Password Sync</span>
-                        <h2 class="text-base sm:text-lg text-3d-split font-extrabold tracking-tight text-slate-900">
-                            Create New Password
-                        </h2>
-                        <p class="text-slate-500 text-xs mt-0.5 font-medium">Set a new personal password for your Employee ID</p>
+                        <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
+                            Employee ID
+                        </label>
+                        <div class="relative flex items-center">
+                            <span class="absolute left-3 text-indigo-600 flex items-center pointer-events-none">
+                                <i data-lucide="user" class="w-4 h-4"></i>
+                            </span>
+                            <input type="text" id="portalEmpId" required placeholder="e.g. 316092" class="w-full bg-slate-50 border border-slate-300 rounded-lg pl-9 pr-3.5 py-2.5 text-xs sm:text-sm font-semibold text-slate-900 placeholder-slate-400 focus:outline-none input-3d">
+                        </div>
                     </div>
 
-                    <!-- Password Criteria Box -->
-                    <div class="bg-indigo-50/80 p-3 rounded-lg border border-indigo-200 space-y-1 text-[11px] text-indigo-950 font-medium">
-                        <p class="font-bold flex items-center gap-1 text-indigo-900">
-                            <i data-lucide="info" class="w-3.5 h-3.5 text-indigo-600"></i> Password Criteria:
-                        </p>
-                        <ul class="list-disc list-inside space-y-0.5 text-[10.5px] text-slate-700 pl-1">
-                            <li>Must be exactly <strong>8 Characters</strong> long</li>
-                            <li>Case sensitive containing <strong>Letters & Numbers</strong></li>
-                            <li>Must include both Uppercase & Lowercase letters</li>
-                            <li>Valid for <strong>90 Days</strong> before requiring renewal</li>
-                        </ul>
+                    <!-- Password Field with Permanent Key Icon -->
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
+                            Password
+                        </label>
+                        <div class="relative flex items-center">
+                            <span class="absolute left-3 text-indigo-600 flex items-center pointer-events-none">
+                                <i data-lucide="key-round" class="w-4 h-4"></i>
+                            </span>
+                            <input type="password" id="portalPassword" required placeholder="••••••••" class="w-full bg-slate-50 border border-slate-300 rounded-lg pl-9 pr-3.5 py-2.5 text-xs sm:text-sm font-semibold text-slate-900 placeholder-slate-400 focus:outline-none input-3d">
+                        </div>
                     </div>
 
-                    <form onsubmit="handlePasswordChange(event)" class="space-y-3">
-                        <div>
-                            <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">New Password</label>
-                            <input type="password" id="newPassword" required placeholder="8 Chars (e.g. Abc12345)" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3.5 py-2 text-xs font-semibold text-slate-900 placeholder-slate-400 focus:outline-none input-glow-focus input-3d">
-                        </div>
+                    <div id="portalLoginError" class="hidden text-rose-600 text-xs font-bold text-center bg-rose-50 p-2 rounded-lg border border-rose-200 leading-tight">
+                        Invalid Employee ID or Password.
+                    </div>
 
-                        <div>
-                            <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">Confirm New Password</label>
-                            <input type="password" id="confirmPassword" required placeholder="Confirm 8 Chars" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3.5 py-2 text-xs font-semibold text-slate-900 placeholder-slate-400 focus:outline-none input-glow-focus input-3d">
-                        </div>
+                    <button type="submit" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold rounded-lg text-xs btn-3d transition-all flex items-center justify-center gap-1.5 shadow-md shadow-indigo-100">
+                        <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Login
+                    </button>
+                </form>
 
-                        <div id="passwordChangeError" class="hidden text-rose-600 text-xs font-bold text-center bg-rose-50 p-2 rounded-lg border border-rose-200">
-                            Password does not meet criteria.
-                        </div>
+                <div class="text-center pt-2 border-t border-slate-200">
+                    <button onclick="showForgotPasswordView()" class="text-xs text-indigo-600 hover:text-indigo-800 font-bold hover:underline">
+                        Forgot password?
+                    </button>
+                </div>
+            </div>
 
-                        <button type="submit" id="savePasswordBtn" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold rounded-lg text-xs btn-3d transition-all flex items-center justify-center gap-1.5 shadow-md shadow-emerald-100">
-                            <i data-lucide="cloud-upload" class="w-3.5 h-3.5"></i> Sync Cloud Password & Enter
-                        </button>
-                    </form>
+            <!-- Password Change View -->
+            <div id="changePasswordContainer" class="hidden space-y-4">
+                <div class="text-center">
+                    <span id="passwordReasonBadge" class="inline-block px-2.5 py-0.5 text-[10px] font-extrabold bg-amber-100 text-amber-800 rounded border border-amber-300 mb-1">Password Setup Required</span>
+                    <h2 class="text-base sm:text-lg text-depth-shadow leading-snug">
+                        Create New Password
+                    </h2>
                 </div>
 
-                <div class="pt-2 border-t border-slate-100 flex items-center justify-start text-[10px] text-slate-400">
-                    <span class="flex items-center gap-1">
-                        <i data-lucide="shield-alert" class="w-3 h-3 text-emerald-600"></i> Global Cloud Encrypted Access
-                    </span>
+                <!-- On-Screen Password Criteria Box -->
+                <div class="bg-indigo-50/80 p-3 rounded-lg border border-indigo-200 space-y-1 text-[11px] text-indigo-950 font-medium">
+                    <p class="font-bold flex items-center gap-1 text-indigo-900">
+                        <i data-lucide="info" class="w-3.5 h-3.5 text-indigo-600"></i> Password Rules:
+                    </p>
+                    <ul class="list-disc list-inside space-y-0.5 text-[10.5px] text-slate-700 pl-1">
+                        <li>Must be <strong>exactly 8 Characters</strong> long</li>
+                        <li>Case sensitive (Uppercase & Lowercase letters)</li>
+                        <li>Must contain <strong>letters and numbers only</strong></li>
+                        <li>Saved in the cloud & valid for <strong>90 Days</strong></li>
+                    </ul>
+                </div>
+
+                <form onsubmit="handlePasswordChange(event)" class="space-y-3">
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">New Password</label>
+                        <div class="relative flex items-center">
+                            <span class="absolute left-3 text-indigo-600 flex items-center pointer-events-none">
+                                <i data-lucide="key-round" class="w-4 h-4"></i>
+                            </span>
+                            <input type="password" id="newPassword" required placeholder="8 Chars (e.g. Abc12345)" class="w-full bg-slate-50 border border-slate-300 rounded-lg pl-9 pr-3.5 py-2 text-xs font-semibold text-slate-900 focus:outline-none input-3d">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">Confirm New Password</label>
+                        <div class="relative flex items-center">
+                            <span class="absolute left-3 text-indigo-600 flex items-center pointer-events-none">
+                                <i data-lucide="key-round" class="w-4 h-4"></i>
+                            </span>
+                            <input type="password" id="confirmPassword" required placeholder="Confirm new password" class="w-full bg-slate-50 border border-slate-300 rounded-lg pl-9 pr-3.5 py-2 text-xs font-semibold text-slate-900 focus:outline-none input-3d">
+                        </div>
+                    </div>
+
+                    <div id="passwordChangeError" class="hidden text-rose-600 text-xs font-bold text-center bg-rose-50 p-2 rounded-lg border border-rose-200">
+                        Password does not meet criteria.
+                    </div>
+
+                    <button type="submit" id="savePasswordBtn" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold rounded-lg text-xs btn-3d transition-all flex items-center justify-center gap-1.5 shadow-md shadow-emerald-100">
+                        <i data-lucide="cloud" class="w-3.5 h-3.5"></i> Save Cloud Password & Continue
+                    </button>
+                </form>
+            </div>
+
+            <!-- Forgot Password View -->
+            <div id="forgotPasswordContainer" class="hidden space-y-4">
+                <div class="text-center">
+                    <h2 class="text-base sm:text-lg text-depth-shadow leading-snug">
+                        Reset Password Request
+                    </h2>
+                    <p class="text-slate-500 text-xs mt-1 font-medium">Please enter your Employee ID</p>
+                </div>
+
+                <form onsubmit="handleForgotPasswordSubmit(event)" class="space-y-3">
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
+                            Employee ID
+                        </label>
+                        <div class="relative flex items-center">
+                            <span class="absolute left-3 text-indigo-600 flex items-center pointer-events-none">
+                                <i data-lucide="user" class="w-4 h-4"></i>
+                            </span>
+                            <input type="text" id="forgotEmpId" required placeholder="e.g. 316092" class="w-full bg-slate-50 border border-slate-300 rounded-lg pl-9 pr-3.5 py-2 text-xs font-semibold text-slate-900 focus:outline-none input-3d">
+                        </div>
+                    </div>
+
+                    <div id="forgotStatusMessage" class="hidden text-xs font-bold text-center p-2.5 rounded-lg"></div>
+
+                    <button type="submit" id="forgotSubmitBtn" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold rounded-lg text-xs btn-3d transition-all flex items-center justify-center gap-1.5 shadow-md shadow-indigo-100">
+                        <i data-lucide="send" class="w-3.5 h-3.5"></i> Reset Password
+                    </button>
+                </form>
+
+                <div class="text-center pt-2 border-t border-slate-200">
+                    <button onclick="showLoginView()" class="text-xs text-slate-600 hover:text-slate-900 font-bold hover:underline">
+                        Back to Login
+                    </button>
                 </div>
             </div>
 
         </div>
     </div>
 
-    <!-- MAIN PAGE CONTAINER (BLURRED UNTIL AUTHENTICATED) -->
+    <!-- MAIN PAGE CONTAINER -->
     <div id="blurredPageWrapper" class="filter blur-xl pointer-events-none transition-all duration-500 min-h-screen flex flex-col w-full">
 
-        <!-- 3D Aircraft Animation -->
         <div id="freeFlightPlane">
             <svg viewBox="0 0 200 200" width="100%" height="100%">
                 <defs>
@@ -362,7 +373,6 @@
                         <feDropShadow dx="0" dy="12" stdDeviation="6" flood-color="#020617" flood-opacity="0.35"/>
                     </filter>
                 </defs>
-
                 <g filter="url(#planeShadow)">
                     <rect x="52" y="112" width="10" height="24" rx="5" fill="url(#aaEngineGrad)"/>
                     <rect x="138" y="112" width="10" height="24" rx="5" fill="url(#aaEngineGrad)"/>
@@ -393,6 +403,10 @@
                         <div>
                             <div class="flex items-center gap-2">
                                 <h1 class="font-bold text-sm sm:text-lg leading-none tracking-tight">ATS BLR ROSTER PORTAL</h1>
+                                <span id="adminBadge" class="hidden text-[10px] bg-rose-600 text-white font-extrabold px-1.5 py-0.5 rounded tracking-wide uppercase">Admin Mode</span>
+                                <span id="resetAlertBadge" class="hidden text-[10px] bg-amber-500 text-slate-950 font-extrabold px-1.5 py-0.5 rounded tracking-wide animate-pulse">
+                                    <i data-lucide="bell" class="inline w-3 h-3"></i> Resets Pending
+                                </span>
                             </div>
                             <span id="portalSubhead" class="text-[10px] sm:text-xs text-slate-400 block mt-0.5">Live Interactive Schedule</span>
                         </div>
@@ -494,7 +508,7 @@
         </main>
 
         <footer class="bg-white border-t border-slate-300 py-4 mt-8 shadow-inner w-full relative z-10 text-center text-xs text-slate-500 font-medium">
-            ATS BLR ROSTER PORTAL • Enterprise Cloud Schedule Management
+            ATS BLR ROSTER PORTAL • Enterprise Schedule Management
         </footer>
     </div>
 
@@ -503,28 +517,28 @@
         const NINETY_DAYS_MS = 90 * 24 * 60 * 60 * 1000;
         let pendingAuthEmpId = null;
 
-        // Global Cloud Credentials State Map
-        let globalCloudCredentials = {};
+        // Global Cloud Credentials Cache
+        let globalCloudUsers = {};
 
         function fetchCloudCredentials() {
             // Checks for global user records attached to roster payload or GitHub repo
             if (rawRosterData && rawRosterData._globalUsers) {
-                globalCloudCredentials = rawRosterData._globalUsers;
+                globalCloudUsers = rawRosterData._globalUsers;
             }
         }
 
-        async function syncCredentialsToCloud(empId, password) {
-            globalCloudCredentials[empId] = {
+        async function savePasswordToCloud(empId, password) {
+            globalCloudUsers[empId] = {
                 password: password,
                 createdAt: new Date().getTime()
             };
 
-            // Embed global credential hashes into master roster structure for cross-device cloud persistence
+            // Store in central master payload
             if (Array.isArray(rawRosterData)) {
-                rawRosterData._globalUsers = globalCloudCredentials;
+                rawRosterData._globalUsers = globalCloudUsers;
             }
 
-            // Sync with GitHub Cloud Repository if PAT Token is present in localStorage/config
+            // Sync with GitHub Repository Cloud Storage if PAT is configured
             const savedToken = localStorage.getItem('gh_pat_token');
             const savedOwner = localStorage.getItem('gh_owner');
             const savedRepo = localStorage.getItem('gh_repo');
@@ -545,7 +559,7 @@
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify({
-                            message: `Update Password Hash Cloud Sync - ID: ${empId}`,
+                            message: `Cloud Password Sync - Employee ID: ${empId}`,
                             content: encodedContent,
                             sha: sha || undefined
                         })
@@ -555,20 +569,36 @@
                 }
             }
 
-            // Fallback Local Storage backup per device
-            localStorage.setItem(`roster_user_pwd_${empId}`, JSON.stringify(globalCloudCredentials[empId]));
+            // Backup copy in local storage
+            localStorage.setItem(`roster_user_pwd_${empId}`, JSON.stringify(globalCloudUsers[empId]));
         }
 
         function getUserPasswordData(empId) {
             fetchCloudCredentials();
-            if (globalCloudCredentials[empId]) {
-                return globalCloudCredentials[empId];
+            if (globalCloudUsers[empId]) {
+                return globalCloudUsers[empId];
             }
             const stored = localStorage.getItem(`roster_user_pwd_${empId}`);
             if (stored) {
                 try { return JSON.parse(stored); } catch(e) { return null; }
             }
             return null;
+        }
+
+        function showLoginView() {
+            document.getElementById('loginFormContainer').classList.remove('hidden');
+            document.getElementById('changePasswordContainer').classList.add('hidden');
+            document.getElementById('forgotPasswordContainer').classList.add('hidden');
+            document.getElementById('portalLoginError').classList.add('hidden');
+            lucide.createIcons();
+        }
+
+        function showForgotPasswordView() {
+            document.getElementById('loginFormContainer').classList.add('hidden');
+            document.getElementById('changePasswordContainer').classList.add('hidden');
+            document.getElementById('forgotPasswordContainer').classList.remove('hidden');
+            document.getElementById('forgotStatusMessage').classList.add('hidden');
+            lucide.createIcons();
         }
 
         function getAllValidEmployeeIds() {
@@ -587,11 +617,11 @@
 
         function validatePasswordCriteria(pwd) {
             if (pwd.length !== 8) return false;
-            const hasUpper = /[A-Z]/.test(pwd);
-            const hasLower = /[a-z]/.test(pwd);
-            const hasNum = /[0-9]/.test(pwd);
+            // Letters and numbers only, case-sensitive
             const isAlphanumeric = /^[A-Za-z0-9]{8}$/.test(pwd);
-            return hasUpper && hasLower && hasNum && isAlphanumeric;
+            const hasLetter = /[A-Za-z]/.test(pwd);
+            const hasNum = /[0-9]/.test(pwd);
+            return isAlphanumeric && hasLetter && hasNum;
         }
 
         function handlePortalLogin(e) {
@@ -611,7 +641,7 @@
 
             if (!pwdData) {
                 if (password === TEMP_PASSWORD) {
-                    promptPasswordChange(empId, "Initial First-Time Login with Temporary Password");
+                    promptPasswordChange(empId, "Initial Login with Temporary Password");
                 } else {
                     errorEl.innerText = "Invalid Password. First time user? Use temporary password (3E4R5T6Y).";
                     errorEl.classList.remove('hidden');
@@ -638,6 +668,7 @@
         function promptPasswordChange(empId, reason) {
             pendingAuthEmpId = empId;
             document.getElementById('loginFormContainer').classList.add('hidden');
+            document.getElementById('forgotPasswordContainer').classList.add('hidden');
             document.getElementById('changePasswordContainer').classList.remove('hidden');
             document.getElementById('passwordReasonBadge').innerText = reason;
             document.getElementById('passwordChangeError').classList.add('hidden');
@@ -658,7 +689,7 @@
             }
 
             if (!validatePasswordCriteria(newPwd)) {
-                errorEl.innerText = "Password must be exactly 8 characters with Uppercase, Lowercase letters, and numbers.";
+                errorEl.innerText = "Password must be exactly 8 characters with letters and numbers only.";
                 errorEl.classList.remove('hidden');
                 return;
             }
@@ -669,9 +700,37 @@
                 return;
             }
 
-            saveBtn.innerText = "Syncing Cloud Credentials...";
-            await syncCredentialsToCloud(pendingAuthEmpId, newPwd);
+            saveBtn.innerText = "Saving Cloud Password...";
+            await savePasswordToCloud(pendingAuthEmpId, newPwd);
             grantPortalAccess();
+        }
+
+        function handleForgotPasswordSubmit(e) {
+            e.preventDefault();
+            const empId = document.getElementById('forgotEmpId').value.trim();
+            const statusEl = document.getElementById('forgotStatusMessage');
+            const validIds = getAllValidEmployeeIds();
+
+            if (!validIds.has(empId)) {
+                statusEl.innerText = "Employee ID not found in current roster database.";
+                statusEl.className = "text-xs font-bold text-center p-2.5 rounded-lg bg-rose-50 text-rose-600 border border-rose-200";
+                statusEl.classList.remove('hidden');
+                return;
+            }
+
+            const pendingRequests = JSON.parse(localStorage.getItem('pending_reset_requests') || '[]');
+            if (!pendingRequests.includes(empId)) {
+                pendingRequests.push(empId);
+                localStorage.setItem('pending_reset_requests', JSON.stringify(pendingRequests));
+            }
+
+            statusEl.innerText = "The request has been sent to the Admin user.";
+            statusEl.className = "text-xs font-bold text-center p-2.5 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200 leading-relaxed";
+            statusEl.classList.remove('hidden');
+
+            delete globalCloudUsers[empId];
+            localStorage.removeItem(`roster_user_pwd_${empId}`);
+            document.getElementById('resetAlertBadge').classList.remove('hidden');
         }
 
         function grantPortalAccess() {
@@ -694,7 +753,6 @@
             { date: "2026-12-25", day: "Friday", name: "Christmas Day", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] }
         ];
 
-        let selectedHolidayOffice = 'ALL';
         function getTodayFormatted() {
             const today = new Date();
             return `${String(today.getDate()).padStart(2, '0')}/${String(today.getMonth() + 1).padStart(2, '0')}/${String(today.getFullYear()).slice(-2)}`;
