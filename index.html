@@ -1010,9 +1010,14 @@
         const DEFAULT_TEMP_PASS = "3E4R5T6Y";
         const NINETY_DAYS_MS = 90 * 24 * 60 * 60 * 1000;
         const TWENTY_FOUR_HOURS_MS = 24 * 60 * 60 * 1000;
+        const MAX_ALLOWED_DEVICES = 10;
         let currentAuthenticatedEmployee = null;
 
-        // Broadcast Channel for Multi-Tab & Multi-Device Global Real-time Sync
+        // Force reset initial cached user DB to clear old stale states
+        localStorage.removeItem('ats_user_db');
+        localStorage.removeItem('ats_reset_requests');
+
+        // Broadcast Channel for Multi-Tab Sync on same device
         let authBroadcastChannel = null;
         if (typeof BroadcastChannel !== 'undefined') {
             authBroadcastChannel = new BroadcastChannel('ats_global_auth_channel');
@@ -1126,7 +1131,6 @@
                 if (notifBtn) notifBtn.classList.remove('hidden');
                 if (badge) badge.innerText = reqs.length;
 
-                // Show urgent Pop-Up for first pending request
                 triggerAdminResetPopUp(reqs[0]);
             } else {
                 if (notifBtn) notifBtn.classList.add('hidden');
@@ -2997,11 +3001,11 @@
         }
 
         function updateQmStaffInteractive(qmKey, day, selectElem) {
-            const newStaff = selectElem.value;
+            const newShift = selectElem.value;
             const weekData = getActiveWeekData();
             if (!weekData[qmKey]) weekData[qmKey] = {};
 
-            weekData[qmKey][day] = newStaff;
+            weekData[qmKey][day] = newShift;
             triggerPendingChangesState();
             renderView();
         }
@@ -3399,7 +3403,7 @@
                 targetY = Math.random() * Math.max(10, (viewBottom - viewTop)) + viewTop;
             }
 
-            pickNextWaypoint();
+            pickNextViewportWaypoint();
 
             window.addEventListener('scroll', handleViewportChange);
             window.addEventListener('resize', () => {
@@ -3416,7 +3420,7 @@
                 const viewBottom = window.scrollY + window.innerHeight;
 
                 if (targetX < viewLeft || targetX > viewRight || targetY < viewTop || targetY > viewBottom) {
-                    pickNextWaypoint();
+                    pickNextViewportWaypoint();
                 }
             }
 
@@ -3428,7 +3432,7 @@
                 const distance = Math.hypot(dx, dy);
 
                 if (distance < 30) {
-                    pickNextWaypoint();
+                    pickNextViewportWaypoint();
                 }
 
                 const targetAngle = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
