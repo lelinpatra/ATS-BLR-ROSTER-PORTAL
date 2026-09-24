@@ -687,7 +687,7 @@
           "Monday": "6:00 AM - 03:00 PM",
           "Tuesday": "6:00 AM - 03:00 PM",
           "Wednesday": "6:00 AM - 03:00 PM",
-          "Thursday": "6:00 AM - 03:00 PM",
+          "Thursday": "PTO",
           "Friday": "6:00 AM - 03:00 PM",
           "Saturday": "WO",
           "Sunday": "WO"
@@ -767,7 +767,7 @@
       6,
       6,
       6,
-      5,
+      4,
       5,
       1,
       1
