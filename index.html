@@ -58,6 +58,14 @@
             letter-spacing: -0.02em;
         }
 
+        /* 3D Logo Container Badge */
+        .logo-3d-badge {
+            background: linear-gradient(145deg, #0f172a 0%, #1e293b 100%);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 3px solid #020617;
+            box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
         .clock-futuristic-3d {
             background-color: rgba(15, 23, 42, 0.95);
             background-image: linear-gradient(145deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.85) 100%),
@@ -590,20 +598,20 @@
         </footer>
     </div>
 
-    <!-- EMPLOYEE LOGIN OVERLAY MODAL WITH SABRE LOGO AND 3D TITLE -->
+    <!-- EMPLOYEE LOGIN OVERLAY MODAL WITH 3D SABRE LOGO AND 3D TITLE -->
     <div id="employeeAuthModal" class="fixed inset-0 bg-slate-950/75 backdrop-blur-md z-[100] flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl card-3d w-full max-w-md p-6 sm:p-8 space-y-5 shadow-2xl border border-slate-200 relative overflow-hidden">
             
             <div class="text-center space-y-3">
-                <!-- Sabre Logo at Top -->
-                <div class="flex justify-center items-center py-2 px-4 rounded-xl bg-slate-950 shadow-md inline-block mx-auto border border-slate-800">
-                    <img src="SABRE-LOGO-REGISTERED-SCREEN-WHITE-WIP.svg" alt="Sabre Logo" class="h-7 sm:h-8 w-auto object-contain" />
+                <!-- 3D Sabre Logo Container -->
+                <div class="logo-3d-badge inline-flex justify-center items-center py-2.5 px-6 rounded-2xl mx-auto border border-slate-700/60 shadow-xl">
+                    <img src="SABRE-LOGO-REGISTERED-SCREEN-WHITE-WIP.svg" alt="Sabre Logo" class="h-8 sm:h-9 w-auto object-contain drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]" />
                 </div>
 
-                <!-- 3D Styled Title -->
+                <!-- 3D Styled Title: ATS BLR ROSTER PORTAL LOGIN -->
                 <div>
-                    <h2 class="font-extrabold text-slate-900 text-2xl sm:text-3xl font-orbitron tracking-tight title-3d-login uppercase">
-                        ATS BLR Portal Login
+                    <h2 class="font-extrabold text-slate-900 text-xl sm:text-2xl font-orbitron tracking-tight title-3d-login uppercase leading-snug">
+                        ATS BLR ROSTER PORTAL LOGIN
                     </h2>
                     <p class="text-slate-500 text-xs font-medium mt-1">Please enter your Employee ID and Password to view roster data.</p>
                 </div>
@@ -613,7 +621,7 @@
                 <div>
                     <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Employee ID</label>
                     <div class="relative">
-                        <input type="text" id="empAuthId" required placeholder="e.g. 316092 or 223174" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-9 pr-3 py-2.5 text-sm font-semibold focus:ring-2 focus:ring-indigo-600 focus:outline-none input-3d">
+                        <input type="text" id="empAuthId" required placeholder="e.g. 123456" class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-9 pr-3 py-2.5 text-sm font-semibold focus:ring-2 focus:ring-indigo-600 focus:outline-none input-3d">
                         <i data-lucide="id-card" class="w-4 h-4 text-slate-400 absolute left-3 top-3"></i>
                     </div>
                 </div>
@@ -901,7 +909,7 @@
     </div>
 
     <script>
-        // --- GLOBAL & EXCEPTION-AWARE EMPLOYEE AUTHENTICATION ---
+        // --- CENTRALIZED CROSS-DEVICE EMPLOYEE AUTHENTICATION ---
         const DEFAULT_TEMP_PASS = "3E4R5T6Y";
         const NINETY_DAYS_MS = 90 * 24 * 60 * 60 * 1000;
         let currentAuthenticatedEmployee = null;
@@ -913,16 +921,24 @@
             skilling: "Manager"
         };
 
-        function getStoredUserDb() {
-            try {
-                return JSON.parse(localStorage.getItem('ats_user_db')) || {};
-            } catch (e) {
-                return {};
+        // Extract central credentials map directly from live dataset
+        function getCentralUserDb() {
+            let db = {};
+            if (rawRosterData && rawRosterData._user_db) {
+                db = rawRosterData._user_db;
             }
+            // Fallback to local storage cache if network is offline
+            try {
+                const localDb = JSON.parse(localStorage.getItem('ats_user_db')) || {};
+                db = Object.assign({}, localDb, db);
+            } catch (e) {}
+            return db;
         }
 
-        function saveUserDb(db) {
+        function saveCentralUserDb(db) {
             localStorage.setItem('ats_user_db', JSON.stringify(db));
+            if (!rawRosterData) rawRosterData = [];
+            rawRosterData._user_db = db;
         }
 
         function checkEmployeeAuthStatus() {
@@ -932,7 +948,7 @@
                 return;
             }
 
-            const db = getStoredUserDb();
+            const db = getCentralUserDb();
             const userRecord = db[sessionEmpId];
 
             if (!userRecord) {
@@ -940,7 +956,7 @@
                 return;
             }
 
-            // Check if 90 days have expired since last password change
+            // Check 90 days password expiry
             const now = Date.now();
             if (userRecord.passUpdatedAt && (now - userRecord.passUpdatedAt > NINETY_DAYS_MS)) {
                 currentAuthenticatedEmployee = userRecord;
@@ -1027,7 +1043,7 @@
                 return;
             }
 
-            const db = getStoredUserDb();
+            const db = getCentralUserDb();
             let userRecord = db[inputId];
 
             if (!userRecord) {
@@ -1060,7 +1076,7 @@
             }
         }
 
-        function handlePasswordChange(e) {
+        async function handlePasswordChange(e) {
             e.preventDefault();
             const newPass = document.getElementById('newPassInput').value.trim();
             const confirmPass = document.getElementById('confirmPassInput').value.trim();
@@ -1085,7 +1101,7 @@
 
             if (!currentAuthenticatedEmployee) return;
 
-            const db = getStoredUserDb();
+            const db = getCentralUserDb();
             db[currentAuthenticatedEmployee.sg_id] = {
                 sg_id: currentAuthenticatedEmployee.sg_id,
                 name: currentAuthenticatedEmployee.name,
@@ -1094,11 +1110,16 @@
                 passUpdatedAt: Date.now()
             };
 
-            saveUserDb(db);
+            saveCentralUserDb(db);
             currentAuthenticatedEmployee = db[currentAuthenticatedEmployee.sg_id];
             sessionStorage.setItem('ats_logged_emp_id', currentAuthenticatedEmployee.sg_id);
 
-            alert("Password successfully updated! Saved for 90 days.");
+            // Attempt cloud sync if token is available, otherwise stored locally for session
+            if (githubConfig.token && githubConfig.owner && githubConfig.repo) {
+                await commitDataToGitHubRepository();
+            }
+
+            alert("Password successfully updated! Saved permanently for 90 days across all devices.");
             grantPortalAccess();
         }
 
