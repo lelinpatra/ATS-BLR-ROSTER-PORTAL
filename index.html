@@ -306,7 +306,7 @@
                     <i data-lucide="key-round" class="w-8 h-8"></i>
                 </div>
                 <h2 class="font-black text-slate-900 text-xl sm:text-2xl tracking-tight">Set New Password</h2>
-                <p class="text-slate-500 text-xs sm:text-sm">You are using a temporary or expired password. Please establish a new password to proceed.</p>
+                <p class="text-slate-500 text-xs sm:text-sm">You are using the default temporary password (3E4R5T6Y). Please establish a new password to proceed.</p>
             </div>
 
             <!-- Password Criteria Display Box -->
@@ -338,7 +338,7 @@
                 </div>
 
                 <button type="submit" id="savePasswordBtn" class="w-full py-3 bg-amber-600 hover:bg-amber-500 text-white font-extrabold rounded-xl text-sm transition-all shadow-lg btn-3d flex items-center justify-center gap-2">
-                    <i data-lucide="cloud-upload" class="w-4 h-4"></i> Save to Cloud (emp_users.json) & Enter
+                    <i data-lucide="cloud-upload" class="w-4 h-4"></i> Save New Password to roster.json & Enter
                 </button>
             </form>
         </div>
@@ -933,7 +933,8 @@
 
         // AUTHENTICATION STATE CONTROL
         async function checkPortalAccessState() {
-            await fetchCloudPasswords();
+            // First load passwords from roster.json (or user_passwords section)
+            await fetchRosterPasswords();
 
             const storedAuth = localStorage.getItem('roster_auth_session');
             const blurContainer = document.getElementById('mainPageContent');
@@ -963,34 +964,67 @@
             return false;
         }
 
-        async function fetchCloudPasswords() {
+        async function fetchRosterPasswords() {
             try {
-                const res = await fetch('./emp_users.json?v=' + new Date().getTime());
+                const res = await fetch('./roster.json?v=' + new Date().getTime());
                 if (res.ok) {
                     const fetchedData = await res.json();
                     if (Array.isArray(fetchedData)) {
-                        cloudPasswordsStore = {};
-                        fetchedData.forEach(user => {
-                            if (user.sg_id && user.password) {
-                                cloudPasswordsStore[String(user.sg_id)] = user.password;
-                            }
-                        });
-                    } else {
-                        cloudPasswordsStore = fetchedData || {};
+                        rawRosterData = fetchedData;
+                    } else if (fetchedData && fetchedData.rosterData) {
+                        rawRosterData = fetchedData.rosterData;
+                        if (fetchedData.userPasswords) {
+                            cloudPasswordsStore = fetchedData.userPasswords;
+                        }
+                    }
+                    
+                    // Extract stored user passwords from roster data structure if present
+                    if (rawRosterData.userPasswords) {
+                        cloudPasswordsStore = rawRosterData.userPasswords;
                     }
                 }
             } catch(e) {
-                console.log("Using local password storage fallback.");
+                console.log("Using default hardcoded roster data fallback.");
             }
         }
 
         function updateUserProfileHeader(empId) {
-            const empName = AUTHORIZED_EMPLOYEES[empId] || "Lelin Patra";
+            const empName = AUTHORIZED_EMPLOYEES[empId] || "Employee";
             document.getElementById('userProfileName').innerText = empName;
             document.getElementById('dropdownEmpName').innerText = empName;
 
             const initials = empName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
             document.getElementById('userAvatarInitials').innerText = initials;
+
+            // Render options dynamically based on whether logged-in user is Lelin Patra or other employees
+            const dropdown = document.getElementById('userProfileDropdown');
+            if (empId === "316092") {
+                // Lelin Patra gets Admin Switcher option
+                dropdown.innerHTML = `
+                    <div class="px-4 py-2 border-b border-slate-100">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Logged In As</p>
+                        <p class="text-xs font-extrabold text-slate-900 truncate" id="dropdownEmpName">${empName}</p>
+                    </div>
+                    <button id="toggleAdminBtn" onclick="toggleAdminModeFromUserMenu()" class="w-full text-left px-4 py-2 text-xs font-bold ${isAdminMode ? 'text-emerald-600 hover:bg-emerald-50' : 'text-indigo-600 hover:bg-indigo-50'} flex items-center gap-2 transition-colors">
+                        <i data-lucide="${isAdminMode ? 'user-check' : 'shield'}" class="w-4 h-4"></i> ${isAdminMode ? 'Switch to Normal Mode' : 'Switch to Admin Mode'}
+                    </button>
+                    <button onclick="logoutEmployeeAccess()" class="w-full text-left px-4 py-2 text-xs font-bold text-rose-600 hover:bg-rose-50 flex items-center gap-2 transition-colors border-t border-slate-100">
+                        <i data-lucide="log-out" class="w-4 h-4"></i> Logout
+                    </button>
+                `;
+            } else {
+                // Other employees only get the Logout option
+                dropdown.innerHTML = `
+                    <div class="px-4 py-2 border-b border-slate-100">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Logged In As</p>
+                        <p class="text-xs font-extrabold text-slate-900 truncate" id="dropdownEmpName">${empName}</p>
+                    </div>
+                    <button onclick="logoutEmployeeAccess()" class="w-full text-left px-4 py-2 text-xs font-bold text-rose-600 hover:bg-rose-50 flex items-center gap-2 transition-colors">
+                        <i data-lucide="log-out" class="w-4 h-4"></i> Logout
+                    </button>
+                `;
+            }
+            lucide.createIcons();
         }
 
         function toggleUserDropdown() {
@@ -1029,7 +1063,8 @@
                 return;
             }
 
-            const savedPassword = cloudPasswordsStore[empIdInput] || localStorage.getItem(`emp_pass_${empIdInput}`) || TEMP_PASSWORD;
+            // Always check password stored in cloudPasswordsStore (from roster.json) first, then fallback to temp password
+            const savedPassword = cloudPasswordsStore[empIdInput] || TEMP_PASSWORD;
 
             if (passwordInput === savedPassword) {
                 activeAuthEmpId = empIdInput;
@@ -1101,44 +1136,45 @@
             }
 
             cloudPasswordsStore[activeAuthEmpId] = newPass;
-            localStorage.setItem(`emp_pass_${activeAuthEmpId}`, newPass);
 
-            await savePasswordsToCloudServer();
+            // Commit new password directly to roster.json file in repository
+            await savePasswordsToRosterJson();
 
             grantPortalAccess(activeAuthEmpId);
         }
 
-        async function savePasswordsToCloudServer() {
+        async function savePasswordsToRosterJson() {
             if (githubConfig.token && githubConfig.owner && githubConfig.repo) {
                 try {
                     const { token, owner, repo } = githubConfig;
-                    const path = 'emp_users.json';
+                    const path = githubConfig.path || 'roster.json';
                     const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
 
                     const getRes = await fetch(url, { headers: { 'Authorization': `token ${token}` } });
                     let sha = getRes.ok ? (await getRes.json()).sha : undefined;
 
-                    // Convert map into structured array format if required
-                    const updatedUsersArray = Object.keys(AUTHORIZED_EMPLOYEES).map(id => ({
-                        sg_id: parseInt(id) || id,
-                        name: AUTHORIZED_EMPLOYEES[id],
-                        password: cloudPasswordsStore[id] || localStorage.getItem(`emp_pass_${id}`) || TEMP_PASSWORD
-                    }));
+                    // Combine roster data and password store into unified JSON structure
+                    const payload = {
+                        rosterData: rawRosterData,
+                        userPasswords: cloudPasswordsStore
+                    };
 
-                    const encodedContent = btoa(unescape(encodeURIComponent(JSON.stringify(updatedUsersArray, null, 2))));
+                    const encodedContent = btoa(unescape(encodeURIComponent(JSON.stringify(payload, null, 2))));
 
                     await fetch(url, {
                         method: 'PUT',
                         headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
                         body: JSON.stringify({
-                            message: `Update Password for SG ID ${activeAuthEmpId} in emp_users.json`,
+                            message: `Update Password for SG ID ${activeAuthEmpId} in roster.json`,
                             content: encodedContent,
                             sha: sha
                         })
                     });
                 } catch(e) {
-                    console.error("Cloud password sync error to emp_users.json:", e);
+                    console.error("Cloud password sync error to roster.json:", e);
                 }
+            } else {
+                console.log("Local save active. To sync across devices automatically, enter GitHub Token during Admin login.");
             }
         }
 
@@ -1164,7 +1200,11 @@
         function logoutEmployeeAccess() {
             localStorage.removeItem('roster_auth_session');
             activeAuthEmpId = null;
+            isAdminMode = false;
             document.getElementById('userProfileDropdown').classList.add('hidden');
+            document.getElementById('adminImportContainer').classList.add('hidden');
+            document.getElementById('adminBadge').classList.add('hidden');
+            document.getElementById('adminActionDock').classList.add('hidden');
             checkPortalAccessState();
         }
 
@@ -1452,9 +1492,14 @@
             try {
                 const response = await fetch('./roster.json?v=' + new Date().getTime());
                 if (response.ok) {
-                    const liveData = await response.json();
-                    if (liveData && Array.isArray(liveData) && liveData.length > 0) {
-                        rawRosterData = liveData;
+                    const fetchedData = await response.json();
+                    if (Array.isArray(fetchedData) && fetchedData.length > 0) {
+                        rawRosterData = fetchedData;
+                    } else if (fetchedData && fetchedData.rosterData) {
+                        rawRosterData = fetchedData.rosterData;
+                        if (fetchedData.userPasswords) {
+                            cloudPasswordsStore = fetchedData.userPasswords;
+                        }
                     }
                 }
             } catch (err) {
@@ -1559,8 +1604,7 @@
                 if (adminBtn) adminBtn.classList.remove('hidden');
                 if (adminBadge) adminBadge.classList.remove('hidden');
 
-                document.getElementById('toggleAdminBtn').innerHTML = `<i data-lucide="user-check" class="w-4 h-4 text-emerald-600"></i> Switch to Normal Mode`;
-                lucide.createIcons();
+                if (activeAuthEmpId) updateUserProfileHeader(activeAuthEmpId);
 
                 renderView();
             } else {
@@ -1591,8 +1635,7 @@
             document.getElementById('adminBadge').classList.add('hidden');
             document.getElementById('adminActionDock').classList.add('hidden');
 
-            document.getElementById('toggleAdminBtn').innerHTML = `<i data-lucide="shield" class="w-4 h-4"></i> Switch to Admin Mode`;
-            lucide.createIcons();
+            if (activeAuthEmpId) updateUserProfileHeader(activeAuthEmpId);
 
             const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
             window.history.replaceState({ path: newUrl }, '', newUrl);
@@ -1649,7 +1692,13 @@
                     sha = fileMeta.sha;
                 }
 
-                const jsonContent = JSON.stringify(rawRosterData, null, 2);
+                // Create full payload containing both roster schedule and passwords
+                const fullPayload = {
+                    rosterData: rawRosterData,
+                    userPasswords: cloudPasswordsStore
+                };
+
+                const jsonContent = JSON.stringify(fullPayload, null, 2);
                 const encodedContent = btoa(unescape(encodeURIComponent(jsonContent)));
 
                 const putRes = await fetch(url, {
@@ -1659,7 +1708,7 @@
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        message: `Admin Update Roster Shift Data - ${new Date().toLocaleString()}`,
+                        message: `Admin Update Roster & Password Data - ${new Date().toLocaleString()}`,
                         content: encodedContent,
                         sha: sha || undefined
                     })
@@ -1669,7 +1718,7 @@
                     backupRosterData = JSON.parse(JSON.stringify(rawRosterData));
                     clearPendingChangesState();
                     renderView();
-                    alert("Roster changes committed successfully to GitHub! All public users will now see updated data.");
+                    alert("Roster and user password changes committed successfully to GitHub! All public users will now see updated data real-time across devices.");
                 } else {
                     const errErr = await putRes.json();
                     alert(`GitHub Commit Error: ${errErr.message || 'Check your Token/Repo config'}`);
