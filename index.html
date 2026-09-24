@@ -112,7 +112,7 @@
     <div id="pageAccessAuthOverlay" class="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/80 p-4 transition-all duration-500 overflow-y-auto">
         <div class="w-full max-w-md bg-white rounded-xl card-3d p-6 sm:p-8 space-y-5 my-auto">
             
-            <!-- Sabre Logo Banner -->
+            <!-- Sabre Logo Header -->
             <div class="flex justify-center">
                 <div class="sabre-3d-banner px-8 py-3.5 rounded-xl flex items-center justify-center w-full">
                     <img src="SABRE-LOGO-REGISTERED-SCREEN-WHITE-WIP.svg" alt="Sabre Logo" class="h-8 sm:h-9 w-auto object-contain" onError="this.style.display='none'; document.getElementById('sabreTextFallback').classList.remove('hidden');" />
@@ -130,7 +130,7 @@
                 </div>
 
                 <form onsubmit="handlePortalLogin(event)" class="space-y-3 pt-1">
-                    <!-- Employee ID Field with Permanent Icon -->
+                    <!-- Employee ID Field -->
                     <div>
                         <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
                             Employee ID
@@ -143,7 +143,7 @@
                         </div>
                     </div>
 
-                    <!-- Password Field with Permanent Key Icon -->
+                    <!-- Password Field -->
                     <div>
                         <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
                             Password
@@ -388,13 +388,44 @@
         const NINETY_DAYS_MS = 90 * 24 * 60 * 60 * 1000;
         let pendingAuthEmpId = null;
 
-        // Master Employee Roster Listing
-        const MASTER_EMPLOYEE_IDS = ["316092", "223254", "223258", "709139", "223255", "227186", "709454", "709282", "709424", "709283", "709115", "709312"];
+        // COMPLETE FALLBACK ROSTER DATASET
+        const defaultRosterData = [
+            {
+                "month": "September",
+                "week_num": 1,
+                "dates": ["07/09/26", "08/09/26", "09/09/26", "10/09/26", "11/09/26", "12/09/26", "13/09/26"],
+                "employees": [
+                    {"sg_id": 316092, "name": "Lelin Patra", "skilling": "ATS 2L", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 223254, "name": "Srinivas Reddy", "skilling": "ATS", "shifts": {"Monday": "08:00 AM - 05:00 PM", "Tuesday": "08:00 AM - 05:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 223258, "name": "Md. Shahbaz", "skilling": "ATS", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "WO", "Friday": "WO", "Saturday": "06:00 AM - 03:00 PM", "Sunday": "06:30 AM - 03:30 PM"}},
+                    {"sg_id": 709139, "name": "Rupesh C P", "skilling": "ATS", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 223255, "name": "Deepak K", "skilling": "ATS", "shifts": {"Monday": "PTO", "Tuesday": "PTO", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 227186, "name": "Sanjay Kumar", "skilling": "ATS", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "WO", "Friday": "WO", "Saturday": "10:00 AM - 07:00 PM", "Sunday": "10:00 AM - 07:00 PM"}},
+                    {"sg_id": 709454, "name": "Prathvi Shetty", "skilling": "ATS", "shifts": {"Monday": "HD SL", "Tuesday": "SL", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "PTO", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709282, "name": "Preethi P", "skilling": "ATS", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "PTO", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709424, "name": "Bhargav R", "skilling": "ATS", "shifts": {"Monday": "08:00 AM - 05:00 PM", "Tuesday": "08:00 AM - 05:00 PM", "Wednesday": "08:00 AM - 05:00 PM", "Thursday": "08:00 AM - 05:00 PM", "Friday": "08:00 AM - 05:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709283, "name": "Nidhi Taku", "skilling": "ATS", "shifts": {"Monday": "6:00 AM - 03:00 PM", "Tuesday": "6:00 AM - 03:00 PM", "Wednesday": "6:00 AM - 03:00 PM", "Thursday": "6:00 AM - 03:00 PM", "Friday": "6:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709115, "name": "Gokul Krishna Lokesh", "skilling": "ATS", "shifts": {"Monday": "6:00 AM - 03:00 PM", "Tuesday": "6:00 AM - 03:00 PM", "Wednesday": "6:00 AM - 03:00 PM", "Thursday": "6:00 AM - 03:00 PM", "Friday": "6:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709312, "name": "Manisha Kumari", "skilling": "ATS", "shifts": {"Monday": "SL", "Tuesday": "SL", "Wednesday": "08:00 AM - 05:00 PM", "Thursday": "08:00 AM - 05:00 PM", "Friday": "08:00 AM - 05:00 PM", "Saturday": "WO", "Sunday": "WO"}}
+                ]
+            }
+        ];
 
-        let rawRosterData = [];
+        let rawRosterData = JSON.parse(JSON.stringify(defaultRosterData));
         let activeCategory = 'weekly';
         let currentMonth = "September";
         let currentWeekNum = 1;
+        let searchQuery = '';
+        let coverageChartInstance = null;
+        let distChartInstance = null;
+
+        const SABRE_2026_HOLIDAYS = [
+            { date: "01/01/26", day: "Thursday", name: "New Year's Day", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
+            { date: "26/01/26", day: "Monday", name: "Republic Day", offices: ["BLR"] },
+            { date: "15/08/26", day: "Saturday", name: "Independence Day", offices: ["BLR"] },
+            { date: "02/10/26", day: "Friday", name: "Gandhi Jayanti", offices: ["BLR"] },
+            { date: "25/12/26", day: "Friday", name: "Christmas Day", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] }
+        ];
 
         function showLoginView() {
             document.getElementById('loginFormContainer').classList.remove('hidden');
@@ -428,6 +459,20 @@
             localStorage.setItem(`roster_user_pwd_${empId}`, JSON.stringify(data));
         }
 
+        function getAllValidEmployeeIds() {
+            const validIds = new Set();
+            rawRosterData.forEach(week => {
+                if (Array.isArray(week.employees)) {
+                    week.employees.forEach(emp => {
+                        if (emp.sg_id !== undefined && emp.sg_id !== null) {
+                            validIds.add(String(emp.sg_id).trim());
+                        }
+                    });
+                }
+            });
+            return validIds;
+        }
+
         function validatePasswordCriteria(pwd) {
             if (pwd.length !== 8) return false;
             const isAlphanumeric = /^[A-Za-z0-9]{8}$/.test(pwd);
@@ -442,15 +487,14 @@
             const password = document.getElementById('portalPassword').value.trim();
             const errorEl = document.getElementById('portalLoginError');
 
-            // Verify if ID belongs to roster
-            const isValidId = MASTER_EMPLOYEE_IDS.includes(empId);
-            if (!isValidId) {
+            const validIds = getAllValidEmployeeIds();
+            if (!validIds.has(empId)) {
                 errorEl.innerText = "Access Denied: Unrecognized Employee ID.";
                 errorEl.classList.remove('hidden');
                 return;
             }
 
-            // GUARANTEED: Direct check for Temporary Password 3E4R5T6Y
+            // Direct route for Temporary Password
             if (password === TEMP_PASSWORD) {
                 promptPasswordChange(empId, "Initial Login with Temporary Password");
                 return;
@@ -459,7 +503,7 @@
             const pwdData = getUserPasswordData(empId);
 
             if (!pwdData) {
-                errorEl.innerText = "Invalid Password. First time user? Enter temporary password (3E4R5T6Y).";
+                errorEl.innerText = "First time user? Please enter temporary password (3E4R5T6Y).";
                 errorEl.classList.remove('hidden');
             } else {
                 const now = new Date().getTime();
@@ -520,8 +564,9 @@
             e.preventDefault();
             const empId = document.getElementById('forgotEmpId').value.trim();
             const statusEl = document.getElementById('forgotStatusMessage');
+            const validIds = getAllValidEmployeeIds();
 
-            if (!MASTER_EMPLOYEE_IDS.includes(empId)) {
+            if (!validIds.has(empId)) {
                 statusEl.innerText = "Employee ID not found in current roster database.";
                 statusEl.className = "text-xs font-bold text-center p-2.5 rounded-lg bg-rose-50 text-rose-600 border border-rose-200";
                 statusEl.classList.remove('hidden');
@@ -543,7 +588,7 @@
             setTimeout(() => { overlay.classList.add('hidden'); }, 500);
 
             pageWrapper.classList.remove('filter', 'blur-xl', 'pointer-events-none');
-            if (window.lucide) lucide.createIcons();
+            initializePortal();
         }
 
         function update3DClocks() {
@@ -560,6 +605,155 @@
                 if (timeEl) {
                     timeEl.innerText = now.toLocaleTimeString('en-US', { timeZone: zone.tz, hour12: true, hour: '2-digit', minute: '2-digit', second: '2-digit' });
                 }
+            });
+        }
+
+        function initializePortal() {
+            updateMonthDropdown();
+            updateWeekOptions();
+            renderView();
+        }
+
+        function updateMonthDropdown() {
+            const monthSelect = document.getElementById('monthSelect');
+            if(!monthSelect) return;
+            monthSelect.innerHTML = '<option value="September">September 2026</option>';
+        }
+
+        function updateWeekOptions() {
+            const weekSelect = document.getElementById('weekSelect');
+            if(!weekSelect) return;
+            weekSelect.innerHTML = '<option value="1">Week 1: 07/09/26 - 13/09/26</option>';
+        }
+
+        function onMonthChange() { renderView(); }
+        function onWeekChange() { renderView(); }
+
+        function getShiftBadge(shift) {
+            if (!shift || shift === 'WO') return `<span class="px-2 py-0.5 rounded text-xs font-bold bg-slate-100 text-slate-700">WO</span>`;
+            if (shift === 'PTO') return `<span class="px-2 py-0.5 rounded text-xs font-extrabold bg-rose-600 text-white">PTO</span>`;
+            if (shift === 'PH') return `<span class="px-2 py-0.5 rounded text-xs font-extrabold bg-purple-100 text-purple-900">PH</span>`;
+            if (shift === 'SL' || shift === 'HD SL') return `<span class="px-2 py-0.5 rounded text-xs font-extrabold bg-rose-100 text-rose-800">${shift}</span>`;
+            if (shift.includes("10:00")) return `<span class="px-2 py-0.5 rounded text-xs font-extrabold bg-amber-100 text-amber-950">10:00 AM</span>`;
+            if (shift.includes("08:00") || shift.includes("8:00")) return `<span class="px-2 py-0.5 rounded text-xs font-extrabold bg-blue-100 text-blue-900">08:00 AM</span>`;
+            return `<span class="px-2 py-0.5 rounded text-xs font-extrabold bg-emerald-100 text-emerald-900">06:00 AM</span>`;
+        }
+
+        function renderWeeklyView() {
+            const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+            const weekData = rawRosterData[0];
+            const employees = weekData.employees || [];
+
+            document.getElementById('kpiContainer').innerHTML = `
+                <div class="bg-white p-3 rounded-xl card-3d flex items-center justify-between">
+                    <div><p class="text-xs text-slate-400 font-bold uppercase">Total Roster Staff</p><h3 class="text-xl font-extrabold text-slate-900">${employees.length}</h3></div>
+                    <div class="p-2 bg-indigo-50 text-indigo-600 rounded-lg"><i data-lucide="users" class="w-5 h-5"></i></div>
+                </div>
+                <div class="bg-white p-3 rounded-xl card-3d flex items-center justify-between">
+                    <div><p class="text-xs text-slate-400 font-bold uppercase">Roster Period</p><h3 class="text-xs font-bold text-emerald-600">07/09/26 - 13/09/26</h3></div>
+                    <div class="p-2 bg-emerald-50 text-emerald-600 rounded-lg"><i data-lucide="calendar" class="w-5 h-5"></i></div>
+                </div>
+            `;
+
+            let filteredEmployees = employees.filter(e => e.name.toLowerCase().includes(searchQuery) || String(e.sg_id).includes(searchQuery));
+
+            let headerHTML = `<thead><tr class="bg-slate-900 text-white text-xs uppercase border-b border-slate-950">
+                <th class="p-3 text-left sticky left-0 bg-slate-900 z-10 border-r border-slate-800">SG ID / Employee</th>
+                <th class="p-3 text-center border-r border-slate-800">Skill</th>`;
+            days.forEach((d, idx) => {
+                headerHTML += `<th class="p-3 text-center border-r border-slate-800">${d} (${weekData.dates[idx]})</th>`;
+            });
+            headerHTML += `</tr></thead>`;
+
+            let bodyHTML = ``;
+            filteredEmployees.forEach(e => {
+                bodyHTML += `<tr class="hover:bg-slate-50 border-b border-slate-200">
+                    <td class="p-3 sticky left-0 bg-white border-r border-slate-200">
+                        <div class="font-bold text-slate-900 text-xs">${e.name}</div>
+                        <div class="text-[10px] text-slate-500">SG ID: ${e.sg_id}</div>
+                    </td>
+                    <td class="p-3 text-center border-r border-slate-100 text-xs font-semibold">${e.skilling || 'ATS'}</td>`;
+                days.forEach(d => {
+                    bodyHTML += `<td class="p-3 text-center border-r border-slate-100">${getShiftBadge(e.shifts ? e.shifts[d] : 'WO')}</td>`;
+                });
+                bodyHTML += `</tr>`;
+            });
+
+            document.getElementById('mainDisplayArea').innerHTML = `
+                <div class="bg-white rounded-xl table-3d overflow-hidden w-full">
+                    <div class="overflow-x-auto w-full">
+                        <table class="w-full border-collapse">${headerHTML}<tbody class="divide-y divide-slate-100">${bodyHTML}</tbody></table>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderIndividualView() {
+            document.getElementById('mainDisplayArea').innerHTML = `<div class="bg-white p-6 rounded-xl card-3d text-center text-slate-600 text-xs font-semibold">Individual employee profile view active.</div>`;
+        }
+
+        function renderQMView() {
+            document.getElementById('mainDisplayArea').innerHTML = `<div class="bg-white p-6 rounded-xl card-3d text-center text-slate-600 text-xs font-semibold">Queue Manager Shift Allocation Active.</div>`;
+        }
+
+        function renderHolidaysView() {
+            let html = `<div class="bg-white p-6 rounded-xl card-3d space-y-3">
+                <h3 class="font-extrabold text-slate-900 text-sm">Sabre 2026 Official Global Holidays</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">`;
+            SABRE_2026_HOLIDAYS.forEach(h => {
+                html += `<div class="p-2 bg-slate-50 border rounded text-xs">
+                    <div class="font-bold text-slate-800">${h.name}</div>
+                    <div class="text-[10px] text-slate-500">${h.date} (${h.day})</div>
+                </div>`;
+            });
+            html += `</div></div>`;
+            document.getElementById('mainDisplayArea').innerHTML = html;
+        }
+
+        function switchCategory(cat, event) {
+            activeCategory = cat;
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            if(cat === 'weekly') document.getElementById('tabWeekly').classList.add('active');
+            if(cat === 'individual') document.getElementById('tabIndividual').classList.add('active');
+            if(cat === 'qm') document.getElementById('tabQM').classList.add('active');
+            if(cat === 'holidays') document.getElementById('tabHolidays').classList.add('active');
+            renderView();
+        }
+
+        function renderView() {
+            if(activeCategory === 'weekly') renderWeeklyView();
+            else if(activeCategory === 'individual') renderIndividualView();
+            else if(activeCategory === 'qm') renderQMView();
+            else if(activeCategory === 'holidays') renderHolidaysView();
+            if(activeCategory === 'weekly') updateCharts();
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function updateCharts() {
+            const ctx1 = document.getElementById('coverageChart').getContext('2d');
+            if(coverageChartInstance) coverageChartInstance.destroy();
+            coverageChartInstance = new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+                    datasets: [
+                        { label: '06:00 AM', data: [5,5,6,5,5,1,1], backgroundColor: '#10b981' },
+                        { label: '08:00 AM', data: [2,2,2,2,2,0,0], backgroundColor: '#3b82f6' },
+                        { label: '10:00 AM', data: [2,1,4,3,2,1,1], backgroundColor: '#f59e0b' }
+                    ]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+
+            const ctx2 = document.getElementById('distributionChart').getContext('2d');
+            if(distChartInstance) distChartInstance.destroy();
+            distChartInstance = new Chart(ctx2, {
+                type: 'doughnut',
+                data: {
+                    labels: ['06:00 AM Shift', '08:00 AM Shift', '10:00 AM Shift'],
+                    datasets: [{ data: [6, 2, 4], backgroundColor: ['#10b981', '#3b82f6', '#f59e0b'] }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
             });
         }
 
