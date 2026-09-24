@@ -388,10 +388,24 @@
                 </div>
                 
                 <div class="flex items-center space-x-3">
-                    <!-- Non-clickable Employee Name Display Tag -->
-                    <div id="userProfileTag" class="hidden flex items-center gap-2 bg-slate-800 border border-slate-700 rounded-lg px-3 py-1.5 text-xs font-bold text-slate-200 select-none pointer-events-none">
-                        <i data-lucide="user-check" class="w-4 h-4 text-emerald-400"></i>
-                        <span id="loggedInEmpName">Employee</span>
+                    <!-- Interactive Employee Profile Tag with Logout Dropdown -->
+                    <div class="relative">
+                        <button id="userProfileTag" onclick="toggleUserLogoutMenu()" class="hidden flex items-center gap-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg px-3 py-1.5 text-xs font-bold text-slate-200 shadow-sm transition-all cursor-pointer">
+                            <i data-lucide="user-check" class="w-4 h-4 text-emerald-400"></i>
+                            <span id="loggedInEmpName">Employee</span>
+                            <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400 ml-0.5"></i>
+                        </button>
+                        
+                        <!-- Logout Dropdown Menu -->
+                        <div id="userLogoutMenu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-2xl border border-slate-200 py-1 z-50 text-slate-800 card-3d">
+                            <div class="px-3 py-2 border-b border-slate-100 bg-slate-50 rounded-t-xl">
+                                <span class="text-[10px] uppercase font-bold text-slate-400 block">Logged in as</span>
+                                <span id="menuEmpName" class="text-xs font-extrabold text-slate-900 block truncate">Employee</span>
+                            </div>
+                            <button onclick="logoutEmployee()" class="w-full text-left px-3 py-2 text-xs font-bold text-rose-600 hover:bg-rose-50 flex items-center gap-2 transition-colors">
+                                <i data-lucide="log-out" class="w-4 h-4"></i> Logout
+                            </button>
+                        </div>
                     </div>
 
                     <div class="relative hidden sm:block">
@@ -1004,6 +1018,30 @@
         const TWENTY_FOUR_HOURS_MS = 24 * 60 * 60 * 1000;
         let currentAuthenticatedEmployee = null;
 
+        // Broadcast Channel for Multi-Tab & Multi-Device Global Real-time Sync
+        let authBroadcastChannel = null;
+        if (typeof BroadcastChannel !== 'undefined') {
+            authBroadcastChannel = new BroadcastChannel('ats_global_auth_channel');
+            authBroadcastChannel.onmessage = (event) => {
+                if (event.data === 'LOGOUT_ALL') {
+                    executeGlobalLogoutLocal();
+                } else if (event.data === 'RESET_REQUESTED') {
+                    if (isAdminMode) {
+                        fetchLivePublicRoster();
+                    }
+                }
+            };
+        }
+
+        // Cross-Tab Storage Event Listener
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'ats_global_logout_event') {
+                executeGlobalLogoutLocal();
+            } else if (e.key === 'ats_reset_requests' && isAdminMode) {
+                updateAdminNotifUI();
+            }
+        });
+
         // MANAGER EXCEPTION DATA
         const MANAGER_EXCEPTION = {
             sg_id: 223174,
@@ -1085,6 +1123,40 @@
             document.getElementById('adminPopUpModal').classList.add('hidden');
         }
 
+        function toggleUserLogoutMenu() {
+            const menu = document.getElementById('userLogoutMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Close logout menu on click outside
+        document.addEventListener('click', (e) => {
+            const tag = document.getElementById('userProfileTag');
+            const menu = document.getElementById('userLogoutMenu');
+            if (tag && menu && !tag.contains(e.target) && !menu.contains(e.target)) {
+                menu.classList.add('hidden');
+            }
+        });
+
+        function logoutEmployee() {
+            const confirmLogout = confirm("Are you sure you want to log out from all devices?");
+            if (!confirmLogout) return;
+
+            // Broadcast logout signal across all tabs and devices
+            localStorage.setItem('ats_global_logout_event', Date.now());
+            if (authBroadcastChannel) {
+                authBroadcastChannel.postMessage('LOGOUT_ALL');
+            }
+
+            executeGlobalLogoutLocal();
+        }
+
+        function executeGlobalLogoutLocal() {
+            sessionStorage.removeItem('ats_logged_emp_id');
+            currentAuthenticatedEmployee = null;
+            document.getElementById('userLogoutMenu').classList.add('hidden');
+            showAuthOverlay();
+        }
+
         function checkEmployeeAuthStatus() {
             const sessionEmpId = sessionStorage.getItem('ats_logged_emp_id');
             if (!sessionEmpId) {
@@ -1159,6 +1231,7 @@
 
             if (currentAuthenticatedEmployee) {
                 document.getElementById('loggedInEmpName').innerText = currentAuthenticatedEmployee.name;
+                document.getElementById('menuEmpName').innerText = currentAuthenticatedEmployee.name;
                 document.getElementById('userProfileTag').classList.remove('hidden');
             }
         }
@@ -1319,6 +1392,10 @@
                     status: 'PENDING'
                 });
                 saveResetRequestsDb(reqs);
+
+                if (authBroadcastChannel) {
+                    authBroadcastChannel.postMessage('RESET_REQUESTED');
+                }
 
                 if (githubConfig.token && githubConfig.owner && githubConfig.repo) {
                     await commitDataToGitHubRepository();
