@@ -83,7 +83,7 @@
       {
         "sg_id": 223255,
         "name": "Deepak K",
-        "skilling": "ATS",
+        "skilling": "ATS 2L",
         "default_start": "10:00 AM",
         "default_end": "07:00 PM",
         "days_office": "Wed/Thu/Fri",
@@ -347,7 +347,7 @@
       {
         "sg_id": 223255,
         "name": "Deepak K",
-        "skilling": "ATS",
+        "skilling": "ATS 2L",
         "default_start": "10:00 AM",
         "default_end": "07:00 PM",
         "days_office": "Tue/Wed/Thu/Fri",
@@ -611,7 +611,7 @@
       {
         "sg_id": 223255,
         "name": "Deepak K",
-        "skilling": "ATS",
+        "skilling": "ATS 2L",
         "default_start": "10:00 AM",
         "default_end": "07:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
@@ -875,7 +875,7 @@
       {
         "sg_id": 223255,
         "name": "Deepak K",
-        "skilling": "ATS",
+        "skilling": "ATS 2L",
         "default_start": "10:00 AM",
         "default_end": "07:00 PM",
         "days_office": "Mon/Tue/Wed/Thu",
@@ -1105,7 +1105,7 @@
       {
         "sg_id": 223255,
         "name": "Deepak K",
-        "skilling": "ATS",
+        "skilling": "ATS 2L",
         "default_start": "08:00 AM",
         "default_end": "05:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
