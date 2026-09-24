@@ -10,6 +10,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- SheetJS (xlsx) for Excel Importing -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;700;900&family=JetBrains+Mono:wght@500;700;800&display=swap');
         
@@ -130,7 +132,6 @@
                 </div>
 
                 <form onsubmit="handlePortalLogin(event)" class="space-y-3 pt-1">
-                    <!-- Employee ID Field -->
                     <div>
                         <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
                             Employee ID
@@ -143,7 +144,6 @@
                         </div>
                     </div>
 
-                    <!-- Password Field -->
                     <div>
                         <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
                             Password
@@ -175,7 +175,7 @@
             <!-- Password Change View -->
             <div id="changePasswordContainer" class="hidden space-y-4">
                 <div class="text-center">
-                    <span id="passwordReasonBadge" class="inline-block px-2.5 py-0.5 text-[10px] font-extrabold bg-amber-100 text-amber-800 rounded border border-amber-300 mb-1">Password Setup Required</span>
+                    <span id="passwordReasonBadge" class="inline-block px-2.5 py-0.5 text-[10px] font-extrabold bg-amber-100 text-amber-800 rounded border border-amber-300 mb-1">Global Cloud Password Sync</span>
                     <h2 class="text-base sm:text-lg text-depth-shadow leading-snug">
                         Create New Password
                     </h2>
@@ -189,7 +189,7 @@
                         <li>Must be <strong>exactly 8 Characters</strong> long</li>
                         <li>Case sensitive (Uppercase & Lowercase letters)</li>
                         <li>Must contain <strong>letters and numbers only</strong></li>
-                        <li>Valid for <strong>90 Days</strong> before renewal</li>
+                        <li>Syncs globally & valid for <strong>90 Days</strong></li>
                     </ul>
                 </div>
 
@@ -219,7 +219,7 @@
                     </div>
 
                     <button type="submit" id="savePasswordBtn" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold rounded-lg text-xs btn-3d transition-all flex items-center justify-center gap-1.5 shadow-md shadow-emerald-100">
-                        <i data-lucide="check-circle" class="w-3.5 h-3.5"></i> Save Password & Continue
+                        <i data-lucide="cloud-upload" class="w-3.5 h-3.5"></i> Save & Sync to Cloud
                     </button>
                 </form>
             </div>
@@ -388,8 +388,10 @@
         const NINETY_DAYS_MS = 90 * 24 * 60 * 60 * 1000;
         let pendingAuthEmpId = null;
 
-        // COMPLETE FALLBACK ROSTER DATASET
-        const defaultRosterData = [
+        // MASTER ROSTER EMPLOYEE LIST
+        const MASTER_EMPLOYEE_IDS = ["316092", "223254", "223258", "709139", "223255", "227186", "709454", "709282", "709424", "709283", "709115", "709312"];
+
+        let defaultRosterData = [
             {
                 "month": "September",
                 "week_num": 1,
@@ -413,8 +415,6 @@
 
         let rawRosterData = JSON.parse(JSON.stringify(defaultRosterData));
         let activeCategory = 'weekly';
-        let currentMonth = "September";
-        let currentWeekNum = 1;
         let searchQuery = '';
         let coverageChartInstance = null;
         let distChartInstance = null;
@@ -426,6 +426,20 @@
             { date: "02/10/26", day: "Friday", name: "Gandhi Jayanti", offices: ["BLR"] },
             { date: "25/12/26", day: "Friday", name: "Christmas Day", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] }
         ];
+
+        async function fetchLivePublicRoster() {
+            try {
+                const response = await fetch('./roster.json?v=' + new Date().getTime());
+                if (response.ok) {
+                    const liveData = await response.json();
+                    if (liveData && Array.isArray(liveData) && liveData.length > 0) {
+                        rawRosterData = liveData;
+                    }
+                }
+            } catch(e) {
+                console.log("Using fallback roster data");
+            }
+        }
 
         function showLoginView() {
             document.getElementById('loginFormContainer').classList.remove('hidden');
@@ -444,6 +458,11 @@
         }
 
         function getUserPasswordData(empId) {
+            // Priority 1: Check in-memory global users map inside loaded roster
+            if (rawRosterData && rawRosterData._globalUsers && rawRosterData._globalUsers[empId]) {
+                return rawRosterData._globalUsers[empId];
+            }
+            // Priority 2: Check localStorage fallback
             const stored = localStorage.getItem(`roster_user_pwd_${empId}`);
             if (stored) {
                 try { return JSON.parse(stored); } catch(e) { return null; }
@@ -451,26 +470,44 @@
             return null;
         }
 
-        function setUserPasswordData(empId, password) {
-            const data = {
+        async function saveUserPasswordData(empId, password) {
+            const pwdObj = {
                 password: password,
                 createdAt: new Date().getTime()
             };
-            localStorage.setItem(`roster_user_pwd_${empId}`, JSON.stringify(data));
-        }
 
-        function getAllValidEmployeeIds() {
-            const validIds = new Set();
-            rawRosterData.forEach(week => {
-                if (Array.isArray(week.employees)) {
-                    week.employees.forEach(emp => {
-                        if (emp.sg_id !== undefined && emp.sg_id !== null) {
-                            validIds.add(String(emp.sg_id).trim());
-                        }
+            // Save locally
+            localStorage.setItem(`roster_user_pwd_${empId}`, JSON.stringify(pwdObj));
+
+            // Attach to roster memory
+            if (!rawRosterData._globalUsers) rawRosterData._globalUsers = {};
+            rawRosterData._globalUsers[empId] = pwdObj;
+
+            // Option B: Sync to GitHub Cloud if token configured
+            const token = localStorage.getItem('gh_pat_token');
+            const owner = localStorage.getItem('gh_owner');
+            const repo = localStorage.getItem('gh_repo');
+
+            if (token && owner && repo) {
+                try {
+                    const url = `https://api.github.com/repos/${owner}/${repo}/contents/roster.json`;
+                    const getRes = await fetch(url, { headers: { 'Authorization': `token ${token}` } });
+                    let sha = getRes.ok ? (await getRes.json()).sha : '';
+
+                    const encodedContent = btoa(unescape(encodeURIComponent(JSON.stringify(rawRosterData, null, 2))));
+                    await fetch(url, {
+                        method: 'PUT',
+                        headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            message: `Cloud Password Sync - Employee ID: ${empId}`,
+                            content: encodedContent,
+                            sha: sha || undefined
+                        })
                     });
+                } catch(e) {
+                    console.log("GitHub API Sync Exception:", e);
                 }
-            });
-            return validIds;
+            }
         }
 
         function validatePasswordCriteria(pwd) {
@@ -487,14 +524,14 @@
             const password = document.getElementById('portalPassword').value.trim();
             const errorEl = document.getElementById('portalLoginError');
 
-            const validIds = getAllValidEmployeeIds();
-            if (!validIds.has(empId)) {
+            // ID Validation against master list
+            if (!MASTER_EMPLOYEE_IDS.includes(empId)) {
                 errorEl.innerText = "Access Denied: Unrecognized Employee ID.";
                 errorEl.classList.remove('hidden');
                 return;
             }
 
-            // Direct route for Temporary Password
+            // GUARANTEED DIRECT PASS: Temporary Password 3E4R5T6Y
             if (password === TEMP_PASSWORD) {
                 promptPasswordChange(empId, "Initial Login with Temporary Password");
                 return;
@@ -503,7 +540,7 @@
             const pwdData = getUserPasswordData(empId);
 
             if (!pwdData) {
-                errorEl.innerText = "First time user? Please enter temporary password (3E4R5T6Y).";
+                errorEl.innerText = "First time logging in? Enter temporary password (3E4R5T6Y).";
                 errorEl.classList.remove('hidden');
             } else {
                 const now = new Date().getTime();
@@ -532,11 +569,12 @@
             if (window.lucide) lucide.createIcons();
         }
 
-        function handlePasswordChange(e) {
+        async function handlePasswordChange(e) {
             e.preventDefault();
             const newPwd = document.getElementById('newPassword').value.trim();
             const confirmPwd = document.getElementById('confirmPassword').value.trim();
             const errorEl = document.getElementById('passwordChangeError');
+            const saveBtn = document.getElementById('savePasswordBtn');
 
             if (newPwd !== confirmPwd) {
                 errorEl.innerText = "Error: Passwords do not match.";
@@ -556,7 +594,8 @@
                 return;
             }
 
-            setUserPasswordData(pendingAuthEmpId, newPwd);
+            saveBtn.innerText = "Saving Password...";
+            await saveUserPasswordData(pendingAuthEmpId, newPwd);
             grantPortalAccess();
         }
 
@@ -564,10 +603,9 @@
             e.preventDefault();
             const empId = document.getElementById('forgotEmpId').value.trim();
             const statusEl = document.getElementById('forgotStatusMessage');
-            const validIds = getAllValidEmployeeIds();
 
-            if (!validIds.has(empId)) {
-                statusEl.innerText = "Employee ID not found in current roster database.";
+            if (!MASTER_EMPLOYEE_IDS.includes(empId)) {
+                statusEl.innerText = "Employee ID not found in roster database.";
                 statusEl.className = "text-xs font-bold text-center p-2.5 rounded-lg bg-rose-50 text-rose-600 border border-rose-200";
                 statusEl.classList.remove('hidden');
                 return;
@@ -641,7 +679,7 @@
 
         function renderWeeklyView() {
             const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-            const weekData = rawRosterData[0];
+            const weekData = rawRosterData[0] || defaultRosterData[0];
             const employees = weekData.employees || [];
 
             document.getElementById('kpiContainer').innerHTML = `
@@ -758,6 +796,7 @@
         }
 
         document.addEventListener("DOMContentLoaded", () => {
+            fetchLivePublicRoster();
             if (window.lucide) lucide.createIcons();
             update3DClocks();
             setInterval(update3DClocks, 1000);
