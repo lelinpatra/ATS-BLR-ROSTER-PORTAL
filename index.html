@@ -212,12 +212,12 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: clamp(45px, 6vw, 85px);
-            height: clamp(45px, 6vw, 85px);
+            width: clamp(55px, 8vw, 100px);
+            height: clamp(55px, 8vw, 100px);
             pointer-events: none;
             z-index: 40;
             will-change: transform;
-            filter: drop-shadow(0 14px 12px rgba(15, 23, 42, 0.4));
+            filter: drop-shadow(0 16px 14px rgba(15, 23, 42, 0.45));
         }
 
         .current-day-col {
@@ -249,30 +249,121 @@
 </head>
 <body class="min-h-screen flex flex-col w-full overflow-x-hidden relative pb-16">
 
-    <!-- Free Flight Passenger Plane -->
+    <!-- 3D American Airlines White Aircraft -->
     <div id="freeFlightPlane">
-        <svg viewBox="0 0 100 100" width="100%" height="100%">
-            <path d="M 45 40 L 4 60 L 12 68 L 48 48 Z" fill="#64748b"/>
-            <path d="M 55 40 L 96 60 L 88 68 L 52 48 Z" fill="#94a3b8"/>
-            <ellipse cx="26" cy="56" rx="4" ry="8" fill="#1e293b"/>
-            <ellipse cx="74" cy="56" rx="4" ry="8" fill="#1e293b"/>
-            <path d="M 42 82 L 18 94 L 26 98 L 48 88 Z" fill="#475569"/>
-            <path d="M 58 82 L 82 94 L 74 98 L 52 88 Z" fill="#64748b"/>
-            <path d="M 50 68 L 50 96 L 56 96 Z" fill="#0284c7"/>
-            <path d="M 50 4 C 37 24, 37 75, 42 95 L 58 95 C 63 75, 63 24, 50 4 Z" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
-            <path d="M 46 15 C 48 11, 52 11, 54 15 C 53 21, 47 21, 46 15 Z" fill="#0284c7"/>
-            <circle cx="45" cy="30" r="1.5" fill="#0284c7"/>
-            <circle cx="45" cy="36" r="1.5" fill="#0284c7"/>
-            <circle cx="45" cy="42" r="1.5" fill="#0284c7"/>
-            <circle cx="45" cy="48" r="1.5" fill="#0284c7"/>
-            <circle cx="45" cy="54" r="1.5" fill="#0284c7"/>
-            <circle cx="45" cy="60" r="1.5" fill="#0284c7"/>
-            <circle cx="55" cy="30" r="1.5" fill="#0284c7"/>
-            <circle cx="55" cy="36" r="1.5" fill="#0284c7"/>
-            <circle cx="55" cy="42" r="1.5" fill="#0284c7"/>
-            <circle cx="55" cy="48" r="1.5" fill="#0284c7"/>
-            <circle cx="55" cy="54" r="1.5" fill="#0284c7"/>
-            <circle cx="55" cy="60" r="1.5" fill="#0284c7"/>
+        <svg viewBox="0 0 200 200" width="100%" height="100%">
+            <defs>
+                <!-- Fuselage White Gradient -->
+                <linearGradient id="aaFuselageGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#dbe1e8"/>
+                    <stop offset="25%" stop-color="#ffffff"/>
+                    <stop offset="60%" stop-color="#f8fafc"/>
+                    <stop offset="85%" stop-color="#cbd5e1"/>
+                    <stop offset="100%" stop-color="#94a3b8"/>
+                </linearGradient>
+
+                <!-- Metallic Wing Gradient -->
+                <linearGradient id="aaWingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#e2e8f0"/>
+                    <stop offset="50%" stop-color="#cbd5e1"/>
+                    <stop offset="100%" stop-color="#64748b"/>
+                </linearGradient>
+
+                <!-- Engine Gradient -->
+                <linearGradient id="aaEngineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#475569"/>
+                    <stop offset="50%" stop-color="#1e293b"/>
+                    <stop offset="100%" stop-color="#0f172a"/>
+                </linearGradient>
+
+                <!-- Cockpit Glass Gradient -->
+                <linearGradient id="aaCockpitGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#0284c7"/>
+                    <stop offset="100%" stop-color="#0369a1"/>
+                </linearGradient>
+
+                <!-- Tail Fin Red/Blue Gradient Stripe -->
+                <linearGradient id="aaTailRed" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#ef4444"/>
+                    <stop offset="100%" stop-color="#dc2626"/>
+                </linearGradient>
+
+                <linearGradient id="aaTailBlue" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#2563eb"/>
+                    <stop offset="100%" stop-color="#1d4ed8"/>
+                </linearGradient>
+
+                <!-- 3D Shadow -->
+                <filter id="planeShadow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feDropShadow dx="0" dy="12" stdDeviation="6" flood-color="#020617" flood-opacity="0.35"/>
+                </filter>
+            </defs>
+
+            <g filter="url(#planeShadow)">
+                <!-- Left Wing Shadow/Base -->
+                <path d="M 92,100 L 10,135 L 20,148 L 94,118 Z" fill="#475569" opacity="0.3"/>
+                <!-- Right Wing Shadow/Base -->
+                <path d="M 108,100 L 190,135 L 180,148 L 106,118 Z" fill="#334155" opacity="0.4"/>
+
+                <!-- Left Engine -->
+                <rect x="52" y="112" width="10" height="24" rx="5" fill="url(#aaEngineGrad)"/>
+                <ellipse cx="57" cy="112" rx="5" ry="2" fill="#94a3b8"/>
+                
+                <!-- Right Engine -->
+                <rect x="138" y="112" width="10" height="24" rx="5" fill="url(#aaEngineGrad)"/>
+                <ellipse cx="143" cy="112" rx="5" ry="2" fill="#94a3b8"/>
+
+                <!-- Left Main Wing -->
+                <path d="M 94,85 L 12,132 C 8,134 10,139 16,139 L 40,138 L 95,110 Z" fill="url(#aaWingGrad)" stroke="#94a3b8" stroke-width="0.5"/>
+                <!-- Left Wingtip Red Trim -->
+                <path d="M 12,132 L 8,130 L 10,136 L 16,139 Z" fill="#dc2626"/>
+
+                <!-- Right Main Wing -->
+                <path d="M 106,85 L 188,132 C 192,134 190,139 184,139 L 160,138 L 105,110 Z" fill="url(#aaWingGrad)" stroke="#64748b" stroke-width="0.5"/>
+                <!-- Right Wingtip Red Trim -->
+                <path d="M 188,132 L 192,130 L 190,136 L 184,139 Z" fill="#dc2626"/>
+
+                <!-- Horizontal Stabilizers (Tail Wings) -->
+                <path d="M 97,165 L 55,186 C 52,188 53,192 57,191 L 98,178 Z" fill="url(#aaWingGrad)"/>
+                <path d="M 103,165 L 145,186 C 148,188 147,192 143,191 L 102,178 Z" fill="url(#aaWingGrad)"/>
+
+                <!-- Main Fuselage Body (Pure White 3D Metallic) -->
+                <path d="M 100,8 
+                         C 86,30 84,130 88,172 
+                         C 90,188 95,195 100,195 
+                         C 105,195 110,188 112,172 
+                         C 116,130 114,30 100,8 Z" 
+                      fill="url(#aaFuselageGrad)" 
+                      stroke="#cbd5e1" 
+                      stroke-width="1"/>
+
+                <!-- American Airlines Signature Tail Fin (Flag Livery Stripes) -->
+                <!-- Tail Base -->
+                <path d="M 100,155 L 96,192 C 100,196 100,196 104,192 Z" fill="#f8fafc"/>
+                
+                <!-- AA Red/White/Blue Stripes on Tail Fin -->
+                <!-- Top Red Stripe -->
+                <path d="M 99,158 L 97,166 L 103,166 L 101,158 Z" fill="url(#aaTailRed)"/>
+                <!-- White Stripe -->
+                <path d="M 97,166 L 96,172 L 104,172 L 103,166 Z" fill="#ffffff"/>
+                <!-- Blue Stripe -->
+                <path d="M 96,172 L 95,180 L 105,180 L 104,172 Z" fill="url(#aaTailBlue)"/>
+                <!-- Bottom Red Stripe -->
+                <path d="M 95,180 L 96,190 L 104,190 L 105,180 Z" fill="url(#aaTailRed)"/>
+
+                <!-- Cockpit Windshield (3D Curved Visor) -->
+                <path d="M 93,28 C 96,24 104,24 107,28 C 108,34 92,34 93,28 Z" fill="url(#aaCockpitGrad)"/>
+                
+                <!-- Passenger Windows Line (Left & Right Sides) -->
+                <!-- Left Windows -->
+                <line x1="91" y1="42" x2="91" y2="140" stroke="#0284c7" stroke-width="1.2" stroke-dasharray="1.5, 2.5" opacity="0.8"/>
+                <!-- Right Windows -->
+                <line x1="109" y1="42" x2="109" y2="140" stroke="#0284c7" stroke-width="1.2" stroke-dasharray="1.5, 2.5" opacity="0.8"/>
+
+                <!-- American Airlines Mid-Fuselage Logo Stripe Accent -->
+                <path d="M 92,62 L 92,72 L 91,72 L 91,62 Z" fill="#2563eb"/>
+                <path d="M 92,72 L 92,82 L 91,82 L 91,72 Z" fill="#dc2626"/>
+            </g>
         </svg>
     </div>
 
