@@ -20,6 +20,14 @@
             position: relative;
             background-color: #cbd5e1;
         }
+
+        /* Access Control Blur Overlay */
+        .page-blurred {
+            filter: blur(16px);
+            pointer-events: none;
+            user-select: none;
+        }
+
         .font-orbitron { font-family: 'Orbitron', sans-serif; }
         .font-mono-digital { font-family: 'JetBrains Mono', monospace; }
 
@@ -249,6 +257,97 @@
 </head>
 <body class="min-h-screen flex flex-col w-full overflow-x-hidden relative pb-16">
 
+    <!-- PAGE ACCESS AUTHENTICATION MODAL OVERLAY -->
+    <div id="authModalOverlay" class="fixed inset-0 bg-slate-900/80 backdrop-blur-xl z-[100] flex items-center justify-center p-4">
+        
+        <!-- Employee Login Card -->
+        <div id="employeeLoginCard" class="bg-white rounded-2xl card-3d w-full max-w-md p-6 sm:p-8 space-y-5 shadow-2xl">
+            <div class="text-center space-y-2">
+                <div class="w-14 h-14 rounded-2xl bg-indigo-600 text-white flex items-center justify-center mx-auto shadow-lg btn-3d">
+                    <i data-lucide="shield-lock" class="w-8 h-8"></i>
+                </div>
+                <h2 class="font-black text-slate-900 text-xl sm:text-2xl tracking-tight">Portal Access Required</h2>
+                <p class="text-slate-500 text-xs sm:text-sm">Please authenticate with your Employee ID and Password to view roster details.</p>
+            </div>
+
+            <form onsubmit="handleEmployeeLogin(event)" class="space-y-4 pt-1">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Employee ID</label>
+                    <div class="relative">
+                        <input type="text" id="accessEmpId" placeholder="e.g. 316092" required
+                            class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-10 pr-4 py-2.5 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all input-3d">
+                        <i data-lucide="user" class="w-4 h-4 text-slate-400 absolute left-3.5 top-3"></i>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Password</label>
+                    <div class="relative">
+                        <input type="password" id="accessPassword" placeholder="••••••••" required
+                            class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-10 pr-4 py-2.5 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all input-3d">
+                        <i data-lucide="key-round" class="w-4 h-4 text-slate-400 absolute left-3.5 top-3"></i>
+                    </div>
+                </div>
+
+                <div id="authErrorMsg" class="hidden text-rose-600 text-xs font-bold text-center bg-rose-50 border border-rose-200 py-2 rounded-lg">
+                    Access Denied: Invalid Employee ID or Password.
+                </div>
+
+                <button type="submit" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold rounded-xl text-sm transition-all shadow-lg btn-3d flex items-center justify-center gap-2">
+                    <i data-lucide="log-in" class="w-4 h-4"></i> Login to Portal
+                </button>
+            </form>
+        </div>
+
+        <!-- Password Change Card -->
+        <div id="employeeChangePasswordCard" class="hidden bg-white rounded-2xl card-3d w-full max-w-md p-6 sm:p-8 space-y-5 shadow-2xl">
+            <div class="text-center space-y-2">
+                <div class="w-14 h-14 rounded-2xl bg-amber-500 text-white flex items-center justify-center mx-auto shadow-lg btn-3d">
+                    <i data-lucide="key-round" class="w-8 h-8"></i>
+                </div>
+                <h2 class="font-black text-slate-900 text-xl sm:text-2xl tracking-tight">Set New Password</h2>
+                <p class="text-slate-500 text-xs sm:text-sm">You are using a temporary or expired password. Please establish a new password to proceed.</p>
+            </div>
+
+            <!-- Password Criteria Display Box -->
+            <div class="bg-amber-50/80 border border-amber-200 rounded-xl p-3.5 text-xs text-amber-900 space-y-1.5">
+                <span class="font-extrabold block text-amber-950 flex items-center gap-1.5">
+                    <i data-lucide="alert-circle" class="w-4 h-4 text-amber-600"></i> Password Security Requirements:
+                </span>
+                <ul class="list-disc pl-5 space-y-0.5 font-medium text-amber-900">
+                    <li>Exactly <strong>8 characters</strong> in length</li>
+                    <li>Must contain <strong>letters (A-Z, a-z)</strong> and <strong>numbers (0-9)</strong> only</li>
+                    <li>Case-sensitive format</li>
+                </ul>
+            </div>
+
+            <form onsubmit="handlePasswordChange(event)" class="space-y-4 pt-1">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">New Password</label>
+                    <input type="password" id="newPasswordInput" placeholder="Enter new password" required oninput="validatePasswordCriteriaLive()"
+                        class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-amber-500 focus:bg-white transition-all input-3d">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Confirm Password</label>
+                    <input type="password" id="confirmPasswordInput" placeholder="Confirm new password" required oninput="validatePasswordCriteriaLive()"
+                        class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-amber-500 focus:bg-white transition-all input-3d">
+                </div>
+
+                <div id="changePasswordErrorMsg" class="hidden text-rose-600 text-xs font-bold text-center bg-rose-50 border border-rose-200 py-2 rounded-lg">
+                </div>
+
+                <button type="submit" id="savePasswordBtn" class="w-full py-3 bg-amber-600 hover:bg-amber-500 text-white font-extrabold rounded-xl text-sm transition-all shadow-lg btn-3d flex items-center justify-center gap-2">
+                    <i data-lucide="cloud-upload" class="w-4 h-4"></i> Save to Cloud (emp_users.json) & Enter
+                </button>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- MAIN PAGE CONTENT CONTAINER (BLURRED BY DEFAULT UNTIL AUTHENTICATED) -->
+    <div id="mainPageContent" class="page-blurred min-h-screen flex flex-col w-full">
+
     <!-- 3D American Airlines White Aircraft -->
     <div id="freeFlightPlane">
         <svg viewBox="0 0 200 200" width="100%" height="100%">
@@ -384,12 +483,35 @@
                         <span class="hidden xs:inline">Import Excel</span>
                     </label>
                     <input type="file" id="excelFileInput" accept=".xlsx, .xls" class="hidden" onchange="importExcelData(event)">
-
-                    <button onclick="logoutAdmin()" class="flex items-center space-x-1.5 bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors" title="Logout from Admin Mode">
-                        <i data-lucide="log-out" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
-                        <span class="hidden xs:inline">Logout</span>
-                    </button>
                 </div>
+
+                <!-- TOP-RIGHT USER PROFILE & MODE SWITCH DROPDOWN -->
+                <div class="relative">
+                    <button onclick="toggleUserDropdown()" class="flex items-center space-x-2 bg-slate-800 hover:bg-slate-700 text-white px-3 py-1.5 rounded-xl border border-slate-700 btn-3d transition-all">
+                        <div class="w-7 h-7 rounded-full bg-indigo-600 text-white font-black flex items-center justify-center text-xs" id="userAvatarInitials">
+                            LP
+                        </div>
+                        <span class="text-xs font-bold truncate max-w-[120px]" id="userProfileName">Lelin Patra</span>
+                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400"></i>
+                    </button>
+
+                    <!-- Dropdown Options Menu -->
+                    <div id="userProfileDropdown" class="hidden absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-2xl border border-slate-200 py-2 z-50 text-slate-800 space-y-1">
+                        <div class="px-4 py-2 border-b border-slate-100">
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Logged In As</p>
+                            <p class="text-xs font-extrabold text-slate-900 truncate" id="dropdownEmpName">Lelin Patra</p>
+                        </div>
+
+                        <button id="toggleAdminBtn" onclick="toggleAdminModeFromUserMenu()" class="w-full text-left px-4 py-2 text-xs font-bold text-indigo-600 hover:bg-indigo-50 flex items-center gap-2 transition-colors">
+                            <i data-lucide="shield" class="w-4 h-4"></i> Switch to Admin Mode
+                        </button>
+
+                        <button onclick="logoutEmployeeAccess()" class="w-full text-left px-4 py-2 text-xs font-bold text-rose-600 hover:bg-rose-50 flex items-center gap-2 transition-colors border-t border-slate-100">
+                            <i data-lucide="log-out" class="w-4 h-4"></i> Logout
+                        </button>
+                    </div>
+                </div>
+
             </div>
         </div>
         <div class="p-2 sm:hidden bg-slate-950 border-t border-slate-800">
@@ -694,7 +816,7 @@
     </div>
 
     <!-- Admin Login Modal -->
-    <div id="adminLoginModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-50 flex items-center justify-center hidden p-4">
+    <div id="adminLoginModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[110] flex items-center justify-center hidden p-4">
         <div class="bg-white rounded-xl card-3d w-full max-w-md p-6 space-y-4 shadow-2xl">
             <div class="text-center space-y-1">
                 <div class="w-12 h-12 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center mx-auto mb-2 btn-3d">
@@ -784,7 +906,268 @@
         </div>
     </footer>
 
+    </div><!-- END MAIN PAGE CONTENT CONTAINER -->
+
     <script>
+        // AUTHORIZED EMPLOYEES DIRECTORY
+        const AUTHORIZED_EMPLOYEES = {
+            "316092": "Lelin Patra",
+            "223254": "Srinivas Reddy",
+            "223258": "Md. Shahbaz",
+            "709139": "Rupesh C P",
+            "223255": "Deepak K",
+            "227186": "Sanjay Kumar",
+            "709454": "Prathvi Shetty",
+            "709282": "Preethi P",
+            "709424": "Bhargav R",
+            "709283": "Nidhi Taku",
+            "709115": "Gokul Krishna Lokesh",
+            "709312": "Manisha Kumari"
+        };
+
+        const TEMP_PASSWORD = "3E4R5T6Y";
+        const PASSWORD_EXPIRY_DAYS = 90;
+
+        let activeAuthEmpId = null;
+        let cloudPasswordsStore = {};
+
+        // AUTHENTICATION STATE CONTROL
+        async function checkPortalAccessState() {
+            await fetchCloudPasswords();
+
+            const storedAuth = localStorage.getItem('roster_auth_session');
+            const blurContainer = document.getElementById('mainPageContent');
+            const authOverlay = document.getElementById('authModalOverlay');
+
+            if (storedAuth) {
+                try {
+                    const session = JSON.parse(storedAuth);
+                    const now = new Date().getTime();
+                    
+                    if (session.empId && session.expiry && now < session.expiry) {
+                        blurContainer.classList.remove('page-blurred');
+                        authOverlay.classList.add('hidden');
+                        activeAuthEmpId = session.empId;
+                        updateUserProfileHeader(session.empId);
+                        return true;
+                    }
+                } catch(e) {
+                    localStorage.removeItem('roster_auth_session');
+                }
+            }
+
+            blurContainer.classList.add('page-blurred');
+            authOverlay.classList.remove('hidden');
+            document.getElementById('employeeLoginCard').classList.remove('hidden');
+            document.getElementById('employeeChangePasswordCard').classList.add('hidden');
+            return false;
+        }
+
+        async function fetchCloudPasswords() {
+            try {
+                const res = await fetch('./emp_users.json?v=' + new Date().getTime());
+                if (res.ok) {
+                    const fetchedData = await res.json();
+                    if (Array.isArray(fetchedData)) {
+                        cloudPasswordsStore = {};
+                        fetchedData.forEach(user => {
+                            if (user.sg_id && user.password) {
+                                cloudPasswordsStore[String(user.sg_id)] = user.password;
+                            }
+                        });
+                    } else {
+                        cloudPasswordsStore = fetchedData || {};
+                    }
+                }
+            } catch(e) {
+                console.log("Using local password storage fallback.");
+            }
+        }
+
+        function updateUserProfileHeader(empId) {
+            const empName = AUTHORIZED_EMPLOYEES[empId] || "Lelin Patra";
+            document.getElementById('userProfileName').innerText = empName;
+            document.getElementById('dropdownEmpName').innerText = empName;
+
+            const initials = empName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+            document.getElementById('userAvatarInitials').innerText = initials;
+        }
+
+        function toggleUserDropdown() {
+            const dropdown = document.getElementById('userProfileDropdown');
+            dropdown.classList.toggle('hidden');
+        }
+
+        document.addEventListener('click', (e) => {
+            const dropdown = document.getElementById('userProfileDropdown');
+            const button = e.target.closest('button[onclick="toggleUserDropdown()"]');
+            if (!button && dropdown && !dropdown.contains(e.target)) {
+                dropdown.classList.add('hidden');
+            }
+        });
+
+        function toggleAdminModeFromUserMenu() {
+            document.getElementById('userProfileDropdown').classList.add('hidden');
+            if (isAdminMode) {
+                logoutAdmin();
+            } else {
+                document.getElementById('adminLoginModal').classList.remove('hidden');
+            }
+        }
+
+        function handleEmployeeLogin(e) {
+            e.preventDefault();
+            const empIdInput = document.getElementById('accessEmpId').value.trim();
+            const passwordInput = document.getElementById('accessPassword').value.trim();
+            const errorEl = document.getElementById('authErrorMsg');
+
+            errorEl.classList.add('hidden');
+
+            if (!AUTHORIZED_EMPLOYEES[empIdInput]) {
+                errorEl.innerText = "Access Denied: Employee ID not authorized.";
+                errorEl.classList.remove('hidden');
+                return;
+            }
+
+            const savedPassword = cloudPasswordsStore[empIdInput] || localStorage.getItem(`emp_pass_${empIdInput}`) || TEMP_PASSWORD;
+
+            if (passwordInput === savedPassword) {
+                activeAuthEmpId = empIdInput;
+                
+                if (passwordInput === TEMP_PASSWORD) {
+                    showPasswordChangeCard();
+                } else {
+                    grantPortalAccess(empIdInput);
+                }
+            } else {
+                errorEl.innerText = "Access Denied: Invalid Password.";
+                errorEl.classList.remove('hidden');
+            }
+        }
+
+        function showPasswordChangeCard() {
+            document.getElementById('employeeLoginCard').classList.add('hidden');
+            document.getElementById('employeeChangePasswordCard').classList.remove('hidden');
+            document.getElementById('changePasswordErrorMsg').classList.add('hidden');
+            document.getElementById('newPasswordInput').value = '';
+            document.getElementById('confirmPasswordInput').value = '';
+        }
+
+        function validatePasswordCriteriaLive() {
+            const newPass = document.getElementById('newPasswordInput').value;
+            const confirmPass = document.getElementById('confirmPasswordInput').value;
+            const errorEl = document.getElementById('changePasswordErrorMsg');
+
+            const isEightChars = newPass.length === 8;
+            const isAlphaNumeric = /^[a-zA-Z0-9]+$/.test(newPass);
+            const hasLetters = /[a-zA-Z]/.test(newPass);
+            const hasNumbers = /[0-9]/.test(newPass);
+
+            if (newPass && (!isEightChars || !isAlphaNumeric || !hasLetters || !hasNumbers)) {
+                errorEl.innerText = "Password must be exactly 8 characters long with letters and numbers only.";
+                errorEl.classList.remove('hidden');
+                return false;
+            } else if (confirmPass && newPass !== confirmPass) {
+                errorEl.innerText = "New password and confirm password do not match.";
+                errorEl.classList.remove('hidden');
+                return false;
+            } else {
+                errorEl.classList.add('hidden');
+                return true;
+            }
+        }
+
+        async function handlePasswordChange(e) {
+            e.preventDefault();
+            const newPass = document.getElementById('newPasswordInput').value;
+            const confirmPass = document.getElementById('confirmPasswordInput').value;
+            const errorEl = document.getElementById('changePasswordErrorMsg');
+
+            const isEightChars = newPass.length === 8;
+            const isAlphaNumeric = /^[a-zA-Z0-9]+$/.test(newPass);
+            const hasLetters = /[a-zA-Z]/.test(newPass);
+            const hasNumbers = /[0-9]/.test(newPass);
+
+            if (!isEightChars || !isAlphaNumeric || !hasLetters || !hasNumbers) {
+                errorEl.innerText = "Password must be exactly 8 characters long with letters and numbers only.";
+                errorEl.classList.remove('hidden');
+                return;
+            }
+
+            if (newPass !== confirmPass) {
+                errorEl.innerText = "New password and confirm password do not match.";
+                errorEl.classList.remove('hidden');
+                return;
+            }
+
+            cloudPasswordsStore[activeAuthEmpId] = newPass;
+            localStorage.setItem(`emp_pass_${activeAuthEmpId}`, newPass);
+
+            await savePasswordsToCloudServer();
+
+            grantPortalAccess(activeAuthEmpId);
+        }
+
+        async function savePasswordsToCloudServer() {
+            if (githubConfig.token && githubConfig.owner && githubConfig.repo) {
+                try {
+                    const { token, owner, repo } = githubConfig;
+                    const path = 'emp_users.json';
+                    const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+
+                    const getRes = await fetch(url, { headers: { 'Authorization': `token ${token}` } });
+                    let sha = getRes.ok ? (await getRes.json()).sha : undefined;
+
+                    // Convert map into structured array format if required
+                    const updatedUsersArray = Object.keys(AUTHORIZED_EMPLOYEES).map(id => ({
+                        sg_id: parseInt(id) || id,
+                        name: AUTHORIZED_EMPLOYEES[id],
+                        password: cloudPasswordsStore[id] || localStorage.getItem(`emp_pass_${id}`) || TEMP_PASSWORD
+                    }));
+
+                    const encodedContent = btoa(unescape(encodeURIComponent(JSON.stringify(updatedUsersArray, null, 2))));
+
+                    await fetch(url, {
+                        method: 'PUT',
+                        headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            message: `Update Password for SG ID ${activeAuthEmpId} in emp_users.json`,
+                            content: encodedContent,
+                            sha: sha
+                        })
+                    });
+                } catch(e) {
+                    console.error("Cloud password sync error to emp_users.json:", e);
+                }
+            }
+        }
+
+        function grantPortalAccess(empId) {
+            const now = new Date();
+            const expiryTime = now.getTime() + (PASSWORD_EXPIRY_DAYS * 24 * 60 * 60 * 1000);
+
+            const sessionObj = {
+                empId: empId,
+                loginTime: now.getTime(),
+                expiry: expiryTime
+            };
+
+            localStorage.setItem('roster_auth_session', JSON.stringify(sessionObj));
+
+            document.getElementById('mainPageContent').classList.remove('page-blurred');
+            document.getElementById('authModalOverlay').classList.add('hidden');
+            
+            updateUserProfileHeader(empId);
+            lucide.createIcons();
+        }
+
+        function logoutEmployeeAccess() {
+            localStorage.removeItem('roster_auth_session');
+            activeAuthEmpId = null;
+            document.getElementById('userProfileDropdown').classList.add('hidden');
+            checkPortalAccessState();
+        }
+
         // OFFICIAL COMPLETE SABRE 2026 GLOBAL HOLIDAY DATA
         const SABRE_2026_HOLIDAYS = [
             { date: "2026-01-01", day: "Thursday", name: "New Year's Day", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
@@ -1119,6 +1502,8 @@
         let distChartInstance = null;
 
         document.addEventListener("DOMContentLoaded", () => {
+            checkPortalAccessState();
+
             const urlParams = new URLSearchParams(window.location.search);
             const isRequestedAdmin = urlParams.get('admin') === 'true';
 
@@ -1174,6 +1559,9 @@
                 if (adminBtn) adminBtn.classList.remove('hidden');
                 if (adminBadge) adminBadge.classList.remove('hidden');
 
+                document.getElementById('toggleAdminBtn').innerHTML = `<i data-lucide="user-check" class="w-4 h-4 text-emerald-600"></i> Switch to Normal Mode`;
+                lucide.createIcons();
+
                 renderView();
             } else {
                 errorEl.classList.remove('hidden');
@@ -1203,11 +1591,14 @@
             document.getElementById('adminBadge').classList.add('hidden');
             document.getElementById('adminActionDock').classList.add('hidden');
 
+            document.getElementById('toggleAdminBtn').innerHTML = `<i data-lucide="shield" class="w-4 h-4"></i> Switch to Admin Mode`;
+            lucide.createIcons();
+
             const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
             window.history.replaceState({ path: newUrl }, '', newUrl);
 
             renderView();
-            alert("Logged out successfully. Switched back to public view.");
+            alert("Switched back to Normal Public View.");
         }
 
         function triggerPendingChangesState() {
