@@ -21,16 +21,17 @@
             background-color: #cbd5e1;
         }
 
-        /* Blurred body backdrop when auth modal is active */
+        /* Slightly transparent & lighter blur backdrop when auth modal is active */
         body.auth-locked > main,
         body.auth-locked > header,
         body.auth-locked > footer,
         body.auth-locked > #worldClocksContainer,
         body.auth-locked > #cloudContainer,
         body.auth-locked > #freeFlightPlane {
-            filter: blur(12px) opacity(0.2);
+            filter: blur(6px) opacity(0.55);
             pointer-events: none;
             user-select: none;
+            transition: filter 0.3s ease, opacity 0.3s ease;
         }
 
         #empAuthModal {
@@ -40,16 +41,11 @@
         .font-orbitron { font-family: 'Orbitron', sans-serif; }
         .font-mono-digital { font-family: 'JetBrains Mono', monospace; }
 
-        /* Smooth 3D Text effect for login title without eye strain */
-        .title-3d-subtle {
+        /* Crisp, High-Contrast Title Styling for Maximum Eye Comfort */
+        .title-high-visibility {
             font-family: 'Orbitron', sans-serif;
-            background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 1px 1px rgba(255,255,255,0.8),
-                         0 2px 4px rgba(15, 23, 42, 0.25),
-                         0 4px 8px rgba(15, 23, 42, 0.15);
-            letter-spacing: 0.05em;
+            color: #0f172a; /* Deep Slate Navy */
+            letter-spacing: 0.04em;
         }
 
         .custom-scrollbar::-webkit-scrollbar { height: 6px; width: 6px; }
@@ -614,16 +610,16 @@
 
     <!-- Employee Access, Password Reset & Forgot Password Modal -->
     <div id="empAuthModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-lg flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl card-3d w-full max-w-md space-y-5 shadow-2xl relative border border-slate-200 overflow-hidden">
+        <div class="bg-white rounded-2xl card-3d w-full max-w-md shadow-2xl relative border border-slate-200 overflow-hidden">
             
-            <!-- Sabre Banner Top (Dark Slate Header with Sabre Logo) -->
-            <div class="bg-slate-950 py-4 px-6 text-center border-b-2 border-indigo-600">
-                <img src="SABRE-LOGO-REGISTERED-SCREEN-WHITE-WIP.svg" alt="Sabre" class="h-9 w-auto mx-auto object-contain" />
+            <!-- Sabre Banner Top (Dark Header with Sabre Logo) -->
+            <div class="bg-slate-950 py-2.5 px-6 text-center border-b-2 border-indigo-600">
+                <img src="SABRE-LOGO-REGISTERED-SCREEN-WHITE-WIP.svg" alt="Sabre" class="h-8 w-auto mx-auto object-contain" />
             </div>
 
-            <div class="p-6 sm:p-8 pt-2 space-y-5">
-                <div class="text-center space-y-1.5">
-                    <h2 id="authTitle" class="text-base sm:text-lg font-black title-3d-subtle uppercase">ATS BLR ROSTER PORTAL LOGIN</h2>
+            <div class="p-6 sm:p-8 pt-3 space-y-3.5">
+                <div class="text-center space-y-1">
+                    <h2 id="authTitle" class="text-xl sm:text-2xl font-extrabold title-high-visibility drop-shadow-[0_1px_2px_rgba(0,0,0,0.15)] uppercase">ATS BLR ROSTER PORTAL</h2>
                     <p id="authSubtitle" class="text-xs text-slate-600 font-semibold leading-relaxed">Enter your Employee ID and password to unlock a fresh, dynamic view of your roster.</p>
                 </div>
 
@@ -949,14 +945,20 @@
     </footer>
 
     <script>
+        // CRITICAL DECLARATIONS PLACED AT TOP TO AVOID EXECUTION ERRORS
         const TEMP_PASSWORD = "3E4R5T6Y";
         const PASSWORD_EXPIRY_DAYS = 90;
         const ADMIN_EMP_ID = "316092"; // Lelin Patra is Admin User
 
-        // Exceptional Recognized Non-Roster Managerial Accounts
         const SPECIAL_MANAGER_ACCOUNTS = {
             "223174": "Rajesh Warvadkar"
         };
+
+        const HARDCODED_EMPLOYEE_IDS = [
+            "316092", "223254", "223258", "709139", "223255", 
+            "227186", "709454", "709282", "709424", "709283", 
+            "709115", "709312", "223174"
+        ];
 
         const JSONBIN_URL = "https://api.jsonbin.io/v3/b/66f272a5acd3cb34a88b502d"; 
         const JSONBIN_KEY = "$2a$10$UaF1.qQeZ2cWnKq.SgI7x.6.H2pE64V8P0eA3T8Z1Y7M6K1Y8S9m"; 
@@ -971,11 +973,9 @@
 
             if (input.type === "password") {
                 input.type = "text";
-                // Render Eye Off Icon
                 iconSvg.innerHTML = `<path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.52 13.52 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/>`;
             } else {
                 input.type = "password";
-                // Render Open Eye Icon
                 iconSvg.innerHTML = `<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>`;
             }
         }
@@ -1116,12 +1116,15 @@
             if (SPECIAL_MANAGER_ACCOUNTS[cleanId]) {
                 empName = SPECIAL_MANAGER_ACCOUNTS[cleanId];
             } else if (targetEmpIdExistsInRoster(cleanId)) {
-                const activeWeek = getActiveWeekData();
-                const empObj = activeWeek.employees.find(e => sanitizeEmpId(e.sg_id) === cleanId);
-                empName = empObj ? empObj.name : "Employee User";
+                try {
+                    const activeWeek = getActiveWeekData();
+                    const empObj = activeWeek.employees.find(e => sanitizeEmpId(e.sg_id) === cleanId);
+                    empName = empObj ? empObj.name : "Employee User";
+                } catch(e) {
+                    empName = "Employee User";
+                }
             } else {
-                if (headerMenu) headerMenu.classList.add('hidden');
-                return;
+                empName = "Employee User";
             }
 
             if (nameEl) nameEl.innerText = empName;
@@ -1130,7 +1133,6 @@
                 avatarEl.innerText = parts.length > 1 ? parts[0][0] + parts[parts.length - 1][0] : empName.substring(0, 2).toUpperCase();
             }
 
-            // Show Admin toggle option ONLY for Lelin Patra (316092)
             if (cleanId === ADMIN_EMP_ID) {
                 if (adminToggleBtn) adminToggleBtn.classList.remove('hidden');
                 if (adminToggleLabel) {
@@ -1172,9 +1174,17 @@
             if (!empId) return false;
             const cleanId = sanitizeEmpId(empId);
             if (SPECIAL_MANAGER_ACCOUNTS[cleanId]) return true;
+            if (HARDCODED_EMPLOYEE_IDS.includes(cleanId)) return true;
 
-            const activeWeek = getActiveWeekData();
-            return activeWeek.employees.some(e => sanitizeEmpId(e.sg_id) === cleanId);
+            if (rawRosterData && rawRosterData.length > 0) {
+                try {
+                    const activeWeek = getActiveWeekData();
+                    if (activeWeek && Array.isArray(activeWeek.employees)) {
+                        return activeWeek.employees.some(e => sanitizeEmpId(e.sg_id) === cleanId);
+                    }
+                } catch(e) {}
+            }
+            return false;
         }
 
         function toggleUserDropdown() {
@@ -1200,40 +1210,56 @@
             const inputPwd = document.getElementById('loginPassword').value.trim();
             const errEl = document.getElementById('authError');
 
-            errEl.classList.add('hidden');
+            if (errEl) errEl.classList.add('hidden');
 
             if (!inputId || !inputPwd) {
-                errEl.innerText = "Please enter both Employee ID and Password.";
-                errEl.classList.remove('hidden');
+                if (errEl) {
+                    errEl.innerText = "Please enter both Employee ID and Password.";
+                    errEl.classList.remove('hidden');
+                }
                 return;
             }
 
-            const activeWeek = getActiveWeekData();
-            const isRosterEmp = activeWeek.employees.some(e => sanitizeEmpId(e.sg_id) === inputId);
             const isSpecialManager = Boolean(SPECIAL_MANAGER_ACCOUNTS[inputId]);
+            let isRosterEmp = HARDCODED_EMPLOYEE_IDS.includes(inputId);
+
+            if (!isRosterEmp && rawRosterData && rawRosterData.length > 0) {
+                try {
+                    const activeWeek = getActiveWeekData();
+                    if (activeWeek && Array.isArray(activeWeek.employees)) {
+                        isRosterEmp = activeWeek.employees.some(e => sanitizeEmpId(e.sg_id) === inputId);
+                    }
+                } catch(e) {}
+            }
 
             if (!isRosterEmp && !isSpecialManager) {
-                errEl.innerText = "Invalid Employee ID. Access denied.";
-                errEl.classList.remove('hidden');
+                if (errEl) {
+                    errEl.innerText = "Invalid Employee ID. Access denied.";
+                    errEl.classList.remove('hidden');
+                }
                 return;
             }
 
             activeAuthenticatingEmpId = inputId;
             const userRecord = employeeUserStore[inputId];
 
+            // 1. Temporary Password Login
             if (inputPwd === TEMP_PASSWORD) {
                 showPasswordChangeForm();
                 return;
             }
 
+            // 2. Updated Cloud Password Login
             if (userRecord && userRecord.password === inputPwd) {
                 const lastUpdate = new Date(userRecord.passwordUpdatedDate);
                 const now = new Date();
                 const diffDays = Math.floor((now - lastUpdate) / (1000 * 60 * 60 * 24));
 
                 if (diffDays >= PASSWORD_EXPIRY_DAYS) {
-                    errEl.innerText = "Your password has expired (90 days limit). Please reset using temporary password or enter new password.";
-                    errEl.classList.remove('hidden');
+                    if (errEl) {
+                        errEl.innerText = "Your password has expired (90 days limit). Please reset using temporary password or enter new password.";
+                        errEl.classList.remove('hidden');
+                    }
                     showPasswordChangeForm();
                     return;
                 }
@@ -1244,8 +1270,10 @@
                 return;
             }
 
-            errEl.innerText = "Invalid Password. Please try again.";
-            errEl.classList.remove('hidden');
+            if (errEl) {
+                errEl.innerText = "Invalid Password. Please try again.";
+                errEl.classList.remove('hidden');
+            }
         }
 
         function showForgotPasswordForm() {
@@ -1275,12 +1303,35 @@
                 return;
             }
 
-            const activeWeek = getActiveWeekData();
             let empName = SPECIAL_MANAGER_ACCOUNTS[inputId];
 
+            if (!empName && rawRosterData && rawRosterData.length > 0) {
+                try {
+                    const activeWeek = getActiveWeekData();
+                    if (activeWeek && Array.isArray(activeWeek.employees)) {
+                        const empObj = activeWeek.employees.find(e => sanitizeEmpId(e.sg_id) === inputId);
+                        if (empObj) empName = empObj.name;
+                    }
+                } catch(e) {}
+            }
+
             if (!empName) {
-                const empObj = activeWeek.employees.find(e => sanitizeEmpId(e.sg_id) === inputId);
-                if (empObj) empName = empObj.name;
+                const hardcodedNames = {
+                    "316092": "Lelin Patra",
+                    "223254": "Srinivas Reddy",
+                    "223258": "Md. Shahbaz",
+                    "709139": "Rupesh C P",
+                    "223255": "Deepak K",
+                    "227186": "Sanjay Kumar",
+                    "709454": "Prathvi Shetty",
+                    "709282": "Preethi P",
+                    "709424": "Bhargav R",
+                    "709283": "Nidhi Taku",
+                    "709115": "Gokul Krishna Lokesh",
+                    "709312": "Manisha Kumari",
+                    "223174": "Rajesh Warvadkar"
+                };
+                empName = hardcodedNames[inputId];
             }
 
             if (!empName) {
@@ -1317,23 +1368,29 @@
             const confirmPwd = document.getElementById('confirmPasswordInput').value.trim();
             const errEl = document.getElementById('changePassError');
 
-            errEl.classList.add('hidden');
+            if (errEl) errEl.classList.add('hidden');
 
             if (!newPwd || !confirmPwd) {
-                errEl.innerText = "Please enter and confirm your new password.";
-                errEl.classList.remove('hidden');
+                if (errEl) {
+                    errEl.innerText = "Please enter and confirm your new password.";
+                    errEl.classList.remove('hidden');
+                }
                 return;
             }
 
             if (newPwd !== confirmPwd) {
-                errEl.innerText = "New password and Confirm password do not match.";
-                errEl.classList.remove('hidden');
+                if (errEl) {
+                    errEl.innerText = "New password and Confirm password do not match.";
+                    errEl.classList.remove('hidden');
+                }
                 return;
             }
 
             if (!validatePasswordCriteria(newPwd)) {
-                errEl.innerText = "Password criteria failed: Exactly 8 characters with letters and numbers only.";
-                errEl.classList.remove('hidden');
+                if (errEl) {
+                    errEl.innerText = "Password criteria failed: Exactly 8 characters with letters and numbers only.";
+                    errEl.classList.remove('hidden');
+                }
                 return;
             }
 
@@ -1379,7 +1436,7 @@
                 renderView();
                 checkAndRenderAdminResetRequests();
             } else {
-                errorEl.classList.remove('hidden');
+                if (errorEl) errorEl.classList.remove('hidden');
             }
         }
 
@@ -1573,1303 +1630,24 @@
             });
         }
 
-        // FULL 5-WEEK COMPLETE ROSTER DATA
-        const defaultHardcodedRosterData = [
-            {
-                "month": "September",
-                "week_num": 1,
-                "dates": ["07/09/26", "08/09/26", "09/09/26", "10/09/26", "11/09/26", "12/09/26", "13/09/26"],
-                "employees": [
-                    {"sg_id": 316092, "name": "Lelin Patra", "skilling": "ATS 2L", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 223254, "name": "Srinivas Reddy", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Tue/Wed/Thu", "shifts": {"Monday": "08:00 AM - 05:00 PM", "Tuesday": "08:00 AM - 05:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 223258, "name": "Md. Shahbaz", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Mon/Tue/Wed", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "WO", "Friday": "WO", "Saturday": "06:00 AM - 03:00 PM", "Sunday": "06:30 AM - 03:30 PM"}},
-                    {"sg_id": 709139, "name": "Rupesh C P", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 223255, "name": "Deepak K", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Wed/Thu/Fri", "shifts": {"Monday": "PTO", "Tuesday": "PTO", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 227186, "name": "Sanjay Kumar", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Tue/Wed/Thu", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "WO", "Friday": "WO", "Saturday": "10:00 AM - 07:00 PM", "Sunday": "10:00 AM - 07:00 PM"}},
-                    {"sg_id": 709454, "name": "Prathvi Shetty", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "HD SL", "Tuesday": "SL", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "PTO", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 709282, "name": "Preethi P", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "PTO", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 709424, "name": "Bhargav R", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "08:00 AM - 05:00 PM", "Tuesday": "08:00 AM - 05:00 PM", "Wednesday": "08:00 AM - 05:00 PM", "Thursday": "08:00 AM - 05:00 PM", "Friday": "08:00 AM - 05:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 709283, "name": "Nidhi Taku", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "6:00 AM - 03:00 PM", "Tuesday": "6:00 AM - 03:00 PM", "Wednesday": "6:00 AM - 03:00 PM", "Thursday": "6:00 AM - 03:00 PM", "Friday": "6:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 709115, "name": "Gokul Krishna Lokesh", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "6:00 AM - 03:00 PM", "Tuesday": "6:00 AM - 03:00 PM", "Wednesday": "6:00 AM - 03:00 PM", "Thursday": "6:00 AM - 03:00 PM", "Friday": "6:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
-                    {"sg_id": 709312, "name": "Manisha Kumari", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "SL", "Tuesday": "SL", "Wednesday": "08:00 AM - 05:00 PM", "Thursday": "08:00 AM - 05:00 PM", "Friday": "08:00 AM - 05:00 PM", "Saturday": "WO", "Sunday": "WO"}}
-                ],
-                "qm_staff_6am": {"Monday": "Srinivas Reddy", "Tuesday": "Srinivas Reddy", "Wednesday": "Srinivas Reddy", "Thursday": "Srinivas Reddy", "Friday": "Srinivas Reddy", "Saturday": "Md. Shahbaz", "Sunday": "Md. Shahbaz"},
-                "qm_staff_10am": {"Monday": "Sanjay Kumar", "Tuesday": "Sanjay Kumar", "Wednesday": "Sanjay Kumar", "Thursday": "Sanjay Kumar", "Friday": "Deepak K", "Saturday": "Unassigned", "Sunday": "Sanjay Kumar"},
-                "total_headcount_6am": [5, 5, 6, 5, 5, 1, 1],
-                "total_headcount_8am": [2, 2, 2, 2, 2, 0, 0],
-                "total_headcount_10am": [2, 1, 4, 3, 2, 1, 1]
-            }
-        ];
+        function createRipple(e) {
+            const button = e.currentTarget;
+            if (!button) return;
+            const circle = document.createElement("span");
+            const diameter = Math.max(button.clientWidth, button.clientHeight);
+            const radius = diameter / 2;
+            const rect = button.getBoundingClientRect();
+            circle.style.width = circle.style.height = `${diameter}px`;
+            circle.style.left = `${e.clientX - rect.left - radius}px`;
+            circle.style.top = `${e.clientY - rect.top - radius}px`;
+            circle.classList.add("ripple-effect");
 
-        let rawRosterData = JSON.parse(JSON.stringify(defaultHardcodedRosterData));
-
-        function switchCategory(cat, event) {
-            if (event) {
-                createRipple(event);
-            }
-            activeCategory = cat;
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            if(cat === 'weekly') document.getElementById('tabWeekly').classList.add('active');
-            if(cat === 'individual') document.getElementById('tabIndividual').classList.add('active');
-            if(cat === 'qm') document.getElementById('tabQM').classList.add('active');
-            if(cat === 'holidays') document.getElementById('tabHolidays').classList.add('active');
-
-            if(cat === 'weekly') {
-                document.getElementById('periodNavigator').classList.remove('hidden');
-                document.getElementById('weekNavigator').classList.remove('hidden');
-                document.getElementById('chartSection').classList.remove('hidden');
-                document.getElementById('kpiContainer').classList.remove('hidden');
-            } else if(cat === 'individual') {
-                document.getElementById('periodNavigator').classList.remove('hidden');
-                document.getElementById('weekNavigator').classList.add('hidden');
-                document.getElementById('chartSection').classList.add('hidden');
-                document.getElementById('kpiContainer').classList.add('hidden');
-                individualMonthFilter = currentMonth;
-            } else if(cat === 'qm') {
-                document.getElementById('periodNavigator').classList.remove('hidden');
-                document.getElementById('weekNavigator').classList.remove('hidden');
-                document.getElementById('chartSection').classList.add('hidden');
-                document.getElementById('kpiContainer').classList.add('hidden');
-            } else if(cat === 'holidays') {
-                document.getElementById('periodNavigator').classList.add('hidden');
-                document.getElementById('chartSection').classList.add('hidden');
-                document.getElementById('kpiContainer').classList.add('hidden');
+            const existingRipple = button.getElementsByClassName("ripple-effect")[0];
+            if (existingRipple) {
+                existingRipple.remove();
             }
 
-            renderView();
-        }
-
-        function updateMonthDropdown() {
-            const monthSelect = document.getElementById('monthSelect');
-            const deleteMonthBtn = document.getElementById('adminDeleteMonthBtn');
-            const availableMonths = [...new Set(rawRosterData.map(w => w.month))];
-            
-            monthSelect.innerHTML = '';
-            
-            if (activeCategory === 'individual') {
-                const optAll = document.createElement('option');
-                optAll.value = 'ALL';
-                optAll.textContent = 'All Months';
-                monthSelect.appendChild(optAll);
-            }
-
-            availableMonths.forEach(m => {
-                const opt = document.createElement('option');
-                opt.value = m;
-                opt.textContent = `${m} 2026`;
-                monthSelect.appendChild(opt);
-            });
-
-            if (activeCategory === 'individual') {
-                monthSelect.value = individualMonthFilter;
-            } else {
-                if (!availableMonths.includes(currentMonth) && availableMonths.length > 0) {
-                    currentMonth = availableMonths[0];
-                }
-                monthSelect.value = currentMonth;
-            }
-
-            if (isAdminMode) {
-                deleteMonthBtn.classList.remove('hidden');
-            } else {
-                deleteMonthBtn.classList.add('hidden');
-            }
-        }
-
-        function updateWeekOptions() {
-            const weekSelect = document.getElementById('weekSelect');
-            const deleteWeekBtn = document.getElementById('adminDeleteWeekBtn');
-            const monthWeeks = rawRosterData.filter(w => w.month === currentMonth).sort((a,b) => a.week_num - b.week_num);
-            
-            weekSelect.innerHTML = '';
-            if (monthWeeks.length === 0) {
-                const opt = document.createElement('option');
-                opt.value = 1;
-                opt.textContent = `Week 1 Range`;
-                weekSelect.appendChild(opt);
-            } else {
-                monthWeeks.forEach(wObj => {
-                    const opt = document.createElement('option');
-                    opt.value = wObj.week_num;
-                    const startDate = wObj.dates[0] || 'N/A';
-                    const endDate = wObj.dates[6] || 'N/A';
-                    
-                    const isCurrentWeek = wObj.dates.includes(TODAY_DATE_STR);
-                    const tag = isCurrentWeek ? ' (Current)' : '';
-                    opt.textContent = `Week ${wObj.week_num}: ${startDate} - ${endDate}${tag}`;
-                    weekSelect.appendChild(opt);
-                });
-            }
-
-            const availableNums = monthWeeks.map(w => w.week_num);
-            if (!availableNums.includes(currentWeekNum)) {
-                currentWeekNum = availableNums[0] || 1;
-            }
-            weekSelect.value = currentWeekNum;
-
-            if (isAdminMode) {
-                deleteWeekBtn.classList.remove('hidden');
-            } else {
-                deleteWeekBtn.classList.add('hidden');
-            }
-        }
-
-        function onMonthChange() {
-            const val = document.getElementById('monthSelect').value;
-            if (activeCategory === 'individual') {
-                individualMonthFilter = val;
-            } else {
-                currentMonth = val;
-                
-                const currDetect = detectCurrentPeriod();
-                if (currentMonth === currDetect.month) {
-                    currentWeekNum = currDetect.week_num;
-                } else {
-                    currentWeekNum = 1;
-                }
-                
-                updateWeekOptions();
-                document.getElementById('portalSubhead').innerText = `${currentMonth} 2026 • Live Interactive Schedule`;
-            }
-            renderView();
-        }
-
-        function onWeekChange() {
-            currentWeekNum = parseInt(document.getElementById('weekSelect').value);
-            renderView();
-        }
-
-        function getActiveWeekData() {
-            const targetIndex = rawRosterData.findIndex(w => w.month === currentMonth && w.week_num === currentWeekNum);
-            if (targetIndex !== -1) {
-                return rawRosterData[targetIndex];
-            }
-            if (rawRosterData.length > 0) {
-                return rawRosterData[0];
-            }
-            const fallback = {
-                month: currentMonth,
-                week_num: currentWeekNum,
-                dates: ["N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A"],
-                employees: [],
-                qm_staff_6am: {},
-                qm_staff_10am: {},
-                total_headcount_6am: [0,0,0,0,0,0,0],
-                total_headcount_8am: [0,0,0,0,0,0,0],
-                total_headcount_10am: [0,0,0,0,0,0,0]
-            };
-            rawRosterData.push(fallback);
-            return fallback;
-        }
-
-        function recalculateHeadcount(weekData) {
-            if (!weekData || !Array.isArray(weekData.employees)) return;
-            const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-            const hc6am = [0,0,0,0,0,0,0];
-            const hc8am = [0,0,0,0,0,0,0];
-            const hc10am = [0,0,0,0,0,0,0];
-
-            weekData.employees.forEach(emp => {
-                days.forEach((day, idx) => {
-                    const shift = (emp.shifts && emp.shifts[day]) ? emp.shifts[day] : '';
-                    if (shift === 'WO' || shift === 'PTO' || shift === 'PH' || shift === 'SL' || shift === 'HD SL') {
-                        return;
-                    }
-
-                    if (shift.includes("10:00") || shift === "2nd Half Off") {
-                        hc10am[idx]++;
-                    } else if (shift.includes("08:00") || shift.includes("8:00")) {
-                        hc8am[idx]++;
-                    } else if (shift.includes("06:00") || shift.includes("6:00") || shift.includes("06:30") || shift.includes("6:30") || shift.includes("07:00") || shift.includes("7:00") || shift === "1st Half Off") {
-                        hc6am[idx]++;
-                    }
-                });
-            });
-
-            weekData.total_headcount_6am = hc6am;
-            weekData.total_headcount_8am = hc8am;
-            weekData.total_headcount_10am = hc10am;
-        }
-
-        function renderView() {
-            updateMonthDropdown();
-            if(activeCategory === 'weekly') renderWeeklyView();
-            else if(activeCategory === 'individual') renderIndividualView();
-            else if(activeCategory === 'qm') renderQMView();
-            else if(activeCategory === 'holidays') renderHolidaysView();
-            
-            if(activeCategory === 'weekly') updateCharts();
-            lucide.createIcons();
-        }
-
-        function getShiftBadge(shift, sgId, day) {
-            if (isAdminMode && sgId && day) {
-                let optionsHtml = '';
-                let matchFound = false;
-
-                const isWeekendDay = (day === 'Saturday' || day === 'Sunday');
-                const dayOptions = isWeekendDay 
-                    ? [...BASE_SHIFT_OPTIONS.slice(0, 1), WEEKEND_SHIFT_OPTION, ...BASE_SHIFT_OPTIONS.slice(1)]
-                    : BASE_SHIFT_OPTIONS;
-
-                dayOptions.forEach(opt => {
-                    const selected = (shift === opt) ? 'selected' : '';
-                    if (selected) matchFound = true;
-                    optionsHtml += `<option value="${opt}" ${selected}>${opt}</option>`;
-                });
-
-                if (!matchFound && shift) {
-                    optionsHtml += `<option value="${shift}" selected>${shift}</option>`;
-                }
-
-                return `
-                    <select onchange="updateShiftInteractive('${sgId}', '${day}', this)" class="bg-white border border-slate-300 text-slate-800 text-xs font-bold rounded px-1.5 py-1 focus:ring-2 focus:ring-indigo-500 shadow-sm cursor-pointer w-full max-w-[130px] ${pendingChangesExist ? 'pending-change' : ''}">
-                        ${optionsHtml}
-                    </select>
-                `;
-            }
-
-            if (!shift || shift === 'WO') {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-bold bg-slate-100 text-slate-700 border border-slate-300 shadow-sm">WO</span>`;
-            } else if (shift === 'PTO') {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-rose-600 text-white border border-rose-700 shadow-md">PTO</span>`;
-            } else if (shift === 'PH') {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-purple-100 text-purple-900 border border-purple-400 shadow-sm">PH</span>`;
-            } else if (shift === 'SL' || shift === 'HD SL') {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-rose-100 text-rose-800 border border-rose-300 shadow-sm">${shift}</span>`;
-            } else if (shift === '1st Half Off') {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-orange-100 text-orange-950 border border-orange-400 shadow-sm" title="1st Half Off">1st Half Off</span>`;
-            } else if (shift === '2nd Half Off') {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-amber-200 text-amber-950 border border-amber-500 shadow-sm" title="2nd Half Off">2nd Half Off</span>`;
-            } else if (shift.includes("10:00")) {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-amber-100 text-amber-950 border border-amber-400 shadow-sm" title="${shift}">10:00 AM</span>`;
-            } else if (shift.includes("06:30") || shift.includes("6:30")) {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-emerald-200 text-emerald-950 border border-emerald-500 shadow-sm" title="${shift}">06:30 AM</span>`;
-            } else if (shift.includes("06:00") || shift.includes("6:00")) {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-emerald-100 text-emerald-900 border border-emerald-400 shadow-sm" title="${shift}">06:00 AM</span>`;
-            } else if (shift.includes("07:00") || shift.includes("7:00")) {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-teal-100 text-teal-900 border border-teal-400 shadow-sm" title="${shift}">07:00 AM</span>`;
-            } else if (shift.includes("08:00") || shift.includes("8:00")) {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-blue-100 text-blue-900 border border-blue-400 shadow-sm" title="${shift}">08:00 AM</span>`;
-            } else {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-indigo-100 text-indigo-900 border border-indigo-400 shadow-sm">${shift}</span>`;
-            }
-        }
-
-        function updateShiftInteractive(sgId, day, selectElem) {
-            const newShift = selectElem.value;
-            const weekData = getActiveWeekData();
-            const emp = weekData.employees.find(e => String(e.sg_id) === String(sgId));
-
-            if (!emp) return;
-
-            emp.shifts[day] = newShift;
-            triggerPendingChangesState();
-            recalculateHeadcount(weekData);
-            renderView();
-        }
-
-        function renderWeeklyView() {
-            const weekData = getActiveWeekData();
-            const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-            
-            const employees = weekData.employees || [];
-            const totalEmps = employees.length;
-            const dates = weekData.dates || ["N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A"];
-
-            let todayDayName = "Wednesday";
-            const todayIdx = dates.indexOf(TODAY_DATE_STR);
-            if (todayIdx !== -1) {
-                todayDayName = days[todayIdx];
-            } else {
-                const dayNameIndex = new Date().getDay();
-                todayDayName = days[dayNameIndex === 0 ? 6 : dayNameIndex - 1];
-            }
-
-            const qm6amToday = (weekData.qm_staff_6am && weekData.qm_staff_6am[todayDayName]) ? weekData.qm_staff_6am[todayDayName] : 'Unassigned';
-            const qm10amToday = (weekData.qm_staff_10am && weekData.qm_staff_10am[todayDayName]) ? weekData.qm_staff_10am[todayDayName] : 'Unassigned';
-
-            document.getElementById('kpiContainer').innerHTML = `
-                <div class="bg-white p-3 sm:p-4 rounded-xl card-3d flex items-center justify-between">
-                    <div><p class="text-[10px] sm:text-xs font-semibold uppercase text-slate-400">Total Roster Staff</p><h3 class="text-lg sm:text-2xl font-bold text-slate-900 mt-0.5 sm:mt-1">${totalEmps}</h3></div>
-                    <div class="p-2 sm:p-3 bg-indigo-50 text-indigo-600 rounded-xl border border-indigo-200 shadow-sm"><i data-lucide="users" class="w-4 h-4 sm:w-6 sm:h-6"></i></div>
-                </div>
-                <div class="bg-white p-3 sm:p-4 rounded-xl card-3d flex items-center justify-between">
-                    <div><p class="text-[10px] sm:text-xs font-semibold uppercase text-slate-400">Selected Range (${currentMonth})</p><h3 class="text-[10px] sm:text-xs font-bold text-emerald-600 mt-0.5 sm:mt-1">${dates[0]} to ${dates[6] || 'N/A'}</h3></div>
-                    <div class="p-2 sm:p-3 bg-emerald-50 text-emerald-600 rounded-xl border border-emerald-200 shadow-sm"><i data-lucide="calendar" class="w-4 h-4 sm:w-6 sm:h-6"></i></div>
-                </div>
-                <div class="bg-white p-3 sm:p-4 rounded-xl card-3d flex items-center justify-between">
-                    <div><p class="text-[10px] sm:text-xs font-semibold uppercase text-slate-400">QM 6 AM (${todayDayName})</p><h3 class="text-xs sm:text-sm font-bold text-amber-600 mt-0.5 sm:mt-1">${qm6amToday}</h3></div>
-                    <div class="p-2 sm:p-3 bg-amber-50 text-amber-600 rounded-xl border border-amber-200 shadow-sm"><i data-lucide="sun" class="w-4 h-4 sm:w-6 sm:h-6"></i></div>
-                </div>
-                <div class="bg-white p-3 sm:p-4 rounded-xl card-3d flex items-center justify-between">
-                    <div><p class="text-[10px] sm:text-xs font-semibold uppercase text-slate-400">QM 10 AM (${todayDayName})</p><h3 class="text-xs sm:text-sm font-bold text-indigo-600 mt-0.5 sm:mt-1">${qm10amToday}</h3></div>
-                    <div class="p-2 sm:p-3 bg-indigo-50 text-indigo-600 rounded-xl border border-indigo-200 shadow-sm"><i data-lucide="clock" class="w-4 h-4 sm:w-6 sm:h-6"></i></div>
-                </div>
-            `;
-
-            let filteredEmployees = employees.filter(e => 
-                (e.name && e.name.toLowerCase().includes(searchQuery)) || 
-                (e.skilling && e.skilling.toLowerCase().includes(searchQuery)) ||
-                (e.sg_id && String(e.sg_id).includes(searchQuery))
-            );
-
-            filteredEmployees.sort((a, b) => {
-                const isA2L = (a.skilling && a.skilling.toUpperCase().includes("2L")) ? 1 : 0;
-                const isB2L = (b.skilling && b.skilling.toUpperCase().includes("2L")) ? 1 : 0;
-
-                if (isA2L !== isB2L) {
-                    return isB2L - isA2L;
-                }
-
-                const timeA = getEarliestShiftTime(a.shifts);
-                const timeB = getEarliestShiftTime(b.shifts);
-
-                if (timeA !== timeB) {
-                    return timeA - timeB;
-                }
-
-                return (a.name || '').localeCompare(b.name || '');
-            });
-
-            let headerHTML = `<thead><tr class="bg-slate-900 text-white text-[10px] sm:text-xs uppercase font-semibold border-b border-slate-950">
-                <th class="p-2.5 sm:p-4 text-left sticky left-0 bg-slate-900 z-10 border-r border-slate-800 min-w-[140px] sm:min-w-0">SG ID / Employee</th>
-                <th class="p-2.5 sm:p-4 text-center border-r border-slate-800">Skilling</th>`;
-            
-            days.forEach((d, idx) => {
-                const dateLabel = dates[idx] || d.substring(0,3);
-                const isToday = (dateLabel === TODAY_DATE_STR);
-                
-                const headerClass = isToday 
-                    ? 'p-2.5 sm:p-4 text-center border-r border-slate-800 current-day-header min-w-[100px] sm:min-w-0' 
-                    : 'p-2.5 sm:p-4 text-center border-r border-slate-800 min-w-[100px] sm:min-w-0';
-
-                headerHTML += `<th class="${headerClass}">${d} (${dateLabel})</th>`;
-            });
-
-            if (isAdminMode) {
-                headerHTML += `<th class="p-2.5 sm:p-4 text-center">Action</th>`;
-            }
-
-            headerHTML += `</tr></thead>`;
-
-            let bodyHTML = ``;
-            if (filteredEmployees.length === 0) {
-                bodyHTML = `<tr><td colspan="${isAdminMode ? 10 : 9}" class="p-8 text-center text-slate-400 text-xs sm:text-sm">No employee records found for ${currentMonth} - Week ${currentWeekNum}</td></tr>`;
-            } else {
-                filteredEmployees.forEach(e => {
-                    const nameClickAttr = isAdminMode ? `onclick="openEditEmployeeModal('${e.sg_id}')" class="cursor-pointer group group-hover:text-indigo-600"` : '';
-                    const editHint = isAdminMode ? `<i data-lucide="pencil" class="inline-block w-3 h-3 text-slate-400 ml-1 opacity-0 group-hover:opacity-100 transition-opacity"></i>` : '';
-
-                    bodyHTML += `<tr class="hover:bg-slate-100/80 border-b border-slate-200">
-                        <td class="p-2.5 sm:p-4 sticky left-0 bg-white border-r border-slate-200 shadow-sm">
-                            <div ${nameClickAttr}>
-                                <span class="text-xs sm:text-base font-extrabold text-slate-950 tracking-tight">${e.name || 'Unknown'}</span>${editHint}
-                            </div>
-                            <div class="text-slate-600 font-bold text-[10px] sm:text-xs mt-0.5">SG ID: ${e.sg_id || 'N/A'}</div>
-                        </td>
-                        <td class="p-2.5 sm:p-4 text-center border-r border-slate-100">
-                            <span ${isAdminMode ? `onclick="openEditEmployeeModal('${e.sg_id}')"` : ''} class="px-2 sm:px-3 py-0.5 sm:py-1 bg-slate-200 border border-slate-300 rounded text-slate-800 text-[10px] sm:text-xs font-bold ${isAdminMode ? 'cursor-pointer hover:bg-indigo-100 hover:border-indigo-300' : ''}">${e.skilling || 'ATS'}</span>
-                        </td>`;
-                    
-                    days.forEach((d, idx) => {
-                        const dateLabel = dates[idx];
-                        const isToday = (dateLabel === TODAY_DATE_STR);
-                        
-                        const cellClass = isToday 
-                            ? 'p-2.5 sm:p-4 text-center border-r border-slate-100 current-day-col' 
-                            : 'p-2.5 sm:p-4 text-center border-r border-slate-100';
-
-                        bodyHTML += `<td class="${cellClass}">${getShiftBadge(e.shifts ? e.shifts[d] : 'WO', e.sg_id, d)}</td>`;
-                    });
-
-                    if (isAdminMode) {
-                        bodyHTML += `<td class="p-2.5 sm:p-4 text-center">
-                            <button onclick="deleteEmployee('${e.sg_id}', '${e.name}')" class="text-rose-600 hover:text-rose-800 p-1 rounded hover:bg-rose-50" title="Delete Employee">
-                                <i data-lucide="trash-2" class="w-4 h-4"></i>
-                            </button>
-                        </td>`;
-                    }
-
-                    bodyHTML += `</tr>`;
-                });
-            }
-
-            document.getElementById('mainDisplayArea').innerHTML = `
-                <div class="bg-white rounded-xl table-3d overflow-hidden w-full">
-                    <div class="overflow-x-auto no-scrollbar w-full">
-                        <table class="w-full border-collapse">
-                            ${headerHTML}
-                            <tbody class="divide-y divide-slate-100">${bodyHTML}</tbody>
-                        </table>
-                    </div>
-                </div>
-            `;
-        }
-
-        function renderIndividualView() {
-            const empMap = {};
-            rawRosterData.forEach(w => {
-                if (individualMonthFilter !== 'ALL' && w.month !== individualMonthFilter) return;
-                
-                (w.employees || []).forEach(e => {
-                    if(!e.name) return;
-                    if(!empMap[e.name]) {
-                        empMap[e.name] = { sg_id: e.sg_id, skilling: e.skilling, weeks: [] };
-                    }
-                    empMap[e.name].weeks.push({ month: w.month, week_num: w.week_num, dates: w.dates, shifts: e.shifts || {} });
-                });
-            });
-
-            const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-            let html = `<div class="space-y-4 sm:space-y-6 w-full">`;
-
-            let empNames = Object.keys(empMap);
-
-            empNames.sort((nameA, nameB) => {
-                const empA = empMap[nameA];
-                const empB = empMap[nameB];
-
-                const isA2L = (empA.skilling && empA.skilling.toUpperCase().includes("2L")) ? 1 : 0;
-                const isB2L = (empB.skilling && empB.skilling.toUpperCase().includes("2L")) ? 1 : 0;
-
-                if (isA2L !== isB2L) return isB2L - isA2L;
-
-                return nameA.localeCompare(nameB);
-            });
-
-            if(empNames.length === 0) {
-                html += `<div class="bg-white p-6 sm:p-8 rounded-xl card-3d text-center text-slate-400 text-xs sm:text-sm">No employee records available for selected month filter.</div>`;
-            } else {
-                empNames.forEach(empName => {
-                    if(searchQuery && !empName.toLowerCase().includes(searchQuery)) return;
-                    const emp = empMap[empName];
-
-                    html += `
-                        <div class="bg-white p-4 sm:p-6 rounded-xl card-3d w-full">
-                            <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-200 pb-3 mb-4 gap-2">
-                                <div class="flex items-center space-x-3">
-                                    <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-indigo-600 text-white font-extrabold flex items-center justify-center text-xs sm:text-base btn-3d">
-                                        ${empName.split(' ').map(n=>n[0]).join('')}
-                                    </div>
-                                    <div>
-                                        <h3 class="font-extrabold text-slate-950 text-base sm:text-lg tracking-tight">${empName}</h3>
-                                        <p class="text-[10px] sm:text-xs font-bold text-slate-600">SG ID: ${emp.sg_id || 'N/A'} • Skill: ${emp.skilling || 'ATS'}</p>
-                                    </div>
-                                </div>
-                                <span class="self-start sm:self-auto px-2.5 py-1 bg-indigo-50 border border-indigo-200 text-indigo-700 font-bold rounded-lg text-[10px] sm:text-xs shadow-sm">Total Records: ${emp.weeks.length} Weeks</span>
-                            </div>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 w-full">`;
-
-                    emp.weeks.forEach(w => {
-                        const dates = w.dates || ["N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A"];
-                        html += `
-                            <div class="bg-slate-50 p-2.5 sm:p-3.5 rounded-lg border border-slate-300 card-3d">
-                                <div class="text-[10px] sm:text-xs font-bold text-slate-700 mb-2 border-b border-slate-200 pb-1 flex justify-between">
-                                    <span>${w.month} - Week ${w.week_num}</span>
-                                    <span class="text-slate-500 font-semibold">${dates[0]} to ${dates[6] || 'N/A'}</span>
-                                </div>
-                                <div class="grid grid-cols-7 gap-0.5 sm:gap-1 text-center no-scrollbar">`;
-                        days.forEach((d, idx) => {
-                            const dateLabel = dates[idx];
-                            const isToday = (dateLabel === TODAY_DATE_STR);
-                            const cellBg = isToday ? 'bg-sky-50 rounded' : '';
-
-                            html += `<div class="${cellBg} p-0.5">
-                                <div class="text-[8px] sm:text-[9px] text-slate-500 uppercase font-bold">${d.substring(0,1)}</div>
-                                <div class="mt-0.5 sm:mt-1">${getShiftBadge(w.shifts ? w.shifts[d] : 'WO')}</div>
-                            </div>`;
-                        });
-                        html += `</div></div>`;
-                    });
-
-                    html += `</div></div>`;
-                });
-            }
-
-            html += `</div>`;
-            document.getElementById('mainDisplayArea').innerHTML = html;
-        }
-
-        function renderQMView() {
-            const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-            const weekData = getActiveWeekData();
-            const employees = weekData.employees || [];
-
-            let html = `
-                <div class="bg-white p-4 sm:p-6 rounded-xl card-3d space-y-4 sm:space-y-6 w-full">
-                    <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2 border-b border-slate-200 pb-3">
-                        <h3 class="font-bold text-slate-800 text-sm sm:text-base flex items-center gap-2">
-                            <i data-lucide="shield-check" class="text-indigo-600 w-4 h-4 sm:w-5 sm:h-5"></i> Queue Manager (QM) Staff Assignment — ${currentMonth} Week ${currentWeekNum}
-                        </h3>
-                        ${isAdminMode ? '<span class="text-xs bg-amber-100 text-amber-800 border border-amber-300 font-bold px-2.5 py-1 rounded-lg">Admin Edit Mode Active</span>' : ''}
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 w-full">
-                        <div class="bg-amber-50/50 border border-amber-300 rounded-xl p-4 sm:p-5 card-3d">
-                            <h4 class="font-bold text-amber-800 text-xs sm:text-sm mb-3 sm:mb-4 flex items-center gap-2">
-                                <i data-lucide="sun" class="w-4 h-4 text-amber-600"></i> QM Staff - 06:00 AM Shift
-                            </h4>
-                            <div class="divide-y divide-amber-200">`;
-            days.forEach(d => {
-                const staff = (weekData.qm_staff_6am && weekData.qm_staff_6am[d]) ? weekData.qm_staff_6am[d] : 'Unassigned / Off';
-                
-                let valDisplay = '';
-                if (isAdminMode) {
-                    let optionsHtml = `<option value="Unassigned / Off" ${staff === 'Unassigned / Off' ? 'selected' : ''}>Unassigned / Off</option>`;
-                    employees.forEach(e => {
-                        const sel = (staff === e.name) ? 'selected' : '';
-                        optionsHtml += `<option value="${e.name}" ${sel}>${e.name}</option>`;
-                    });
-                    valDisplay = `
-                        <select onchange="updateQmStaffInteractive('qm_staff_6am', '${d}', this)" class="bg-amber-100 border border-amber-400 text-amber-950 font-extrabold px-2 py-1 rounded text-xs cursor-pointer focus:ring-2 focus:ring-amber-500">
-                            ${optionsHtml}
-                        </select>
-                    `;
-                } else {
-                    valDisplay = `<span class="font-extrabold text-amber-950 bg-amber-200 border border-amber-400 px-2.5 py-0.5 sm:py-1 rounded-md shadow-sm text-[11px] sm:text-xs">${staff}</span>`;
-                }
-
-                html += `<div class="py-2 sm:py-2.5 flex justify-between items-center text-xs">
-                    <span class="font-semibold text-slate-600">${d}</span>
-                    ${valDisplay}
-                </div>`;
-            });
-            html += `</div></div>
-
-                        <div class="bg-indigo-50/50 border border-indigo-300 rounded-xl p-4 sm:p-5 card-3d">
-                            <h4 class="font-bold text-indigo-800 text-xs sm:text-sm mb-3 sm:mb-4 flex items-center gap-2">
-                                <i data-lucide="clock" class="w-4 h-4 text-indigo-600"></i> QM Staff - 10:00 AM Shift
-                            </h4>
-                            <div class="divide-y divide-indigo-200">`;
-            days.forEach(d => {
-                const staff = (weekData.qm_staff_10am && weekData.qm_staff_10am[d]) ? weekData.qm_staff_10am[d] : 'Unassigned / Off';
-                
-                let valDisplay = '';
-                if (isAdminMode) {
-                    let optionsHtml = `<option value="Unassigned / Off" ${staff === 'Unassigned / Off' ? 'selected' : ''}>Unassigned / Off</option>`;
-                    employees.forEach(e => {
-                        const sel = (staff === e.name) ? 'selected' : '';
-                        optionsHtml += `<option value="${e.name}" ${sel}>${e.name}</option>`;
-                    });
-                    valDisplay = `
-                        <select onchange="updateQmStaffInteractive('qm_staff_10am', '${d}', this)" class="bg-indigo-100 border border-indigo-400 text-indigo-950 font-extrabold px-2 py-1 rounded text-xs cursor-pointer focus:ring-2 focus:ring-indigo-500">
-                            ${optionsHtml}
-                        </select>
-                    `;
-                } else {
-                    valDisplay = `<span class="font-extrabold text-indigo-950 bg-indigo-200 border border-indigo-400 px-2.5 py-0.5 sm:py-1 rounded-md shadow-sm text-[11px] sm:text-xs">${staff}</span>`;
-                }
-
-                html += `<div class="py-2 sm:py-2.5 flex justify-between items-center text-xs">
-                    <span class="font-semibold text-slate-600">${d}</span>
-                    ${valDisplay}
-                </div>`;
-            });
-            html += `</div></div>
-                    </div>
-                </div>
-            `;
-            document.getElementById('mainDisplayArea').innerHTML = html;
-        }
-
-        function renderHolidaysView() {
-            let filteredHolidays = SABRE_2026_HOLIDAYS.filter(h => {
-                const matchSearch = !searchQuery || 
-                    h.name.toLowerCase().includes(searchQuery) || 
-                    h.day.toLowerCase().includes(searchQuery) ||
-                    h.date.includes(searchQuery) ||
-                    h.offices.some(o => o.toLowerCase().includes(searchQuery));
-
-                const matchOffice = selectedHolidayOffice === 'ALL' || h.offices.includes(selectedHolidayOffice);
-
-                return matchSearch && matchOffice;
-            });
-
-            const officeBadgeColors = {
-                "US": "bg-blue-100 text-blue-800 border-blue-300",
-                "UK": "bg-cyan-100 text-cyan-800 border-cyan-300",
-                "BLR": "bg-emerald-100 text-emerald-800 border-emerald-300",
-                "KRK": "bg-purple-100 text-purple-800 border-purple-300",
-                "MVD": "bg-amber-100 text-amber-800 border-amber-300",
-                "SGP": "bg-rose-100 text-rose-800 border-rose-300"
-            };
-
-            const officeFilterBtns = [
-                { code: 'ALL', label: 'All Offices' },
-                { code: 'BLR', label: 'India (BLR)' },
-                { code: 'US', label: 'United States' },
-                { code: 'UK', label: 'United Kingdom' },
-                { code: 'KRK', label: 'Poland (KRK)' },
-                { code: 'SGP', label: 'Singapore' },
-                { code: 'MVD', label: 'Uruguay (MVD)' }
-            ];
-
-            let filterButtonsHTML = `<div class="flex flex-wrap gap-2 mb-4">`;
-            officeFilterBtns.forEach(btn => {
-                const activeClass = selectedHolidayOffice === btn.code 
-                    ? 'bg-indigo-600 text-white font-bold border-indigo-700 shadow-md' 
-                    : 'bg-slate-100 text-slate-700 font-semibold hover:bg-slate-200 border-slate-300';
-                filterButtonsHTML += `<button onclick="filterHolidayOffice('${btn.code}')" class="px-3 py-1.5 rounded-lg text-xs border transition-all btn-3d ${activeClass}">${btn.label}</button>`;
-            });
-            filterButtonsHTML += `</div>`;
-
-            let tableRowsHTML = '';
-            if (filteredHolidays.length === 0) {
-                tableRowsHTML = `<tr><td colspan="4" class="p-8 text-center text-slate-400 text-xs sm:text-sm">No holidays found matching selected filter or search term.</td></tr>`;
-            } else {
-                filteredHolidays.forEach(h => {
-                    const formattedDate = formatDateToDDMMYY(h.date);
-                    const badges = h.offices.map(o => {
-                        const style = officeBadgeColors[o] || "bg-slate-100 text-slate-800 border-slate-300";
-                        return `<span class="inline-block px-2 py-0.5 text-[10px] font-extrabold rounded border ${style}">${o}</span>`;
-                    }).join(" ");
-
-                    tableRowsHTML += `
-                        <tr class="hover:bg-slate-50 border-b border-slate-200 transition-colors">
-                            <td class="p-3 sm:p-4 text-xs font-mono-digital font-bold text-slate-900">${formattedDate}</td>
-                            <td class="p-3 sm:p-4 text-xs font-semibold text-slate-600">${h.day}</td>
-                            <td class="p-3 sm:p-4 text-xs sm:text-sm font-extrabold text-slate-950">${h.name}</td>
-                            <td class="p-3 sm:p-4"><div class="flex flex-wrap gap-1">${badges}</div></td>
-                        </tr>
-                    `;
-                });
-            }
-
-            document.getElementById('mainDisplayArea').innerHTML = `
-                <div class="bg-white p-4 sm:p-6 rounded-xl card-3d space-y-4 w-full">
-                    <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-200 pb-3 gap-2">
-                        <div>
-                            <h3 class="font-extrabold text-slate-900 text-base sm:text-lg flex items-center gap-2">
-                                <i data-lucide="globe" class="text-indigo-600 w-5 h-5"></i> Sabre 2026 Global Holiday Calendar
-                            </h3>
-                            <p class="text-slate-500 text-xs mt-0.5">Official Sabre global observances across international office locations</p>
-                        </div>
-                        <span class="px-3 py-1 bg-indigo-50 border border-indigo-200 text-indigo-700 font-bold rounded-lg text-xs self-start md:self-auto">Total: ${filteredHolidays.length} Holidays</span>
-                    </div>
-
-                    ${filterButtonsHTML}
-
-                    <div class="bg-white rounded-xl table-3d overflow-hidden w-full">
-                        <div class="overflow-x-auto w-full">
-                            <table class="w-full border-collapse text-left">
-                                <thead>
-                                    <tr class="bg-slate-900 text-white text-[10px] sm:text-xs uppercase font-semibold border-b border-slate-950">
-                                        <th class="p-3 sm:p-4">Date</th>
-                                        <th class="p-3 sm:p-4">Day</th>
-                                        <th class="p-3 sm:p-4">Holiday Name</th>
-                                        <th class="p-3 sm:p-4">Applicable Offices</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    ${tableRowsHTML}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        function filterHolidayOffice(code) {
-            selectedHolidayOffice = code;
-            renderHolidaysView();
-        }
-
-        function updateQmStaffInteractive(qmKey, day, selectElem) {
-            const newStaff = selectElem.value;
-            const weekData = getActiveWeekData();
-            if (!weekData[qmKey]) weekData[qmKey] = {};
-
-            weekData[qmKey][day] = newStaff;
-            triggerPendingChangesState();
-            renderView();
-        }
-
-        function openAddEmployeeModal() {
-            document.getElementById('addEmployeeModal').classList.remove('hidden');
-        }
-
-        function closeAddEmployeeModal() {
-            document.getElementById('addEmployeeModal').classList.add('hidden');
-            document.getElementById('newSgId').value = '';
-            document.getElementById('newName').value = '';
-        }
-
-        function confirmAddEmployee() {
-            const sgIdVal = document.getElementById('newSgId').value.trim();
-            const nameVal = document.getElementById('newName').value.trim();
-            const skillingVal = document.getElementById('newSkilling').value.trim() || 'ATS';
-
-            if (!sgIdVal || !nameVal) {
-                alert("Please fill in both SG ID and Employee Name.");
-                return;
-            }
-
-            const weekData = getActiveWeekData();
-            const parsedSgId = parseInt(sgIdVal) || sgIdVal;
-
-            const existingIndex = weekData.employees.findIndex(e => String(e.sg_id) === String(parsedSgId));
-            const newEmpObj = {
-                sg_id: parsedSgId,
-                name: nameVal,
-                skilling: skillingVal,
-                default_start: "06:00 AM",
-                default_end: "03:00 PM",
-                days_office: "Mon/Tue/Wed/Thu/Fri",
-                shifts: {
-                    "Monday": "06:00 AM - 03:00 PM",
-                    "Tuesday": "06:00 AM - 03:00 PM",
-                    "Wednesday": "06:00 AM - 03:00 PM",
-                    "Thursday": "06:00 AM - 03:00 PM",
-                    "Friday": "06:00 AM - 03:00 PM",
-                    "Saturday": "WO",
-                    "Sunday": "WO"
-                }
-            };
-
-            if (existingIndex !== -1) {
-                weekData.employees[existingIndex] = newEmpObj;
-            } else {
-                weekData.employees.push(newEmpObj);
-            }
-
-            triggerPendingChangesState();
-            recalculateHeadcount(weekData);
-            closeAddEmployeeModal();
-            renderView();
-        }
-
-        function deleteEmployee(sgId, empName) {
-            const weekData = getActiveWeekData();
-            if (!weekData || !Array.isArray(weekData.employees)) return;
-
-            const targetIdx = weekData.employees.findIndex(e => String(e.sg_id) === String(sgId));
-            if (targetIdx !== -1) {
-                weekData.employees.splice(targetIdx, 1);
-                triggerPendingChangesState();
-                recalculateHeadcount(weekData);
-                renderView();
-            }
-        }
-
-        function updateCharts() {
-            const weekData = getActiveWeekData();
-            const daysShort = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-            const fullDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-
-            recalculateHeadcount(weekData);
-
-            const hc6am = weekData.total_headcount_6am || [0,0,0,0,0,0,0];
-            const hc8am = weekData.total_headcount_8am || [0,0,0,0,0,0,0];
-            const hc10am = weekData.total_headcount_10am || [0,0,0,0,0,0,0];
-
-            const labelsWithTotalActiveWorking = daysShort.map((day, idx) => {
-                const totalWorkingExcludingLeave = (hc6am[idx] || 0) + (hc8am[idx] || 0) + (hc10am[idx] || 0);
-                return `${day} (${totalWorkingExcludingLeave})`;
-            });
-
-            let activeDayName = "Wednesday";
-            const todayIdx = weekData.dates ? weekData.dates.indexOf(TODAY_DATE_STR) : -1;
-            if (todayIdx !== -1) {
-                activeDayName = fullDays[todayIdx];
-            } else {
-                const dayNameIndex = new Date().getDay();
-                activeDayName = fullDays[dayNameIndex === 0 ? 6 : dayNameIndex - 1];
-            }
-
-            let dayIdx = fullDays.indexOf(activeDayName);
-            if (dayIdx === -1) dayIdx = 2;
-
-            document.getElementById('distChartSubtitle').innerText = `${activeDayName} Breakdown`;
-
-            let daily06 = hc6am[dayIdx] || 0;
-            let daily08 = hc8am[dayIdx] || 0;
-            let daily10 = hc10am[dayIdx] || 0;
-            let dailyWO = 0;
-            let dailyLeave = 0;
-
-            (weekData.employees || []).forEach(e => {
-                const s = e.shifts ? e.shifts[activeDayName] : 'WO';
-                if (!s || s === 'WO') dailyWO++;
-                else if (s === 'PTO' || s === 'PH' || s === 'SL' || s === 'HD SL' || s.includes('Half Off')) dailyLeave++;
-            });
-
-            const ctx1 = document.getElementById('coverageChart').getContext('2d');
-            if(coverageChartInstance) coverageChartInstance.destroy();
-
-            const thresholdLinePlugin = {
-                id: 'thresholdLine',
-                afterDraw: (chart) => {
-                    const yAxis = chart.scales.y;
-                    const xAxis = chart.scales.x;
-                    if (!yAxis || !xAxis) return;
-
-                    const yVal = yAxis.getPixelForValue(2);
-                    const ctx = chart.ctx;
-                    ctx.save();
-                    ctx.beginPath();
-                    ctx.setLineDash([6, 6]);
-                    ctx.lineWidth = 2;
-                    ctx.strokeStyle = '#ef4444';
-                    ctx.moveTo(xAxis.left, yVal);
-                    ctx.lineTo(xAxis.right, yVal);
-                    ctx.stroke();
-
-                    ctx.fillStyle = '#ef4444';
-                    ctx.font = 'bold 11px Inter, sans-serif';
-                    ctx.textAlign = 'right';
-                    ctx.fillText('Threshold (2)', xAxis.right - 5, yVal - 5);
-                    ctx.restore();
-                }
-            };
-
-            coverageChartInstance = new Chart(ctx1, {
-                type: 'bar',
-                data: {
-                    labels: labelsWithTotalActiveWorking,
-                    datasets: [
-                        {
-                            label: '06:00 / 06:30 / 07:00 AM Shift',
-                            data: hc6am,
-                            backgroundColor: '#10b981'
-                        },
-                        {
-                            label: '08:00 AM Shift',
-                            data: hc8am,
-                            backgroundColor: '#3b82f6'
-                        },
-                        {
-                            label: '10:00 AM Shift',
-                            data: hc10am,
-                            backgroundColor: '#f59e0b'
-                        }
-                    ]
-                },
-                plugins: [thresholdLinePlugin],
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { 
-                        legend: { 
-                            position: 'bottom',
-                            labels: {
-                                boxWidth: 12,
-                                padding: 10,
-                                font: { size: window.innerWidth < 640 ? 10 : 12 }
-                            }
-                        } 
-                    },
-                    scales: { 
-                        y: { 
-                            beginAtZero: true, 
-                            ticks: { stepSize: 1 },
-                            suggestedMax: 10
-                        },
-                        x: {
-                            ticks: {
-                                font: { size: window.innerWidth < 640 ? 9 : 11 }
-                            }
-                        }
-                    }
-                }
-            });
-
-            const ctx2 = document.getElementById('distributionChart').getContext('2d');
-            if(distChartInstance) distChartInstance.destroy();
-
-            distChartInstance = new Chart(ctx2, {
-                type: 'doughnut',
-                data: {
-                    labels: ['06:00/06:30/07:00 Shift', '08:00 AM Shift', '10:00 AM Shift', 'Off Days', 'PTO / Leave / Half Off'],
-                    datasets: [{
-                        data: [daily06, daily08, daily10, dailyWO, dailyLeave],
-                        backgroundColor: ['#10b981', '#3b82f6', '#f59e0b', '#cbd5e1', '#f43f5e']
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { 
-                        legend: { 
-                            position: 'bottom',
-                            labels: {
-                                boxWidth: 12,
-                                padding: 8,
-                                font: { size: window.innerWidth < 640 ? 10 : 12 }
-                            }
-                        } 
-                    }
-                }
-            });
-        }
-
-        function getRowValue(row, possibleKeys, defaultValue = '') {
-            const rowKeys = Object.keys(row);
-            for (let k of possibleKeys) {
-                const foundKey = rowKeys.find(rk => rk.trim().toLowerCase() === k.toLowerCase());
-                if (foundKey && row[foundKey] !== undefined && row[foundKey] !== null) {
-                    return String(row[foundKey]).trim();
-                }
-            }
-            return defaultValue;
-        }
-
-        function importExcelData(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            const userConfirmed = confirm("Are you sure you want to upload this Excel file and update the roster shift data?");
-            
-            if (!userConfirmed) {
-                event.target.value = '';
-                return;
-            }
-
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const data = new Uint8Array(e.target.result);
-                    const workbook = XLSX.read(data, { type: 'array' });
-                    
-                    const firstSheetName = workbook.SheetNames[0];
-                    const worksheet = workbook.Sheets[firstSheetName];
-                    const jsonData = XLSX.utils.sheet_to_json(worksheet, { defval: "" });
-
-                    if (jsonData && jsonData.length > 0) {
-                        parseAndApplyImportedData(jsonData);
-                        triggerPendingChangesState();
-                        alert("Excel roster imported locally. Click 'Apply & Save File' at the bottom to commit changes permanently.");
-                    } else {
-                        alert("The imported Excel file is empty or formatted incorrectly.");
-                    }
-                } catch (err) {
-                    console.error("Error reading Excel file:", err);
-                    alert("Error parsing Excel file. Please make sure it's a valid .xlsx or .xls file.");
-                }
-                event.target.value = '';
-            };
-            
-            reader.readAsArrayBuffer(file);
-        }
-
-        function parseAndApplyImportedData(jsonRows) {
-            const structuredMap = {};
-
-            jsonRows.forEach(row => {
-                const month = getRowValue(row, ['month', 'mth'], currentMonth);
-                const weekNumVal = getRowValue(row, ['week', 'week_num', 'weeknum', 'wk'], String(currentWeekNum));
-                const weekNum = parseInt(weekNumVal) || 1;
-
-                const sgId = getRowValue(row, ['sg_id', 'sgid', 'id', 'emp_id', 'employee_id'], '000000');
-                const name = getRowValue(row, ['name', 'emp_name', 'employee_name', 'employee'], 'Unknown');
-                const skilling = getRowValue(row, ['skilling', 'skill', 'skill_set'], 'ATS');
-
-                const key = `${month}_${weekNum}`;
-
-                if (!structuredMap[key]) {
-                    structuredMap[key] = {
-                        month: month,
-                        week_num: weekNum,
-                        dates: [
-                            formatDateToDDMMYY(getRowValue(row, ['monday_date', 'mon_date', 'mondaydate'], "07/09/26")),
-                            formatDateToDDMMYY(getRowValue(row, ['tuesday_date', 'tue_date', 'tuesdaydate'], "08/09/26")),
-                            formatDateToDDMMYY(getRowValue(row, ['wednesday_date', 'wed_date', 'wednesdaydate'], "09/09/26")),
-                            formatDateToDDMMYY(getRowValue(row, ['thursday_date', 'thu_date', 'thursdaydate'], "10/09/26")),
-                            formatDateToDDMMYY(getRowValue(row, ['friday_date', 'fri_date', 'fridaydate'], "11/09/26")),
-                            formatDateToDDMMYY(getRowValue(row, ['saturday_date', 'sat_date', 'saturdaydate'], "12/09/26")),
-                            formatDateToDDMMYY(getRowValue(row, ['sunday_date', 'sun_date', 'sundaydate'], "13/09/26"))
-                        ],
-                        employeesMap: {},
-                        qm_staff_6am: {},
-                        qm_staff_10am: {}
-                    };
-                }
-
-                const dayCol = getRowValue(row, ['day'], '');
-                const shiftCol = getRowValue(row, ['shift'], '');
-
-                if (dayCol && shiftCol) {
-                    if (!structuredMap[key].employeesMap[sgId]) {
-                        structuredMap[key].employeesMap[sgId] = {
-                            sg_id: sgId,
-                            name: name,
-                            skilling: skilling,
-                            shifts: { Monday: 'WO', Tuesday: 'WO', Wednesday: 'WO', Thursday: 'WO', Friday: 'WO', Saturday: 'WO', Sunday: 'WO' }
-                        };
-                    }
-                    structuredMap[key].employeesMap[sgId].shifts[dayCol] = shiftCol;
-                } else {
-                    const shifts = {
-                        "Monday": getRowValue(row, ['monday', 'mon'], 'WO'),
-                        "Tuesday": getRowValue(row, ['tuesday', 'tue'], 'WO'),
-                        "Wednesday": getRowValue(row, ['wednesday', 'wed'], 'WO'),
-                        "Thursday": getRowValue(row, ['thursday', 'thu'], 'WO'),
-                        "Friday": getRowValue(row, ['friday', 'fri'], 'WO'),
-                        "Saturday": getRowValue(row, ['saturday', 'sat'], 'WO'),
-                        "Sunday": getRowValue(row, ['sunday', 'sun'], 'WO')
-                    };
-
-                    structuredMap[key].employeesMap[sgId] = {
-                        sg_id: sgId,
-                        name: name,
-                        skilling: skilling,
-                        shifts: shifts
-                    };
-                }
-            });
-
-            const newRosterData = [];
-            Object.keys(structuredMap).forEach(key => {
-                const item = structuredMap[key];
-                const employees = Object.values(item.employeesMap);
-
-                const weekObj = {
-                    month: item.month,
-                    week_num: item.week_num,
-                    dates: item.dates,
-                    employees: employees,
-                    qm_staff_6am: item.qm_staff_6am,
-                    qm_staff_10am: item.qm_staff_10am,
-                    total_headcount_6am: [0,0,0,0,0,0,0],
-                    total_headcount_8am: [0,0,0,0,0,0,0],
-                    total_headcount_10am: [0,0,0,0,0,0,0]
-                };
-
-                recalculateHeadcount(weekObj);
-                newRosterData.push(weekObj);
-            });
-
-            if (newRosterData.length > 0) {
-                rawRosterData = newRosterData;
-                
-                const currentDetect = detectCurrentPeriod();
-                currentMonth = currentDetect.month;
-                currentWeekNum = currentDetect.week_num;
-                
-                updateMonthDropdown();
-                document.getElementById('monthSelect').value = currentMonth;
-                updateWeekOptions();
-                document.getElementById('weekSelect').value = currentWeekNum;
-                document.getElementById('portalSubhead').innerText = `${currentMonth} 2026 • Live Interactive Schedule`;
-                
-                renderView();
-            }
-        }
-
-        function openAddMonthModal() {
-            document.getElementById('addMonthModal').classList.remove('hidden');
-            generateWeekDateInputs();
-        }
-
-        function closeAddMonthModal() {
-            document.getElementById('addMonthModal').classList.add('hidden');
-        }
-
-        function generateWeekDateInputs() {
-            const weeksCount = parseInt(document.getElementById('newMonthWeeksCount').value) || 4;
-            const container = document.getElementById('weekDatesContainer');
-            container.innerHTML = '';
-
-            for (let i = 1; i <= weeksCount; i++) {
-                container.innerHTML += `
-                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200">
-                        <label class="block text-xs font-bold text-slate-800 mb-1">Week ${i} Date Range</label>
-                        <div class="grid grid-cols-2 gap-2">
-                            <div>
-                                <span class="text-[10px] text-slate-500 font-semibold block mb-0.5">Start Date (Mon)</span>
-                                <input type="date" id="mWeekStart_${i}" class="w-full bg-white border border-slate-300 rounded px-2 py-1 text-xs font-medium input-3d">
-                            </div>
-                            <div>
-                                <span class="text-[10px] text-slate-500 font-semibold block mb-0.5">End Date (Sun)</span>
-                                <input type="date" id="mWeekEnd_${i}" class="w-full bg-white border border-slate-300 rounded px-2 py-1 text-xs font-medium input-3d">
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }
-        }
-
-        function confirmAddMonth() {
-            const selectedMonthName = document.getElementById('newMonthSelect').value;
-            const weeksCount = parseInt(document.getElementById('newMonthWeeksCount').value) || 4;
-            
-            const monthExists = rawRosterData.some(w => w.month.toLowerCase() === selectedMonthName.toLowerCase());
-            if (monthExists) {
-                alert(`The month "${selectedMonthName}" already exists in the roster.`);
-                return;
-            }
-
-            const referenceEmployees = rawRosterData.length > 0 && rawRosterData[0].employees ? rawRosterData[0].employees : [];
-            const baseEmployees = referenceEmployees.map(emp => ({
-                sg_id: emp.sg_id,
-                name: emp.name,
-                skilling: emp.skilling || 'ATS',
-                default_start: emp.default_start || "06:00 AM",
-                default_end: emp.default_end || "03:00 PM",
-                days_office: emp.days_office || "Mon/Tue/Wed/Thu/Fri",
-                shifts: {
-                    "Monday": "06:00 AM - 03:00 PM",
-                    "Tuesday": "06:00 AM - 03:00 PM",
-                    "Wednesday": "06:00 AM - 03:00 PM",
-                    "Thursday": "06:00 AM - 03:00 PM",
-                    "Friday": "06:00 AM - 03:00 PM",
-                    "Saturday": "WO",
-                    "Sunday": "WO"
-                }
-            }));
-
-            for (let w = 1; w <= weeksCount; w++) {
-                const startVal = document.getElementById(`mWeekStart_${w}`).value;
-                const endVal = document.getElementById(`mWeekEnd_${w}`).value;
-                const datesArray = generate7DaysRange(startVal, endVal);
-
-                const newWeekObj = {
-                    month: selectedMonthName,
-                    week_num: w,
-                    dates: datesArray,
-                    employees: JSON.parse(JSON.stringify(baseEmployees)),
-                    qm_staff_6am: {
-                        "Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"
-                    },
-                    qm_staff_10am: {
-                        "Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"
-                    },
-                    total_headcount_6am: [0,0,0,0,0,0,0],
-                    total_headcount_8am: [0,0,0,0,0,0,0],
-                    total_headcount_10am: [0,0,0,0,0,0,0]
-                };
-                recalculateHeadcount(newWeekObj);
-                rawRosterData.push(newWeekObj);
-            }
-
-            currentMonth = selectedMonthName;
-            currentWeekNum = 1;
-            triggerPendingChangesState();
-            closeAddMonthModal();
-            updateMonthDropdown();
-            updateWeekOptions();
-            renderView();
-            alert(`Month "${selectedMonthName}" with ${weeksCount} weeks added! Click "Apply & Save File" to commit changes.`);
-        }
-
-        function deleteCurrentMonth() {
-            if (!isAdminMode) return;
-            const confirmDel = confirm(`Are you sure you want to delete the entire month "${currentMonth}" and all its weeks?`);
-            if (!confirmDel) return;
-
-            rawRosterData = rawRosterData.filter(w => w.month !== currentMonth);
-            triggerPendingChangesState();
-
-            const availableMonths = [...new Set(rawRosterData.map(w => w.month))];
-            if (availableMonths.length > 0) {
-                currentMonth = availableMonths[0];
-                currentWeekNum = 1;
-            } else {
-                currentMonth = "September";
-                currentWeekNum = 1;
-            }
-
-            updateMonthDropdown();
-            updateWeekOptions();
-            renderView();
-        }
-
-        function openAddWeekModal() {
-            document.getElementById('addWeekMonthTitle').innerText = currentMonth;
-            
-            const monthWeeks = rawRosterData.filter(w => w.month === currentMonth);
-            const nextWeekNum = monthWeeks.length + 1;
-            document.getElementById('newWeekNumLabel').innerText = `Week ${nextWeekNum}`;
-            
-            document.getElementById('addWeekModal').classList.remove('hidden');
-        }
-
-        function closeAddWeekModal() {
-            document.getElementById('addWeekModal').classList.add('hidden');
-            document.getElementById('singleWeekStartDate').value = '';
-            document.getElementById('singleWeekEndDate').value = '';
-        }
-
-        function confirmAddWeek() {
-            const startVal = document.getElementById('singleWeekStartDate').value;
-            const endVal = document.getElementById('singleWeekEndDate').value;
-            const datesArray = generate7DaysRange(startVal, endVal);
-
-            const monthWeeks = rawRosterData.filter(w => w.month === currentMonth);
-            const nextWeekNum = monthWeeks.length + 1;
-
-            const referenceEmployees = rawRosterData.length > 0 && rawRosterData[0].employees ? rawRosterData[0].employees : [];
-            const baseEmployees = referenceEmployees.map(emp => ({
-                sg_id: emp.sg_id,
-                name: emp.name,
-                skilling: emp.skilling || 'ATS',
-                default_start: emp.default_start || "06:00 AM",
-                default_end: emp.default_end || "03:00 PM",
-                days_office: emp.days_office || "Mon/Tue/Wed/Thu/Fri",
-                shifts: {
-                    "Monday": "06:00 AM - 03:00 PM",
-                    "Tuesday": "06:00 AM - 03:00 PM",
-                    "Wednesday": "06:00 AM - 03:00 PM",
-                    "Thursday": "06:00 AM - 03:00 PM",
-                    "Friday": "06:00 AM - 03:00 PM",
-                    "Saturday": "WO",
-                    "Sunday": "WO"
-                }
-            }));
-
-            const newWeekObj = {
-                month: currentMonth,
-                week_num: nextWeekNum,
-                dates: datesArray,
-                employees: JSON.parse(JSON.stringify(baseEmployees)),
-                qm_staff_6am: {
-                    "Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"
-                },
-                qm_staff_10am: {
-                    "Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"
-                },
-                total_headcount_6am: [0,0,0,0,0,0,0],
-                total_headcount_8am: [0,0,0,0,0,0,0],
-                total_headcount_10am: [0,0,0,0,0,0,0]
-            };
-
-            recalculateHeadcount(newWeekObj);
-            rawRosterData.push(newWeekObj);
-
-            currentWeekNum = nextWeekNum;
-            triggerPendingChangesState();
-            closeAddWeekModal();
-            updateWeekOptions();
-            renderView();
-            alert(`Week ${nextWeekNum} added to "${currentMonth}"! Click "Apply & Save File" to commit.`);
-        }
-
-        function deleteCurrentWeek() {
-            if (!isAdminMode) return;
-            const confirmDel = confirm(`Are you sure you want to delete Week ${currentWeekNum} of "${currentMonth}"?`);
-            if (!confirmDel) return;
-
-            const weekIndex = rawRosterData.findIndex(w => w.month === currentMonth && w.week_num === currentWeekNum);
-            if (weekIndex !== -1) {
-                rawRosterData.splice(weekIndex, 1);
-                
-                let remainingWeeks = rawRosterData.filter(w => w.month === currentMonth).sort((a,b) => a.week_num - b.week_num);
-                remainingWeeks.forEach((wObj, idx) => {
-                    wObj.week_num = idx + 1;
-                });
-
-                triggerPendingChangesState();
-
-                if (remainingWeeks.length > 0) {
-                    currentWeekNum = remainingWeeks[0].week_num;
-                } else {
-                    currentWeekNum = 1;
-                }
-
-                updateWeekOptions();
-                renderView();
-            }
+            button.appendChild(circle);
         }
 
         function initFreeFlightPlane() {
@@ -2948,6 +1726,12 @@
 
             animateFreeFlight();
         }
+
+        // Initialize Application
+        document.addEventListener("DOMContentLoaded", () => {
+            fetchLivePublicRoster();
+            checkPortalAuthentication();
+        });
     </script>
 </body>
 </html>
