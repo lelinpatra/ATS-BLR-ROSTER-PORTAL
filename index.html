@@ -10,8 +10,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- SheetJS (xlsx) for Excel Importing -->
-    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;700;900&family=JetBrains+Mono:wght@500;700;800&display=swap');
         
@@ -26,7 +24,6 @@
         .custom-scrollbar::-webkit-scrollbar { height: 6px; width: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
         
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -74,56 +71,19 @@
 
         .clock-futuristic-3d {
             background-color: rgba(15, 23, 42, 0.95);
-            background-image: linear-gradient(145deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.85) 100%),
-                              url('https://static.vecteezy.com/system/resources/previews/010/158/604/non_2x/white-background-of-world-map-with-line-art-design-free-vector.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-blend-mode: overlay;
             border: 1px solid rgba(56, 189, 248, 0.25);
             border-bottom: 4px solid #020617;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 0 12px rgba(14, 165, 233, 0.15);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
             position: relative;
             overflow: hidden;
             z-index: 10;
         }
 
-        .clock-futuristic-3d::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; height: 2px;
-            background: linear-gradient(90deg, transparent, #38bdf8, #818cf8, transparent);
-            animation: pulseScan 3s infinite linear;
-            z-index: 2;
-        }
-
-        .clock-futuristic-3d::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: url('https://static.vecteezy.com/system/resources/previews/010/158/604/non_2x/white-background-of-world-map-with-line-art-design-free-vector.jpg') center/cover no-repeat;
-            filter: invert(1);
-            opacity: 0.12;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .clock-futuristic-3d * { position: relative; z-index: 1; }
-
-        @keyframes pulseScan {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-        
         .tab-3d {
             border: 1px solid #d1d5db;
             border-bottom: 2px solid #9ca3af;
-            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.7);
             background-color: #f9fafb;
             color: #4b5563;
-            position: relative;
-            overflow: hidden;
         }
 
         .tab-3d.active {
@@ -132,54 +92,12 @@
             background-color: #ffffff;
             color: #4f46e5;
             font-weight: 600;
-            box-shadow: 0 3px 5px rgba(79, 70, 229, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.9);
         }
 
         .table-3d {
             border: 1px solid #cbd5e1;
             border-bottom: 2px solid #94a3b8;
-            box-shadow: 0 4px 8px -2px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.6);
-            position: relative;
-            z-index: 10;
             background-color: #ffffff;
-        }
-
-        #cloudContainer {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
-        }
-
-        .bg-cloud {
-            position: absolute;
-            background: linear-gradient(180deg, #ffffff 0%, #e2e8f0 100%);
-            border-radius: 100px;
-            filter: drop-shadow(0 15px 20px rgba(15, 23, 42, 0.18));
-            opacity: 0.92;
-            animation: driftCloud linear infinite;
-        }
-
-        .cloud-1 { width: 360px; height: 110px; top: 8vh; left: -400px; animation-duration: 75s; }
-        .cloud-2 { width: 480px; height: 130px; top: 35vh; left: -550px; animation-duration: 95s; animation-delay: -25s; }
-        .cloud-3 { width: 310px; height: 95px; top: 68vh; left: -350px; animation-duration: 65s; animation-delay: -40s; }
-        .cloud-4 { width: 400px; height: 115px; top: 82vh; left: -450px; animation-duration: 80s; animation-delay: -10s; }
-
-        @keyframes driftCloud {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(calc(100vw + 700px)); }
-        }
-
-        #freeFlightPlane {
-            position: absolute;
-            top: 0; left: 0;
-            width: clamp(55px, 8vw, 100px);
-            height: clamp(55px, 8vw, 100px);
-            pointer-events: none;
-            z-index: 40;
-            will-change: transform;
-            filter: drop-shadow(0 16px 14px rgba(15, 23, 42, 0.45));
         }
 
         .chart-container-wrapper {
@@ -192,13 +110,13 @@
 
     <!-- PAGE ACCESS OVERLAY -->
     <div id="pageAccessAuthOverlay" class="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/80 p-4 transition-all duration-500 overflow-y-auto">
-        <!-- Solid Card Component Matching Page Aesthetic -->
         <div class="w-full max-w-md bg-white rounded-xl card-3d p-6 sm:p-8 space-y-5 my-auto">
             
-            <!-- Sabre Logo Header -->
+            <!-- Sabre Logo Banner -->
             <div class="flex justify-center">
                 <div class="sabre-3d-banner px-8 py-3.5 rounded-xl flex items-center justify-center w-full">
-                    <img src="SABRE-LOGO-REGISTERED-SCREEN-WHITE-WIP.svg" alt="Sabre Logo" class="h-8 sm:h-9 w-auto object-contain" />
+                    <img src="SABRE-LOGO-REGISTERED-SCREEN-WHITE-WIP.svg" alt="Sabre Logo" class="h-8 sm:h-9 w-auto object-contain" onError="this.style.display='none'; document.getElementById('sabreTextFallback').classList.remove('hidden');" />
+                    <span id="sabreTextFallback" class="hidden text-white font-orbitron font-extrabold text-xl tracking-widest">SABRE</span>
                 </div>
             </div>
 
@@ -212,16 +130,16 @@
                 </div>
 
                 <form onsubmit="handlePortalLogin(event)" class="space-y-3 pt-1">
-                    <!-- Employee ID Field with Permanent User Icon -->
+                    <!-- Employee ID Field with Permanent Icon -->
                     <div>
                         <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
                             Employee ID
                         </label>
                         <div class="relative flex items-center">
                             <span class="absolute left-3 text-indigo-600 flex items-center pointer-events-none">
-                                <i data-lucide="user" class="w-4 h-4"></i>
+                                <i data-lucide="id-card" class="w-4 h-4"></i>
                             </span>
-                            <input type="text" id="portalEmpId" required placeholder="e.g. 316092" class="w-full bg-slate-50 border border-slate-300 rounded-lg pl-9 pr-3.5 py-2.5 text-xs sm:text-sm font-semibold text-slate-900 placeholder-slate-400 focus:outline-none input-3d">
+                            <input type="text" id="portalEmpId" required placeholder="e.g. 123456" class="w-full bg-slate-50 border border-slate-300 rounded-lg pl-9 pr-3.5 py-2.5 text-xs sm:text-sm font-semibold text-slate-900 placeholder-slate-400 focus:outline-none input-3d">
                         </div>
                     </div>
 
@@ -248,7 +166,7 @@
                 </form>
 
                 <div class="text-center pt-2 border-t border-slate-200">
-                    <button onclick="showForgotPasswordView()" class="text-xs text-indigo-600 hover:text-indigo-800 font-bold hover:underline">
+                    <button type="button" onclick="showForgotPasswordView()" class="text-xs text-indigo-600 hover:text-indigo-800 font-bold hover:underline">
                         Forgot password?
                     </button>
                 </div>
@@ -263,7 +181,6 @@
                     </h2>
                 </div>
 
-                <!-- On-Screen Password Criteria Box -->
                 <div class="bg-indigo-50/80 p-3 rounded-lg border border-indigo-200 space-y-1 text-[11px] text-indigo-950 font-medium">
                     <p class="font-bold flex items-center gap-1 text-indigo-900">
                         <i data-lucide="info" class="w-3.5 h-3.5 text-indigo-600"></i> Password Rules:
@@ -272,7 +189,7 @@
                         <li>Must be <strong>exactly 8 Characters</strong> long</li>
                         <li>Case sensitive (Uppercase & Lowercase letters)</li>
                         <li>Must contain <strong>letters and numbers only</strong></li>
-                        <li>Saved in the cloud & valid for <strong>90 Days</strong></li>
+                        <li>Valid for <strong>90 Days</strong> before renewal</li>
                     </ul>
                 </div>
 
@@ -302,7 +219,7 @@
                     </div>
 
                     <button type="submit" id="savePasswordBtn" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold rounded-lg text-xs btn-3d transition-all flex items-center justify-center gap-1.5 shadow-md shadow-emerald-100">
-                        <i data-lucide="cloud" class="w-3.5 h-3.5"></i> Save Cloud Password & Continue
+                        <i data-lucide="check-circle" class="w-3.5 h-3.5"></i> Save Password & Continue
                     </button>
                 </form>
             </div>
@@ -323,9 +240,9 @@
                         </label>
                         <div class="relative flex items-center">
                             <span class="absolute left-3 text-indigo-600 flex items-center pointer-events-none">
-                                <i data-lucide="user" class="w-4 h-4"></i>
+                                <i data-lucide="id-card" class="w-4 h-4"></i>
                             </span>
-                            <input type="text" id="forgotEmpId" required placeholder="e.g. 316092" class="w-full bg-slate-50 border border-slate-300 rounded-lg pl-9 pr-3.5 py-2 text-xs font-semibold text-slate-900 focus:outline-none input-3d">
+                            <input type="text" id="forgotEmpId" required placeholder="e.g. 123456" class="w-full bg-slate-50 border border-slate-300 rounded-lg pl-9 pr-3.5 py-2 text-xs font-semibold text-slate-900 focus:outline-none input-3d">
                         </div>
                     </div>
 
@@ -337,7 +254,7 @@
                 </form>
 
                 <div class="text-center pt-2 border-t border-slate-200">
-                    <button onclick="showLoginView()" class="text-xs text-slate-600 hover:text-slate-900 font-bold hover:underline">
+                    <button type="button" onclick="showLoginView()" class="text-xs text-slate-600 hover:text-slate-900 font-bold hover:underline">
                         Back to Login
                     </button>
                 </div>
@@ -348,48 +265,6 @@
 
     <!-- MAIN PAGE CONTAINER -->
     <div id="blurredPageWrapper" class="filter blur-xl pointer-events-none transition-all duration-500 min-h-screen flex flex-col w-full">
-
-        <div id="freeFlightPlane">
-            <svg viewBox="0 0 200 200" width="100%" height="100%">
-                <defs>
-                    <linearGradient id="aaFuselageGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stop-color="#dbe1e8"/>
-                        <stop offset="25%" stop-color="#ffffff"/>
-                        <stop offset="60%" stop-color="#f8fafc"/>
-                        <stop offset="85%" stop-color="#cbd5e1"/>
-                        <stop offset="100%" stop-color="#94a3b8"/>
-                    </linearGradient>
-                    <linearGradient id="aaWingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#e2e8f0"/>
-                        <stop offset="50%" stop-color="#cbd5e1"/>
-                        <stop offset="100%" stop-color="#64748b"/>
-                    </linearGradient>
-                    <linearGradient id="aaEngineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" stop-color="#475569"/>
-                        <stop offset="50%" stop-color="#1e293b"/>
-                        <stop offset="100%" stop-color="#0f172a"/>
-                    </linearGradient>
-                    <filter id="planeShadow" x="-20%" y="-20%" width="140%" height="140%">
-                        <feDropShadow dx="0" dy="12" stdDeviation="6" flood-color="#020617" flood-opacity="0.35"/>
-                    </filter>
-                </defs>
-                <g filter="url(#planeShadow)">
-                    <rect x="52" y="112" width="10" height="24" rx="5" fill="url(#aaEngineGrad)"/>
-                    <rect x="138" y="112" width="10" height="24" rx="5" fill="url(#aaEngineGrad)"/>
-                    <path d="M 94,85 L 12,132 C 8,134 10,139 16,139 L 40,138 L 95,110 Z" fill="url(#aaWingGrad)"/>
-                    <path d="M 106,85 L 188,132 C 192,134 190,139 184,139 L 160,138 L 105,110 Z" fill="url(#aaWingGrad)"/>
-                    <path d="M 100,8 C 86,30 84,130 88,172 C 90,188 95,195 100,195 C 105,195 110,188 112,172 C 116,130 114,30 100,8 Z" fill="url(#aaFuselageGrad)"/>
-                </g>
-            </svg>
-        </div>
-
-        <div id="cloudContainer">
-            <div class="bg-cloud cloud-1"></div>
-            <div class="bg-cloud cloud-2"></div>
-            <div class="bg-cloud cloud-3"></div>
-            <div class="bg-cloud cloud-4"></div>
-        </div>
-
         <header class="bg-slate-900 text-white sticky top-0 z-50 border-b-2 border-slate-950 shadow-lg w-full relative">
             <div class="w-full px-4 sm:px-6 lg:px-12 h-16 flex items-center justify-between relative z-10">
                 <div class="flex items-center space-x-3 sm:space-x-4">
@@ -403,10 +278,6 @@
                         <div>
                             <div class="flex items-center gap-2">
                                 <h1 class="font-bold text-sm sm:text-lg leading-none tracking-tight">ATS BLR ROSTER PORTAL</h1>
-                                <span id="adminBadge" class="hidden text-[10px] bg-rose-600 text-white font-extrabold px-1.5 py-0.5 rounded tracking-wide uppercase">Admin Mode</span>
-                                <span id="resetAlertBadge" class="hidden text-[10px] bg-amber-500 text-slate-950 font-extrabold px-1.5 py-0.5 rounded tracking-wide animate-pulse">
-                                    <i data-lucide="bell" class="inline w-3 h-3"></i> Resets Pending
-                                </span>
                             </div>
                             <span id="portalSubhead" class="text-[10px] sm:text-xs text-slate-400 block mt-0.5">Live Interactive Schedule</span>
                         </div>
@@ -517,80 +388,20 @@
         const NINETY_DAYS_MS = 90 * 24 * 60 * 60 * 1000;
         let pendingAuthEmpId = null;
 
-        // Global Cloud Credentials Cache
-        let globalCloudUsers = {};
+        // Master Employee Roster Listing
+        const MASTER_EMPLOYEE_IDS = ["316092", "223254", "223258", "709139", "223255", "227186", "709454", "709282", "709424", "709283", "709115", "709312"];
 
-        function fetchCloudCredentials() {
-            // Checks for global user records attached to roster payload or GitHub repo
-            if (rawRosterData && rawRosterData._globalUsers) {
-                globalCloudUsers = rawRosterData._globalUsers;
-            }
-        }
-
-        async function savePasswordToCloud(empId, password) {
-            globalCloudUsers[empId] = {
-                password: password,
-                createdAt: new Date().getTime()
-            };
-
-            // Store in central master payload
-            if (Array.isArray(rawRosterData)) {
-                rawRosterData._globalUsers = globalCloudUsers;
-            }
-
-            // Sync with GitHub Repository Cloud Storage if PAT is configured
-            const savedToken = localStorage.getItem('gh_pat_token');
-            const savedOwner = localStorage.getItem('gh_owner');
-            const savedRepo = localStorage.getItem('gh_repo');
-
-            if (savedToken && savedOwner && savedRepo) {
-                try {
-                    const url = `https://api.github.com/repos/${savedOwner}/${savedRepo}/contents/roster.json`;
-                    const getRes = await fetch(url, { headers: { 'Authorization': `token ${savedToken}` } });
-                    let sha = getRes.ok ? (await getRes.json()).sha : '';
-
-                    const jsonContent = JSON.stringify(rawRosterData, null, 2);
-                    const encodedContent = btoa(unescape(encodeURIComponent(jsonContent)));
-
-                    await fetch(url, {
-                        method: 'PUT',
-                        headers: {
-                            'Authorization': `token ${savedToken}`,
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            message: `Cloud Password Sync - Employee ID: ${empId}`,
-                            content: encodedContent,
-                            sha: sha || undefined
-                        })
-                    });
-                } catch(e) {
-                    console.error("Cloud repo sync warning:", e);
-                }
-            }
-
-            // Backup copy in local storage
-            localStorage.setItem(`roster_user_pwd_${empId}`, JSON.stringify(globalCloudUsers[empId]));
-        }
-
-        function getUserPasswordData(empId) {
-            fetchCloudCredentials();
-            if (globalCloudUsers[empId]) {
-                return globalCloudUsers[empId];
-            }
-            const stored = localStorage.getItem(`roster_user_pwd_${empId}`);
-            if (stored) {
-                try { return JSON.parse(stored); } catch(e) { return null; }
-            }
-            return null;
-        }
+        let rawRosterData = [];
+        let activeCategory = 'weekly';
+        let currentMonth = "September";
+        let currentWeekNum = 1;
 
         function showLoginView() {
             document.getElementById('loginFormContainer').classList.remove('hidden');
             document.getElementById('changePasswordContainer').classList.add('hidden');
             document.getElementById('forgotPasswordContainer').classList.add('hidden');
             document.getElementById('portalLoginError').classList.add('hidden');
-            lucide.createIcons();
+            if (window.lucide) lucide.createIcons();
         }
 
         function showForgotPasswordView() {
@@ -598,26 +409,27 @@
             document.getElementById('changePasswordContainer').classList.add('hidden');
             document.getElementById('forgotPasswordContainer').classList.remove('hidden');
             document.getElementById('forgotStatusMessage').classList.add('hidden');
-            lucide.createIcons();
+            if (window.lucide) lucide.createIcons();
         }
 
-        function getAllValidEmployeeIds() {
-            const validIds = new Set();
-            if (Array.isArray(rawRosterData)) {
-                rawRosterData.forEach(week => {
-                    if (Array.isArray(week.employees)) {
-                        week.employees.forEach(emp => {
-                            if (emp.sg_id) validIds.add(String(emp.sg_id).trim());
-                        });
-                    }
-                });
+        function getUserPasswordData(empId) {
+            const stored = localStorage.getItem(`roster_user_pwd_${empId}`);
+            if (stored) {
+                try { return JSON.parse(stored); } catch(e) { return null; }
             }
-            return validIds;
+            return null;
+        }
+
+        function setUserPasswordData(empId, password) {
+            const data = {
+                password: password,
+                createdAt: new Date().getTime()
+            };
+            localStorage.setItem(`roster_user_pwd_${empId}`, JSON.stringify(data));
         }
 
         function validatePasswordCriteria(pwd) {
             if (pwd.length !== 8) return false;
-            // Letters and numbers only, case-sensitive
             const isAlphanumeric = /^[A-Za-z0-9]{8}$/.test(pwd);
             const hasLetter = /[A-Za-z]/.test(pwd);
             const hasNum = /[0-9]/.test(pwd);
@@ -630,22 +442,25 @@
             const password = document.getElementById('portalPassword').value.trim();
             const errorEl = document.getElementById('portalLoginError');
 
-            const validIds = getAllValidEmployeeIds();
-            if (!validIds.has(empId)) {
+            // Verify if ID belongs to roster
+            const isValidId = MASTER_EMPLOYEE_IDS.includes(empId);
+            if (!isValidId) {
                 errorEl.innerText = "Access Denied: Unrecognized Employee ID.";
                 errorEl.classList.remove('hidden');
+                return;
+            }
+
+            // GUARANTEED: Direct check for Temporary Password 3E4R5T6Y
+            if (password === TEMP_PASSWORD) {
+                promptPasswordChange(empId, "Initial Login with Temporary Password");
                 return;
             }
 
             const pwdData = getUserPasswordData(empId);
 
             if (!pwdData) {
-                if (password === TEMP_PASSWORD) {
-                    promptPasswordChange(empId, "Initial Login with Temporary Password");
-                } else {
-                    errorEl.innerText = "Invalid Password. First time user? Use temporary password (3E4R5T6Y).";
-                    errorEl.classList.remove('hidden');
-                }
+                errorEl.innerText = "Invalid Password. First time user? Enter temporary password (3E4R5T6Y).";
+                errorEl.classList.remove('hidden');
             } else {
                 const now = new Date().getTime();
                 const isExpired = (now - pwdData.createdAt) > NINETY_DAYS_MS;
@@ -656,8 +471,6 @@
                     } else {
                         grantPortalAccess();
                     }
-                } else if (password === TEMP_PASSWORD) {
-                    promptPasswordChange(empId, "Reset via Temporary Password");
                 } else {
                     errorEl.innerText = "Invalid Password. Please check case sensitivity.";
                     errorEl.classList.remove('hidden');
@@ -672,15 +485,14 @@
             document.getElementById('changePasswordContainer').classList.remove('hidden');
             document.getElementById('passwordReasonBadge').innerText = reason;
             document.getElementById('passwordChangeError').classList.add('hidden');
-            lucide.createIcons();
+            if (window.lucide) lucide.createIcons();
         }
 
-        async function handlePasswordChange(e) {
+        function handlePasswordChange(e) {
             e.preventDefault();
             const newPwd = document.getElementById('newPassword').value.trim();
             const confirmPwd = document.getElementById('confirmPassword').value.trim();
             const errorEl = document.getElementById('passwordChangeError');
-            const saveBtn = document.getElementById('savePasswordBtn');
 
             if (newPwd !== confirmPwd) {
                 errorEl.innerText = "Error: Passwords do not match.";
@@ -689,7 +501,7 @@
             }
 
             if (!validatePasswordCriteria(newPwd)) {
-                errorEl.innerText = "Password must be exactly 8 characters with letters and numbers only.";
+                errorEl.innerText = "Password must be exactly 8 characters containing letters and numbers only.";
                 errorEl.classList.remove('hidden');
                 return;
             }
@@ -700,8 +512,7 @@
                 return;
             }
 
-            saveBtn.innerText = "Saving Cloud Password...";
-            await savePasswordToCloud(pendingAuthEmpId, newPwd);
+            setUserPasswordData(pendingAuthEmpId, newPwd);
             grantPortalAccess();
         }
 
@@ -709,28 +520,19 @@
             e.preventDefault();
             const empId = document.getElementById('forgotEmpId').value.trim();
             const statusEl = document.getElementById('forgotStatusMessage');
-            const validIds = getAllValidEmployeeIds();
 
-            if (!validIds.has(empId)) {
+            if (!MASTER_EMPLOYEE_IDS.includes(empId)) {
                 statusEl.innerText = "Employee ID not found in current roster database.";
                 statusEl.className = "text-xs font-bold text-center p-2.5 rounded-lg bg-rose-50 text-rose-600 border border-rose-200";
                 statusEl.classList.remove('hidden');
                 return;
             }
 
-            const pendingRequests = JSON.parse(localStorage.getItem('pending_reset_requests') || '[]');
-            if (!pendingRequests.includes(empId)) {
-                pendingRequests.push(empId);
-                localStorage.setItem('pending_reset_requests', JSON.stringify(pendingRequests));
-            }
-
             statusEl.innerText = "The request has been sent to the Admin user.";
             statusEl.className = "text-xs font-bold text-center p-2.5 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200 leading-relaxed";
             statusEl.classList.remove('hidden');
 
-            delete globalCloudUsers[empId];
             localStorage.removeItem(`roster_user_pwd_${empId}`);
-            document.getElementById('resetAlertBadge').classList.remove('hidden');
         }
 
         function grantPortalAccess() {
@@ -741,24 +543,8 @@
             setTimeout(() => { overlay.classList.add('hidden'); }, 500);
 
             pageWrapper.classList.remove('filter', 'blur-xl', 'pointer-events-none');
-            lucide.createIcons();
+            if (window.lucide) lucide.createIcons();
         }
-
-        // SABRE GLOBAL HOLIDAY DATA
-        const SABRE_2026_HOLIDAYS = [
-            { date: "2026-01-01", day: "Thursday", name: "New Year's Day", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
-            { date: "2026-01-26", day: "Monday", name: "Republic Day", offices: ["BLR"] },
-            { date: "2026-08-15", day: "Saturday", name: "Independence Day", offices: ["BLR"] },
-            { date: "2026-10-02", day: "Friday", name: "Gandhi Jayanti", offices: ["BLR"] },
-            { date: "2026-12-25", day: "Friday", name: "Christmas Day", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] }
-        ];
-
-        function getTodayFormatted() {
-            const today = new Date();
-            return `${String(today.getDate()).padStart(2, '0')}/${String(today.getMonth() + 1).padStart(2, '0')}/${String(today.getFullYear()).slice(-2)}`;
-        }
-
-        const TODAY_DATE_STR = getTodayFormatted();
 
         function update3DClocks() {
             const now = new Date();
@@ -777,18 +563,11 @@
             });
         }
 
-        function initFreeFlightPlane() {
-            const plane = document.getElementById('freeFlightPlane');
-            if (!plane) return;
-            let currentX = window.innerWidth * 0.1;
-            function animate() {
-                currentX += 0.4;
-                if(currentX > window.innerWidth) currentX = -100;
-                plane.style.transform = `translate3d(${currentX}px, ${window.innerHeight * 0.25}px, 0px)`;
-                requestAnimationFrame(animate);
-            }
-            animate();
-        }
+        document.addEventListener("DOMContentLoaded", () => {
+            if (window.lucide) lucide.createIcons();
+            update3DClocks();
+            setInterval(update3DClocks, 1000);
+        });
     </script>
 </body>
 </html>
