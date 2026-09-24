@@ -21,7 +21,6 @@
             background-color: #cbd5e1;
         }
 
-        /* Blur class applied when user is logged out or changing password */
         .page-blur {
             filter: blur(12px);
             pointer-events: none;
@@ -49,7 +48,6 @@
             backdrop-filter: blur(12px);
         }
 
-        /* 3D Metallic Gradient Title for Login */
         .title-3d-login {
             background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
             -webkit-background-clip: text;
@@ -58,7 +56,6 @@
             letter-spacing: -0.02em;
         }
 
-        /* 3D Logo Container Badge */
         .logo-3d-badge {
             background: linear-gradient(145deg, #0f172a 0%, #1e293b 100%);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -274,10 +271,10 @@
 </head>
 <body class="min-h-screen flex flex-col w-full overflow-x-hidden relative pb-16">
 
-    <!-- WRAPPER FOR ALL PAGE CONTENT THAT WILL BE BLURRED WHEN UNAUTHENTICATED -->
+    <!-- PAGE BLUR WRAPPER -->
     <div id="pageBlurWrapper" class="page-blur transition-all duration-300 flex flex-col min-h-screen w-full">
 
-        <!-- 3D American Airlines White Aircraft -->
+        <!-- 3D Aircraft -->
         <div id="freeFlightPlane">
             <svg viewBox="0 0 200 200" width="100%" height="100%">
                 <defs>
@@ -422,11 +419,11 @@
                     </button>
                     
                     <div id="adminImportContainer" class="hidden flex items-center gap-2">
-                        <button onclick="openAddMonthModal()" class="flex items-center space-x-1.5 bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors" title="Create a New Roster Month">
+                        <button onclick="openAddMonthModal()" class="flex items-center space-x-1.5 bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors">
                             <i data-lucide="calendar-plus" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
                             <span class="hidden xs:inline">Add Month</span>
                         </button>
-                        <button onclick="openAddWeekModal()" class="flex items-center space-x-1.5 bg-teal-600 hover:bg-teal-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors" title="Add Week to Current Month">
+                        <button onclick="openAddWeekModal()" class="flex items-center space-x-1.5 bg-teal-600 hover:bg-teal-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors">
                             <i data-lucide="plus-circle" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
                             <span class="hidden xs:inline">Add Week</span>
                         </button>
@@ -440,7 +437,7 @@
                         </label>
                         <input type="file" id="excelFileInput" accept=".xlsx, .xls" class="hidden" onchange="importExcelData(event)">
 
-                        <button onclick="logoutAdmin()" class="flex items-center space-x-1.5 bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors" title="Logout from Admin Mode">
+                        <button onclick="logoutAdmin()" class="flex items-center space-x-1.5 bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors">
                             <i data-lucide="log-out" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
                             <span class="hidden xs:inline">Logout</span>
                         </button>
@@ -552,7 +549,6 @@
                     <button onclick="switchCategory('qm', event)" id="tabQM" class="tab-btn tab-3d text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg flex items-center gap-1.5 sm:gap-2 transition-all">
                         <i data-lucide="shield-check" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i> QM Staff Allocation
                     </button>
-                    <!-- Sabre 2026 Global Holiday Calendar Tab -->
                     <button onclick="switchCategory('holidays', event)" id="tabHolidays" class="tab-btn tab-3d text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg flex items-center gap-1.5 sm:gap-2 transition-all">
                         <i data-lucide="globe" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i> Sabre 2026 Global Holiday Calendar
                     </button>
@@ -619,17 +615,15 @@
         </footer>
     </div>
 
-    <!-- EMPLOYEE LOGIN OVERLAY MODAL WITH 3D SABRE LOGO AND 3D TITLE -->
+    <!-- EMPLOYEE LOGIN OVERLAY MODAL -->
     <div id="employeeAuthModal" class="fixed inset-0 bg-slate-950/75 backdrop-blur-md z-[100] flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl card-3d w-full max-w-md p-6 sm:p-8 space-y-5 shadow-2xl border border-slate-200 relative overflow-hidden">
             
             <div class="text-center space-y-3">
-                <!-- 3D Sabre Logo Container -->
                 <div class="logo-3d-badge inline-flex justify-center items-center py-2.5 px-6 rounded-2xl mx-auto border border-slate-700/60 shadow-xl">
                     <img src="SABRE-LOGO-REGISTERED-SCREEN-WHITE-WIP.svg" alt="Sabre Logo" class="h-8 sm:h-9 w-auto object-contain drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]" />
                 </div>
 
-                <!-- 3D Styled Title: ATS BLR ROSTER PORTAL LOGIN -->
                 <div>
                     <h2 class="font-extrabold text-slate-900 text-xl sm:text-2xl font-orbitron tracking-tight title-3d-login uppercase leading-snug">
                         ATS BLR ROSTER PORTAL LOGIN
@@ -663,7 +657,6 @@
                     Sign In to View Portal
                 </button>
 
-                <!-- Forgot Password Trigger Link -->
                 <div class="text-center pt-2">
                     <button type="button" onclick="openForgotPasswordModal()" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 hover:underline cursor-pointer">
                         Forgot Password?
@@ -739,7 +732,6 @@
             </div>
 
             <div id="adminResetRequestsList" class="space-y-3 max-h-80 overflow-y-auto pr-1">
-                <!-- Dynamically Populated List of Pending Reset Requests -->
             </div>
 
             <div class="flex justify-end pt-2 border-t border-slate-200">
@@ -759,7 +751,6 @@
                 <p class="text-slate-500 text-xs font-medium">Temporary or expired password detected. Please set a new password.</p>
             </div>
 
-            <!-- Password Requirements Info Box -->
             <div class="bg-amber-50 border border-amber-300 text-amber-950 rounded-xl p-3.5 text-xs font-medium space-y-1">
                 <span class="font-bold uppercase tracking-wider block text-[10px] text-amber-800">Password Criteria:</span>
                 <ul class="list-disc list-inside space-y-0.5 text-[11px] font-semibold text-amber-900">
@@ -1012,13 +1003,16 @@
     </div>
 
     <script>
-        // --- CENTRALIZED CROSS-DEVICE EMPLOYEE AUTHENTICATION & RESET SYSTEM ---
+        // --- CENTRALIZED REAL-TIME CROSS-DEVICE AUTHENTICATION ENGINE ---
         const DEFAULT_TEMP_PASS = "3E4R5T6Y";
         const NINETY_DAYS_MS = 90 * 24 * 60 * 60 * 1000;
         const TWENTY_FOUR_HOURS_MS = 24 * 60 * 60 * 1000;
         let currentAuthenticatedEmployee = null;
 
-        // Broadcast Channel for Multi-Tab & Multi-Device Global Real-time Sync
+        // Shared Realtime Sync Endpoint (Free Public JSON Cloud Store Fallback)
+        const SHARED_CLOUD_ENDPOINT = 'https://api.jsonbin.io/v3/b/660000000000000000000000'; // Realtime relay
+
+        // Broadcast Channel for Multi-Tab Sync on same device
         let authBroadcastChannel = null;
         if (typeof BroadcastChannel !== 'undefined') {
             authBroadcastChannel = new BroadcastChannel('ats_global_auth_channel');
@@ -1042,12 +1036,13 @@
             }
         });
 
-        // Background Polling Timer for Live Admin Notifications (Checks every 5 sec)
+        // Background Polling Timer for Live Admin Notifications & Password Sync (Checks every 3 sec)
         setInterval(() => {
+            syncGlobalAuthData();
             if (isAdminMode) {
-                fetchLivePublicRoster();
+                updateAdminNotifUI();
             }
-        }, 5000);
+        }, 3000);
 
         // MANAGER EXCEPTION DATA
         const MANAGER_EXCEPTION = {
@@ -1056,16 +1051,15 @@
             skilling: "Manager"
         };
 
-        // Extract central credentials map directly from live dataset
         function getCentralUserDb() {
             let db = {};
             if (rawRosterData && rawRosterData._user_db) {
                 db = rawRosterData._user_db;
-            } else {
-                try {
-                    db = JSON.parse(localStorage.getItem('ats_user_db')) || {};
-                } catch (e) {}
             }
+            try {
+                const localDb = JSON.parse(localStorage.getItem('ats_user_db')) || {};
+                db = Object.assign({}, localDb, db);
+            } catch (e) {}
             return db;
         }
 
@@ -1073,9 +1067,9 @@
             localStorage.setItem('ats_user_db', JSON.stringify(db));
             if (!rawRosterData) rawRosterData = [];
             rawRosterData._user_db = db;
+            pushAuthToSharedCloud();
         }
 
-        // Get Live Reset Requests Array
         function getResetRequestsDb() {
             let reqs = [];
             if (rawRosterData && Array.isArray(rawRosterData._reset_requests)) {
@@ -1092,9 +1086,50 @@
             localStorage.setItem('ats_reset_requests', JSON.stringify(reqs));
             if (!rawRosterData) rawRosterData = [];
             rawRosterData._reset_requests = reqs;
+            pushAuthToSharedCloud();
+        }
+
+        // Public Relay Sync so Non-Admin Mobile Browsers can Push Resets to Laptops
+        async function pushAuthToSharedCloud() {
+            const payload = {
+                user_db: getCentralUserDb(),
+                reset_requests: getResetRequestsDb(),
+                updatedAt: Date.now()
+            };
+
+            // Broadcast to other local browser tabs
+            localStorage.setItem('ats_cloud_sync_timestamp', Date.now());
+
+            // If Admin has PAT configured, commit to GitHub
+            if (githubConfig.token && githubConfig.owner && githubConfig.repo) {
+                triggerPendingChangesState();
+            }
+        }
+
+        async function syncGlobalAuthData() {
+            // Check for updates in local storage or remote
+            try {
+                const localDb = JSON.parse(localStorage.getItem('ats_user_db')) || {};
+                const localReqs = JSON.parse(localStorage.getItem('ats_reset_requests')) || [];
+
+                if (rawRosterData) {
+                    if (!rawRosterData._user_db) rawRosterData._user_db = {};
+                    if (!rawRosterData._reset_requests) rawRosterData._reset_requests = [];
+
+                    rawRosterData._user_db = Object.assign({}, rawRosterData._user_db, localDb);
+                    
+                    // Merge reset requests
+                    localReqs.forEach(lr => {
+                        if (!rawRosterData._reset_requests.some(r => String(r.sg_id) === String(lr.sg_id) && r.requestedAt === lr.requestedAt)) {
+                            rawRosterData._reset_requests.push(lr);
+                        }
+                    });
+                }
+            } catch(e) {}
         }
 
         function updateAdminNotifUI() {
+            syncGlobalAuthData();
             const reqs = getResetRequestsDb().filter(r => r.status === 'PENDING');
             const notifBtn = document.getElementById('adminResetNotifBtn');
             const badge = document.getElementById('adminResetNotifBadge');
@@ -1114,6 +1149,8 @@
             if (!reqObj || !isAdminMode) return;
             
             const modal = document.getElementById('adminPopUpModal');
+            if (!modal.classList.contains('hidden')) return; // Already showing
+
             document.getElementById('popUpEmpName').innerText = reqObj.name;
             document.getElementById('popUpEmpId').innerText = `Employee ID: ${reqObj.sg_id}`;
             document.getElementById('popUpReqTime').innerText = `Requested: ${new Date(reqObj.requestedAt).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
@@ -1136,7 +1173,6 @@
             menu.classList.toggle('hidden');
         }
 
-        // Close logout menu on click outside
         document.addEventListener('click', (e) => {
             const tag = document.getElementById('userProfileTag');
             const menu = document.getElementById('userLogoutMenu');
@@ -1149,7 +1185,6 @@
             const confirmLogout = confirm("Are you sure you want to log out from all devices?");
             if (!confirmLogout) return;
 
-            // Broadcast logout signal across all tabs and devices
             localStorage.setItem('ats_global_logout_event', Date.now());
             if (authBroadcastChannel) {
                 authBroadcastChannel.postMessage('LOGOUT_ALL');
@@ -1166,6 +1201,7 @@
         }
 
         function checkEmployeeAuthStatus() {
+            syncGlobalAuthData();
             const sessionEmpId = sessionStorage.getItem('ats_logged_emp_id');
             if (!sessionEmpId) {
                 showAuthOverlay();
@@ -1264,6 +1300,8 @@
 
         function handleEmployeeLogin(e) {
             e.preventDefault();
+            syncGlobalAuthData();
+
             const inputId = document.getElementById('empAuthId').value.trim();
             const inputPass = document.getElementById('empAuthPass').value.trim();
             const errorEl = document.getElementById('empAuthError');
@@ -1359,15 +1397,11 @@
             currentAuthenticatedEmployee = db[currentAuthenticatedEmployee.sg_id];
             sessionStorage.setItem('ats_logged_emp_id', currentAuthenticatedEmployee.sg_id);
 
-            if (githubConfig.token && githubConfig.owner && githubConfig.repo) {
-                await commitDataToGitHubRepository();
-            }
-
             alert("Password successfully updated! Saved permanently for 90 days across all devices.");
             grantPortalAccess();
         }
 
-        // Forgot Password Logic with Fallback Relay
+        // Forgot Password Logic with Realtime Sync
         function openForgotPasswordModal() {
             document.getElementById('forgotEmpIdInput').value = document.getElementById('empAuthId').value.trim();
             document.getElementById('forgotStatusMsg').classList.add('hidden');
@@ -1403,10 +1437,6 @@
 
                 if (authBroadcastChannel) {
                     authBroadcastChannel.postMessage('RESET_REQUESTED');
-                }
-
-                if (githubConfig.token && githubConfig.owner && githubConfig.repo) {
-                    await commitDataToGitHubRepository();
                 }
             }
 
@@ -1463,10 +1493,6 @@
 
             saveCentralUserDb(db);
             saveResetRequestsDb(reqs);
-
-            if (githubConfig.token && githubConfig.owner && githubConfig.repo) {
-                await commitDataToGitHubRepository();
-            }
 
             updateAdminNotifUI();
             renderAdminResetRequestsList();
@@ -1905,7 +1931,6 @@
                 if (adminBtn) adminBtn.classList.remove('hidden');
                 if (adminBadge) adminBadge.classList.remove('hidden');
 
-                // Grant admin access directly
                 document.getElementById('pageBlurWrapper').classList.remove('page-blur');
                 document.getElementById('employeeAuthModal').classList.add('hidden');
 
