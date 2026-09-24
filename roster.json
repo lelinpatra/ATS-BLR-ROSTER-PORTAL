@@ -703,7 +703,7 @@
         "shifts": {
           "Monday": "08:00 AM - 05:00 PM",
           "Tuesday": "08:00 AM - 05:00 PM",
-          "Wednesday": "08:00 AM - 05:00 PM",
+          "Wednesday": "PTO",
           "Thursday": "08:00 AM - 05:00 PM",
           "Friday": "08:00 AM - 05:00 PM",
           "Saturday": "WO",
@@ -784,7 +784,7 @@
     "total_headcount_8am": [
       2,
       2,
-      2,
+      1,
       2,
       2,
       0,
