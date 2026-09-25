@@ -1,0 +1,24 @@
+name: Update User Auth JSON
+
+on:
+  repository_dispatch:
+    types: [update-password]
+
+jobs:
+  update-file:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Update user_auth.json
+        run: |
+          echo '${{ github.event.client_payload.db }}' > user_auth.json
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "Roster Auth Bot"
+          git config --global user.email "auth-bot@github.com"
+          git add user_auth.json
+          git commit -m "Auto-update employee password"
+          git push
