@@ -32,14 +32,14 @@
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
         .card-3d {
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.5);
             border-bottom: 3px solid #94a3b8;
-            box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.95);
             position: relative;
             z-index: 10;
-            background-color: rgba(255, 255, 255, 0.82);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            background-color: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
         }
 
         .text-3d-portal {
@@ -161,10 +161,11 @@
             box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08);
         }
 
+        /* ENHANCED HEAVY BLUR OVERLAY */
         .glass-overlay {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            background: rgba(15, 23, 42, 0.55);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
         }
 
         #cloudContainer {
@@ -265,11 +266,11 @@
 </head>
 <body class="min-h-screen flex flex-col w-full overflow-x-hidden relative pb-16">
 
-    <!-- ================= EMPLOYEE AUTHENTICATION OVERLAY ================= -->
+    <!-- ================= EMPLOYEE AUTHENTICATION OVERLAY (HEAVY FROSTED GLASS) ================= -->
     <div id="empAuthOverlay" class="fixed inset-0 glass-overlay z-[100] flex items-center justify-center p-4">
         
         <!-- STEP 1: Employee Login Screen -->
-        <div id="empLoginCard" class="bg-white/85 rounded-2xl card-3d w-full max-w-md overflow-hidden shadow-2xl border border-white/60">
+        <div id="empLoginCard" class="bg-white/90 rounded-2xl card-3d w-full max-w-md overflow-hidden shadow-2xl border border-white/70">
             <div class="bg-slate-950/90 px-6 py-4 flex justify-center items-center border-b border-slate-800">
                 <img src="SABRE-LOGO-REGISTERED-SCREEN-WHITE-WIP.svg" alt="Sabre Logo" class="h-8 sm:h-9 w-auto object-contain" />
             </div>
@@ -315,7 +316,7 @@
         </div>
 
         <!-- STEP 1.5: Forgot Password Screen -->
-        <div id="empForgotPassCard" class="bg-white/85 rounded-2xl card-3d w-full max-w-md overflow-hidden shadow-2xl hidden border border-white/60">
+        <div id="empForgotPassCard" class="bg-white/90 rounded-2xl card-3d w-full max-w-md overflow-hidden shadow-2xl hidden border border-white/70">
             <div class="bg-slate-950/90 px-6 py-4 flex justify-center items-center border-b border-slate-800">
                 <img src="SABRE-LOGO-REGISTERED-SCREEN-WHITE-WIP.svg" alt="Sabre Logo" class="h-8 sm:h-9 w-auto object-contain" />
             </div>
@@ -353,7 +354,7 @@
         </div>
 
         <!-- STEP 2: Password Change Screen -->
-        <div id="empChangePassCard" class="bg-white/85 rounded-2xl card-3d w-full max-w-md p-6 space-y-4 shadow-2xl hidden border border-white/60">
+        <div id="empChangePassCard" class="bg-white/90 rounded-2xl card-3d w-full max-w-md p-6 space-y-4 shadow-2xl hidden border border-white/70">
             <div class="text-center space-y-1.5">
                 <div class="w-12 h-12 rounded-xl bg-amber-500 text-white flex items-center justify-center mx-auto btn-3d shadow-md">
                     <i data-lucide="lock" class="w-6 h-6"></i>
@@ -362,7 +363,7 @@
                 <p id="passChangeReason" class="text-slate-600 text-xs font-semibold">Set a permanent password for your employee account.</p>
             </div>
 
-            <div class="bg-white/60 p-3 rounded-xl border border-slate-200/80 space-y-1.5 text-xs">
+            <div class="bg-white/70 p-3 rounded-xl border border-slate-200/80 space-y-1.5 text-xs">
                 <span class="font-bold text-slate-800 block text-[11px] uppercase tracking-wider">Password Requirements:</span>
                 <ul class="space-y-1 text-slate-600 text-[11px]">
                     <li id="ruleLength" class="flex items-center gap-2 text-slate-500 font-medium">
@@ -403,6 +404,42 @@
 
     </div>
     <!-- ================= END AUTHENTICATION OVERLAY ================= -->
+
+    <!-- ================= ADMIN APPROVAL POP-UP MODAL ================= -->
+    <div id="adminApprovalModal" class="fixed inset-0 glass-overlay z-[110] flex items-center justify-center p-4 hidden transition-all duration-300">
+        <div class="bg-white/95 rounded-2xl card-3d w-full max-w-lg p-6 space-y-5 shadow-2xl border border-white/80">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center btn-3d shadow-md">
+                        <i data-lucide="shield-alert" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-extrabold text-slate-900 text-base">Pending Password Requests</h3>
+                        <p class="text-slate-500 text-xs">Approve new passwords to commit permanently to GitHub.</p>
+                    </div>
+                </div>
+                <button onclick="closeAdminApprovalModal()" class="text-slate-400 hover:text-slate-600">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <div id="pendingRequestsContainer" class="space-y-3 max-h-60 overflow-y-auto pr-1">
+                <!-- Request items injected dynamically -->
+            </div>
+
+            <div class="pt-2 border-t border-slate-200">
+                <label class="block text-[11px] font-bold text-slate-700 mb-1">Admin Personal Access Token (PAT)</label>
+                <input type="password" id="adminApprovalPatToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs font-semibold focus:ring-2 focus:ring-amber-500 input-3d">
+                <span class="text-[10px] text-slate-500 block mt-0.5">Required to approve and write changes to GitHub repository.</span>
+            </div>
+
+            <div class="flex justify-end gap-2">
+                <button onclick="closeAdminApprovalModal()" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold rounded-lg text-xs btn-3d">
+                    Dismiss
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- 3D American Airlines White Aircraft -->
     <div id="freeFlightPlane">
@@ -715,15 +752,15 @@
         const TEMP_PASSWORD = "3E4R5T6Y";
         const PASSWORD_EXPIRY_DAYS = 90;
         const ADMIN_SG_ID = "316092";
+
         let githubRepoConfig = {
-            owner: 'lelinpatra',
-            repo: 'ATS-BLR-ROSTER-PORTAL', 
+            owner: 'lelinpatra',            // Replace with your GitHub Username
+            repo: 'ATS-BLR-ROSTER-PORTAL',  // Replace with your GitHub Repository Name
             path: 'user_auth.json'
         };
         let activeEmployeeAccount = null;
 
         // SESSION STRICT SECURITY ENFORCEMENT
-        // Use sessionStorage so refresh keeps you logged in, but closing the tab/browser or switching tabs logs you out.
         function getSessionData() {
             const data = sessionStorage.getItem('emp_active_session');
             return data ? JSON.parse(data) : null;
@@ -738,7 +775,7 @@
             activeEmployeeAccount = null;
         }
 
-        // Detect when user switches tabs or window loses focus -> instantly revoke session and lock screen
+        // Detect when user switches tabs or window loses focus -> instantly revoke session
         document.addEventListener('visibilitychange', () => {
             if (document.hidden) {
                 clearSessionData();
@@ -753,56 +790,29 @@
 
         // Fetch auth DB from user_auth.json or local fallback
         async function fetchAuthUserDatabase() {
+            let cloudDb = {};
             try {
                 const response = await fetch('./user_auth.json?v=' + new Date().getTime());
                 if (response.ok) {
-                    const cloudDb = await response.json();
-                    if (cloudDb && typeof cloudDb === 'object') {
-                        localStorage.setItem('emp_auth_database', JSON.stringify(cloudDb));
-                        return cloudDb;
-                    }
+                    cloudDb = await response.json();
                 }
-            } catch (err) {
-                console.log("Using local auth database fallback");
-            }
-            return getAuthUserDatabaseLocal();
+            } catch (err) {}
+
+            const localDb = JSON.parse(localStorage.getItem('emp_auth_database') || '{}');
+            const mergedDb = { ...cloudDb };
+
+            Object.keys(localDb).forEach(empId => {
+                if (empId !== 'pendingRequests' && (!mergedDb[empId] || (localDb[empId].lastPasswordChange > (mergedDb[empId].lastPasswordChange || 0)))) {
+                    mergedDb[empId] = localDb[empId];
+                }
+            });
+
+            localStorage.setItem('emp_auth_database', JSON.stringify(mergedDb));
+            return mergedDb;
         }
 
         function getAuthUserDatabaseLocal() {
-            const savedDb = localStorage.getItem('emp_auth_database');
-            return savedDb ? JSON.parse(savedDb) : {};
-        }
-
-        async function saveAuthUserDatabase(db) {
-            localStorage.setItem('emp_auth_database', JSON.stringify(db));
-            await syncAuthDbToCloud(db);
-        }
-
-        async function syncAuthDbToCloud(db) {
-            if (githubConfig.token && githubConfig.owner && githubConfig.repo) {
-                try {
-                    const { token, owner, repo } = githubConfig;
-                    const path = 'user_auth.json';
-                    const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
-
-                    const getRes = await fetch(url, { headers: { 'Authorization': `token ${token}` } });
-                    let sha = getRes.ok ? (await getRes.json()).sha : undefined;
-
-                    const encodedContent = btoa(unescape(encodeURIComponent(JSON.stringify(db, null, 2))));
-                    await fetch(url, {
-                        method: 'PUT',
-                        headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            message: `Update user authorization database directly to JSON file`,
-                            content: encodedContent,
-                            sha: sha
-                        })
-                    });
-                    console.log("Password updated directly onto cloud JSON file!");
-                } catch (e) {
-                    console.error("Cloud JSON auth sync error:", e);
-                }
-            }
+            return JSON.parse(localStorage.getItem('emp_auth_database') || '{}');
         }
 
         async function checkActiveEmployeeSession() {
@@ -824,6 +834,11 @@
                     document.getElementById('empAuthOverlay').classList.add('hidden');
                     document.getElementById('loggedInEmpName').innerText = session.name;
                     updateUserDropdownOptions();
+
+                    if (session.empId === ADMIN_SG_ID) {
+                        document.getElementById('adminBadge').classList.remove('hidden');
+                        checkPendingRequestsAndNotify();
+                    }
                     return;
                 }
             }
@@ -1054,17 +1069,31 @@
             }
 
             const db = getAuthUserDatabaseLocal();
-            const existingIsExcl = db[activeEmployeeAccount.empId] ? db[activeEmployeeAccount.empId].isExclusion : false;
+            const empId = activeEmployeeAccount.empId;
+            const empName = activeEmployeeAccount.name;
+            const existingIsExcl = db[empId] ? db[empId].isExclusion : false;
 
-            db[activeEmployeeAccount.empId] = {
-                name: activeEmployeeAccount.name,
+            db[empId] = {
+                name: empName,
                 password: newPass,
                 lastPasswordChange: Date.now(),
                 isExclusion: existingIsExcl
             };
 
-            await saveAuthUserDatabase(db);
-            completeLoginSession(activeEmployeeAccount.empId, activeEmployeeAccount.name);
+            // Save locally for immediate offline/local access
+            localStorage.setItem('emp_auth_database', JSON.stringify(db));
+
+            // Queue pending request for Admin Approval
+            let pendingRequests = JSON.parse(localStorage.getItem('pending_pass_requests') || '{}');
+            pendingRequests[empId] = {
+                name: empName,
+                requestedPassword: newPass,
+                requestedAt: Date.now()
+            };
+            localStorage.setItem('pending_pass_requests', JSON.stringify(pendingRequests));
+
+            completeLoginSession(empId, empName);
+            alert("Password set! Logged in on this device. Pending admin approval for global multi-device sync.");
         }
 
         function completeLoginSession(empId, name) {
@@ -1073,7 +1102,17 @@
             activeEmployeeAccount = session;
 
             document.getElementById('empAuthOverlay').classList.add('hidden');
-            document.getElementById('loggedInEmpName').innerText = name;
+            document.getElementById('empLoginCard').classList.add('hidden');
+            document.getElementById('empChangePassCard').classList.add('hidden');
+
+            const nameEl = document.getElementById('loggedInEmpName');
+            if (nameEl) nameEl.innerText = name;
+
+            if (empId === ADMIN_SG_ID) {
+                document.getElementById('adminBadge').classList.remove('hidden');
+                checkPendingRequestsAndNotify();
+            }
+
             updateUserDropdownOptions();
             renderView();
         }
@@ -1085,6 +1124,125 @@
             showLoginScreen();
             document.getElementById('empLoginId').value = '';
             document.getElementById('empLoginPassword').value = '';
+        }
+
+        // ================= ADMIN APPROVAL SYSTEM LOGIC =================
+        function checkPendingRequestsAndNotify() {
+            const pendingRequests = JSON.parse(localStorage.getItem('pending_pass_requests') || '{}');
+            const keys = Object.keys(pendingRequests);
+
+            if (keys.length === 0) return;
+
+            const container = document.getElementById('pendingRequestsContainer');
+            container.innerHTML = '';
+
+            keys.forEach(empId => {
+                const req = pendingRequests[empId];
+                const item = document.createElement('div');
+                item.className = "bg-slate-50 border border-slate-200 p-3 rounded-xl flex items-center justify-between text-xs";
+                item.innerHTML = `
+                    <div>
+                        <div class="font-extrabold text-slate-800">${req.name} (${empId})</div>
+                        <div class="text-[10px] text-slate-500">Requested Password: <span class="font-mono bg-amber-100 text-amber-900 px-1 py-0.5 rounded">${req.requestedPassword}</span></div>
+                    </div>
+                    <div class="flex gap-1.5">
+                        <button onclick="approvePasswordRequest('${empId}', '${req.requestedPassword}', '${req.name}')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold px-3 py-1.5 rounded-lg text-[11px] btn-3d">
+                            Approve
+                        </button>
+                        <button onclick="rejectPasswordRequest('${empId}')" class="bg-rose-100 hover:bg-rose-200 text-rose-700 font-bold px-2.5 py-1.5 rounded-lg text-[11px]">
+                            Reject
+                        </button>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+
+            document.getElementById('adminApprovalModal').classList.remove('hidden');
+            if (window.lucide) lucide.createIcons();
+        }
+
+        async function approvePasswordRequest(empId, newPass, name) {
+            const patToken = document.getElementById('adminApprovalPatToken').value.trim();
+
+            if (!patToken) {
+                alert("Please enter your GitHub Personal Access Token (PAT) below to approve and commit changes.");
+                return;
+            }
+
+            const db = getAuthUserDatabaseLocal();
+            db[empId] = {
+                name: name,
+                password: newPass,
+                lastPasswordChange: Date.now()
+            };
+
+            const isCommitted = await commitAuthDbToGitHub(db, patToken);
+
+            if (isCommitted) {
+                let pendingRequests = JSON.parse(localStorage.getItem('pending_pass_requests') || '{}');
+                delete pendingRequests[empId];
+                localStorage.setItem('pending_pass_requests', JSON.stringify(pendingRequests));
+
+                alert(`Approved! Password for ${name} (${empId}) is permanently committed to user_auth.json on GitHub.`);
+                checkPendingRequestsAndNotify();
+
+                if (Object.keys(pendingRequests).length === 0) {
+                    closeAdminApprovalModal();
+                }
+            }
+        }
+
+        function rejectPasswordRequest(empId) {
+            let pendingRequests = JSON.parse(localStorage.getItem('pending_pass_requests') || '{}');
+            delete pendingRequests[empId];
+            localStorage.setItem('pending_pass_requests', JSON.stringify(pendingRequests));
+            checkPendingRequestsAndNotify();
+
+            if (Object.keys(pendingRequests).length === 0) {
+                closeAdminApprovalModal();
+            }
+        }
+
+        async function commitAuthDbToGitHub(updatedDb, patToken) {
+            try {
+                const url = `https://api.github.com/repos/${githubRepoConfig.owner}/${githubRepoConfig.repo}/contents/${githubRepoConfig.path}`;
+
+                const getRes = await fetch(url, {
+                    headers: { 'Authorization': `token ${patToken}` }
+                });
+
+                let sha = getRes.ok ? (await getRes.json()).sha : undefined;
+
+                const jsonString = JSON.stringify(updatedDb, null, 2);
+                const encodedContent = btoa(unescape(encodeURIComponent(jsonString)));
+
+                const putRes = await fetch(url, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${patToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: `Admin approval: Updated password in user_auth.json`,
+                        content: encodedContent,
+                        sha: sha
+                    })
+                });
+
+                if (putRes.ok) {
+                    return true;
+                } else {
+                    alert("GitHub commit failed. Please check your PAT token permissions.");
+                    return false;
+                }
+            } catch (err) {
+                alert("Network error while connecting to GitHub.");
+                return false;
+            }
+        }
+
+        function closeAdminApprovalModal() {
+            document.getElementById('adminApprovalModal').classList.add('hidden');
         }
 
         // OFFICIAL COMPLETE SABRE 2026 GLOBAL HOLIDAY DATA
