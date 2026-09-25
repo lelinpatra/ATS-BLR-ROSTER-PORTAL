@@ -12,6 +12,11 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <!-- SheetJS (xlsx) for Excel Importing -->
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <!-- PDF.js for Client-Side PDF Parsing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;700;900&family=JetBrains+Mono:wght@500;700;800&display=swap');
         
@@ -240,6 +245,26 @@
             background-color: #fef3c7 !important;
         }
 
+        /* 3D Text Shadow Effect */
+        .text-3d-shadow {
+            text-shadow: 
+                0 1px 0 #cbd5e1,
+                0 2px 0 #94a3b8,
+                0 3px 0 #64748b,
+                0 4px 0 #475569,
+                0 5px 0 #334155,
+                0 6px 10px rgba(15, 23, 42, 0.4);
+        }
+
+        /* Pure Glass Clear White Overlay Window */
+        .glass-clear-white {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), inset 0 0 15px rgba(255, 255, 255, 0.6);
+        }
+
         @media (max-width: 640px) {
             .chart-container-wrapper {
                 height: 14rem;
@@ -248,6 +273,231 @@
     </style>
 </head>
 <body class="min-h-screen flex flex-col w-full overflow-x-hidden relative pb-16">
+
+    <!-- Glasslike Clear White Login Screen Overlay -->
+    <div id="mandatoryLoginModal" class="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/40 backdrop-blur-xl p-4 transition-all duration-500">
+        <div class="w-full max-w-md rounded-2xl glass-clear-white overflow-hidden shadow-2xl card-3d">
+            <!-- Sabre Logo Banner at Top with Black Background -->
+            <div class="bg-black py-6 px-8 flex justify-center items-center shadow-md border-b border-slate-800 w-full">
+                <img src="SABRE-LOGO-REGISTERED-SCREEN-WHITE-WIP.svg" alt="Sabre Logo" class="h-12 sm:h-14 w-auto object-contain">
+            </div>
+
+            <div class="p-8">
+                <!-- Portal Title with Bold 3D Shadow Effect -->
+                <h2 class="text-2xl sm:text-3xl font-black text-center text-slate-900 font-orbitron tracking-wider text-3d-shadow mb-6">
+                    ATS BLR ROSTER PORTAL
+                </h2>
+
+                <form onsubmit="handlePortalLogin(event)" class="space-y-5">
+                    <!-- Employee ID Box with Employee Photo/Icon on Left and Placeholder e.g. 316092 -->
+                    <div>
+                        <label class="block text-xs font-bold text-slate-800 uppercase tracking-wider mb-1.5">Employee ID (SG ID)</label>
+                        <div class="relative flex items-center rounded-xl border border-slate-300 bg-white/90 shadow-inner focus-within:ring-2 focus-within:ring-amber-500 focus-within:bg-white transition-all overflow-hidden">
+                            <div class="pl-3.5 pr-1 text-slate-500">
+                                <i data-lucide="user" class="w-5 h-5"></i>
+                            </div>
+                            <input type="text" id="loginEmpId" placeholder="e.g. 316092" required
+                                class="w-full bg-transparent px-3 py-3 text-sm font-semibold text-slate-900 placeholder-slate-400 focus:outline-none">
+                        </div>
+                    </div>
+
+                    <!-- Password Box with Key Icon on Left and Eye Icon (View/Hide) on Right -->
+                    <div>
+                        <label class="block text-xs font-bold text-slate-800 uppercase tracking-wider mb-1.5">Password</label>
+                        <div class="relative flex items-center rounded-xl border border-slate-300 bg-white/90 shadow-inner focus-within:ring-2 focus-within:ring-amber-500 focus-within:bg-white transition-all overflow-hidden">
+                            <div class="pl-3.5 pr-1 text-slate-500">
+                                <i data-lucide="key" class="w-5 h-5"></i>
+                            </div>
+                            <input type="password" id="loginPassword" placeholder="••••••••" required
+                                class="w-full bg-transparent px-3 py-3 text-sm font-semibold text-slate-900 placeholder-slate-400 focus:outline-none">
+                            <button type="button" onclick="togglePasswordVisibility('loginPassword', 'loginEyeIcon')" class="pr-3.5 pl-1 text-slate-400 hover:text-slate-700 transition-colors focus:outline-none" title="Show/Hide Password">
+                                <i id="loginEyeIcon" data-lucide="eye" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Error Message Banner -->
+                    <div id="portalLoginError" class="hidden text-rose-600 text-xs font-extrabold text-center bg-rose-100/90 border border-rose-300 rounded-lg py-2 px-3 shadow-sm">
+                        Access Denied: Only listed employees can log in.
+                    </div>
+
+                    <!-- Amber Color Access Portal Button -->
+                    <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-black text-sm py-3 rounded-xl transition-all shadow-lg btn-3d mt-2 uppercase tracking-wide">
+                        Access Portal
+                    </button>
+
+                    <!-- Forgot Password Button -->
+                    <div class="text-center pt-2">
+                        <button type="button" onclick="openForgotPasswordModal()" class="text-xs font-bold text-slate-700 hover:text-amber-600 transition-colors underline">
+                            Forgot Password?
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div id="forgotPasswordModal" class="fixed inset-0 z-[110] flex items-center justify-center bg-slate-900/60 backdrop-blur-md p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl card-3d space-y-4">
+            <div class="flex items-center justify-between border-b pb-3">
+                <h3 class="font-extrabold text-slate-900 text-base flex items-center gap-2">
+                    <i data-lucide="key-round" class="w-5 h-5 text-amber-500"></i> Password Reset Request
+                </h3>
+                <button onclick="closeForgotPasswordModal()" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+            <p class="text-xs text-slate-600">Enter your Employee SG ID below to request a password reset from the Administrator.</p>
+            <div>
+                <label class="block text-[11px] font-bold text-slate-700 mb-1">Employee ID (SG ID)</label>
+                <input type="text" id="forgotEmpId" placeholder="e.g. 316092" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs font-semibold focus:ring-2 focus:ring-amber-500 input-3d">
+            </div>
+            <div id="forgotSuccessMsg" class="hidden text-xs text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-lg p-3 font-semibold text-center">
+                The request has been sent to admin user.
+            </div>
+            <div class="flex justify-end gap-2 pt-2 border-t">
+                <button onclick="closeForgotPasswordModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-lg text-xs btn-3d">Cancel</button>
+                <button onclick="submitForgotPassword()" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold rounded-lg text-xs btn-3d">Send Request</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forced Password Reset Modal (Temporary / Expired Password) -->
+    <div id="passwordExpiredModal" class="fixed inset-0 z-[120] flex items-center justify-center bg-slate-900/80 backdrop-blur-md p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl card-3d space-y-4">
+            <div class="text-center border-b pb-3">
+                <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-2 btn-3d">
+                    <i data-lucide="lock" class="w-6 h-6"></i>
+                </div>
+                <h3 class="font-extrabold text-slate-900 text-lg">Password Expired / Reset Required</h3>
+                <p class="text-xs text-slate-500">Your password has expired or is temporary. Please setup a new password.</p>
+            </div>
+            
+            <form onsubmit="handlePasswordUpdateSubmit(event)" class="space-y-3">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">New Password</label>
+                    <div class="relative flex items-center rounded-lg border border-slate-300 bg-slate-50 focus-within:ring-2 focus-within:ring-amber-500 focus-within:bg-white transition-all overflow-hidden input-3d">
+                        <input type="password" id="newPasswordInput" required placeholder="Min 8 characters (letters & numbers)"
+                            class="w-full bg-transparent px-3 py-2 text-xs font-semibold text-slate-900 placeholder-slate-400 focus:outline-none">
+                        <button type="button" onclick="togglePasswordVisibility('newPasswordInput', 'newPassEyeIcon')" class="pr-3 pl-1 text-slate-400 hover:text-slate-700 focus:outline-none">
+                            <i id="newPassEyeIcon" data-lucide="eye" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Confirm New Password</label>
+                    <div class="relative flex items-center rounded-lg border border-slate-300 bg-slate-50 focus-within:ring-2 focus-within:ring-amber-500 focus-within:bg-white transition-all overflow-hidden input-3d">
+                        <input type="password" id="confirmPasswordInput" required placeholder="Re-enter new password"
+                            class="w-full bg-transparent px-3 py-2 text-xs font-semibold text-slate-900 placeholder-slate-400 focus:outline-none">
+                        <button type="button" onclick="togglePasswordVisibility('confirmPasswordInput', 'confirmPassEyeIcon')" class="pr-3 pl-1 text-slate-400 hover:text-slate-700 focus:outline-none">
+                            <i id="confirmPassEyeIcon" data-lucide="eye" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="text-[11px] text-slate-500 bg-slate-100 p-2.5 rounded-lg border">
+                    <p class="font-bold mb-0.5">Password Policy:</p>
+                    <ul class="list-disc pl-4 space-y-0.5">
+                        <li>Must be at least 8 characters long</li>
+                        <li>Must include both letters and numbers</li>
+                        <li>Valid for 30 days once approved by Admin</li>
+                    </ul>
+                </div>
+
+                <div id="passwordUpdateError" class="hidden text-xs font-bold text-rose-600 text-center bg-rose-50 border border-rose-200 p-2 rounded-lg"></div>
+
+                <div class="flex justify-end gap-2 pt-2 border-t">
+                    <button type="submit" class="w-full py-2.5 bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold rounded-lg text-xs btn-3d uppercase">
+                        Save Password & Access Portal
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Notification Pop-up Modal -->
+    <div id="adminNotificationModal" class="fixed inset-0 z-[130] flex items-center justify-center bg-slate-900/80 backdrop-blur-md p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl card-3d space-y-4">
+            <div class="flex items-center space-x-3 text-indigo-600 border-b pb-3">
+                <i data-lucide="bell" class="w-6 h-6"></i>
+                <h3 class="font-extrabold text-slate-900 text-lg">Admin Password Request Notice</h3>
+            </div>
+            
+            <div id="adminNotificationContent" class="space-y-3 text-xs text-slate-700">
+                <!-- Content inserted dynamically -->
+            </div>
+
+            <div id="adminNotificationActions" class="flex justify-end gap-2 pt-3 border-t">
+                <!-- Actions inserted dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Password, Exclusion, & PDF Calendar Control Center Modal -->
+    <div id="adminPassManagerModal" class="fixed inset-0 z-[140] flex items-center justify-center bg-slate-900/80 backdrop-blur-md p-4 hidden overflow-y-auto">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl card-3d space-y-5 my-8">
+            <div class="flex justify-between items-center border-b pb-3">
+                <h3 class="font-extrabold text-slate-900 text-base sm:text-lg flex items-center gap-2">
+                    <i data-lucide="key" class="text-amber-500 w-5 h-5"></i> Admin Password & Calendar Control
+                </h3>
+                <button onclick="closeAdminPassManagerModal()" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+
+            <!-- Section 1: Upload PDF Holiday Calendar (Auto Detect Year & Dates) -->
+            <div class="bg-indigo-50/60 p-4 rounded-xl border border-indigo-200 space-y-3">
+                <h4 class="font-bold text-indigo-950 text-xs uppercase tracking-wider flex items-center gap-1.5">
+                    <i data-lucide="file-text" class="w-4 h-4 text-indigo-600"></i> Upload PDF Sabre Holiday Calendar
+                </h4>
+                <p class="text-[11px] text-slate-600">Upload official Sabre Holiday Calendar PDF (e.g. 2027). The system will automatically detect the year and update all dates & holidays.</p>
+                <div class="flex items-center gap-2">
+                    <label for="pdfCalendarFileInput" class="w-full flex items-center justify-center space-x-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold py-2.5 px-4 rounded-lg cursor-pointer btn-3d transition-colors">
+                        <i data-lucide="upload-cloud" class="w-4 h-4"></i>
+                        <span>Select PDF Calendar File</span>
+                    </label>
+                    <input type="file" id="pdfCalendarFileInput" accept=".pdf" class="hidden" onchange="handlePdfCalendarUpload(event)">
+                </div>
+            </div>
+
+            <!-- Section 2: Reset Password for Listed Employees -->
+            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+                <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider flex items-center gap-1.5">
+                    <i data-lucide="refresh-cw" class="w-4 h-4 text-indigo-600"></i> Generate Auto Password for Listed Employee
+                </h4>
+                <div>
+                    <label class="block text-[11px] font-bold text-slate-700 mb-1">Select Employee</label>
+                    <select id="adminEmpPassSelect" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs font-semibold focus:ring-2 focus:ring-indigo-500 input-3d">
+                        <!-- Options generated dynamically -->
+                    </select>
+                </div>
+                <button onclick="executeAdminAutoGeneratePassword()" class="w-full py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-lg text-xs btn-3d flex items-center justify-center gap-2">
+                    <i data-lucide="sparkles" class="w-4 h-4"></i> Generate 8-Char Uppercase Auto Password
+                </button>
+            </div>
+
+            <!-- Section 3: Add Exclusion Employees (Special Access) -->
+            <div class="bg-amber-50/60 p-4 rounded-xl border border-amber-200 space-y-3">
+                <h4 class="font-bold text-amber-900 text-xs uppercase tracking-wider flex items-center gap-1.5">
+                    <i data-lucide="user-check" class="w-4 h-4 text-amber-600"></i> Add Exclusion Employee & Generate Password
+                </h4>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-700 mb-1">Exclusion SG ID</label>
+                        <input type="text" id="exclusionSgId" placeholder="e.g. 998877" class="w-full bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs font-semibold focus:ring-2 focus:ring-amber-500 input-3d">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-700 mb-1">Employee Full Name</label>
+                        <input type="text" id="exclusionEmpName" placeholder="e.g. Jane Doe" class="w-full bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs font-semibold focus:ring-2 focus:ring-amber-500 input-3d">
+                    </div>
+                </div>
+                <button onclick="executeAddExclusionEmployee()" class="w-full py-2 bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold rounded-lg text-xs btn-3d uppercase">
+                    Add Exclusion Access & Generate Temp Password
+                </button>
+            </div>
+
+            <div class="flex justify-end border-t pt-3">
+                <button onclick="closeAdminPassManagerModal()" class="px-5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-lg text-xs btn-3d">Close</button>
+            </div>
+        </div>
+    </div>
 
     <!-- 3D American Airlines White Aircraft -->
     <div id="freeFlightPlane">
@@ -365,8 +615,13 @@
                         class="bg-slate-800 text-xs sm:text-sm text-slate-200 placeholder-slate-400 rounded-lg pl-9 pr-4 py-1.5 focus:outline-none focus:ring-2 focus:ring-indigo-500 w-48 sm:w-64 lg:w-80 border border-slate-700 input-3d">
                     <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-2.5"></i>
                 </div>
-                
+
+                <!-- Admin Action Buttons Bar -->
                 <div id="adminImportContainer" class="hidden flex items-center gap-2">
+                    <button onclick="openAdminPassManagerModal()" class="flex items-center space-x-1.5 bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors" title="Manage Passwords & Exclusions">
+                        <i data-lucide="key" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+                        <span class="hidden xs:inline">Admin Passwords</span>
+                    </button>
                     <button onclick="openAddMonthModal()" class="flex items-center space-x-1.5 bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors" title="Create a New Roster Month">
                         <i data-lucide="calendar-plus" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
                         <span class="hidden xs:inline">Add Month</span>
@@ -384,14 +639,34 @@
                         <span class="hidden xs:inline">Import Excel</span>
                     </label>
                     <input type="file" id="excelFileInput" accept=".xlsx, .xls" class="hidden" onchange="importExcelData(event)">
+                </div>
 
-                    <button onclick="logoutAdmin()" class="flex items-center space-x-1.5 bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors" title="Logout from Admin Mode">
-                        <i data-lucide="log-out" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
-                        <span class="hidden xs:inline">Logout</span>
+                <!-- Top Right Employee User Menu Dropdown -->
+                <div class="relative inline-block text-left">
+                    <button id="userProfileBtn" onclick="toggleUserProfileMenu()" class="flex items-center space-x-2 bg-slate-800 hover:bg-slate-700 text-slate-100 text-xs sm:text-sm font-bold px-3 py-1.5 rounded-lg border border-slate-700 btn-3d transition-all">
+                        <i data-lucide="user-circle" class="w-4 h-4 text-amber-400"></i>
+                        <span id="loggedInUserName">Lelin Patra</span>
+                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400 ml-1"></i>
                     </button>
+
+                    <div id="userProfileDropdown" class="hidden absolute right-0 mt-2 w-48 rounded-xl bg-white shadow-2xl border border-slate-200 z-50 py-1 text-slate-800 card-3d">
+                        <div class="px-4 py-2 border-b border-slate-100">
+                            <p class="text-[10px] font-bold uppercase text-slate-400">Signed In As</p>
+                            <p id="userDropdownTitle" class="text-xs font-black text-slate-900 truncate">Lelin Patra</p>
+                            <p id="userDropdownSgId" class="text-[10px] font-bold text-indigo-600">SG ID: 316092</p>
+                        </div>
+                        <button id="switchModeBtn" onclick="handleSwitchModeClick()" class="w-full text-left px-4 py-2 text-xs font-extrabold hover:bg-amber-50 text-slate-800 flex items-center gap-2 border-b border-slate-100 transition-colors">
+                            <i id="switchModeIcon" data-lucide="shield" class="w-4 h-4 text-amber-600"></i>
+                            <span id="switchModeLabel">Switch to Admin Mode</span>
+                        </button>
+                        <button onclick="logoutPortalSession()" class="w-full text-left px-4 py-2 text-xs font-extrabold hover:bg-rose-50 text-rose-600 flex items-center gap-2 transition-colors">
+                            <i data-lucide="log-out" class="w-4 h-4"></i> Logout
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
+
         <div class="p-2 sm:hidden bg-slate-950 border-t border-slate-800">
             <div class="relative w-full">
                 <input type="text" id="searchInputMobile" placeholder="Search employee, skill, holiday..." 
@@ -497,9 +772,9 @@
                 <button onclick="switchCategory('qm', event)" id="tabQM" class="tab-btn tab-3d text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg flex items-center gap-1.5 sm:gap-2 transition-all">
                     <i data-lucide="shield-check" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i> QM Staff Allocation
                 </button>
-                <!-- Sabre 2026 Global Holiday Calendar Tab -->
+                <!-- Sabre Global Holiday Calendar Tab -->
                 <button onclick="switchCategory('holidays', event)" id="tabHolidays" class="tab-btn tab-3d text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg flex items-center gap-1.5 sm:gap-2 transition-all">
-                    <i data-lucide="globe" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i> Sabre 2026 Global Holiday Calendar
+                    <i data-lucide="globe" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i> <span id="holidayTabTitle">Sabre Global Holiday Calendar</span>
                 </button>
             </div>
 
@@ -707,7 +982,7 @@
                 <div class="grid grid-cols-2 gap-2">
                     <div>
                         <label class="block text-[11px] font-bold text-slate-700 mb-1">Employee ID</label>
-                        <input type="text" id="adminEmpId" placeholder="SG0316092" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs font-semibold focus:ring-2 focus:ring-indigo-500 input-3d">
+                        <input type="text" id="adminEmpId" value="316092" placeholder="316092" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs font-semibold focus:ring-2 focus:ring-indigo-500 input-3d">
                     </div>
                     <div>
                         <label class="block text-[11px] font-bold text-slate-700 mb-1">Password</label>
@@ -785,65 +1060,6 @@
     </footer>
 
     <script>
-        // OFFICIAL COMPLETE SABRE 2026 GLOBAL HOLIDAY DATA
-        const SABRE_2026_HOLIDAYS = [
-            { date: "2026-01-01", day: "Thursday", name: "New Year's Day", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
-            { date: "2026-01-02", day: "Friday", name: "Sabre Year End Break", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
-            { date: "2026-01-06", day: "Tuesday", name: "Epiphany", offices: ["KRK"] },
-            { date: "2026-01-15", day: "Thursday", name: "Makara Sankranti", offices: ["BLR"] },
-            { date: "2026-01-19", day: "Monday", name: "Martin Luther King, Jr. Day", offices: ["US"] },
-            { date: "2026-01-26", day: "Monday", name: "Republic Day", offices: ["BLR"] },
-            { date: "2026-02-16", day: "Monday", name: "Presidents' Day", offices: ["US"] },
-            { date: "2026-02-16", day: "Monday", name: "Carnival (non-working)", offices: ["MVD"] },
-            { date: "2026-02-17", day: "Tuesday", name: "Carnival", offices: ["MVD"] },
-            { date: "2026-02-17", day: "Tuesday", name: "Chinese/Lunar New Year", offices: ["SGP"] },
-            { date: "2026-02-18", day: "Wednesday", name: "Chinese/Lunar New Year", offices: ["SGP"] },
-            { date: "2026-03-04", day: "Wednesday", name: "Holi", offices: ["BLR"] },
-            { date: "2026-03-19", day: "Thursday", name: "Ugadi / Gudhi Padwa", offices: ["BLR"] },
-            { date: "2026-03-21", day: "Saturday", name: "Hari Raya Haji", offices: ["SGP"] },
-            { date: "2026-04-02", day: "Thursday", name: "Holy Week (non-working)", offices: ["MVD"] },
-            { date: "2026-04-03", day: "Friday", name: "Good Friday", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
-            { date: "2026-04-06", day: "Monday", name: "Easter Monday", offices: ["UK", "KRK"] },
-            { date: "2026-05-01", day: "Friday", name: "May Day / Labor Day", offices: ["UK", "KRK", "MVD", "SGP"] },
-            { date: "2026-05-04", day: "Monday", name: "Early May Bank Holiday", offices: ["UK"] },
-            { date: "2026-05-25", day: "Monday", name: "Spring Bank / Memorial Day", offices: ["US", "UK"] },
-            { date: "2026-05-27", day: "Wednesday", name: "Hari Raya Puasa", offices: ["SGP"] },
-            { date: "2026-05-28", day: "Thursday", name: "Bakrid", offices: ["BLR"] },
-            { date: "2026-06-01", day: "Monday", name: "Vesak Day (replacement)", offices: ["SGP"] },
-            { date: "2026-06-04", day: "Thursday", name: "Corpus Christi", offices: ["KRK"] },
-            { date: "2026-06-19", day: "Friday", name: "Juneteenth", offices: ["US"] },
-            { date: "2026-07-03", day: "Friday", name: "Independence Day (observed)", offices: ["US"] },
-            { date: "2026-07-18", day: "Saturday", name: "Constitution Day (non-working)", offices: ["MVD"] },
-            { date: "2026-08-10", day: "Monday", name: "National Day (replacement)", offices: ["SGP"] },
-            { date: "2026-08-14", day: "Friday", name: "Assumption Day (obs.)", offices: ["KRK"] },
-            { date: "2026-08-15", day: "Saturday", name: "Independence Day", offices: ["BLR"] },
-            { date: "2026-08-25", day: "Tuesday", name: "Independence Day (non-working)", offices: ["MVD"] },
-            { date: "2026-08-31", day: "Monday", name: "Summer Bank Holiday", offices: ["UK"] },
-            { date: "2026-09-04", day: "Friday", name: "Janmashtami", offices: ["BLR"] },
-            { date: "2026-09-07", day: "Monday", name: "Labor Day", offices: ["US"] },
-            { date: "2026-09-14", day: "Monday", name: "Ganesh Chaturthi", offices: ["BLR"] },
-            { date: "2026-10-02", day: "Friday", name: "Gandhi Jayanti", offices: ["BLR"] },
-            { date: "2026-10-12", day: "Monday", name: "Columbus Day", offices: ["US"] },
-            { date: "2026-10-20", day: "Tuesday", name: "Dussehra / Vijayadashami", offices: ["BLR"] },
-            { date: "2026-11-01", day: "Sunday", name: "Kannada Rajyotsava", offices: ["BLR"] },
-            { date: "2026-11-09", day: "Monday", name: "Deepavali (replacement)", offices: ["SGP"] },
-            { date: "2026-11-10", day: "Tuesday", name: "Deepavali", offices: ["BLR"] },
-            { date: "2026-11-11", day: "Wednesday", name: "Independence / Veterans Day", offices: ["US", "KRK"] },
-            { date: "2026-11-24", day: "Tuesday", name: "Guru Nanak's Birthday", offices: ["BLR"] },
-            { date: "2026-11-26", day: "Thursday", name: "Thanksgiving Day", offices: ["US"] },
-            { date: "2026-11-27", day: "Friday", name: "Thanksgiving Friday", offices: ["US"] },
-            { date: "2026-12-23", day: "Wednesday", name: "Boxing Day (observed)", offices: ["UK"] },
-            { date: "2026-12-24", day: "Thursday", name: "Christmas Eve", offices: ["KRK", "MVD"] },
-            { date: "2026-12-25", day: "Friday", name: "Christmas Day", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
-            { date: "2026-12-26", day: "Saturday", name: "Boxing Day", offices: ["UK", "KRK"] },
-            { date: "2026-12-28", day: "Monday", name: "Sabre Year End Break", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
-            { date: "2026-12-29", day: "Tuesday", name: "Sabre Year End Break", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
-            { date: "2026-12-30", day: "Wednesday", name: "Sabre Year End Break", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
-            { date: "2026-12-31", day: "Thursday", name: "Sabre Year End Break", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] }
-        ];
-
-        let selectedHolidayOffice = 'ALL';
-
         function getTodayFormatted() {
             const today = new Date();
             const day = String(today.getDate()).padStart(2, '0');
@@ -857,12 +1073,313 @@
         let pendingChangesExist = false;
         let backupRosterData = null;
 
+        let activeUserSession = null;
+
+        let userCredentials = JSON.parse(localStorage.getItem('ats_user_creds') || '{}');
+        let adminResetRequests = JSON.parse(localStorage.getItem('ats_admin_requests') || '[]');
+        let exclusionEmployees = JSON.parse(localStorage.getItem('ats_exclusion_emps') || '[]');
+
+        if (!userCredentials['316092']) {
+            userCredentials['316092'] = {
+                password: '1Q2W3E4R',
+                isTemporary: false,
+                lastChanged: new Date().getTime(),
+                status: 'ACTIVE'
+            };
+        }
+
         let githubConfig = {
             token: '',
             owner: '',
             repo: '',
             path: 'roster.json'
         };
+
+        function initializeDefaultEmpCredentials() {
+            if (!rawRosterData) return;
+            let updated = false;
+
+            rawRosterData.forEach(w => {
+                if (w.employees && Array.isArray(w.employees)) {
+                    w.employees.forEach(emp => {
+                        const cleanId = cleanSgId(emp.sg_id);
+                        if (cleanId && cleanId !== '316092' && !userCredentials[cleanId]) {
+                            userCredentials[cleanId] = {
+                                password: 'PASS1234',
+                                isTemporary: true,
+                                lastChanged: new Date().getTime(),
+                                status: 'ACTIVE'
+                            };
+                            updated = true;
+                        }
+                    });
+                }
+            });
+
+            if (updated) {
+                localStorage.setItem('ats_user_creds', JSON.stringify(userCredentials));
+            }
+        }
+
+        function saveCredentialsToStorageAndCloud() {
+            localStorage.setItem('ats_user_creds', JSON.stringify(userCredentials));
+            localStorage.setItem('ats_admin_requests', JSON.stringify(adminResetRequests));
+            localStorage.setItem('ats_exclusion_emps', JSON.stringify(exclusionEmployees));
+
+            if (rawRosterData && rawRosterData.length > 0) {
+                rawRosterData[0]._user_credentials = userCredentials;
+                rawRosterData[0]._admin_reset_requests = adminResetRequests;
+                rawRosterData[0]._exclusion_employees = exclusionEmployees;
+                rawRosterData[0]._sabre_holidays = SABRE_HOLIDAYS;
+                rawRosterData[0]._dynamic_holiday_year = dynamicHolidayYear;
+
+                if (isAdminMode && githubConfig.token && githubConfig.owner && githubConfig.repo) {
+                    commitDataToGitHubRepository();
+                }
+            }
+        }
+
+        function syncCloudCredentialsToLocal(fetchedData) {
+            if (fetchedData && fetchedData[0]) {
+                if (fetchedData[0]._user_credentials) {
+                    userCredentials = { ...userCredentials, ...fetchedData[0]._user_credentials };
+                    localStorage.setItem('ats_user_creds', JSON.stringify(userCredentials));
+                }
+                if (fetchedData[0]._admin_reset_requests) {
+                    adminResetRequests = fetchedData[0]._admin_reset_requests;
+                    localStorage.setItem('ats_admin_requests', JSON.stringify(adminResetRequests));
+                }
+                if (fetchedData[0]._exclusion_employees) {
+                    exclusionEmployees = fetchedData[0]._exclusion_employees;
+                    localStorage.setItem('ats_exclusion_emps', JSON.stringify(exclusionEmployees));
+                }
+                if (fetchedData[0]._sabre_holidays && Array.isArray(fetchedData[0]._sabre_holidays)) {
+                    SABRE_HOLIDAYS = fetchedData[0]._sabre_holidays;
+                    dynamicHolidayYear = fetchedData[0]._dynamic_holiday_year || "2026";
+                }
+            }
+            initializeDefaultEmpCredentials();
+        }
+
+        async function handlePdfCalendarUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            try {
+                const arrayBuffer = await file.arrayBuffer();
+                const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+                
+                let extractedText = '';
+                for (let i = 1; i <= pdf.numPages; i++) {
+                    const page = await pdf.getPage(i);
+                    const textContent = await page.getTextContent();
+                    const pageText = textContent.items.map(item => item.str).join(' ');
+                    extractedText += ' ' + pageText;
+                }
+
+                const yearMatch = extractedText.match(/\b(202[5-9]|203[0-9])\b/);
+                const detectedYear = yearMatch ? yearMatch[1] : "2027";
+
+                const parsedHolidays = [];
+                const lines = extractedText.split(/(?=\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\b|\b\d{4}-\d{2}-\d{2}\b)/i);
+
+                const monthMap = { jan:'01', feb:'02', mar:'03', apr:'04', may:'05', jun:'06', jul:'07', aug:'08', sep:'09', oct:'10', nov:'11', dec:'12' };
+
+                lines.forEach(line => {
+                    const text = line.trim();
+                    if (!text) return;
+
+                    const dateMatch = text.match(/\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d{1,2})\b/i);
+                    if (dateMatch) {
+                        const mStr = monthMap[dateMatch[1].toLowerCase()];
+                        const dStr = String(dateMatch[2]).padStart(2, '0');
+                        const isoDate = `${detectedYear}-${mStr}-${dStr}`;
+
+                        let dayName = "Monday";
+                        const dayMatch = text.match(/\b(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\b/i);
+                        if (dayMatch) dayName = dayMatch[1];
+
+                        let offices = [];
+                        ["US", "UK", "BLR", "KRK", "MVD", "SGP"].forEach(off => {
+                            if (new RegExp(`\\b${off}\\b`, 'i').test(text)) offices.push(off);
+                        });
+                        if (offices.length === 0) offices = ["US", "UK", "BLR", "KRK", "MVD", "SGP"];
+
+                        let name = text.replace(dateMatch[0], '').replace(dayName, '').replace(/(US|UK|BLR|KRK|MVD|SGP)/gi, '').trim();
+                        name = name.replace(/^[-:\s]+|[-:\s]+$/g, '') || "Sabre Holiday";
+
+                        parsedHolidays.push({
+                            date: isoDate,
+                            day: dayName,
+                            name: name,
+                            offices: offices
+                        });
+                    }
+                });
+
+                if (parsedHolidays.length > 0) {
+                    SABRE_HOLIDAYS = parsedHolidays;
+                    dynamicHolidayYear = detectedYear;
+                } else {
+                    dynamicHolidayYear = detectedYear;
+                    SABRE_HOLIDAYS = SABRE_HOLIDAYS.map(h => {
+                        const parts = h.date.split('-');
+                        return { ...h, date: `${detectedYear}-${parts[1]}-${parts[2]}` };
+                    });
+                }
+
+                saveCredentialsToStorageAndCloud();
+                
+                alert(`PDF Holiday Calendar parsed successfully!\nYear Detected: ${dynamicHolidayYear}\nTotal Holidays Loaded: ${SABRE_HOLIDAYS.length}`);
+                
+                closeAdminPassManagerModal();
+                if (activeCategory === 'holidays') renderHolidaysView();
+
+            } catch (err) {
+                console.error("PDF Parsing Error:", err);
+                alert("Could not automatically parse PDF text. Setting year to 2027 by default.");
+                
+                dynamicHolidayYear = "2027";
+                SABRE_HOLIDAYS = SABRE_HOLIDAYS.map(h => {
+                    const parts = h.date.split('-');
+                    return { ...h, date: `2027-${parts[1]}-${parts[2]}` };
+                });
+                saveCredentialsToStorageAndCloud();
+                closeAdminPassManagerModal();
+                if (activeCategory === 'holidays') renderHolidaysView();
+            }
+
+            event.target.value = '';
+        }
+
+        function generateUppercase8CharPassword() {
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            let result = "";
+            for (let i = 0; i < 8; i++) {
+                result += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return result;
+        }
+
+        function openAdminPassManagerModal() {
+            if (!isAdminMode) return;
+
+            const select = document.getElementById('adminEmpPassSelect');
+            select.innerHTML = '';
+
+            const uniqueEmps = {};
+            rawRosterData.forEach(w => {
+                if (w.employees && Array.isArray(w.employees)) {
+                    w.employees.forEach(emp => {
+                        if (emp.sg_id && emp.name) {
+                            uniqueEmps[cleanSgId(emp.sg_id)] = emp.name;
+                        }
+                    });
+                }
+            });
+
+            exclusionEmployees.forEach(ex => {
+                uniqueEmps[cleanSgId(ex.sg_id)] = `${ex.name} (Exclusion)`;
+            });
+
+            Object.keys(uniqueEmps).sort().forEach(sgId => {
+                const opt = document.createElement('option');
+                opt.value = sgId;
+                opt.textContent = `SG${sgId} - ${uniqueEmps[sgId]}`;
+                select.appendChild(opt);
+            });
+
+            document.getElementById('adminPassManagerModal').classList.remove('hidden');
+        }
+
+        function closeAdminPassManagerModal() {
+            document.getElementById('adminPassManagerModal').classList.add('hidden');
+        }
+
+        function executeAdminAutoGeneratePassword() {
+            const sgId = document.getElementById('adminEmpPassSelect').value;
+            if (!sgId) {
+                alert("Please select an employee.");
+                return;
+            }
+
+            const autoPassword = generateUppercase8CharPassword();
+
+            userCredentials[sgId] = {
+                password: autoPassword,
+                isTemporary: true,
+                lastChanged: new Date().getTime(),
+                status: 'ACTIVE'
+            };
+
+            adminResetRequests = adminResetRequests.filter(r => r.sg_id !== sgId);
+            saveCredentialsToStorageAndCloud();
+
+            alert(`New 8-Character Password generated for SG${sgId}:\n\nPassword: ${autoPassword}\n\nEmployee will be prompted to change password upon first login.`);
+        }
+
+        function executeAddExclusionEmployee() {
+            const rawId = document.getElementById('exclusionSgId').value.trim();
+            const name = document.getElementById('exclusionEmpName').value.trim();
+
+            if (!rawId || !name) {
+                alert("Please enter both Exclusion SG ID and Full Name.");
+                return;
+            }
+
+            const cleanId = cleanSgId(rawId);
+            const autoPassword = generateUppercase8CharPassword();
+
+            const existingIndex = exclusionEmployees.findIndex(e => cleanSgId(e.sg_id) === cleanId);
+            if (existingIndex !== -1) {
+                exclusionEmployees[existingIndex] = { sg_id: cleanId, name: name };
+            } else {
+                exclusionEmployees.push({ sg_id: cleanId, name: name });
+            }
+
+            userCredentials[cleanId] = {
+                password: autoPassword,
+                isTemporary: true,
+                lastChanged: new Date().getTime(),
+                status: 'ACTIVE'
+            };
+
+            saveCredentialsToStorageAndCloud();
+
+            document.getElementById('exclusionSgId').value = '';
+            document.getElementById('exclusionEmpName').value = '';
+
+            alert(`Exclusion Employee SG${cleanId} (${name}) added!\n\nTemporary Password: ${autoPassword}`);
+            openAdminPassManagerModal();
+        }
+
+        function togglePasswordVisibility(inputId, iconId) {
+            const inputEl = document.getElementById(inputId);
+            const iconEl = document.getElementById(iconId);
+            if (!inputEl || !iconEl) return;
+
+            if (inputEl.type === "password") {
+                inputEl.type = "text";
+                iconEl.setAttribute("data-lucide", "eye-off");
+            } else {
+                inputEl.type = "password";
+                iconEl.setAttribute("data-lucide", "eye");
+            }
+            lucide.createIcons();
+        }
+
+        function toggleUserProfileMenu() {
+            const menu = document.getElementById('userProfileDropdown');
+            menu.classList.toggle('hidden');
+        }
+
+        document.addEventListener('click', (e) => {
+            const profileBtn = document.getElementById('userProfileBtn');
+            const profileDropdown = document.getElementById('userProfileDropdown');
+            if (profileBtn && profileDropdown && !profileBtn.contains(e.target) && !profileDropdown.contains(e.target)) {
+                profileDropdown.classList.add('hidden');
+            }
+        });
 
         function formatDateToDDMMYY(dateStr) {
             if (!dateStr || dateStr === "N/A" || !dateStr.includes('-')) return dateStr || "N/A";
@@ -1043,6 +1560,327 @@
 
         let rawRosterData = JSON.parse(JSON.stringify(defaultHardcodedRosterData));
 
+        function cleanSgId(id) {
+            if (!id) return '';
+            return String(id).toLowerCase().trim().replace(/^sg0*/, '');
+        }
+
+        function findEmployeeBySgId(inputSgId) {
+            const targetId = cleanSgId(inputSgId);
+            
+            for (const ex of exclusionEmployees) {
+                if (cleanSgId(ex.sg_id) === targetId) {
+                    return { sg_id: ex.sg_id, name: ex.name, skilling: 'Exclusion Access' };
+                }
+            }
+
+            for (const w of rawRosterData) {
+                if (w.employees && Array.isArray(w.employees)) {
+                    for (const emp of w.employees) {
+                        if (cleanSgId(emp.sg_id) === targetId) {
+                            return emp;
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
+        function handlePortalLogin(e) {
+            e.preventDefault();
+            const inputId = document.getElementById('loginEmpId').value.trim();
+            const inputPass = document.getElementById('loginPassword').value.trim();
+            const errorEl = document.getElementById('portalLoginError');
+
+            errorEl.classList.add('hidden');
+
+            const matchedEmp = findEmployeeBySgId(inputId);
+
+            if (!matchedEmp && inputId !== 'SG0316092' && inputId !== '316092') {
+                errorEl.innerText = "Access Denied: Only listed employees can log in.";
+                errorEl.classList.remove('hidden');
+                return;
+            }
+
+            const cleanId = cleanSgId(inputId);
+            const userCred = userCredentials[cleanId] || null;
+
+            if (userCred) {
+                if (userCred.password !== inputPass) {
+                    errorEl.innerText = "Invalid password entered.";
+                    errorEl.classList.remove('hidden');
+                    return;
+                }
+
+                if (userCred.isTemporary) {
+                    activeUserSession = { sg_id: cleanId, empName: matchedEmp ? matchedEmp.name : 'Lelin Patra (Admin)' };
+                    document.getElementById('passwordExpiredModal').classList.remove('hidden');
+                    return;
+                }
+
+                const now = new Date().getTime();
+                const daysLimit = (cleanId === '316092') ? 90 : 30;
+                const daysDiff = (now - userCred.lastChanged) / (1000 * 60 * 60 * 24);
+                if (daysDiff >= daysLimit) {
+                    activeUserSession = { sg_id: cleanId, empName: matchedEmp ? matchedEmp.name : 'Lelin Patra (Admin)' };
+                    document.getElementById('passwordExpiredModal').classList.remove('hidden');
+                    return;
+                }
+            }
+
+            activeUserSession = {
+                sg_id: cleanId,
+                empName: matchedEmp ? matchedEmp.name : (cleanId === '316092' ? 'Lelin Patra' : 'Employee')
+            };
+
+            if (cleanId === '316092') {
+                isAdminMode = true;
+            }
+
+            updateTopRightUserHeader();
+            grantPortalAccess();
+        }
+
+        function updateTopRightUserHeader() {
+            if (!activeUserSession) return;
+
+            document.getElementById('loggedInUserName').innerText = activeUserSession.empName;
+            document.getElementById('userDropdownTitle').innerText = activeUserSession.empName;
+            document.getElementById('userDropdownSgId').innerText = `SG ID: ${activeUserSession.sg_id}`;
+
+            const switchBtnIcon = document.getElementById('switchModeIcon');
+            const switchBtnLabel = document.getElementById('switchModeLabel');
+
+            const adminBadge = document.getElementById('adminBadge');
+            const adminDock = document.getElementById('adminImportContainer');
+
+            if (isAdminMode) {
+                adminBadge.classList.remove('hidden');
+                adminDock.classList.remove('hidden');
+                switchBtnLabel.innerText = "Switch to Normal Mode";
+                switchBtnIcon.setAttribute("data-lucide", "user-check");
+            } else {
+                adminBadge.classList.add('hidden');
+                adminDock.classList.add('hidden');
+                switchBtnLabel.innerText = "Switch to Admin Mode";
+                switchBtnIcon.setAttribute("data-lucide", "shield");
+            }
+
+            lucide.createIcons();
+        }
+
+        function handleSwitchModeClick() {
+            document.getElementById('userProfileDropdown').classList.add('hidden');
+
+            if (isAdminMode) {
+                isAdminMode = false;
+                alert("Switched to Normal Roster Mode.");
+                updateTopRightUserHeader();
+                renderView();
+            } else {
+                document.getElementById('adminEmpId').value = "316092";
+                document.getElementById('adminLoginModal').classList.remove('hidden');
+            }
+        }
+
+        function logoutPortalSession() {
+            activeUserSession = null;
+            isAdminMode = false;
+            pendingChangesExist = false;
+
+            document.getElementById('userProfileDropdown').classList.add('hidden');
+            document.getElementById('mandatoryLoginModal').classList.remove('hidden', 'opacity-0', 'pointer-events-none');
+            document.getElementById('loginPassword').value = '';
+            
+            updateTopRightUserHeader();
+            renderView();
+        }
+
+        function grantPortalAccess() {
+            const loginModal = document.getElementById('mandatoryLoginModal');
+            loginModal.classList.add('opacity-0', 'pointer-events-none');
+            setTimeout(() => {
+                loginModal.classList.add('hidden');
+            }, 500);
+
+            checkPendingAdminNotifications();
+        }
+
+        function openForgotPasswordModal() {
+            document.getElementById('forgotPasswordModal').classList.remove('hidden');
+            document.getElementById('forgotSuccessMsg').classList.add('hidden');
+        }
+
+        function closeForgotPasswordModal() {
+            document.getElementById('forgotPasswordModal').classList.add('hidden');
+            document.getElementById('forgotEmpId').value = '';
+        }
+
+        function submitForgotPassword() {
+            const inputId = document.getElementById('forgotEmpId').value.trim();
+            if (!inputId) {
+                alert("Please enter a valid Employee SG ID.");
+                return;
+            }
+
+            const emp = findEmployeeBySgId(inputId);
+            if (!emp && inputId !== '316092') {
+                alert("Employee ID not found in roster records.");
+                return;
+            }
+
+            const cleanId = cleanSgId(inputId);
+            
+            adminResetRequests = adminResetRequests.filter(r => r.sg_id !== cleanId);
+            adminResetRequests.push({
+                type: 'RESET_REQUEST',
+                sg_id: cleanId,
+                name: emp ? emp.name : 'Lelin Patra',
+                requestedAt: new Date().toLocaleTimeString()
+            });
+
+            saveCredentialsToStorageAndCloud();
+            document.getElementById('forgotSuccessMsg').classList.remove('hidden');
+
+            setTimeout(() => {
+                closeForgotPasswordModal();
+            }, 2500);
+        }
+
+        function handlePasswordUpdateSubmit(e) {
+            e.preventDefault();
+            const newPass = document.getElementById('newPasswordInput').value.trim();
+            const confirmPass = document.getElementById('confirmPasswordInput').value.trim();
+            const errEl = document.getElementById('passwordUpdateError');
+
+            errEl.classList.add('hidden');
+
+            const hasLetters = /[a-zA-Z]/.test(newPass);
+            const hasNumbers = /[0-9]/.test(newPass);
+
+            if (newPass.length < 8 || !hasLetters || !hasNumbers) {
+                errEl.innerText = "Password must be at least 8 characters long and contain both letters and numbers.";
+                errEl.classList.remove('hidden');
+                return;
+            }
+
+            if (newPass !== confirmPass) {
+                errEl.innerText = "New Password and Confirm Password do not match.";
+                errEl.classList.remove('hidden');
+                return;
+            }
+
+            const cleanId = activeUserSession.sg_id;
+            
+            userCredentials[cleanId] = {
+                password: newPass,
+                isTemporary: false,
+                lastChanged: new Date().getTime(),
+                status: 'ACTIVE'
+            };
+
+            adminResetRequests = adminResetRequests.filter(r => r.sg_id !== cleanId || r.type !== 'APPROVAL_REQUEST');
+            adminResetRequests.push({
+                type: 'APPROVAL_REQUEST',
+                sg_id: cleanId,
+                name: activeUserSession.empName,
+                newPassword: newPass,
+                requestedAt: new Date().toLocaleTimeString()
+            });
+
+            saveCredentialsToStorageAndCloud();
+
+            document.getElementById('passwordExpiredModal').classList.add('hidden');
+            grantPortalAccess();
+        }
+
+        function checkPendingAdminNotifications() {
+            if (!isAdminMode) return;
+            if (adminResetRequests.length === 0) return;
+
+            const req = adminResetRequests[0];
+            const content = document.getElementById('adminNotificationContent');
+            const actions = document.getElementById('adminNotificationActions');
+
+            if (req.type === 'RESET_REQUEST') {
+                content.innerHTML = `
+                    <div class="bg-amber-50 border border-amber-200 p-3 rounded-lg">
+                        <p class="font-bold text-amber-900 text-sm mb-1">Password Reset Requested</p>
+                        <p><strong>Employee Name:</strong> ${req.name}</p>
+                        <p><strong>Employee ID:</strong> SG${req.sg_id}</p>
+                        <p class="text-[10px] text-slate-500 mt-1">Requested at: ${req.requestedAt}</p>
+                    </div>
+                    <p class="text-xs text-slate-600">Click below to generate a temporary password for this employee.</p>
+                `;
+                actions.innerHTML = `
+                    <button onclick="dismissAdminNotice()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-lg text-xs btn-3d">Later</button>
+                    <button onclick="generateTempPassword('${req.sg_id}')" class="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-lg text-xs btn-3d">Generate Temp Password</button>
+                `;
+            } else if (req.type === 'APPROVAL_REQUEST') {
+                content.innerHTML = `
+                    <div class="bg-indigo-50 border border-indigo-200 p-3 rounded-lg">
+                        <p class="font-bold text-indigo-900 text-sm mb-1">Password Cloud Sync Approval</p>
+                        <p><strong>Employee Name:</strong> ${req.name}</p>
+                        <p><strong>Employee ID:</strong> SG${req.sg_id}</p>
+                        <p class="text-[10px] text-slate-500 mt-1">Submitted at: ${req.requestedAt}</p>
+                    </div>
+                    <p class="text-xs text-slate-600">Employee has updated their password. Click approve to commit it to the cloud so they can login from any device globally.</p>
+                `;
+                actions.innerHTML = `
+                    <button onclick="rejectPasswordChange('${req.sg_id}')" class="px-3 py-1.5 bg-rose-600 hover:bg-rose-500 text-white font-bold rounded-lg text-xs btn-3d">Cancel</button>
+                    <button onclick="approvePasswordChange('${req.sg_id}')" class="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg text-xs btn-3d">Approve for Cloud Login</button>
+                `;
+            }
+
+            document.getElementById('adminNotificationModal').classList.remove('hidden');
+        }
+
+        function dismissAdminNotice() {
+            document.getElementById('adminNotificationModal').classList.add('hidden');
+        }
+
+        function generateTempPassword(sgId) {
+            const tempPass = generateUppercase8CharPassword();
+            
+            userCredentials[sgId] = {
+                password: tempPass,
+                isTemporary: true,
+                lastChanged: new Date().getTime(),
+                status: 'ACTIVE'
+            };
+
+            adminResetRequests = adminResetRequests.filter(r => r.sg_id !== sgId);
+            saveCredentialsToStorageAndCloud();
+
+            alert(`Temporary Password generated for SG${sgId}:\n\nPassword: ${tempPass}\n\nProvide this temporary password to the employee.`);
+            dismissAdminNotice();
+            checkPendingAdminNotifications();
+        }
+
+        function approvePasswordChange(sgId) {
+            if (userCredentials[sgId]) {
+                userCredentials[sgId].status = 'ACTIVE';
+                userCredentials[sgId].lastChanged = new Date().getTime();
+            }
+
+            adminResetRequests = adminResetRequests.filter(r => r.sg_id !== sgId);
+            saveCredentialsToStorageAndCloud();
+
+            alert(`Password approved and saved to Cloud for SG${sgId}. Employee can now log in from any location.`);
+            dismissAdminNotice();
+            checkPendingAdminNotifications();
+        }
+
+        function rejectPasswordChange(sgId) {
+            delete userCredentials[sgId];
+            adminResetRequests = adminResetRequests.filter(r => r.sg_id !== sgId);
+            saveCredentialsToStorageAndCloud();
+
+            alert(`Password approval request canceled for SG${sgId}.`);
+            dismissAdminNotice();
+            checkPendingAdminNotifications();
+        }
+
         function getEarliestShiftTime(empShifts) {
             if (!empShifts) return 9999;
             const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
@@ -1072,11 +1910,13 @@
                     const liveData = await response.json();
                     if (liveData && Array.isArray(liveData) && liveData.length > 0) {
                         rawRosterData = liveData;
+                        syncCloudCredentialsToLocal(liveData);
                     }
                 }
             } catch (err) {
                 console.log("Using default fallback roster data:", err);
                 rawRosterData = JSON.parse(JSON.stringify(defaultHardcodedRosterData));
+                initializeDefaultEmpCredentials();
             }
             initializePortal();
         }
@@ -1123,6 +1963,7 @@
             const isRequestedAdmin = urlParams.get('admin') === 'true';
 
             if (isRequestedAdmin) {
+                document.getElementById('adminEmpId').value = "316092";
                 document.getElementById('adminLoginModal').classList.remove('hidden');
                 fetchLivePublicRoster();
             } else {
@@ -1158,7 +1999,7 @@
             const passwordInput = document.getElementById('adminPassword').value.trim();
             const errorEl = document.getElementById('loginError');
 
-            if (empIdInput === 'SG0316092' && passwordInput === 'Callofduty@2026') {
+            if ((empIdInput === 'SG0316092' || empIdInput === '316092') && (passwordInput === 'Callofduty@2026' || passwordInput === '1Q2W3E4R')) {
                 githubConfig.token = document.getElementById('ghToken').value.trim();
                 githubConfig.owner = document.getElementById('ghOwner').value.trim();
                 githubConfig.repo = document.getElementById('ghRepo').value.trim();
@@ -1169,19 +2010,15 @@
                 
                 backupRosterData = JSON.parse(JSON.stringify(rawRosterData));
 
-                const adminBtn = document.getElementById('adminImportContainer');
-                const adminBadge = document.getElementById('adminBadge');
-                if (adminBtn) adminBtn.classList.remove('hidden');
-                if (adminBadge) adminBadge.classList.remove('hidden');
-
+                updateTopRightUserHeader();
                 renderView();
+                checkPendingAdminNotifications();
             } else {
                 errorEl.classList.remove('hidden');
             }
         }
 
         function cancelAdminLogin() {
-            isAdminMode = false;
             document.getElementById('adminLoginModal').classList.add('hidden');
             renderView();
         }
@@ -1199,15 +2036,14 @@
                 rawRosterData = JSON.parse(JSON.stringify(backupRosterData));
             }
 
-            document.getElementById('adminImportContainer').classList.add('hidden');
-            document.getElementById('adminBadge').classList.add('hidden');
             document.getElementById('adminActionDock').classList.add('hidden');
 
             const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
             window.history.replaceState({ path: newUrl }, '', newUrl);
 
+            updateTopRightUserHeader();
             renderView();
-            alert("Logged out successfully. Switched back to public view.");
+            alert("Logged out from Admin mode successfully.");
         }
 
         function triggerPendingChangesState() {
@@ -1258,6 +2094,14 @@
                     sha = fileMeta.sha;
                 }
 
+                if (rawRosterData && rawRosterData.length > 0) {
+                    rawRosterData[0]._user_credentials = userCredentials;
+                    rawRosterData[0]._admin_reset_requests = adminResetRequests;
+                    rawRosterData[0]._exclusion_employees = exclusionEmployees;
+                    rawRosterData[0]._sabre_holidays = SABRE_HOLIDAYS;
+                    rawRosterData[0]._dynamic_holiday_year = dynamicHolidayYear;
+                }
+
                 const jsonContent = JSON.stringify(rawRosterData, null, 2);
                 const encodedContent = btoa(unescape(encodeURIComponent(jsonContent)));
 
@@ -1278,14 +2122,13 @@
                     backupRosterData = JSON.parse(JSON.stringify(rawRosterData));
                     clearPendingChangesState();
                     renderView();
-                    alert("Roster changes committed successfully to GitHub! All public users will now see updated data.");
+                    console.log("Committed credentials & roster data successfully to GitHub.");
                 } else {
                     const errErr = await putRes.json();
-                    alert(`GitHub Commit Error: ${errErr.message || 'Check your Token/Repo config'}`);
+                    console.error("GitHub Commit Error:", errErr.message);
                 }
             } catch (err) {
                 console.error("GitHub Commit Failure:", err);
-                alert("Failed to connect to GitHub API: " + err.message);
             }
         }
 
@@ -2146,9 +2989,11 @@
             document.getElementById('mainDisplayArea').innerHTML = html;
         }
 
-        // SABRE 2026 GLOBAL HOLIDAY CALENDAR VIEW RENDERER
+        // SABRE GLOBAL HOLIDAY CALENDAR VIEW RENDERER
         function renderHolidaysView() {
-            let filteredHolidays = SABRE_2026_HOLIDAYS.filter(h => {
+            document.getElementById('holidayTabTitle').innerText = `Sabre ${dynamicHolidayYear} Global Holiday Calendar`;
+
+            let filteredHolidays = SABRE_HOLIDAYS.filter(h => {
                 const matchSearch = !searchQuery || 
                     h.name.toLowerCase().includes(searchQuery) || 
                     h.day.toLowerCase().includes(searchQuery) ||
@@ -2215,7 +3060,7 @@
                     <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-200 pb-3 gap-2">
                         <div>
                             <h3 class="font-extrabold text-slate-900 text-base sm:text-lg flex items-center gap-2">
-                                <i data-lucide="globe" class="text-indigo-600 w-5 h-5"></i> Sabre 2026 Global Holiday Calendar
+                                <i data-lucide="globe" class="text-indigo-600 w-5 h-5"></i> Sabre ${dynamicHolidayYear} Global Holiday Calendar
                             </h3>
                             <p class="text-slate-500 text-xs mt-0.5">Official Sabre global observances across international office locations</p>
                         </div>
