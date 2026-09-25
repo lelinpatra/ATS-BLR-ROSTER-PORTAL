@@ -161,7 +161,6 @@
             box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08);
         }
 
-        /* ENHANCED HEAVY BLUR OVERLAY */
         .glass-overlay {
             background: rgba(15, 23, 42, 0.55);
             backdrop-filter: blur(20px);
@@ -266,7 +265,7 @@
 </head>
 <body class="min-h-screen flex flex-col w-full overflow-x-hidden relative pb-16">
 
-    <!-- ================= EMPLOYEE AUTHENTICATION OVERLAY (HEAVY FROSTED GLASS) ================= -->
+    <!-- ================= EMPLOYEE AUTHENTICATION OVERLAY ================= -->
     <div id="empAuthOverlay" class="fixed inset-0 glass-overlay z-[100] flex items-center justify-center p-4">
         
         <!-- STEP 1: Employee Login Screen -->
@@ -403,40 +402,44 @@
         </div>
 
     </div>
-    <!-- ================= END AUTHENTICATION OVERLAY ================= -->
 
-    <!-- ================= ADMIN APPROVAL POP-UP MODAL ================= -->
-    <div id="adminApprovalModal" class="fixed inset-0 glass-overlay z-[110] flex items-center justify-center p-4 hidden transition-all duration-300">
-        <div class="bg-white/95 rounded-2xl card-3d w-full max-w-lg p-6 space-y-5 shadow-2xl border border-white/80">
-            <div class="flex items-center justify-between border-b border-slate-200 pb-3">
-                <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center btn-3d shadow-md">
-                        <i data-lucide="shield-alert" class="w-5 h-5"></i>
+    <!-- ADMIN LOGIN MODAL -->
+    <div id="adminLoginModal" class="fixed inset-0 glass-overlay z-[110] flex items-center justify-center hidden p-4">
+        <div class="bg-white/95 rounded-2xl card-3d w-full max-w-md p-6 space-y-4 shadow-2xl">
+            <div class="text-center space-y-1">
+                <div class="w-12 h-12 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center mx-auto mb-2 btn-3d">
+                    <i data-lucide="lock" class="w-6 h-6"></i>
+                </div>
+                <h3 class="font-extrabold text-slate-900 text-lg">Admin Authentication</h3>
+                <p class="text-slate-500 text-xs">Enter credentials and PAT token to enable live cloud edits</p>
+            </div>
+            <div class="space-y-3 pt-2">
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-700 mb-1">Employee ID</label>
+                        <input type="text" id="adminEmpId" value="316092" readonly class="w-full bg-slate-100 border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs font-bold text-slate-600 input-3d">
                     </div>
                     <div>
-                        <h3 class="font-extrabold text-slate-900 text-base">Pending Password Requests</h3>
-                        <p class="text-slate-500 text-xs">Approve new passwords to commit permanently to GitHub.</p>
+                        <label class="block text-[11px] font-bold text-slate-700 mb-1">Password</label>
+                        <input type="password" id="adminPassword" placeholder="••••••••" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs font-semibold focus:ring-2 focus:ring-indigo-500 input-3d">
                     </div>
                 </div>
-                <button onclick="closeAdminApprovalModal()" class="text-slate-400 hover:text-slate-600">
-                    <i data-lucide="x" class="w-5 h-5"></i>
-                </button>
-            </div>
 
-            <div id="pendingRequestsContainer" class="space-y-3 max-h-60 overflow-y-auto pr-1">
-                <!-- Request items injected dynamically -->
-            </div>
+                <div class="border-t border-slate-200 pt-2 space-y-2">
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">GitHub Repository Commit Config</p>
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-700 mb-1">Personal Access Token (PAT)</label>
+                        <input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs font-semibold focus:ring-2 focus:ring-indigo-500 input-3d">
+                    </div>
+                </div>
 
-            <div class="pt-2 border-t border-slate-200">
-                <label class="block text-[11px] font-bold text-slate-700 mb-1">Admin Personal Access Token (PAT)</label>
-                <input type="password" id="adminApprovalPatToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs font-semibold focus:ring-2 focus:ring-amber-500 input-3d">
-                <span class="text-[10px] text-slate-500 block mt-0.5">Required to approve and write changes to GitHub repository.</span>
+                <div id="loginError" class="hidden text-rose-600 text-xs font-bold text-center">
+                    Invalid Admin Password.
+                </div>
             </div>
-
-            <div class="flex justify-end gap-2">
-                <button onclick="closeAdminApprovalModal()" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold rounded-lg text-xs btn-3d">
-                    Dismiss
-                </button>
+            <div class="flex justify-end gap-2 pt-2 border-t border-slate-200">
+                <button onclick="cancelAdminLogin()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-lg text-xs btn-3d w-1/2">Cancel</button>
+                <button onclick="authenticateAdmin()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-lg text-xs btn-3d w-1/2">Enable Admin</button>
             </div>
         </div>
     </div>
@@ -582,14 +585,6 @@
                 </div>
             </div>
         </div>
-        <div class="p-2 sm:hidden bg-slate-950 border-t border-slate-800">
-            <div class="relative w-full">
-                <input type="text" id="searchInputMobile" placeholder="Search employee, skill, holiday..." 
-                    class="bg-slate-800 text-xs text-slate-200 placeholder-slate-400 rounded-lg pl-8 pr-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-indigo-500 w-full border border-slate-700 input-3d"
-                    oninput="document.getElementById('searchInput').value = this.value; searchQuery = this.value.toLowerCase(); renderView();">
-                <i data-lucide="search" class="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2"></i>
-            </div>
-        </div>
     </header>
 
     <main class="flex-grow w-full px-3 sm:px-6 lg:px-12 py-4 sm:py-6 space-y-4 sm:space-y-6 relative z-10">
@@ -687,7 +682,6 @@
                 <button onclick="switchCategory('qm', event)" id="tabQM" class="tab-btn tab-3d text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg flex items-center gap-1.5 sm:gap-2 transition-all">
                     <i data-lucide="shield-check" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i> QM Staff Allocation
                 </button>
-                <!-- Sabre 2026 Global Holiday Calendar Tab -->
                 <button onclick="switchCategory('holidays', event)" id="tabHolidays" class="tab-btn tab-3d text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg flex items-center gap-1.5 sm:gap-2 transition-all">
                     <i data-lucide="globe" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i> Sabre 2026 Global Holiday Calendar
                 </button>
@@ -758,7 +752,16 @@
             repo: 'ATS-BLR-ROSTER-PORTAL',  // Replace with your GitHub Repository Name
             path: 'user_auth.json'
         };
+
+        let githubConfig = {
+            token: '',
+            owner: 'lelinpatra',
+            repo: 'ATS-BLR-ROSTER-PORTAL',
+            path: 'roster.json'
+        };
+
         let activeEmployeeAccount = null;
+        let isAdminMode = false;
 
         // SESSION STRICT SECURITY ENFORCEMENT
         function getSessionData() {
@@ -775,7 +778,6 @@
             activeEmployeeAccount = null;
         }
 
-        // Detect when user switches tabs or window loses focus -> instantly revoke session
         document.addEventListener('visibilitychange', () => {
             if (document.hidden) {
                 clearSessionData();
@@ -788,7 +790,6 @@
             showLoginScreen();
         });
 
-        // Fetch auth DB from user_auth.json or local fallback
         async function fetchAuthUserDatabase() {
             let cloudDb = {};
             try {
@@ -833,12 +834,12 @@
                     activeEmployeeAccount = session;
                     document.getElementById('empAuthOverlay').classList.add('hidden');
                     document.getElementById('loggedInEmpName').innerText = session.name;
-                    updateUserDropdownOptions();
 
-                    if (session.empId === ADMIN_SG_ID) {
-                        document.getElementById('adminBadge').classList.remove('hidden');
-                        checkPendingRequestsAndNotify();
-                    }
+                    // Lelin logs in in NORMAL view mode by default
+                    isAdminMode = false;
+                    document.getElementById('adminBadge').classList.add('hidden');
+
+                    updateUserDropdownOptions();
                     return;
                 }
             }
@@ -877,6 +878,45 @@
                 switchNormalBtn.classList.add('hidden');
                 divider.classList.add('hidden');
             }
+        }
+
+        function initiateSwitchToAdmin() {
+            document.getElementById('userDropdownMenu').classList.add('hidden');
+            document.getElementById('adminEmpId').value = ADMIN_SG_ID;
+            document.getElementById('adminLoginModal').classList.remove('hidden');
+        }
+
+        function authenticateAdmin() {
+            const pass = document.getElementById('adminPassword').value.trim();
+            const patToken = document.getElementById('ghToken').value.trim();
+            const errorEl = document.getElementById('loginError');
+
+            if (pass === "Callofduty@2026") {
+                githubConfig.token = patToken;
+                isAdminMode = true;
+                document.getElementById('adminLoginModal').classList.add('hidden');
+                document.getElementById('adminBadge').classList.remove('hidden');
+
+                updateUserDropdownOptions();
+                renderView();
+                alert("Switched to Admin Mode. Full modification controls unlocked.");
+            } else {
+                errorEl.classList.remove('hidden');
+            }
+        }
+
+        function cancelAdminLogin() {
+            document.getElementById('adminLoginModal').classList.add('hidden');
+        }
+
+        function switchToNormalMode() {
+            document.getElementById('userDropdownMenu').classList.add('hidden');
+            isAdminMode = false;
+            document.getElementById('adminBadge').classList.add('hidden');
+
+            updateUserDropdownOptions();
+            renderView();
+            alert("Returned to Normal Mode.");
         }
 
         function showLoginScreen() {
@@ -1080,20 +1120,10 @@
                 isExclusion: existingIsExcl
             };
 
-            // Save locally for immediate offline/local access
             localStorage.setItem('emp_auth_database', JSON.stringify(db));
 
-            // Queue pending request for Admin Approval
-            let pendingRequests = JSON.parse(localStorage.getItem('pending_pass_requests') || '{}');
-            pendingRequests[empId] = {
-                name: empName,
-                requestedPassword: newPass,
-                requestedAt: Date.now()
-            };
-            localStorage.setItem('pending_pass_requests', JSON.stringify(pendingRequests));
-
             completeLoginSession(empId, empName);
-            alert("Password set! Logged in on this device. Pending admin approval for global multi-device sync.");
+            alert("Password updated! Logged in on this device.");
         }
 
         function completeLoginSession(empId, name) {
@@ -1108,10 +1138,9 @@
             const nameEl = document.getElementById('loggedInEmpName');
             if (nameEl) nameEl.innerText = name;
 
-            if (empId === ADMIN_SG_ID) {
-                document.getElementById('adminBadge').classList.remove('hidden');
-                checkPendingRequestsAndNotify();
-            }
+            // Start Lelin in Normal View Mode
+            isAdminMode = false;
+            document.getElementById('adminBadge').classList.add('hidden');
 
             updateUserDropdownOptions();
             renderView();
@@ -1124,125 +1153,6 @@
             showLoginScreen();
             document.getElementById('empLoginId').value = '';
             document.getElementById('empLoginPassword').value = '';
-        }
-
-        // ================= ADMIN APPROVAL SYSTEM LOGIC =================
-        function checkPendingRequestsAndNotify() {
-            const pendingRequests = JSON.parse(localStorage.getItem('pending_pass_requests') || '{}');
-            const keys = Object.keys(pendingRequests);
-
-            if (keys.length === 0) return;
-
-            const container = document.getElementById('pendingRequestsContainer');
-            container.innerHTML = '';
-
-            keys.forEach(empId => {
-                const req = pendingRequests[empId];
-                const item = document.createElement('div');
-                item.className = "bg-slate-50 border border-slate-200 p-3 rounded-xl flex items-center justify-between text-xs";
-                item.innerHTML = `
-                    <div>
-                        <div class="font-extrabold text-slate-800">${req.name} (${empId})</div>
-                        <div class="text-[10px] text-slate-500">Requested Password: <span class="font-mono bg-amber-100 text-amber-900 px-1 py-0.5 rounded">${req.requestedPassword}</span></div>
-                    </div>
-                    <div class="flex gap-1.5">
-                        <button onclick="approvePasswordRequest('${empId}', '${req.requestedPassword}', '${req.name}')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold px-3 py-1.5 rounded-lg text-[11px] btn-3d">
-                            Approve
-                        </button>
-                        <button onclick="rejectPasswordRequest('${empId}')" class="bg-rose-100 hover:bg-rose-200 text-rose-700 font-bold px-2.5 py-1.5 rounded-lg text-[11px]">
-                            Reject
-                        </button>
-                    </div>
-                `;
-                container.appendChild(item);
-            });
-
-            document.getElementById('adminApprovalModal').classList.remove('hidden');
-            if (window.lucide) lucide.createIcons();
-        }
-
-        async function approvePasswordRequest(empId, newPass, name) {
-            const patToken = document.getElementById('adminApprovalPatToken').value.trim();
-
-            if (!patToken) {
-                alert("Please enter your GitHub Personal Access Token (PAT) below to approve and commit changes.");
-                return;
-            }
-
-            const db = getAuthUserDatabaseLocal();
-            db[empId] = {
-                name: name,
-                password: newPass,
-                lastPasswordChange: Date.now()
-            };
-
-            const isCommitted = await commitAuthDbToGitHub(db, patToken);
-
-            if (isCommitted) {
-                let pendingRequests = JSON.parse(localStorage.getItem('pending_pass_requests') || '{}');
-                delete pendingRequests[empId];
-                localStorage.setItem('pending_pass_requests', JSON.stringify(pendingRequests));
-
-                alert(`Approved! Password for ${name} (${empId}) is permanently committed to user_auth.json on GitHub.`);
-                checkPendingRequestsAndNotify();
-
-                if (Object.keys(pendingRequests).length === 0) {
-                    closeAdminApprovalModal();
-                }
-            }
-        }
-
-        function rejectPasswordRequest(empId) {
-            let pendingRequests = JSON.parse(localStorage.getItem('pending_pass_requests') || '{}');
-            delete pendingRequests[empId];
-            localStorage.setItem('pending_pass_requests', JSON.stringify(pendingRequests));
-            checkPendingRequestsAndNotify();
-
-            if (Object.keys(pendingRequests).length === 0) {
-                closeAdminApprovalModal();
-            }
-        }
-
-        async function commitAuthDbToGitHub(updatedDb, patToken) {
-            try {
-                const url = `https://api.github.com/repos/${githubRepoConfig.owner}/${githubRepoConfig.repo}/contents/${githubRepoConfig.path}`;
-
-                const getRes = await fetch(url, {
-                    headers: { 'Authorization': `token ${patToken}` }
-                });
-
-                let sha = getRes.ok ? (await getRes.json()).sha : undefined;
-
-                const jsonString = JSON.stringify(updatedDb, null, 2);
-                const encodedContent = btoa(unescape(encodeURIComponent(jsonString)));
-
-                const putRes = await fetch(url, {
-                    method: 'PUT',
-                    headers: {
-                        'Authorization': `token ${patToken}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        message: `Admin approval: Updated password in user_auth.json`,
-                        content: encodedContent,
-                        sha: sha
-                    })
-                });
-
-                if (putRes.ok) {
-                    return true;
-                } else {
-                    alert("GitHub commit failed. Please check your PAT token permissions.");
-                    return false;
-                }
-            } catch (err) {
-                alert("Network error while connecting to GitHub.");
-                return false;
-            }
-        }
-
-        function closeAdminApprovalModal() {
-            document.getElementById('adminApprovalModal').classList.add('hidden');
         }
 
         // OFFICIAL COMPLETE SABRE 2026 GLOBAL HOLIDAY DATA
@@ -1313,7 +1223,6 @@
         }
 
         const TODAY_DATE_STR = getTodayFormatted();
-        let isAdminMode = false;
 
         function formatDateToDDMMYY(dateStr) {
             if (!dateStr || dateStr === "N/A" || !dateStr.includes('-')) return dateStr || "N/A";
