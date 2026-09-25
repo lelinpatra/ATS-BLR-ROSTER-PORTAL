@@ -13,7 +13,7 @@
     <!-- SheetJS (xlsx) for Excel Importing -->
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@500;700;900&family=JetBrains+Mono:wght@500;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap');
         
         body { 
             font-family: 'Inter', sans-serif;
@@ -23,13 +23,27 @@
         .font-orbitron { font-family: 'Orbitron', sans-serif; }
         .font-mono-digital { font-family: 'JetBrains Mono', monospace; }
 
-        .custom-scrollbar::-webkit-scrollbar { height: 6px; width: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-        
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        /* Light Glassmorphism Modal */
+        .glass-modal-light {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25), 0 0 30px rgba(255, 255, 255, 0.5);
+        }
+
+        .glass-input-light {
+            background: rgba(241, 245, 249, 0.85) !important;
+            border: 1px solid #cbd5e1 !important;
+            color: #0f172a !important;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .glass-input-light:focus {
+            background: #ffffff !important;
+            border-color: #0284c7 !important;
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.2) !important;
+        }
 
         .card-3d {
             border: 1px solid #cbd5e1;
@@ -37,8 +51,24 @@
             box-shadow: 0 10px 25px -3px rgba(15, 23, 42, 0.12), 0 4px 6px -2px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.9);
             position: relative;
             z-index: 10;
-            background-color: rgba(255, 255, 255, 0.96);
+            background-color: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(12px);
+        }
+
+        .tab-3d {
+            border: 1px solid #d1d5db;
+            border-bottom: 2px solid #9ca3af;
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+            background-color: #f9fafb;
+            color: #4b5563;
+        }
+
+        .tab-3d.active {
+            border-color: #4338ca;
+            border-bottom: 3px solid #3730a3;
+            background-color: #ffffff;
+            color: #4f46e5;
+            font-weight: 600;
         }
 
         .btn-3d {
@@ -47,188 +77,447 @@
             box-shadow: 0 2px 3px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.25);
         }
 
-        .input-3d {
-            border: 1px solid #cbd5e1;
-            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08);
+        /* Slight Glass Background Blur for Workspace */
+        .blur-workspace {
+            filter: blur(4px);
+            pointer-events: none;
+            user-select: none;
+            transition: filter 0.4s ease;
         }
+
+        .table-3d {
+            border: 1px solid #cbd5e1;
+            border-bottom: 2px solid #94a3b8;
+            box-shadow: 0 4px 8px -2px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            position: relative;
+            z-index: 10;
+            background-color: #ffffff;
+        }
+
+        .current-day-col { background-color: #f0f9ff !important; }
+        .current-day-header { background-color: #1e293b !important; color: #38bdf8 !important; }
+        .chart-container-wrapper { position: relative; width: 100%; height: 16rem; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col w-full overflow-x-hidden relative pb-16">
+<body class="min-h-screen flex flex-col w-full overflow-x-hidden relative pb-16" onclick="closeUserDropdownOutside(event)">
 
-    <!-- EMPLOYEE LOGIN MODAL -->
-    <div id="empLoginModal" class="fixed inset-0 bg-slate-900/90 backdrop-blur-md z-[100] flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl card-3d w-full max-w-md p-6 space-y-5 shadow-2xl">
-            <div class="text-center space-y-1">
-                <div class="w-12 h-12 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center mx-auto mb-2 btn-3d">
-                    <i data-lucide="shield-check" class="w-6 h-6"></i>
-                </div>
-                <h3 class="font-black text-slate-900 text-xl tracking-tight">Employee Portal Login</h3>
-                <p class="text-slate-500 text-xs font-medium">Enter your Employee ID to access portal</p>
+    <!-- EMPLOYEE LIGHT GLASS LOGIN MODAL -->
+    <div id="empLoginModal" class="fixed inset-0 bg-slate-900/10 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+        <div class="glass-modal-light rounded-3xl w-full max-w-md p-0 overflow-hidden relative">
+            
+            <!-- Sabre Header Banner -->
+            <div class="bg-black py-4 px-6 flex items-center justify-center border-b border-slate-900 shadow-md">
+                <img src="SABRE-LOGO-REGISTERED-SCREEN-WHITE-WIP.svg" alt="Sabre Logo" class="h-9 sm:h-10 w-auto object-contain" />
             </div>
 
-            <form onsubmit="handleEmployeeLogin(event)" class="space-y-4 pt-2">
+            <!-- Login Body Container -->
+            <div class="p-6 sm:p-8 space-y-6">
+                <div class="text-center space-y-2">
+                    <h2 class="font-orbitron font-black text-2xl sm:text-3xl text-slate-900 tracking-wider uppercase drop-shadow-sm">
+                        ATS BLR ROSTER PORTAL
+                    </h2>
+                    <p class="text-slate-600 text-xs sm:text-sm italic font-medium leading-relaxed px-2">
+                        "Sign in with your Employee ID and password to explore your updated roster and seamless scheduling experience."
+                    </p>
+                </div>
+
+                <form onsubmit="handleEmployeeLogin(event)" class="space-y-4 pt-1">
+                    <div>
+                        <label class="block text-xs font-extrabold text-slate-700 mb-1.5 uppercase tracking-wider">Employee ID (SG ID)</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
+                                <i data-lucide="user" class="w-4 h-4"></i>
+                            </div>
+                            <input type="text" id="loginEmpId" placeholder="e.g. 123456" required
+                                class="w-full glass-input-light rounded-xl pl-10 pr-4 py-2.5 text-sm font-bold focus:outline-none transition-all">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-extrabold text-slate-700 mb-1.5 uppercase tracking-wider">Password</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
+                                <i data-lucide="key-round" class="w-4 h-4"></i>
+                            </div>
+                            <input type="password" id="loginEmpPassword" placeholder="••••••••" required
+                                class="w-full glass-input-light rounded-xl pl-10 pr-10 py-2.5 text-sm font-bold focus:outline-none transition-all">
+                            <button type="button" onclick="togglePasswordVisibility('loginEmpPassword', 'toggleLoginPassIcon')" class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-500 hover:text-slate-800 focus:outline-none">
+                                <i data-lucide="eye" id="toggleLoginPassIcon" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="empLoginError" class="hidden text-rose-700 text-xs font-bold text-center bg-rose-100/90 border border-rose-300 p-2.5 rounded-xl shadow-sm">
+                        Invalid Credentials or Unauthorized Employee.
+                    </div>
+
+                    <button type="submit" class="w-full py-3 bg-sky-600 hover:bg-sky-500 text-white font-extrabold rounded-xl text-sm transition-all shadow-lg flex items-center justify-center gap-2 uppercase tracking-wider btn-3d">
+                        <i data-lucide="log-in" class="w-4 h-4"></i> Access Portal
+                    </button>
+
+                    <div class="text-center pt-2">
+                        <button type="button" onclick="openForgotPasswordModal()" class="text-xs font-bold text-sky-700 hover:text-sky-900 hover:underline">
+                            Forgot Password?
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- FORGOT PASSWORD MODAL -->
+    <div id="forgotPasswordModal" class="fixed inset-0 bg-slate-900/20 backdrop-blur-sm z-[115] flex items-center justify-center hidden p-4">
+        <div class="glass-modal-light rounded-3xl w-full max-w-md p-6 sm:p-8 space-y-5 relative">
+            <div class="text-center space-y-2 border-b border-slate-200/80 pb-4">
+                <div class="w-12 h-12 rounded-full bg-sky-100 text-sky-600 flex items-center justify-center mx-auto mb-1 border border-sky-300 shadow-sm">
+                    <i data-lucide="help-circle" class="w-6 h-6"></i>
+                </div>
+                <h3 class="font-orbitron font-bold text-slate-900 text-xl tracking-tight">Request Password Reset</h3>
+            </div>
+
+            <form onsubmit="handleForgotPasswordRequest(event)" class="space-y-4">
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 mb-1">Employee ID (SG ID)</label>
+                    <label class="block text-xs font-extrabold text-slate-700 mb-1.5 uppercase tracking-wider">Employee ID (SG ID)</label>
                     <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
                             <i data-lucide="user" class="w-4 h-4"></i>
                         </div>
-                        <input type="text" id="loginEmpId" placeholder="e.g. 316092" required
-                            class="w-full bg-slate-50 border border-slate-300 rounded-lg pl-9 pr-3 py-2 text-sm font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 input-3d">
+                        <input type="text" id="resetEmpId" placeholder="e.g. 123456" required
+                            class="w-full glass-input-light rounded-xl pl-10 pr-4 py-2.5 text-sm font-bold focus:outline-none">
                     </div>
                 </div>
 
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 mb-1">Password</label>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
-                            <i data-lucide="key-round" class="w-4 h-4"></i>
-                        </div>
-                        <input type="password" id="loginEmpPassword" placeholder="••••••••" required
-                            class="w-full bg-slate-50 border border-slate-300 rounded-lg pl-9 pr-3 py-2 text-sm font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 input-3d">
-                    </div>
-                </div>
+                <div id="forgotPasswordMsg" class="hidden text-xs font-bold text-center p-2.5 rounded-xl shadow-sm"></div>
 
-                <div id="empLoginError" class="hidden text-rose-600 text-xs font-bold text-center bg-rose-50 border border-rose-200 p-2 rounded-lg">
-                    Invalid Credentials or Unauthorized Employee.
+                <div class="flex items-center gap-2 pt-2">
+                    <button type="button" onclick="closeForgotPasswordModal()" class="w-1/2 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold rounded-xl text-xs btn-3d">
+                        Cancel
+                    </button>
+                    <button type="submit" class="w-1/2 py-2.5 bg-amber-600 hover:bg-amber-500 text-white font-extrabold rounded-xl text-xs transition-all shadow-md flex items-center justify-center gap-1.5 btn-3d">
+                        <i data-lucide="send" class="w-3.5 h-3.5"></i> Reset Password
+                    </button>
                 </div>
-
-                <button type="submit" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-lg text-sm btn-3d transition-all flex items-center justify-center gap-2">
-                    <i data-lucide="log-in" class="w-4 h-4"></i> Sign In
-                </button>
             </form>
         </div>
     </div>
 
     <!-- CHANGE / EXPIRED PASSWORD MODAL -->
-    <div id="changePasswordModal" class="fixed inset-0 bg-slate-900/90 backdrop-blur-md z-[110] flex items-center justify-center hidden p-4">
-        <div class="bg-white rounded-2xl card-3d w-full max-w-md p-6 space-y-4 shadow-2xl">
-            <div class="text-center space-y-1 border-b border-slate-200 pb-3">
-                <div class="w-12 h-12 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center mx-auto mb-2 btn-3d">
+    <div id="changePasswordModal" class="fixed inset-0 bg-slate-900/20 backdrop-blur-sm z-[110] flex items-center justify-center hidden p-4">
+        <div class="glass-modal-light rounded-3xl w-full max-w-md p-6 sm:p-8 space-y-5">
+            <div class="text-center space-y-1 border-b border-slate-200/80 pb-4">
+                <div class="w-12 h-12 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center mx-auto mb-2 border border-amber-300 shadow-sm">
                     <i data-lucide="lock" class="w-6 h-6"></i>
                 </div>
-                <h3 id="passwordModalTitle" class="font-black text-slate-900 text-xl tracking-tight">Set New Password</h3>
-                <p id="passwordModalSubtitle" class="text-slate-500 text-xs">Temporary Password or 90-Day Expiry Detected. Update credentials to continue.</p>
+                <h3 id="passwordModalTitle" class="font-orbitron font-bold text-slate-900 text-xl tracking-tight">Set New Password</h3>
+                <p id="passwordModalSubtitle" class="text-slate-600 text-xs">Temporary Password or 90-Day Expiry Detected. Update credentials to continue.</p>
             </div>
 
-            <div class="bg-slate-50 border border-slate-200 p-3 rounded-xl space-y-1.5">
-                <p class="text-[11px] font-bold text-slate-700 uppercase tracking-wider">Password Criteria (Valid for 90 Days):</p>
-                <ul class="text-xs text-slate-600 space-y-1">
-                    <li id="ruleLength" class="flex items-center gap-1.5 text-slate-500">
-                        <i data-lucide="circle" class="w-3.5 h-3.5"></i> Must be at least 8 characters long
-                    </li>
-                    <li id="ruleLetters" class="flex items-center gap-1.5 text-slate-500">
-                        <i data-lucide="circle" class="w-3.5 h-3.5"></i> Must contain letters (case-sensitive)
-                    </li>
-                    <li id="ruleNumbers" class="flex items-center gap-1.5 text-slate-500">
-                        <i data-lucide="circle" class="w-3.5 h-3.5"></i> Must contain numbers
-                    </li>
-                    <li id="ruleMatch" class="flex items-center gap-1.5 text-slate-500">
-                        <i data-lucide="circle" class="w-3.5 h-3.5"></i> New & Confirm Passwords must match
-                    </li>
+            <div class="bg-slate-100/80 border border-slate-300 p-3.5 rounded-2xl space-y-2">
+                <p class="text-[11px] font-bold text-slate-800 uppercase tracking-wider">Password Criteria (Valid for 90 Days):</p>
+                <ul class="text-xs text-slate-600 space-y-1.5">
+                    <li id="ruleLength" class="flex items-center gap-1.5"><i data-lucide="circle" class="w-3.5 h-3.5"></i> Must be at least 8 characters long</li>
+                    <li id="ruleLetters" class="flex items-center gap-1.5"><i data-lucide="circle" class="w-3.5 h-3.5"></i> Must contain letters (case-sensitive)</li>
+                    <li id="ruleNumbers" class="flex items-center gap-1.5"><i data-lucide="circle" class="w-3.5 h-3.5"></i> Must contain numbers</li>
+                    <li id="ruleMatch" class="flex items-center gap-1.5"><i data-lucide="circle" class="w-3.5 h-3.5"></i> New & Confirm Passwords must match</li>
                 </ul>
             </div>
 
-            <form onsubmit="handlePasswordChange(event)" class="space-y-3">
+            <form onsubmit="handlePasswordChange(event)" class="space-y-4">
                 <div>
                     <label class="block text-xs font-bold text-slate-700 mb-1">New Password</label>
                     <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
-                            <i data-lucide="key-round" class="w-4 h-4"></i>
-                        </div>
-                        <input type="password" id="newPassword" oninput="validatePasswordCriteria()" placeholder="Enter new password" required
-                            class="w-full bg-slate-50 border border-slate-300 rounded-lg pl-9 pr-3 py-2 text-sm font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-500 input-3d">
+                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500"><i data-lucide="key-round" class="w-4 h-4"></i></div>
+                        <input type="password" id="newPassword" oninput="validatePasswordCriteria()" placeholder="Enter new password" required class="w-full glass-input-light rounded-xl pl-10 pr-10 py-2.5 text-sm font-bold focus:outline-none">
+                        <button type="button" onclick="togglePasswordVisibility('newPassword', 'toggleNewPassIcon')" class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-500 focus:outline-none"><i data-lucide="eye" id="toggleNewPassIcon" class="w-4 h-4"></i></button>
                     </div>
                 </div>
 
                 <div>
                     <label class="block text-xs font-bold text-slate-700 mb-1">Confirm New Password</label>
                     <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
-                            <i data-lucide="key-round" class="w-4 h-4"></i>
-                        </div>
-                        <input type="password" id="confirmPassword" oninput="validatePasswordCriteria()" placeholder="Confirm new password" required
-                            class="w-full bg-slate-50 border border-slate-300 rounded-lg pl-9 pr-3 py-2 text-sm font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-500 input-3d">
+                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500"><i data-lucide="key-round" class="w-4 h-4"></i></div>
+                        <input type="password" id="confirmPassword" oninput="validatePasswordCriteria()" placeholder="Confirm new password" required class="w-full glass-input-light rounded-xl pl-10 pr-10 py-2.5 text-sm font-bold focus:outline-none">
+                        <button type="button" onclick="togglePasswordVisibility('confirmPassword', 'toggleConfirmPassIcon')" class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-500 focus:outline-none"><i data-lucide="eye" id="toggleConfirmPassIcon" class="w-4 h-4"></i></button>
                     </div>
                 </div>
 
-                <button type="submit" id="savePasswordBtn" disabled class="w-full py-2.5 bg-slate-400 text-white font-bold rounded-lg text-sm btn-3d cursor-not-allowed transition-all flex items-center justify-center gap-2">
-                    <i data-lucide="save" class="w-4 h-4"></i> Save Password (Valid 90 Days)
+                <button type="submit" id="savePasswordBtn" disabled class="w-full py-3 bg-slate-300 text-slate-500 font-bold rounded-xl text-sm cursor-not-allowed flex items-center justify-center gap-2 border border-slate-300">
+                    <i data-lucide="save" class="w-4 h-4"></i> Save Password & Sync Global JSON
                 </button>
             </form>
         </div>
     </div>
 
-    <!-- MAIN APP HEADER -->
-    <header class="bg-slate-900 text-white sticky top-0 z-50 border-b-2 border-slate-950 shadow-lg w-full relative">
-        <div class="w-full px-4 sm:px-6 lg:px-12 h-16 flex items-center justify-between relative z-10">
-            <div class="flex items-center space-x-3 sm:space-x-4">
-                <div class="flex items-center space-x-2 sm:space-x-3">
-                    <div class="bg-indigo-600 p-1.5 sm:p-2 rounded-lg text-white btn-3d">
-                        <i data-lucide="calendar-check" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+    <!-- MAIN PORTAL WORKSPACE (Blurred when logged out) -->
+    <div id="portalWorkspace" class="blur-workspace min-h-screen flex flex-col w-full">
+        <header class="bg-slate-900 text-white sticky top-0 z-50 border-b border-slate-950 shadow-xl w-full">
+            <div class="w-full px-4 sm:px-6 lg:px-12 h-16 flex items-center justify-between">
+                <div class="flex items-center space-x-3 sm:space-x-4">
+                    <div class="flex items-center pr-3 border-r border-slate-700">
+                        <img src="SABRE-LOGO-REGISTERED-SCREEN-WHITE-WIP.svg" alt="Sabre Logo" class="h-6 w-auto object-contain" />
                     </div>
-                    <div>
-                        <div class="flex items-center gap-2">
-                            <h1 class="font-bold text-sm sm:text-lg leading-none tracking-tight">ATS BLR ROSTER PORTAL</h1>
-                            <span id="userBadge" class="text-[10px] bg-emerald-600 text-white font-extrabold px-1.5 py-0.5 rounded tracking-wide uppercase">Logged In</span>
+                    <div class="flex items-center space-x-2">
+                        <div class="bg-indigo-600 p-2 rounded-xl text-white shadow-lg btn-3d">
+                            <i data-lucide="calendar-check" class="w-5 h-5"></i>
                         </div>
-                        <span id="portalSubhead" class="text-[10px] sm:text-xs text-slate-400 block mt-0.5">Live Interactive Schedule</span>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h1 class="font-orbitron font-bold text-sm sm:text-lg leading-none tracking-wider">ATS BLR ROSTER PORTAL</h1>
+                                <span id="adminBadge" class="hidden text-[10px] bg-rose-600 text-white font-extrabold px-1.5 py-0.5 rounded tracking-wide uppercase">Admin Edit Mode</span>
+                            </div>
+                            <span id="portalSubhead" class="text-[10px] sm:text-xs text-slate-400 block mt-0.5">Live Interactive Schedule</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-3">
+                    <div class="relative hidden sm:block">
+                        <input type="text" id="searchInput" placeholder="Search employee, skill..." class="bg-slate-800 text-xs text-slate-200 placeholder-slate-400 rounded-lg pl-9 pr-4 py-1.5 focus:outline-none focus:ring-2 focus:ring-indigo-500 w-64 border border-slate-700 input-3d">
+                        <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-2.5"></i>
+                    </div>
+
+                    <!-- USER PROFILE DROPDOWN MENU -->
+                    <div class="relative">
+                        <button id="userProfileBtn" onclick="toggleUserDropdown(event)" class="flex items-center space-x-2 bg-slate-800 hover:bg-slate-700 text-slate-100 text-xs font-semibold px-3 py-1.5 rounded-xl border border-slate-700 transition-all btn-3d">
+                            <div class="w-6 h-6 rounded-full bg-indigo-600 text-white font-black text-[10px] flex items-center justify-center" id="userAvatarInitials">
+                                --
+                            </div>
+                            <span id="userNameDisplay">Employee</span>
+                            <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400"></i>
+                        </button>
+
+                        <div id="userDropdownMenu" class="hidden absolute right-0 mt-2 w-56 bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl z-50 p-2 space-y-1 backdrop-blur-xl">
+                            <div class="px-3 py-2 border-b border-slate-800">
+                                <p class="text-xs font-bold text-white truncate" id="dropdownUserFullName">Employee Name</p>
+                                <p class="text-[10px] font-semibold text-slate-400" id="dropdownUserSgId">SG ID: ---</p>
+                            </div>
+
+                            <button id="modeSwitchBtn" onclick="toggleAdminNormalMode()" class="hidden w-full text-left px-3 py-2 text-xs font-bold text-amber-400 hover:bg-slate-800 rounded-xl flex items-center gap-2 transition-all">
+                                <i id="modeSwitchIcon" data-lucide="shield-check" class="w-4 h-4"></i>
+                                <span id="modeSwitchText">Switch to Admin Mode</span>
+                            </button>
+
+                            <button onclick="logoutEmployee()" class="w-full text-left px-3 py-2 text-xs font-bold text-rose-400 hover:bg-slate-800 rounded-xl flex items-center gap-2 transition-all">
+                                <i data-lucide="log-out" class="w-4 h-4"></i>
+                                <span>Logout</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="flex-grow w-full px-3 sm:px-6 lg:px-12 py-4 sm:py-6 space-y-4 sm:space-y-6 relative z-10">
+            <div class="bg-white p-3 sm:p-4 rounded-xl card-3d flex flex-col md:flex-row md:items-center justify-between gap-3 w-full">
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="switchCategory('weekly', event)" id="tabWeekly" class="tab-btn tab-3d active text-xs px-4 py-2 rounded-lg flex items-center gap-2">
+                        <i data-lucide="calendar" class="w-4 h-4"></i> Roster Schedule
+                    </button>
+                    <button onclick="switchCategory('individual', event)" id="tabIndividual" class="tab-btn tab-3d text-xs px-4 py-2 rounded-lg flex items-center gap-2">
+                        <i data-lucide="user" class="w-4 h-4"></i> Individual Profiles
+                    </button>
+                    <button onclick="switchCategory('qm', event)" id="tabQM" class="tab-btn tab-3d text-xs px-4 py-2 rounded-lg flex items-center gap-2">
+                        <i data-lucide="shield-check" class="w-4 h-4"></i> QM Staff Allocation
+                    </button>
+                    <button onclick="switchCategory('holidays', event)" id="tabHolidays" class="tab-btn tab-3d text-xs px-4 py-2 rounded-lg flex items-center gap-2">
+                        <i data-lucide="globe" class="w-4 h-4"></i> Global Holidays
+                    </button>
+                </div>
+
+                <div id="periodNavigator" class="flex items-center gap-3">
+                    <div class="flex items-center space-x-2">
+                        <label class="text-xs font-semibold uppercase text-slate-400">Month:</label>
+                        <select id="monthSelect" onchange="onMonthChange()" class="bg-slate-50 border border-slate-300 text-slate-800 text-xs font-semibold rounded-lg px-3 py-1.5 focus:ring-2 focus:ring-indigo-500 card-3d"></select>
+                    </div>
+                    <div id="weekNavigator" class="flex items-center space-x-2">
+                        <label class="text-xs font-semibold uppercase text-slate-400">Week:</label>
+                        <select id="weekSelect" onchange="onWeekChange()" class="bg-slate-50 border border-slate-300 text-slate-800 text-xs font-semibold rounded-lg px-3 py-1.5 focus:ring-2 focus:ring-indigo-500 card-3d"></select>
                     </div>
                 </div>
             </div>
 
-            <div class="flex items-center space-x-3">
-                <button onclick="logoutEmployee()" class="flex items-center space-x-1.5 bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors">
-                    <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
-                    <span>Logout</span>
-                </button>
+            <!-- KPI Summary Cards -->
+            <div id="kpiContainer" class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 w-full"></div>
+
+            <!-- Coverage Charts -->
+            <div id="chartSection" class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 w-full">
+                <div class="lg:col-span-2 bg-white p-4 sm:p-5 rounded-xl card-3d">
+                    <h3 class="font-bold text-slate-800 text-xs sm:text-sm flex items-center gap-2 mb-3">
+                        <i data-lucide="line-chart" class="w-4 h-4 text-indigo-600"></i> Daily Shift Coverage Trend
+                    </h3>
+                    <div class="chart-container-wrapper">
+                        <canvas id="coverageChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white p-4 sm:p-5 rounded-xl card-3d">
+                    <h3 class="font-bold text-slate-800 text-xs sm:text-sm flex items-center gap-2 mb-3">
+                        <i data-lucide="pie-chart" class="w-4 h-4 text-indigo-600"></i> Active Shift Distribution
+                    </h3>
+                    <div class="chart-container-wrapper flex items-center justify-center">
+                        <canvas id="distributionChart"></canvas>
+                    </div>
+                </div>
             </div>
-        </div>
-    </header>
 
-    <main class="flex-grow w-full px-3 sm:px-6 lg:px-12 py-4 sm:py-6 space-y-4 sm:space-y-6 relative z-10">
-        <div class="bg-white p-3 sm:p-4 rounded-xl card-3d flex items-center justify-between">
-            <h2 class="font-bold text-slate-800 text-sm sm:text-base">Authenticated Portal Workspace</h2>
-            <button onclick="downloadRosterJSON()" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-lg btn-3d flex items-center gap-1.5">
-                <i data-lucide="download" class="w-3.5 h-3.5"></i> Export Updated Roster JSON
-            </button>
-        </div>
-
-        <div id="mainDisplayArea" class="w-full">
-            <!-- Dynamic Main Content -->
-        </div>
-    </main>
+            <div id="mainDisplayArea" class="w-full"></div>
+        </main>
+    </div>
 
     <script>
+        const ADMIN_SG_ID = "316092";
         const TEMP_PASSWORD = "3E4R5T6Y";
-        const EXPIRY_DAYS = 90;
-        const EXPIRY_MS = EXPIRY_DAYS * 24 * 60 * 60 * 1000;
+        const EXPIRY_MS = 90 * 24 * 60 * 60 * 1000;
 
-        let rawRosterData = [];
-        let currentActiveUser = null;
+        const SABRE_2026_HOLIDAYS = [
+            { date: "2026-01-01", day: "Thursday", name: "New Year's Day", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
+            { date: "2026-01-26", day: "Monday", name: "Republic Day", offices: ["BLR"] },
+            { date: "2026-03-04", day: "Wednesday", name: "Holi", offices: ["BLR"] },
+            { date: "2026-04-03", day: "Friday", name: "Good Friday", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
+            { date: "2026-05-01", day: "Friday", name: "May Day / Labor Day", offices: ["UK", "KRK", "MVD", "SGP"] },
+            { date: "2026-08-15", day: "Saturday", name: "Independence Day", offices: ["BLR"] },
+            { date: "2026-10-02", day: "Friday", name: "Gandhi Jayanti", offices: ["BLR"] },
+            { date: "2026-11-10", day: "Tuesday", name: "Deepavali", offices: ["BLR"] },
+            { date: "2026-12-25", day: "Friday", name: "Christmas Day", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] }
+        ];
 
-        function getStoredCredentials() {
-            return JSON.parse(localStorage.getItem('emp_credentials_store') || '{}');
-        }
-
-        function saveStoredCredential(sgId, newPass) {
-            const store = getStoredCredentials();
-            store[sgId] = {
-                password: newPass,
-                updatedAt: Date.now()
-            };
-            localStorage.setItem('emp_credentials_store', JSON.stringify(store));
-        }
+        // FULL 5-WEEK COMPLETE ROSTER DATA (September Weeks 1–4 + October Week 1)
+        const defaultHardcodedRosterData = [
+            {
+                "month": "September",
+                "week_num": 1,
+                "dates": ["07/09/26", "08/09/26", "09/09/26", "10/09/26", "11/09/26", "12/09/26", "13/09/26"],
+                "employees": [
+                    {"sg_id": 316092, "name": "Lelin Patra", "skilling": "ATS 2L", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 223254, "name": "Srinivas Reddy", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Tue/Wed/Thu", "shifts": {"Monday": "08:00 AM - 05:00 PM", "Tuesday": "08:00 AM - 05:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 223258, "name": "Md. Shahbaz", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Mon/Tue/Wed", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "WO", "Friday": "WO", "Saturday": "06:00 AM - 03:00 PM", "Sunday": "06:30 AM - 03:30 PM"}},
+                    {"sg_id": 709139, "name": "Rupesh C P", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 223255, "name": "Deepak K", "skilling": "ATS 2L", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Wed/Thu/Fri", "shifts": {"Monday": "PTO", "Tuesday": "PTO", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 227186, "name": "Sanjay Kumar", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Tue/Wed/Thu", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "WO", "Friday": "WO", "Saturday": "10:00 AM - 07:00 PM", "Sunday": "10:00 AM - 07:00 PM"}},
+                    {"sg_id": 709454, "name": "Prathvi Shetty", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "2nd Half Off", "Tuesday": "SL", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "PTO", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709282, "name": "Preethi P", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "PTO", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709424, "name": "Bhargav R", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "08:00 AM - 05:00 PM", "Tuesday": "08:00 AM - 05:00 PM", "Wednesday": "08:00 AM - 05:00 PM", "Thursday": "08:00 AM - 05:00 PM", "Friday": "08:00 AM - 05:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709283, "name": "Nidhi Taku", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "6:00 AM - 03:00 PM", "Tuesday": "6:00 AM - 03:00 PM", "Wednesday": "6:00 AM - 03:00 PM", "Thursday": "6:00 AM - 03:00 PM", "Friday": "6:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709115, "name": "Gokul Krishna Lokesh", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "6:00 AM - 03:00 PM", "Tuesday": "6:00 AM - 03:00 PM", "Wednesday": "6:00 AM - 03:00 PM", "Thursday": "6:00 AM - 03:00 PM", "Friday": "6:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709312, "name": "Manisha Kumari", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "SL", "Tuesday": "SL", "Wednesday": "08:00 AM - 05:00 PM", "Thursday": "08:00 AM - 05:00 PM", "Friday": "08:00 AM - 05:00 PM", "Saturday": "WO", "Sunday": "WO"}}
+                ],
+                "qm_staff_6am": {"Monday": "Srinivas Reddy", "Tuesday": "Srinivas Reddy", "Wednesday": "Srinivas Reddy", "Thursday": "Srinivas Reddy", "Friday": "Srinivas Reddy", "Saturday": "Md. Shahbaz", "Sunday": "Md. Shahbaz"},
+                "qm_staff_10am": {"Monday": "Sanjay Kumar", "Tuesday": "Sanjay Kumar", "Wednesday": "Sanjay Kumar", "Thursday": "Sanjay Kumar", "Friday": "Deepak K", "Saturday": "Unassigned", "Sunday": "Sanjay Kumar"}
+            },
+            {
+                "month": "September",
+                "week_num": 2,
+                "dates": ["14/09/26", "15/09/26", "16/09/26", "17/09/26", "18/09/26", "19/09/26", "20/09/26"],
+                "employees": [
+                    {"sg_id": 316092, "name": "Lelin Patra", "skilling": "ATS 2L", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Tue/Wed/Thu/Fri", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 223254, "name": "Srinivas Reddy", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Tue/Wed/Thu", "shifts": {"Monday": "WO", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "10:00 AM - 07:00 PM", "Sunday": "WO"}},
+                    {"sg_id": 223258, "name": "Md. Shahbaz", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Tue/Wed", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "WO", "Friday": "WO", "Saturday": "06:00 AM - 03:00 PM", "Sunday": "06:30 AM - 03:30 PM"}},
+                    {"sg_id": 709139, "name": "Rupesh C P", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Tue/Wed/Thu/Fri", "shifts": {"Monday": "PH", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 223255, "name": "Deepak K", "skilling": "ATS 2L", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Tue/Wed/Thu/Fri", "shifts": {"Monday": "PH", "Tuesday": "8:00 AM - 05:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "8:00 AM - 05:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 227186, "name": "Sanjay Kumar", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Tue/Wed/Thu", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "WO", "Saturday": "WO", "Sunday": "10:00 AM - 07:00 PM"}},
+                    {"sg_id": 709454, "name": "Prathvi Shetty", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Tue/Wed/Thu/Fri", "shifts": {"Monday": "PH", "Tuesday": "PTO", "Wednesday": "PTO", "Thursday": "PTO", "Friday": "PTO", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709282, "name": "Preethi P", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Tue/Wed/Thu/Fri", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709424, "name": "Bhargav R", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Tue/Wed/Thu/Fri", "shifts": {"Monday": "PH", "Tuesday": "08:00 AM - 05:00 PM", "Wednesday": "08:00 AM - 05:00 PM", "Thursday": "08:00 AM - 05:00 PM", "Friday": "08:00 AM - 05:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709283, "name": "Nidhi Taku", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Tue/Wed/Thu/Fri", "shifts": {"Monday": "8:00 AM - 05:00 PM", "Tuesday": "6:00 AM - 03:00 PM", "Wednesday": "6:00 AM - 03:00 PM", "Thursday": "6:00 AM - 03:00 PM", "Friday": "6:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709115, "name": "Gokul Krishna Lokesh", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Tue/Wed/Thu/Fri", "shifts": {"Monday": "6:00 AM - 03:00 PM", "Tuesday": "6:00 AM - 03:00 PM", "Wednesday": "6:00 AM - 03:00 PM", "Thursday": "6:00 AM - 03:00 PM", "Friday": "6:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709312, "name": "Manisha Kumari", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Tue/Wed/Thu/Fri", "shifts": {"Monday": "6:00 AM - 03:00 PM", "Tuesday": "08:00 AM - 05:00 PM", "Wednesday": "08:00 AM - 05:00 PM", "Thursday": "PTO", "Friday": "08:00 AM - 05:00 PM", "Saturday": "WO", "Sunday": "WO"}}
+                ],
+                "qm_staff_6am": {"Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"},
+                "qm_staff_10am": {"Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"}
+            },
+            {
+                "month": "September",
+                "week_num": 3,
+                "dates": ["21/09/26", "22/09/26", "23/09/26", "24/09/26", "25/09/26", "26/09/26", "27/09/26"],
+                "employees": [
+                    {"sg_id": 316092, "name": "Lelin Patra", "skilling": "ATS 2L", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 223254, "name": "Srinivas Reddy", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Mon/Tue/", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 223258, "name": "Md. Shahbaz", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Tue/Wed/Thu", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "WO", "Friday": "WO", "Saturday": "06:00 AM - 03:00 PM", "Sunday": "06:30 AM - 03:30 PM"}},
+                    {"sg_id": 709139, "name": "Rupesh C P", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 223255, "name": "Deepak K", "skilling": "ATS 2L", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 227186, "name": "Sanjay Kumar", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "WO", "Friday": "WO", "Saturday": "10:00 AM - 07:00 PM", "Sunday": "10:00 AM - 07:00 PM"}},
+                    {"sg_id": 709454, "name": "Prathvi Shetty", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709282, "name": "Preethi P", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709424, "name": "Bhargav R", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "6:00 AM - 03:00 PM", "Tuesday": "6:00 AM - 03:00 PM", "Wednesday": "6:00 AM - 03:00 PM", "Thursday": "SL", "Friday": "6:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709283, "name": "Nidhi Taku", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "08:00 AM - 05:00 PM", "Tuesday": "08:00 AM - 05:00 PM", "Wednesday": "SL", "Thursday": "08:00 AM - 05:00 PM", "Friday": "08:00 AM - 05:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709115, "name": "Gokul Krishna Lokesh", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "08:00 AM - 05:00 PM", "Tuesday": "08:00 AM - 05:00 PM", "Wednesday": "08:00 AM - 05:00 PM", "Thursday": "08:00 AM - 05:00 PM", "Friday": "08:00 AM - 05:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709312, "name": "Manisha Kumari", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "6:00 AM - 03:00 PM", "Tuesday": "6:00 AM - 03:00 PM", "Wednesday": "6:00 AM - 03:00 PM", "Thursday": "6:00 AM - 03:00 PM", "Friday": "6:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}}
+                ],
+                "qm_staff_6am": {"Monday": "Md. Shahbaz", "Tuesday": "Md. Shahbaz", "Wednesday": "Md. Shahbaz", "Thursday": "Srinivas Reddy", "Friday": "Srinivas Reddy", "Saturday": "Md. Shahbaz", "Sunday": "Md. Shahbaz"},
+                "qm_staff_10am": {"Monday": "Deepak K", "Tuesday": "Deepak K", "Wednesday": "Deepak K", "Thursday": "Deepak K", "Friday": "Deepak K", "Saturday": "Sanjay Kumar", "Sunday": "Sanjay Kumar"}
+            },
+            {
+                "month": "September",
+                "week_num": 4,
+                "dates": ["28/09/26", "29/09/26", "30/09/26", "01/10/26", "02/10/26", "03/10/26", "04/10/26"],
+                "employees": [
+                    {"sg_id": 316092, "name": "Lelin Patra", "skilling": "ATS 2L", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Mon/Tue/Wed/Thu", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 223254, "name": "Srinivas Reddy", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "No", "shifts": {"Monday": "WO", "Tuesday": "PTO", "Wednesday": "PTO", "Thursday": "PTO", "Friday": "10:00 AM - 07:00 PM", "Saturday": "10:00 AM - 07:00 PM", "Sunday": "WO"}},
+                    {"sg_id": 223258, "name": "Md. Shahbaz", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Mon/Tue/Wed", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "WO", "Friday": "WO", "Saturday": "06:00 AM - 03:00 PM", "Sunday": "06:30 AM - 03:30 PM"}},
+                    {"sg_id": 709139, "name": "Rupesh C P", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Mon/Tue/Wed/Thu", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 223255, "name": "Deepak K", "skilling": "ATS 2L", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Mon/Tue/Wed/Thu", "shifts": {"Monday": "WO", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "07:00 AM -04:00 PM", "Friday": "07:00 AM -04:00 PM", "Saturday": "WO", "Sunday": "10:00 AM - 07:00 PM"}},
+                    {"sg_id": 227186, "name": "Sanjay Kumar", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Mon/Tue/Wed/Thu", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "PH", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709454, "name": "Prathvi Shetty", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Mon/Tue/Wed/Thu", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709282, "name": "Preethi P", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Mon/Tue/Wed/Thu", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "PH", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709424, "name": "Bhargav R", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu", "shifts": {"Monday": "6:00 AM - 03:00 PM", "Tuesday": "6:00 AM - 03:00 PM", "Wednesday": "6:00 AM - 03:00 PM", "Thursday": "6:00 AM - 03:00 PM", "Friday": "6:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709283, "name": "Nidhi Taku", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu", "shifts": {"Monday": "08:00 AM - 05:00 PM", "Tuesday": "08:00 AM - 05:00 PM", "Wednesday": "08:00 AM - 05:00 PM", "Thursday": "08:00 AM - 05:00 PM", "Friday": "08:00 AM - 05:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709115, "name": "Gokul Krishna Lokesh", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu", "shifts": {"Monday": "08:00 AM - 05:00 PM", "Tuesday": "08:00 AM - 05:00 PM", "Wednesday": "08:00 AM - 05:00 PM", "Thursday": "08:00 AM - 05:00 PM", "Friday": "08:00 AM - 05:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709312, "name": "Manisha Kumari", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu", "shifts": {"Monday": "6:00 AM - 03:00 PM", "Tuesday": "6:00 AM - 03:00 PM", "Wednesday": "6:00 AM - 03:00 PM", "Thursday": "6:00 AM - 03:00 PM", "Friday": "6:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}}
+                ],
+                "qm_staff_6am": {"Monday": "Md. Shahbaz", "Tuesday": "Md. Shahbaz", "Wednesday": "Md. Shahbaz", "Thursday": "Lelin Patra", "Friday": "Lelin Patra", "Saturday": "Md. Shahbaz", "Sunday": "Md. Shahbaz"},
+                "qm_staff_10am": {"Monday": "Sanjay Kumar", "Tuesday": "Sanjay Kumar", "Wednesday": "Sanjay Kumar", "Thursday": "Sanjay Kumar", "Friday": "Deepak K", "Saturday": "Srinivas Reddy", "Sunday": "Deepak K"}
+            },
+            {
+                "month": "October",
+                "week_num": 1,
+                "dates": ["05/10/26", "06/10/26", "07/10/26", "08/10/26", "09/10/26", "10/10/26", "11/10/26"],
+                "employees": [
+                    {"sg_id": 316092, "name": "Lelin Patra", "skilling": "ATS 2L", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 227186, "name": "Sanjay Kumar", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Tue/Wed/Thu", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "06:00 AM - 03:00 PM", "Friday": "06:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 223255, "name": "Deepak K", "skilling": "ATS 2L", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "08:00 AM - 05:00 PM", "Tuesday": "08:00 AM - 05:00 PM", "Wednesday": "08:00 AM - 05:00 PM", "Thursday": "08:00 AM - 05:00 PM", "Friday": "08:00 AM - 05:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 223254, "name": "Srinivas Reddy", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Tue/Wed/Thu", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709454, "name": "Prathavi", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709282, "name": "Preethi P", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709139, "name": "Rupesh C P", "skilling": "ATS", "default_start": "10:00 AM", "default_end": "07:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "10:00 AM - 07:00 PM", "Tuesday": "10:00 AM - 07:00 PM", "Wednesday": "10:00 AM - 07:00 PM", "Thursday": "10:00 AM - 07:00 PM", "Friday": "10:00 AM - 07:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709115, "name": "Gokul Krishna Lokesh", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "08:00 AM - 05:00 PM", "Tuesday": "08:00 AM - 05:00 PM", "Wednesday": "08:00 AM - 05:00 PM", "Thursday": "08:00 AM - 05:00 PM", "Friday": "08:00 AM - 05:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709312, "name": "Manisha Kumari", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "08:00 AM - 05:00 PM", "Tuesday": "08:00 AM - 05:00 PM", "Wednesday": "08:00 AM - 05:00 PM", "Thursday": "08:00 AM - 05:00 PM", "Friday": "08:00 AM - 05:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709424, "name": "Bhargav R", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "6:00 AM - 03:00 PM", "Tuesday": "6:00 AM - 03:00 PM", "Wednesday": "6:00 AM - 03:00 PM", "Thursday": "6:00 AM - 03:00 PM", "Friday": "6:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 709283, "name": "Nidhi Taku", "skilling": "ATS", "default_start": "08:00 AM", "default_end": "05:00 PM", "days_office": "Mon/Tue/Wed/Thu/Fri", "shifts": {"Monday": "6:00 AM - 03:00 PM", "Tuesday": "6:00 AM - 03:00 PM", "Wednesday": "6:00 AM - 03:00 PM", "Thursday": "6:00 AM - 03:00 PM", "Friday": "6:00 AM - 03:00 PM", "Saturday": "WO", "Sunday": "WO"}},
+                    {"sg_id": 223258, "name": "Md. Shahbaz", "skilling": "ATS", "default_start": "06:00 AM", "default_end": "03:00 PM", "days_office": "Mon/Tue/Wed", "shifts": {"Monday": "06:00 AM - 03:00 PM", "Tuesday": "06:00 AM - 03:00 PM", "Wednesday": "06:00 AM - 03:00 PM", "Thursday": "WO", "Friday": "WO", "Saturday": "06:00 AM - 03:00 PM", "Sunday": "06:30 AM - 03:30 PM"}}
+                ],
+                "qm_staff_6am": {"Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"},
+                "qm_staff_10am": {"Monday": "Unassigned", "Tuesday": "Unassigned", "Wednesday": "Unassigned", "Thursday": "Unassigned", "Friday": "Unassigned", "Saturday": "Unassigned", "Sunday": "Unassigned"}
+            }
+        ];
 
         async function fetchRosterData() {
             try {
                 const response = await fetch('./roster.json?v=' + new Date().getTime());
                 if (response.ok) {
-                    rawRosterData = await response.json();
+                    const data = await response.json();
+                    if (data && Array.isArray(data) && data.length > 0) {
+                        rawRosterData = data;
+                        return;
+                    }
                 }
             } catch (err) {
-                console.error("Could not load roster.json", err);
+                console.warn("Using default hardcoded roster data fallback:", err);
             }
+            rawRosterData = JSON.parse(JSON.stringify(defaultHardcodedRosterData));
+        }
+
+        function togglePasswordVisibility(inputId, iconId) {
+            const input = document.getElementById(inputId);
+            const icon = document.getElementById(iconId);
+            if (!input || !icon) return;
+
+            if (input.type === "password") {
+                input.type = "text";
+                icon.setAttribute("data-lucide", "eye-off");
+            } else {
+                input.type = "password";
+                icon.setAttribute("data-lucide", "eye");
+            }
+            lucide.createIcons();
         }
 
         function handleEmployeeLogin(e) {
@@ -249,19 +538,8 @@
                 return;
             }
 
-            const store = getStoredCredentials();
-            const localRecord = store[sgIdInput];
-            
-            let expectedPassword = TEMP_PASSWORD;
-            let passwordUpdatedAt = 0;
-
-            if (localRecord && localRecord.password) {
-                expectedPassword = localRecord.password;
-                passwordUpdatedAt = localRecord.updatedAt || 0;
-            } else if (validEmp.password) {
-                expectedPassword = validEmp.password;
-                passwordUpdatedAt = validEmp.password_updated_at || 0;
-            }
+            const expectedPassword = validEmp.password || TEMP_PASSWORD;
+            const passwordUpdatedAt = validEmp.password_updated_at || 0;
 
             if (passwordInput !== expectedPassword) {
                 errorEl.innerText = "Invalid Password. Please try again.";
@@ -269,59 +547,73 @@
                 return;
             }
 
-            const isTempPassword = (passwordInput === TEMP_PASSWORD);
-            const isExpired = passwordUpdatedAt > 0 && ((Date.now() - passwordUpdatedAt) > EXPIRY_MS);
-
+            isAdminMode = false;
             currentActiveUser = validEmp;
             errorEl.classList.add('hidden');
             document.getElementById('empLoginModal').classList.add('hidden');
 
+            const isTempPassword = (passwordInput === TEMP_PASSWORD);
+            const isExpired = passwordUpdatedAt > 0 && ((Date.now() - passwordUpdatedAt) > EXPIRY_MS);
+
             if (isTempPassword || isExpired) {
-                if (isExpired) {
-                    document.getElementById('passwordModalTitle').innerText = "Password Expired (90 Days)";
-                    document.getElementById('passwordModalSubtitle').innerText = "Your password has expired after 90 days. Please set a new password.";
-                } else {
-                    document.getElementById('passwordModalTitle').innerText = "Set New Password";
-                    document.getElementById('passwordModalSubtitle').innerText = "Temporary Password Detected. Please set your new password.";
-                }
                 document.getElementById('changePasswordModal').classList.remove('hidden');
             } else {
-                renderMainContent();
+                renderPortalWorkspace();
             }
         }
 
-        function validatePasswordCriteria() {
-            const newPass = document.getElementById('newPassword').value;
-            const confirmPass = document.getElementById('confirmPassword').value;
+        function toggleUserDropdown(event) {
+            event.stopPropagation();
+            const menu = document.getElementById('userDropdownMenu');
+            menu.classList.toggle('hidden');
+        }
 
-            const hasMinLen = newPass.length >= 8;
-            const hasLetters = /[a-zA-Z]/.test(newPass);
-            const hasNumbers = /[0-9]/.test(newPass);
-            const matches = newPass.length > 0 && newPass === confirmPass;
-
-            updateRuleDisplay('ruleLength', hasMinLen);
-            updateRuleDisplay('ruleLetters', hasLetters);
-            updateRuleDisplay('ruleNumbers', hasNumbers);
-            updateRuleDisplay('ruleMatch', matches);
-
-            const submitBtn = document.getElementById('savePasswordBtn');
-            if (hasMinLen && hasLetters && hasNumbers && matches) {
-                submitBtn.disabled = false;
-                submitBtn.className = "w-full py-2.5 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-lg text-sm btn-3d transition-all cursor-pointer flex items-center justify-center gap-2";
-            } else {
-                submitBtn.disabled = true;
-                submitBtn.className = "w-full py-2.5 bg-slate-400 text-white font-bold rounded-lg text-sm btn-3d cursor-not-allowed transition-all flex items-center justify-center gap-2";
+        function closeUserDropdownOutside(event) {
+            const menu = document.getElementById('userDropdownMenu');
+            const btn = document.getElementById('userProfileBtn');
+            if (menu && !menu.contains(event.target) && !btn.contains(event.target)) {
+                menu.classList.add('hidden');
             }
         }
 
-        function updateRuleDisplay(ruleId, isPassed) {
-            const el = document.getElementById(ruleId);
-            if (isPassed) {
-                el.className = "flex items-center gap-1.5 text-emerald-600 font-bold";
-                el.querySelector('i').setAttribute('data-lucide', 'check-circle-2');
+        function toggleAdminNormalMode() {
+            if (String(currentActiveUser.sg_id) !== ADMIN_SG_ID) return;
+
+            isAdminMode = !isAdminMode;
+            updateProfileUI();
+            renderView();
+            document.getElementById('userDropdownMenu').classList.add('hidden');
+        }
+
+        function updateProfileUI() {
+            if (!currentActiveUser) return;
+
+            const initials = currentActiveUser.name.split(' ').map(n => n[0]).join('').substring(0, 2);
+            document.getElementById('userAvatarInitials').innerText = initials;
+            document.getElementById('userNameDisplay').innerText = currentActiveUser.name;
+
+            document.getElementById('dropdownUserFullName').innerText = currentActiveUser.name;
+            document.getElementById('dropdownUserSgId').innerText = `SG ID: ${currentActiveUser.sg_id}`;
+
+            const modeBtn = document.getElementById('modeSwitchBtn');
+            const modeText = document.getElementById('modeSwitchText');
+            const modeIcon = document.getElementById('modeSwitchIcon');
+            const adminBadge = document.getElementById('adminBadge');
+
+            if (String(currentActiveUser.sg_id) === ADMIN_SG_ID) {
+                modeBtn.classList.remove('hidden');
+                if (isAdminMode) {
+                    adminBadge.classList.remove('hidden');
+                    modeText.innerText = "Switch to Normal Mode";
+                    modeIcon.setAttribute("data-lucide", "eye");
+                } else {
+                    adminBadge.classList.add('hidden');
+                    modeText.innerText = "Switch to Admin Mode";
+                    modeIcon.setAttribute("data-lucide", "shield-check");
+                }
             } else {
-                el.className = "flex items-center gap-1.5 text-slate-500";
-                el.querySelector('i').setAttribute('data-lucide', 'circle');
+                modeBtn.classList.add('hidden');
+                adminBadge.classList.add('hidden');
             }
             lucide.createIcons();
         }
@@ -330,8 +622,6 @@
             e.preventDefault();
             const newPass = document.getElementById('newPassword').value;
             const timestamp = Date.now();
-
-            saveStoredCredential(currentActiveUser.sg_id, newPass);
 
             rawRosterData.forEach(w => {
                 (w.employees || []).forEach(emp => {
@@ -343,43 +633,387 @@
             });
 
             document.getElementById('changePasswordModal').classList.add('hidden');
-            alert("Password updated successfully! Valid for the next 90 days across global logins.");
-            renderMainContent();
+            alert("Password updated successfully! Synchronized across roster.json for all devices.");
+            renderPortalWorkspace();
         }
 
-        function downloadRosterJSON() {
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(rawRosterData, null, 2));
-            const downloadAnchor = document.createElement('a');
-            downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", "roster.json");
-            document.body.appendChild(downloadAnchor);
-            downloadAnchor.click();
-            downloadAnchor.remove();
+        function openForgotPasswordModal() {
+            document.getElementById('forgotPasswordMsg').classList.add('hidden');
+            document.getElementById('resetEmpId').value = '';
+            document.getElementById('forgotPasswordModal').classList.remove('hidden');
+        }
+
+        function closeForgotPasswordModal() {
+            document.getElementById('forgotPasswordModal').classList.add('hidden');
+        }
+
+        function handleForgotPasswordRequest(e) {
+            e.preventDefault();
+            const resetSgId = document.getElementById('resetEmpId').value.trim();
+            const msgEl = document.getElementById('forgotPasswordMsg');
+
+            let validEmp = null;
+            rawRosterData.forEach(w => {
+                const found = (w.employees || []).find(emp => String(emp.sg_id) === resetSgId);
+                if (found) validEmp = found;
+            });
+
+            if (!validEmp) {
+                msgEl.innerText = "Employee ID not found in system.";
+                msgEl.className = "text-xs font-bold text-center p-2.5 rounded-xl bg-rose-100 text-rose-700 border border-rose-300 block";
+                return;
+            }
+
+            msgEl.innerText = "Your request has been submitted to the admin user.";
+            msgEl.className = "text-xs font-bold text-center p-2.5 rounded-xl bg-emerald-100 text-emerald-800 border border-emerald-300 block";
+
+            setTimeout(() => { closeForgotPasswordModal(); }, 3000);
+        }
+
+        function validatePasswordCriteria() {
+            const newPass = document.getElementById('newPassword').value;
+            const confirmPass = document.getElementById('confirmPassword').value;
+
+            const hasMinLen = newPass.length >= 8;
+            const hasLetters = /[a-zA-Z]/.test(newPass);
+            const hasNumbers = /[0-9]/.test(newPass);
+            const matches = newPass.length > 0 && newPass === confirmPass;
+
+            const submitBtn = document.getElementById('savePasswordBtn');
+            if (hasMinLen && hasLetters && hasNumbers && matches) {
+                submitBtn.disabled = false;
+                submitBtn.className = "w-full py-3 bg-amber-600 hover:bg-amber-500 text-white font-extrabold rounded-xl text-sm transition-all cursor-pointer flex items-center justify-center gap-2 btn-3d";
+            } else {
+                submitBtn.disabled = true;
+                submitBtn.className = "w-full py-3 bg-slate-300 text-slate-500 font-bold rounded-xl text-sm cursor-not-allowed flex items-center justify-center gap-2 border border-slate-300";
+            }
+        }
+
+        function renderPortalWorkspace() {
+            document.getElementById('portalWorkspace').classList.remove('blur-workspace');
+            updateProfileUI();
+            updateMonthDropdown();
+            updateWeekOptions();
+            renderView();
         }
 
         function logoutEmployee() {
             currentActiveUser = null;
+            isAdminMode = false;
+            document.getElementById('adminBadge').classList.add('hidden');
+            document.getElementById('userDropdownMenu').classList.add('hidden');
+            document.getElementById('portalWorkspace').classList.add('blur-workspace');
             document.getElementById('empLoginModal').classList.remove('hidden');
             document.getElementById('loginEmpPassword').value = '';
         }
 
-        function renderMainContent() {
-            const store = getStoredCredentials();
-            const record = store[currentActiveUser.sg_id];
-            const updatedDateStr = record && record.updatedAt ? new Date(record.updatedAt).toLocaleDateString() : 'Just Now';
+        function updateMonthDropdown() {
+            const monthSelect = document.getElementById('monthSelect');
+            const availableMonths = [...new Set(rawRosterData.map(w => w.month))];
+            monthSelect.innerHTML = '';
+            availableMonths.forEach(m => {
+                const opt = document.createElement('option');
+                opt.value = m;
+                opt.textContent = `${m} 2026`;
+                monthSelect.appendChild(opt);
+            });
+            monthSelect.value = currentMonth;
+        }
 
-            document.getElementById('userBadge').innerText = `ID: ${currentActiveUser.sg_id} - ${currentActiveUser.name}`;
+        function updateWeekOptions() {
+            const weekSelect = document.getElementById('weekSelect');
+            const monthWeeks = rawRosterData.filter(w => w.month === currentMonth).sort((a,b) => a.week_num - b.week_num);
+            weekSelect.innerHTML = '';
+            monthWeeks.forEach(wObj => {
+                const opt = document.createElement('option');
+                opt.value = wObj.week_num;
+                opt.textContent = `Week ${wObj.week_num}: ${wObj.dates[0] \vert{}\vert{} ''} -${wObj.dates[6] || ''}`;
+                weekSelect.appendChild(opt);
+            });
+            weekSelect.value = currentWeekNum;
+        }
+
+        function getActiveWeekData() {
+            return rawRosterData.find(w => w.month === currentMonth && w.week_num === currentWeekNum) || rawRosterData[0] || {};
+        }
+
+        function getShiftBadge(shift, sgId, day) {
+            if (isAdminMode && sgId && day) {
+                const options = ["06:00 AM - 03:00 PM", "08:00 AM - 05:00 PM", "10:00 AM - 07:00 PM", "WO", "PTO", "PH", "SL"];
+                let optionsHtml = '';
+                options.forEach(opt => {
+                    const sel = (shift === opt) ? 'selected' : '';
+                    optionsHtml += `<option value="${opt}" ${sel}>${opt}</option>`;
+                });
+                return `<select onchange="updateShiftInteractive('${sgId}', '${day}', this.value)" class="bg-white border border-indigo-300 font-bold rounded px-1.5 py-1 text-xs shadow-sm">${optionsHtml}</select>`;
+            }
+
+            if (!shift || shift === 'WO') return `<span class="px-2 py-1 rounded text-xs font-extrabold bg-slate-100 text-slate-600">WO</span>`;
+            if (shift === 'PTO') return `<span class="px-2 py-1 rounded text-xs font-extrabold bg-rose-600 text-white shadow-sm">PTO</span>`;
+            if (shift.includes("06:00") || shift.includes("6:00")) return `<span class="px-2 py-1 rounded text-xs font-extrabold bg-emerald-100 text-emerald-900 border border-emerald-300">06:00 AM</span>`;
+            if (shift.includes("08:00") || shift.includes("8:00")) return `<span class="px-2 py-1 rounded text-xs font-extrabold bg-blue-100 text-blue-900 border border-blue-300">08:00 AM</span>`;
+            if (shift.includes("10:00")) return `<span class="px-2 py-1 rounded text-xs font-extrabold bg-amber-100 text-amber-950 border border-amber-300">10:00 AM</span>`;
+            return `<span class="px-2 py-1 rounded text-xs font-extrabold bg-indigo-100 text-indigo-900 border border-indigo-300">${shift}</span>`;
+        }
+
+        function updateShiftInteractive(sgId, day, newShift) {
+            if (!isAdminMode) return;
+            const weekData = getActiveWeekData();
+            const emp = (weekData.employees || []).find(e => String(e.sg_id) === String(sgId));
+            if (emp) {
+                if (!emp.shifts) emp.shifts = {};
+                emp.shifts[day] = newShift;
+            }
+            renderView();
+        }
+
+        function renderView() {
+            if (activeCategory === 'weekly') renderWeeklyView();
+            else if (activeCategory === 'individual') renderIndividualView();
+            else if (activeCategory === 'qm') renderQMView();
+            else if (activeCategory === 'holidays') renderHolidaysView();
+
+            if (activeCategory === 'weekly') updateCharts();
+            lucide.createIcons();
+        }
+
+        function renderWeeklyView() {
+            document.getElementById('kpiContainer').classList.remove('hidden');
+            document.getElementById('chartSection').classList.remove('hidden');
+
+            const weekData = getActiveWeekData();
+            const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+            const employees = weekData.employees || [];
+
+            let filteredEmployees = employees.filter(e => 
+                (e.name && e.name.toLowerCase().includes(searchQuery)) || 
+                (e.skilling && e.skilling.toLowerCase().includes(searchQuery)) ||
+                (e.sg_id && String(e.sg_id).includes(searchQuery))
+            );
+
+            filteredEmployees.sort((a, b) => {
+                const isA2L = (a.skilling && a.skilling.toUpperCase().includes("2L")) ? 1 : 0;
+                const isB2L = (b.skilling && b.skilling.toUpperCase().includes("2L")) ? 1 : 0;
+                if (isA2L !== isB2L) return isB2L - isA2L;
+                return (a.name || '').localeCompare(b.name || '');
+            });
+
+            document.getElementById('kpiContainer').innerHTML = `
+                <div class="bg-white p-4 rounded-xl card-3d flex items-center justify-between">
+                    <div><p class="text-xs font-semibold uppercase text-slate-400">Total Roster Staff</p><h3 class="text-xl font-bold text-slate-900 mt-1">${filteredEmployees.length}</h3></div>
+                    <div class="p-3 bg-indigo-50 text-indigo-600 rounded-xl border border-indigo-200"><i data-lucide="users" class="w-5 h-5"></i></div>
+                </div>
+                <div class="bg-white p-4 rounded-xl card-3d flex items-center justify-between">
+                    <div><p class="text-xs font-semibold uppercase text-slate-400">Active Month</p><h3 class="text-sm font-bold text-emerald-600 mt-1">${weekData.month} 2026</h3></div>
+                    <div class="p-3 bg-emerald-50 text-emerald-600 rounded-xl border border-emerald-200"><i data-lucide="calendar" class="w-5 h-5"></i></div>
+                </div>
+                <div class="bg-white p-4 rounded-xl card-3d flex items-center justify-between">
+                    <div><p class="text-xs font-semibold uppercase text-slate-400">QM 06:00 AM</p><h3 class="text-xs font-bold text-amber-600 mt-1">${(weekData.qm_staff_6am && weekData.qm_staff_6am.Monday) ? weekData.qm_staff_6am.Monday : 'Unassigned'}</h3></div>
+                    <div class="p-3 bg-amber-50 text-amber-600 rounded-xl border border-amber-200"><i data-lucide="sun" class="w-5 h-5"></i></div>
+                </div>
+                <div class="bg-white p-4 rounded-xl card-3d flex items-center justify-between">
+                    <div><p class="text-xs font-semibold uppercase text-slate-400">QM 10:00 AM</p><h3 class="text-xs font-bold text-indigo-600 mt-1">${(weekData.qm_staff_10am && weekData.qm_staff_10am.Monday) ? weekData.qm_staff_10am.Monday : 'Unassigned'}</h3></div>
+                    <div class="p-3 bg-indigo-50 text-indigo-600 rounded-xl border border-indigo-200"><i data-lucide="clock" class="w-5 h-5"></i></div>
+                </div>
+            `;
+
+            let headerHTML = `<thead><tr class="bg-slate-900 text-white text-xs uppercase font-semibold border-b border-slate-950">
+                <th class="p-3 text-left sticky left-0 bg-slate-900 z-10 border-r border-slate-800">Employee</th>
+                <th class="p-3 text-center border-r border-slate-800">Skilling</th>`;
+            days.forEach((d, idx) => {
+                headerHTML += `<th class="p-3 text-center border-r border-slate-800">${d} (${weekData.dates ? weekData.dates[idx] : ''})</th>`;
+            });
+            headerHTML += `</tr></thead>`;
+
+            let bodyHTML = ``;
+            filteredEmployees.forEach(e => {
+                bodyHTML += `<tr class="hover:bg-slate-50 border-b border-slate-200">
+                    <td class="p-3 sticky left-0 bg-white border-r border-slate-200">
+                        <div class="font-extrabold text-slate-900 text-sm">${e.name}</div>
+                        <div class="text-slate-500 text-xs">SG ID: ${e.sg_id}</div>
+                    </td>
+                    <td class="p-3 text-center border-r border-slate-100">
+                        <span class="px-2 py-0.5 bg-slate-100 border border-slate-300 rounded text-slate-700 text-xs font-bold">${e.skilling || 'ATS'}</span>
+                    </td>`;
+                days.forEach(d => {
+                    bodyHTML += `<td class="p-3 text-center border-r border-slate-100">${getShiftBadge(e.shifts ? e.shifts[d] : 'WO', e.sg_id, d)}</td>`;
+                });
+                bodyHTML += `</tr>`;
+            });
+
             document.getElementById('mainDisplayArea').innerHTML = `
-                <div class="bg-white p-6 rounded-xl card-3d space-y-2">
-                    <h3 class="font-bold text-slate-900 text-lg">Welcome, ${currentActiveUser.name}!</h3>
-                    <p class="text-slate-600 text-sm">Employee ID: <strong class="text-indigo-600">${currentActiveUser.sg_id}</strong></p>
-                    <p class="text-slate-500 text-xs">Password Status: <span class="text-emerald-600 font-bold">Active (Last Updated: ${updatedDateStr})</span> — Expires in 90 Days.</p>
+                <div class="bg-white rounded-xl table-3d overflow-hidden w-full">
+                    <div class="overflow-x-auto w-full">
+                        <table class="w-full border-collapse">
+                            ${headerHTML}
+                            <tbody class="divide-y divide-slate-100">${bodyHTML}</tbody>
+                        </table>
+                    </div>
                 </div>
             `;
         }
 
+        function renderIndividualView() {
+            document.getElementById('kpiContainer').classList.add('hidden');
+            document.getElementById('chartSection').classList.add('hidden');
+
+            const empMap = {};
+            rawRosterData.forEach(w => {
+                (w.employees || []).forEach(e => {
+                    if (!e.name) return;
+                    if (!empMap[e.name]) {
+                        empMap[e.name] = { sg_id: e.sg_id, skilling: e.skilling, weeks: [] };
+                    }
+                    empMap[e.name].weeks.push({ month: w.month, week_num: w.week_num, dates: w.dates, shifts: e.shifts || {} });
+                });
+            });
+
+            let html = `<div class="space-y-4 w-full">`;
+            Object.keys(empMap).sort().forEach(empName => {
+                if (searchQuery && !empName.toLowerCase().includes(searchQuery)) return;
+                const emp = empMap[empName];
+
+                html += `
+                    <div class="bg-white p-5 rounded-xl card-3d w-full">
+                        <div class="flex items-center justify-between border-b border-slate-200 pb-3 mb-4">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 rounded-full bg-indigo-600 text-white font-extrabold flex items-center justify-center text-sm btn-3d">
+                                    ${empName.split(' ').map(n=>n[0]).join('')}
+                                </div>
+                                <div>
+                                    <h3 class="font-extrabold text-slate-900 text-base">${empName}</h3>
+                                    <p class="text-xs text-slate-500 font-bold">SG ID: ${emp.sg_id} • Skill: ${emp.skilling}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            html += `</div>`;
+            document.getElementById('mainDisplayArea').innerHTML = html;
+        }
+
+        function renderQMView() {
+            document.getElementById('kpiContainer').classList.add('hidden');
+            document.getElementById('chartSection').classList.add('hidden');
+
+            const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+            const weekData = getActiveWeekData();
+
+            let html = `
+                <div class="bg-white p-6 rounded-xl card-3d space-y-6 w-full">
+                    <h3 class="font-bold text-slate-800 text-base flex items-center gap-2 border-b border-slate-200 pb-3">
+                        <i data-lucide="shield-check" class="text-indigo-600 w-5 h-5"></i> Queue Manager Staff Assignment — ${weekData.month} Week ${weekData.week_num}
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+                        <div class="bg-amber-50/50 border border-amber-300 rounded-xl p-5 card-3d">
+                            <h4 class="font-bold text-amber-800 text-sm mb-4">QM Staff - 06:00 AM Shift</h4>
+                            <div class="divide-y divide-amber-200">`;
+            days.forEach(d => {
+                const staff = (weekData.qm_staff_6am && weekData.qm_staff_6am[d]) ? weekData.qm_staff_6am[d] : 'Unassigned';
+                html += `<div class="py-2.5 flex justify-between text-xs"><span class="font-semibold text-slate-600">${d}</span><span class="font-bold text-amber-900">${staff}</span></div>`;
+            });
+            html += `</div></div>
+                        <div class="bg-indigo-50/50 border border-indigo-300 rounded-xl p-5 card-3d">
+                            <h4 class="font-bold text-indigo-800 text-sm mb-4">QM Staff - 10:00 AM Shift</h4>
+                            <div class="divide-y divide-indigo-200">`;
+            days.forEach(d => {
+                const staff = (weekData.qm_staff_10am && weekData.qm_staff_10am[d]) ? weekData.qm_staff_10am[d] : 'Unassigned';
+                html += `<div class="py-2.5 flex justify-between text-xs"><span class="font-semibold text-slate-600">${d}</span><span class="font-bold text-indigo-900">${staff}</span></div>`;
+            });
+            html += `</div></div></div></div>`;
+            document.getElementById('mainDisplayArea').innerHTML = html;
+        }
+
+        function renderHolidaysView() {
+            document.getElementById('kpiContainer').classList.add('hidden');
+            document.getElementById('chartSection').classList.add('hidden');
+
+            let tableRows = '';
+            SABRE_2026_HOLIDAYS.forEach(h => {
+                tableRows += `<tr class="border-b border-slate-200 text-xs">
+                    <td class="p-3 font-mono-digital font-bold text-slate-900">${h.date}</td>
+                    <td class="p-3 text-slate-600">${h.day}</td>
+                    <td class="p-3 font-extrabold text-slate-950">${h.name}</td>
+                    <td class="p-3"><span class="px-2 py-0.5 bg-indigo-100 text-indigo-800 rounded font-bold text-[10px]">${h.offices.join(', ')}</span></td>
+                </tr>`;
+            });
+
+            document.getElementById('mainDisplayArea').innerHTML = `
+                <div class="bg-white p-6 rounded-xl card-3d space-y-4 w-full">
+                    <h3 class="font-bold text-slate-900 text-base flex items-center gap-2 border-b border-slate-200 pb-3">
+                        <i data-lucide="globe" class="text-indigo-600 w-5 h-5"></i> Sabre 2026 Global Holiday Calendar
+                    </h3>
+                    <div class="overflow-x-auto w-full">
+                        <table class="w-full text-left">
+                            <thead><tr class="bg-slate-900 text-white text-xs uppercase font-semibold"><th class="p-3">Date</th><th class="p-3">Day</th><th class="p-3">Holiday Name</th><th class="p-3">Offices</th></tr></thead>
+                            <tbody>${tableRows}</tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateCharts() {
+            const ctx1 = document.getElementById('coverageChart')?.getContext('2d');
+            if (ctx1) {
+                if (coverageChartInstance) coverageChartInstance.destroy();
+                coverageChartInstance = new Chart(ctx1, {
+                    type: 'bar',
+                    data: {
+                        labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+                        datasets: [
+                            { label: '06:00 AM Shift', data: [5, 5, 6, 5, 5, 1, 1], backgroundColor: '#10b981' },
+                            { label: '08:00 AM Shift', data: [2, 2, 2, 2, 2, 0, 0], backgroundColor: '#3b82f6' },
+                            { label: '10:00 AM Shift', data: [3, 1, 4, 3, 2, 1, 1], backgroundColor: '#f59e0b' }
+                        ]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+
+            const ctx2 = document.getElementById('distributionChart')?.getContext('2d');
+            if (ctx2) {
+                if (distChartInstance) distChartInstance.destroy();
+                distChartInstance = new Chart(ctx2, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['06:00 AM', '08:00 AM', '10:00 AM', 'WO'],
+                        datasets: [{ data: [5, 2, 3, 2], backgroundColor: ['#10b981', '#3b82f6', '#f59e0b', '#cbd5e1'] }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+        }
+
+        function onMonthChange() {
+            currentMonth = document.getElementById('monthSelect').value;
+            currentWeekNum = 1;
+            updateWeekOptions();
+            renderView();
+        }
+
+        function onWeekChange() {
+            currentWeekNum = parseInt(document.getElementById('weekSelect').value);
+            renderView();
+        }
+
+        function switchCategory(cat, event) {
+            activeCategory = cat;
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            if(cat === 'weekly') document.getElementById('tabWeekly').classList.add('active');
+            if(cat === 'individual') document.getElementById('tabIndividual').classList.add('active');
+            if(cat === 'qm') document.getElementById('tabQM').classList.add('active');
+            if(cat === 'holidays') document.getElementById('tabHolidays').classList.add('active');
+            renderView();
+        }
+
         document.addEventListener("DOMContentLoaded", async () => {
             await fetchRosterData();
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                searchQuery = e.target.value.toLowerCase();
+                renderView();
+            });
             lucide.createIcons();
         });
     </script>
