@@ -357,7 +357,7 @@
 
             <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-1.5 text-xs">
                 <span class="font-bold text-slate-800 block text-[11px] uppercase tracking-wider">Password Requirements:</span>
-                <ul class="space-y-1 text-[11px]">
+                <ul class="space-y-1 text-slate-600 text-[11px]">
                     <li id="ruleLength" class="flex items-center gap-2 text-slate-400 font-medium">
                         <span id="iconRuleLength" class="inline-block w-4 text-center font-bold text-slate-400">•</span>
                         Exactly 8 Characters long
@@ -376,12 +376,12 @@
             <form onsubmit="handleEmpPasswordChange(event)" class="space-y-3">
                 <div>
                     <label class="block text-[11px] font-bold text-slate-700 mb-1">New Password</label>
-                    <input type="password" id="empNewPass" oninput="validatePasswordCriteria()" onkeyup="validatePasswordCriteria()" placeholder="8 chars e.g. pass1234" required class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs font-semibold focus:ring-2 focus:ring-amber-500 input-3d">
+                    <input type="password" id="empNewPass" placeholder="8 chars e.g. pass1234" required class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs font-semibold focus:ring-2 focus:ring-amber-500 input-3d">
                 </div>
 
                 <div>
                     <label class="block text-[11px] font-bold text-slate-700 mb-1">Confirm New Password</label>
-                    <input type="password" id="empConfirmPass" oninput="validatePasswordCriteria()" onkeyup="validatePasswordCriteria()" placeholder="Re-enter new password" required class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs font-semibold focus:ring-2 focus:ring-amber-500 input-3d">
+                    <input type="password" id="empConfirmPass" placeholder="Re-enter new password" required class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs font-semibold focus:ring-2 focus:ring-amber-500 input-3d">
                 </div>
 
                 <div id="passChangeError" class="hidden text-rose-600 text-xs font-bold text-center bg-rose-50 p-2 rounded-lg border border-rose-200">
@@ -1283,7 +1283,7 @@
             }
         }
 
-        // SIMPLIFIED, DIRECT DOM-BASED VALIDATION LOGIC
+        // ACCURATE & STRICT REAL-TIME VALIDATION
         function validatePasswordCriteria() {
             const passEl = document.getElementById('empNewPass');
             const confirmEl = document.getElementById('empConfirmPass');
@@ -1291,19 +1291,19 @@
 
             if (!passEl || !confirmEl || !saveBtn) return;
 
-            const newPass = passEl.value ? passEl.value.trim() : '';
-            const confirmPass = confirmEl.value ? confirmEl.value.trim() : '';
+            const newPass = passEl.value;
+            const confirmPass = confirmEl.value;
 
             // Rule 1: Length is exactly 8
             const is8Chars = newPass.length === 8;
 
-            // Rule 2: Alphanumeric only AND has at least 1 letter + 1 number
+            // Rule 2: Alphanumeric only AND contains at least 1 letter + 1 number
             const hasLetters = /[a-zA-Z]/.test(newPass);
             const hasNumbers = /[0-9]/.test(newPass);
-            const isOnlyAlphanumeric = /^[a-zA-Z0-9]+$/.test(newPass);
-            const isCharsValid = is8Chars && hasLetters && hasNumbers && isOnlyAlphanumeric;
+            const isAlphanumericOnly = /^[a-zA-Z0-9]+$/.test(newPass);
+            const isCharsValid = is8Chars && hasLetters && hasNumbers && isAlphanumericOnly;
 
-            // Rule 3: Confirmation password matches
+            // Rule 3: Passwords match
             const isMatching = newPass.length > 0 && newPass === confirmPass;
 
             updateRuleText('ruleLength', 'iconRuleLength', is8Chars);
@@ -1339,16 +1339,16 @@
 
         async function handleEmpPasswordChange(e) {
             e.preventDefault();
-            const newPass = document.getElementById('empNewPass').value.trim();
-            const confirmPass = document.getElementById('empConfirmPass').value.trim();
+            const newPass = document.getElementById('empNewPass').value;
+            const confirmPass = document.getElementById('empConfirmPass').value;
             const errorEl = document.getElementById('passChangeError');
 
             const is8Chars = newPass.length === 8;
             const hasLetters = /[a-zA-Z]/.test(newPass);
             const hasNumbers = /[0-9]/.test(newPass);
-            const isOnlyAlphanumeric = /^[a-zA-Z0-9]+$/.test(newPass);
+            const isAlphanumericOnly = /^[a-zA-Z0-9]+$/.test(newPass);
 
-            if (!is8Chars || !hasLetters || !hasNumbers || !isOnlyAlphanumeric || newPass !== confirmPass) {
+            if (!is8Chars || !hasLetters || !hasNumbers || !isAlphanumericOnly || newPass !== confirmPass) {
                 errorEl.innerText = "Password must be exactly 8 characters containing letters and numbers.";
                 errorEl.classList.remove('hidden');
                 return;
@@ -1430,9 +1430,9 @@
             const is8Chars = tempPass.length === 8;
             const hasLetters = /[a-zA-Z]/.test(tempPass);
             const hasNumbers = /[0-9]/.test(tempPass);
-            const noSpecialChars = /^[a-zA-Z0-9]+$/.test(tempPass);
+            const isAlphanumericOnly = /^[a-zA-Z0-9]+$/.test(tempPass);
 
-            if (!is8Chars || !hasLetters || !hasNumbers || !noSpecialChars) {
+            if (!is8Chars || !hasLetters || !hasNumbers || !isAlphanumericOnly) {
                 alert("Temporary password must follow password rules: Exactly 8 characters with letters and numbers.");
                 return;
             }
@@ -3404,7 +3404,7 @@
                 requestAnimationFrame(animateFreeFlight);
             }
 
-                animateFreeFlight();
+            animateFreeFlight();
         }
     </script>
 </body>
