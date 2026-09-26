@@ -245,94 +245,298 @@
             background-color: #fef3c7 !important;
         }
 
-        /* 3D Text Shadow Effect */
-        .text-3d-shadow {
-            text-shadow: 
-                0 1px 0 #cbd5e1,
-                0 2px 0 #94a3b8,
-                0 3px 0 #64748b,
-                0 4px 0 #475569,
-                0 5px 0 #334155,
-                0 6px 10px rgba(15, 23, 42, 0.4);
-        }
-
-        /* Pure Glass Clear White Overlay Window */
+        /* Light Purple & White Gradient Glass Overlay Window */
         .glass-clear-white {
-            background: rgba(255, 255, 255, 0.85);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(243, 232, 255, 0.85) 50%, rgba(255, 255, 255, 0.95) 100%);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.9);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), inset 0 0 15px rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(233, 213, 255, 0.8);
+            box-shadow: 0 25px 50px -12px rgba(126, 34, 206, 0.15), inset 0 0 15px rgba(255, 255, 255, 0.8);
         }
 
+
+        /* Premium aviation login redesign - login-only styles */
+        .login-shell{background:rgba(15,23,42,.40);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);overflow:hidden}
+        .login-shell::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,transparent 0%,rgba(255,255,255,.018) 42%,transparent 43%),radial-gradient(circle at 50% 50%,transparent 0 48%,rgba(15,23,42,.16) 100%)}
+        .login-grid{position:absolute;inset:-10%;opacity:.06;pointer-events:none;background-image:linear-gradient(rgba(148,163,184,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(148,163,184,.09) 1px,transparent 1px);background-size:44px 44px;transform:perspective(700px) rotateX(62deg) scale(1.5);transform-origin:center bottom}
+        .login-ambient{position:absolute;border-radius:999px;filter:blur(65px);pointer-events:none}.login-ambient-one{width:360px;height:360px;left:-140px;top:-130px;background:rgba(14,165,233,.06)}.login-ambient-two{width:420px;height:420px;right:-160px;bottom:-180px;background:rgba(245,158,11,.045)}
+        .login-route{position:absolute;width:55vw;max-width:720px;height:220px;border-top:1px solid rgba(99,102,241,.14);border-radius:50%;transform:rotate(-24deg);pointer-events:none}.route-one{left:-8%;top:18%}.route-two{right:-10%;bottom:10%;transform:rotate(22deg);border-color:rgba(245,158,11,.11)}.login-scanline{position:absolute;left:0;right:0;top:50%;height:1px;background:linear-gradient(90deg,transparent,rgba(56,189,248,.16),transparent);pointer-events:none}
+        .login-card{position:relative;z-index:5;display:flex;min-height:470px;max-height:calc(100vh - 64px);background:rgba(255,255,255,.98);border:1px solid rgba(203,213,225,.9);box-shadow:0 28px 65px rgba(15,23,42,.32),0 0 0 1px rgba(15,23,42,.08),inset 0 1px 0 rgba(255,255,255,.9)}
+        .login-visual{position:relative;overflow:hidden;background:linear-gradient(145deg,#0f172a 0%,#1e293b 62%,#172554 100%)}.login-visual::before{content:"";position:absolute;width:520px;height:520px;right:-250px;top:-230px;border:1px solid rgba(99,102,241,.11);border-radius:50%;box-shadow:0 0 0 70px rgba(56,189,248,.018),0 0 0 140px rgba(56,189,248,.012)}.login-visual::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,transparent 0 55%,rgba(99,102,241,.035) 55.2%,transparent 55.5%);pointer-events:none}
+        .login-status-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 12px rgba(34,197,94,.8)}.login-line-icon{width:36px;height:36px;border:1px solid rgba(148,163,184,.14);background:rgba(255,255,255,.04);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#67e8f9}.login-orbit{position:absolute;border:1px solid rgba(99,102,241,.08);border-radius:50%;pointer-events:none}.login-orbit-a{width:380px;height:380px;right:-190px;bottom:-220px}.login-orbit-b{width:240px;height:240px;right:-120px;bottom:-150px;border-color:rgba(245,158,11,.08)}.login-flight-dot{position:absolute;width:5px;height:5px;border-radius:50%;background:#67e8f9;box-shadow:0 0 14px rgba(103,232,249,.9)}.flight-dot-a{right:105px;top:150px}.flight-dot-b{left:90px;bottom:115px;background:#fbbf24;box-shadow:0 0 14px rgba(251,191,36,.8)}
+        .login-form-panel{background:linear-gradient(180deg,#ffffff 0%,#f8fafc 100%);color:#0f172a}.login-sabre-mark{background:#050505;border-radius:9px;padding:9px 13px;display:inline-flex;align-items:center;box-shadow:0 6px 18px rgba(15,23,42,.12)}
+        .login-input-wrap{display:flex;align-items:center;min-height:46px;border:1px solid #cbd5e1;border-radius:12px;background:#fff;box-shadow:0 2px 6px rgba(15,23,42,.04),inset 0 1px 0 rgba(255,255,255,.9);transition:.2s ease;overflow:hidden}.login-input-wrap:focus-within{border-color:#f59e0b;box-shadow:0 0 0 4px rgba(245,158,11,.1),0 5px 16px rgba(15,23,42,.06);transform:translateY(-1px)}.login-input-icon{width:48px;display:flex;justify-content:center;align-items:center;color:#64748b;flex:none}.login-input{width:100%;height:44px;border:0;outline:0;background:transparent;padding:0 10px 0 0;color:#0f172a;font-size:13px;font-weight:700}.login-input::placeholder{color:#64748b;font-weight:500}.login-eye{height:44px;width:44px;flex:none;display:flex;align-items:center;justify-content:center;color:#64748b;transition:.2s}.login-eye:hover{color:#0f172a}
+        .login-submit{min-height:46px;display:flex;align-items:center;justify-content:center;gap:10px;border-radius:12px;background:linear-gradient(135deg,#f59e0b 0%,#d97706 100%);color:#111827;font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;box-shadow:0 8px 18px rgba(245,158,11,.20),inset 0 1px 0 rgba(255,255,255,.4);transition:.2s ease}.login-submit:hover{transform:translateY(-1px);box-shadow:0 13px 28px rgba(245,158,11,.3),inset 0 1px 0 rgba(255,255,255,.45)}.login-submit:active{transform:translateY(0)}.login-forgot{color:#475569;font-size:11px;font-weight:800;text-decoration:underline;text-underline-offset:3px;transition:.2s}.login-forgot:hover{color:#d97706}.login-error{display:flex;align-items:center;gap:9px;padding:10px 12px;border-radius:10px;background:#fff1f2;border:1px solid #fecdd3;color:#be123c;font-size:11px;font-weight:800;line-height:1.4}
+        .login-data-accent{color:#4f46e5}.login-sabre-mark{box-shadow:0 5px 14px rgba(15,23,42,.10)}.login-input-wrap:focus-within{border-color:#6366f1;box-shadow:0 0 0 3px rgba(99,102,241,.12),0 5px 14px rgba(15,23,42,.05)}.login-submit{background:linear-gradient(135deg,#f59e0b 0%,#d97706 100%)}
+        @media (max-width:767px){.login-card{min-height:0;max-height:calc(100vh - 28px);overflow-y:auto;border-radius:22px}.login-form-panel{padding:20px 18px}}
         @media (max-width: 640px) {
             .chart-container-wrapper {
                 height: 14rem;
             }
         }
-    </style>
+        /* Mobile login optimization — desktop layout remains unchanged */
+        @media (max-width: 767px) {
+            .login-shell {
+                align-items: center;
+                padding: 12px;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            .login-card {
+                min-height: 0;
+                max-height: none;
+                width: 100%;
+                border-radius: 18px;
+                box-shadow: 0 22px 55px rgba(15,23,42,.38), 0 0 0 1px rgba(15,23,42,.08), inset 0 1px 0 rgba(255,255,255,.9);
+            }
+            .login-visual {
+                width: 100%;
+                min-height: 112px;
+                height: 112px;
+                flex: none;
+                padding: 17px 18px !important;
+                background: linear-gradient(145deg,#0f172a 0%,#1e293b 62%,#172554 100%);
+            }
+            .login-visual > .relative.z-10:first-child {
+                width: 100%;
+            }
+            .login-visual .inline-flex {
+                padding: 7px 10px;
+                gap: 8px;
+            }
+            .login-visual .inline-flex span:last-child {
+                font-size: 8px;
+                letter-spacing: .16em;
+            }
+            .login-visual .mt-7 {
+                margin-top: 11px;
+            }
+            .login-visual .mt-7 > div:first-child {
+                margin-bottom: 3px;
+                font-size: 8px;
+                letter-spacing: .22em;
+            }
+            .login-visual h1 {
+                font-size: 20px;
+                line-height: 1.05;
+            }
+            .login-visual .mt-7 p {
+                display: none;
+            }
+            .login-visual > .relative.z-10:nth-child(2),
+            .login-visual .login-orbit,
+            .login-visual .login-flight-dot {
+                display: none;
+            }
+            .login-form-panel {
+                padding: 20px 18px 18px !important;
+            }
+            .login-form-panel > .flex.items-center.justify-between.mb-5 {
+                margin-bottom: 16px;
+            }
+            .login-sabre-mark {
+                padding: 7px 10px;
+                border-radius: 8px;
+            }
+            .login-sabre-mark img {
+                height: 27px;
+            }
+            .login-form-panel .mb-5 {
+                margin-bottom: 16px;
+            }
+            .login-form-panel form {
+                gap: 13px;
+            }
+            .login-input-wrap {
+                min-height: 48px;
+                border-radius: 11px;
+            }
+            .login-input, .login-eye {
+                height: 46px;
+            }
+            .login-input-icon {
+                width: 44px;
+            }
+            .login-submit {
+                min-height: 48px;
+                border-radius: 11px;
+            }
+            .login-form-panel > .mt-5 {
+                margin-top: 16px;
+                padding-top: 12px;
+            }
+        }
+
+        /* Device-responsive data workspace: adapts layout without changing desktop styling */
+        html { width:100%; min-width:0; overflow-x:hidden; }
+        body { min-width:0; width:100%; overflow-x:hidden; }
+        main, header, #mainDisplayArea, #worldClocksContainer, #kpiContainer, #chartSection { min-width:0; max-width:100%; }
+        #mainDisplayArea { width:100%; overflow:visible; }
+        .table-3d, .custom-scrollbar { max-width:100%; }
+        table { max-width:none; }
+        [class*="overflow-x-auto"] { -webkit-overflow-scrolling:touch; overscroll-behavior-x:contain; }
+        canvas { max-width:100%; }
+
+        @media (min-width: 1536px) {
+            main { padding-left:clamp(3rem,4vw,6rem) !important; padding-right:clamp(3rem,4vw,6rem) !important; }
+            header > div:first-child { padding-left:clamp(3rem,4vw,6rem) !important; padding-right:clamp(3rem,4vw,6rem) !important; }
+        }
+
+        @media (max-width: 1024px) and (min-width: 768px) {
+            header > div:first-child { padding-left:16px; padding-right:16px; }
+            #loggedInUserName { max-width:120px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+            #portalSubhead { display:none; }
+        }
+
+        @media (max-width: 767px) {
+            body { padding-bottom:max(12px, env(safe-area-inset-bottom)); }
+            header { position:sticky; top:0; }
+            header > div:first-child { min-height:58px; height:auto; padding:8px 12px; gap:8px; }
+            header > div:first-child > div:first-child { min-width:0; flex:1 1 auto; }
+            header h1 { font-size:clamp(12px,3.5vw,15px); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+            #portalSubhead { font-size:9px; }
+            #loggedInUserName { max-width:92px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+            #userProfileBtn { padding:7px 8px; max-width:130px; }
+            main { padding:10px 10px 18px !important; gap:12px; }
+            #worldClocksContainer { grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+            #worldClocksContainer > div { min-width:0; height:82px; padding:9px; }
+            #worldClocksContainer [id^="clock-"] { font-size:clamp(14px,4.5vw,18px); }
+            #worldClocksContainer [id^="date-"] { font-size:9px; white-space:nowrap; }
+
+            /* Tabs remain readable and scroll horizontally instead of squeezing/wrapping. */
+            main > .card-3d.flex.flex-col { overflow:visible; }
+            main > .card-3d.flex.flex-col > div:first-child { width:100%; overflow-x:auto; flex-wrap:nowrap; padding-bottom:2px; scrollbar-width:thin; }
+            main > .card-3d.flex.flex-col > div:first-child .tab-btn { flex:0 0 auto; white-space:nowrap; }
+            #periodNavigator { width:100%; flex-direction:column; align-items:stretch; gap:8px; }
+            #periodNavigator > div { width:100%; justify-content:space-between; }
+            #periodNavigator label { white-space:nowrap; }
+            #periodNavigator select { flex:1 1 auto; min-width:0; }
+
+            #kpiContainer { grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+            #chartSection { grid-template-columns:minmax(0,1fr); gap:10px; }
+            .chart-container-wrapper { min-width:0; width:100%; height:220px; }
+
+            /* Keep dense roster tables accurate; allow intentional horizontal scrolling rather than clipping columns. */
+            #mainDisplayArea .overflow-x-auto { width:100%; max-width:100%; overflow-x:auto; }
+            #mainDisplayArea table { min-width:max-content; }
+            #mainDisplayArea table th, #mainDisplayArea table td { white-space:nowrap; }
+            #mainDisplayArea table th:first-child, #mainDisplayArea table td:first-child { position:sticky; left:0; z-index:9; }
+
+            /* Holiday/profile tables can use the available width where practical. */
+            #mainDisplayArea .bg-white.p-4 table { min-width:560px; }
+            .modal-panel, [role="dialog"] > div { max-width:calc(100vw - 20px); }
+        }
+
+        @media (max-width: 480px) {
+            main { padding-left:8px !important; padding-right:8px !important; }
+            #worldClocksContainer > div { height:78px; padding:8px; }
+            #worldClocksContainer .font-orbitron { font-size:9px; letter-spacing:.04em; }
+            #kpiContainer { gap:7px; }
+            #kpiContainer > div { min-width:0; }
+            .card-3d { border-bottom-width:2px; }
+            .table-3d { border-radius:10px; }
+        }
+
+        @media (max-width: 360px) {
+            #userProfileBtn { max-width:42px; padding:7px; justify-content:center; }
+            #userProfileBtn #loggedInUserName, #userProfileBtn svg:last-child { display:none; }
+            #worldClocksContainer { gap:6px; }
+            #worldClocksContainer > div { padding:7px; }
+            #periodNavigator > div { gap:6px; }
+            #periodNavigator label { font-size:9px; }
+        }
+
+        @media (orientation: landscape) and (max-height: 600px) and (max-width: 900px) {
+            #worldClocksContainer > div { height:70px; }
+            .chart-container-wrapper { height:180px; }
+            main { padding-top:8px !important; }
+        }
+
+        @media (max-width: 380px) {
+            .login-shell { padding: 8px; }
+            .login-card { border-radius: 16px; }
+            .login-visual { min-height: 102px; height: 102px; padding: 14px 15px !important; }
+            .login-visual h1 { font-size: 18px; }
+            .login-form-panel { padding: 17px 14px 15px !important; }
+            .login-form-panel .text-right { display: none; }
+        }
+
+        /* 3D world-time comparison window */
+        .world-time-modal{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:14px;background:rgba(203,213,225,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(9px)}
+        .world-time-modal.hidden{display:none}
+        .world-time-panel .world-time-title{color:#17324d}
+        .world-time-panel .world-time-subtitle,.world-time-panel .world-time-foot{color:#64748b}
+        .world-time-panel .world-time-add{background:rgba(255,255,255,.82);color:#1e4f78;border-color:rgba(37,99,168,.18)}
+        .world-time-panel .world-time-select{background:rgba(255,255,255,.92);color:#1e3a5f;border-color:rgba(100,116,139,.28)}
+        .world-time-panel .world-time-close{background:rgba(255,255,255,.75);color:#475569;border-color:rgba(100,116,139,.22)}
+        
+        .world-time-panel{position:relative;width:min(840px,calc(100vw - 24px));max-height:min(820px,calc(100vh - 24px));overflow:hidden;border:1px solid rgba(125,211,252,.28);border-radius:24px;background:linear-gradient(145deg,#dbeafe,#e0f2fe 48%,#dcfce7);box-shadow:0 28px 70px rgba(71,85,105,.24),inset 0 1px 0 rgba(255,255,255,.95),inset 0 -18px 45px rgba(148,163,184,.08);transform:perspective(1200px) rotateX(.6deg);}
+        .world-time-panel:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(15,23,42,.15),rgba(15,23,42,.15)),linear-gradient(rgba(100,116,139,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(100,116,139,.045) 1px,transparent 1px);background-size:auto,28px 28px,28px 28px;pointer-events:none;opacity:.9}
+        .world-time-panel:after{content:"";position:absolute;inset:0;background-image:url('https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg');background-repeat:no-repeat;background-position:center 72%;background-size:92% auto;opacity:.055;filter:sepia(.15) saturate(.75) hue-rotate(155deg);pointer-events:none}
+        .world-time-head{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:18px 20px 14px;border-bottom:1px solid rgba(125,211,252,.14)}
+        .world-time-title{font-size:16px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#1e3a5f;text-shadow:0 2px 12px rgba(56,189,248,.25)}
+        .world-time-subtitle{margin-top:4px;font-size:10px;color:#64748b;letter-spacing:.03em}
+        .world-time-close{width:34px;height:34px;border:1px solid rgba(148,163,184,.25);border-radius:10px;background:rgba(15,23,42,.62);color:#cbd5e1;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:21px;line-height:1;box-shadow:0 4px 12px rgba(0,0,0,.22)}
+        .world-time-close:hover{background:rgba(30,41,59,.9);color:#fff;border-color:rgba(125,211,252,.45)}
+        .world-time-body{position:relative;z-index:2;padding:14px 18px 18px;overflow:auto;max-height:calc(min(760px,100vh - 24px) - 78px)}
+        .world-time-country-tools{display:flex;align-items:center;gap:8px;margin:0 0 10px;padding:7px 8px;border:1px solid rgba(71,85,105,.14);border-radius:12px;background:rgba(255,255,255,.62)}
+        .world-time-country-count{font-size:9px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;color:#2563a8;white-space:nowrap}
+        .world-time-country-search{flex:1;min-width:0;padding:7px 9px;border:1px solid rgba(148,163,184,.22);border-radius:8px;background:#ffffff;color:#0f2742;font-size:11px;font-weight:700;outline:none}
+        .world-time-country-search:focus{border-color:#38bdf8;box-shadow:0 0 0 2px rgba(56,189,248,.11)}
+        .world-time-selectors{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:0 0 11px}
+        .world-time-selector-row{display:flex;gap:7px;align-items:center;padding:7px;border:1px solid rgba(125,211,252,.15);border-radius:12px;background:rgba(255,255,255,.72);box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 8px 20px rgba(0,0,0,.18)}
+        .world-time-select{flex:1;min-width:0;padding:8px 9px;border:1px solid rgba(148,163,184,.24);border-radius:8px;background:#ffffff;color:#0f2742;font-size:11px;font-weight:700;outline:none}
+        .world-time-select:focus{border-color:#38bdf8;box-shadow:0 0 0 2px rgba(56,189,248,.13)}
+        .world-time-remove{border:1px solid rgba(248,113,113,.22);background:rgba(127,29,29,.18);border-radius:8px;padding:8px 9px;font-size:10px;color:#fda4af;cursor:pointer}
+        .world-time-remove:hover{background:rgba(127,29,29,.4);color:#fecdd3}.world-time-remove svg{pointer-events:none}
+        .world-time-add{width:100%;border:1px dashed rgba(56,189,248,.35);background:rgba(14,116,144,.13);border-radius:10px;padding:9px;color:#bae6fd;font-size:11px;font-weight:800;cursor:pointer;letter-spacing:.03em}
+        .world-time-add:hover{background:rgba(14,116,144,.25);border-color:rgba(56,189,248,.6)}
+        .world-time-compare-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin-top:13px}
+        .world-time-compare-card{position:relative;overflow:hidden;min-height:108px;display:flex;flex-direction:column;justify-content:space-between;padding:13px 14px;border:1px solid rgba(125,211,252,.2);border-radius:16px;background:linear-gradient(145deg,rgba(255,255,255,.94),rgba(239,248,255,.92));box-shadow:0 12px 24px rgba(71,85,105,.16),inset 0 1px 0 rgba(255,255,255,.9);transform:perspective(700px) rotateX(1deg);transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+        .world-time-compare-card:hover{transform:perspective(700px) translateY(-2px) rotateX(2deg);border-color:rgba(56,189,248,.45);box-shadow:0 16px 30px rgba(0,0,0,.34),0 0 22px rgba(34,211,238,.08),inset 0 1px 0 rgba(255,255,255,.1)}
+        .world-time-compare-card:before{content:"";position:absolute;inset:auto -20% -55% 25%;height:90px;background:radial-gradient(circle,rgba(34,211,238,.18),transparent 65%);pointer-events:none}
+        .world-time-city{font-size:11px;font-weight:900;color:#1e3a5f;letter-spacing:.03em;position:relative;z-index:1}.world-time-zone{font-size:8px;color:#2563a8;margin-top:3px;position:relative;z-index:1}.world-time-value{font-family:'JetBrains Mono',monospace;font-size:23px;font-weight:900;color:#0f2742;letter-spacing:-.04em;white-space:nowrap;text-shadow:0 1px 0 rgba(255,255,255,.75);position:relative;z-index:1}.world-time-date{font-size:9px;color:#334155;white-space:nowrap;position:relative;z-index:1}.world-time-diff{font-size:8px;color:#475569;margin-top:3px;font-weight:800;position:relative;z-index:1}
+        .world-time-compare-card:nth-child(3n+1){border-top-color:rgba(45,212,191,.55)}.world-time-compare-card:nth-child(3n+2){border-top-color:rgba(96,165,250,.55)}.world-time-compare-card:nth-child(3n){border-top-color:rgba(250,204,21,.55)}
+        .world-time-foot{padding:9px 16px 11px;border-top:1px solid rgba(125,211,252,.12);font-size:8px;color:#64748b;text-align:center;position:relative;z-index:2}
+        .clock-futuristic-3d{cursor:pointer}.clock-futuristic-3d:focus-visible{outline:2px solid #38bdf8;outline-offset:2px}
+        @media(max-width:620px){.world-time-panel{border-radius:18px}.world-time-body{padding:11px}.world-time-selectors,.world-time-compare-results{grid-template-columns:1fr}.world-time-head{padding:15px}.world-time-value{font-size:21px}.world-time-compare-card{min-height:100px}}
+        @media(max-width:380px){.world-time-panel{width:calc(100vw - 14px)}.world-time-title{font-size:13px}.world-time-subtitle{font-size:9px}.world-time-value{font-size:19px}}
+</style>
 </head>
 <body class="min-h-screen flex flex-col w-full overflow-x-hidden relative pb-16">
 
-    <!-- Glasslike Clear White Login Screen Overlay -->
-    <div id="mandatoryLoginModal" class="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/40 backdrop-blur-xl p-4 transition-all duration-500">
-        <div class="w-full max-w-md rounded-2xl glass-clear-white overflow-hidden shadow-2xl card-3d">
-            <!-- Sabre Logo Banner at Top with Black Background -->
-            <div class="bg-black py-6 px-8 flex justify-center items-center shadow-md border-b border-slate-800 w-full">
-                <img src="SABRE-LOGO-REGISTERED-SCREEN-WHITE-WIP.svg" alt="Sabre Logo" class="h-12 sm:h-14 w-auto object-contain">
+    <!-- Premium Aviation Login Screen -->
+    <div id="mandatoryLoginModal" class="login-shell fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 transition-all duration-500">
+        <div class="login-ambient login-ambient-one"></div><div class="login-ambient login-ambient-two"></div><div class="login-grid"></div>
+        <div class="login-route route-one"></div><div class="login-route route-two"></div><div class="login-scanline"></div>
+        <div class="login-card w-full max-w-3xl flex-col md:flex-row overflow-hidden rounded-2xl">
+            <div class="login-visual flex md:w-[42%] lg:w-[43%] flex-col justify-between p-6 lg:p-7 relative">
+                <div class="relative z-10">
+                    <div class="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.06] px-3.5 py-2 backdrop-blur-md"><span class="login-status-dot"></span><span class="text-[10px] font-bold uppercase tracking-[0.22em] text-slate-300">Secure Operations Network</span></div>
+                    <div class="mt-7"><div class="text-[10px] font-bold uppercase tracking-[0.3em] text-indigo-300/80 mb-3">Bengaluru • India</div>
+                        <h1 class="font-orbitron text-2xl lg:text-3xl font-black leading-tight tracking-tight text-white">ATS BLR<br><span class="text-indigo-300">ROSTER PORTAL</span></h1>
+                        <p class="mt-3 max-w-sm text-sm leading-6 text-slate-400">Secure access to dynamic roster schedules, workforce planning and operational information.</p>
+                    </div>
+                </div>
+                <div class="relative z-10 space-y-5">
+                    <div class="flex items-center gap-3"><div class="login-line-icon"><i data-lucide="shield-check" class="w-5 h-5"></i></div><div><div class="text-xs font-bold text-slate-200">Authorized personnel only</div><div class="text-[10px] text-slate-500 mt-0.5">Access is monitored and logged</div></div></div>
+                    <div class="flex items-center gap-3"><div class="login-line-icon"><i data-lucide="clock-3" class="w-5 h-5"></i></div><div><div class="text-xs font-bold text-slate-200">Live roster environment</div><div class="text-[10px] text-slate-500 mt-0.5">Designed for operational readiness</div></div></div>
+                    <div class="pt-4 border-t border-white/10 flex items-center justify-between"><span class="text-[9px] font-semibold uppercase tracking-[0.22em] text-slate-500">Enterprise Schedule Management</span><span class="font-mono-digital text-[9px] text-indigo-300/70">ATS/BLR • SECURE</span></div>
+                </div>
+                <div class="login-orbit login-orbit-a"></div><div class="login-orbit login-orbit-b"></div><div class="login-flight-dot flight-dot-a"></div><div class="login-flight-dot flight-dot-b"></div>
             </div>
-
-            <div class="p-8">
-                <!-- Portal Title with Bold 3D Shadow Effect -->
-                <h2 class="text-2xl sm:text-3xl font-black text-center text-slate-900 font-orbitron tracking-wider text-3d-shadow mb-6">
-                    ATS BLR ROSTER PORTAL
-                </h2>
-
-                <form onsubmit="handlePortalLogin(event)" class="space-y-5">
-                    <!-- Employee ID Box with Employee Photo/Icon on Left and Placeholder e.g. 316092 -->
-                    <div>
-                        <label class="block text-xs font-bold text-slate-800 uppercase tracking-wider mb-1.5">Employee ID (SG ID)</label>
-                        <div class="relative flex items-center rounded-xl border border-slate-300 bg-white/90 shadow-inner focus-within:ring-2 focus-within:ring-amber-500 focus-within:bg-white transition-all overflow-hidden">
-                            <div class="pl-3.5 pr-1 text-slate-500">
-                                <i data-lucide="user" class="w-5 h-5"></i>
-                            </div>
-                            <input type="text" id="loginEmpId" placeholder="e.g. 316092" required
-                                class="w-full bg-transparent px-3 py-3 text-sm font-semibold text-slate-900 placeholder-slate-400 focus:outline-none">
-                        </div>
-                    </div>
-
-                    <!-- Password Box with Key Icon on Left and Eye Icon (View/Hide) on Right -->
-                    <div>
-                        <label class="block text-xs font-bold text-slate-800 uppercase tracking-wider mb-1.5">Password</label>
-                        <div class="relative flex items-center rounded-xl border border-slate-300 bg-white/90 shadow-inner focus-within:ring-2 focus-within:ring-amber-500 focus-within:bg-white transition-all overflow-hidden">
-                            <div class="pl-3.5 pr-1 text-slate-500">
-                                <i data-lucide="key" class="w-5 h-5"></i>
-                            </div>
-                            <input type="password" id="loginPassword" placeholder="••••••••" required
-                                class="w-full bg-transparent px-3 py-3 text-sm font-semibold text-slate-900 placeholder-slate-400 focus:outline-none">
-                            <button type="button" onclick="togglePasswordVisibility('loginPassword', 'loginEyeIcon')" class="pr-3.5 pl-1 text-slate-400 hover:text-slate-700 transition-colors focus:outline-none" title="Show/Hide Password">
-                                <i id="loginEyeIcon" data-lucide="eye" class="w-5 h-5"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Error Message Banner -->
-                    <div id="portalLoginError" class="hidden text-rose-600 text-xs font-extrabold text-center bg-rose-100/90 border border-rose-300 rounded-lg py-2 px-3 shadow-sm">
-                        Access Denied: Only listed employees can log in.
-                    </div>
-
-                    <!-- Amber Color Access Portal Button -->
-                    <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-black text-sm py-3 rounded-xl transition-all shadow-lg btn-3d mt-2 uppercase tracking-wide">
-                        Access Portal
-                    </button>
-
-                    <!-- Forgot Password Button -->
-                    <div class="text-center pt-2">
-                        <button type="button" onclick="openForgotPasswordModal()" class="text-xs font-bold text-slate-700 hover:text-amber-600 transition-colors underline">
-                            Forgot Password?
-                        </button>
-                    </div>
+            <div class="login-form-panel flex-1 p-5 sm:p-7 lg:p-8">
+                <div class="flex items-center justify-between mb-5"><div class="login-sabre-mark"><img src="SABRE-LOGO-REGISTERED-SCREEN-WHITE-WIP.svg" alt="Sabre Logo" class="h-8 sm:h-9 w-auto object-contain"></div><div class="text-right"><div class="text-[9px] font-bold uppercase tracking-[0.2em] text-slate-400">Portal Access</div><div class="flex items-center justify-end gap-1.5 mt-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,.8)]"></span><span class="text-[9px] font-semibold text-slate-500">SYSTEM READY</span></div></div></div>
+                <div class="mb-5"><div class="text-[9px] font-bold uppercase tracking-[0.24em] text-amber-500 mb-2">Welcome back</div><h2 class="font-orbitron text-xl sm:text-2xl font-black tracking-tight text-slate-900">Sign in to continue</h2><p class="text-[11px] sm:text-xs text-slate-500 mt-1.5">Use your employee credentials to access the roster portal.</p></div>
+                <form onsubmit="handlePortalLogin(event)" class="space-y-4">
+                    <div><label class="block text-[10px] font-extrabold text-slate-500 uppercase tracking-[0.18em] mb-2">Employee ID (SG ID)</label><div class="login-input-wrap"><div class="login-input-icon"><i data-lucide="user-round" class="w-[18px] h-[18px]"></i></div><input type="text" id="loginEmpId" placeholder="e.g. 316092" required autocomplete="username" class="login-input"></div></div>
+                    <div><div class="flex items-center justify-between mb-2"><label class="block text-[10px] font-extrabold text-slate-500 uppercase tracking-[0.18em]">Password</label><span class="text-[9px] font-semibold text-slate-400 uppercase tracking-wider">Protected</span></div><div class="login-input-wrap"><div class="login-input-icon"><i data-lucide="key-round" class="w-[18px] h-[18px]"></i></div><input type="password" id="loginPassword" placeholder="Enter your password" required autocomplete="current-password" class="login-input"><button type="button" onclick="togglePasswordVisibility('loginPassword', 'loginEyeIcon')" class="login-eye" title="Show/Hide Password" aria-label="Show or hide password"><i id="loginEyeIcon" data-lucide="eye" class="w-[18px] h-[18px]"></i></button></div></div>
+                    <div id="portalLoginError" class="hidden login-error"><i data-lucide="triangle-alert" class="w-4 h-4 shrink-0"></i><span>Access Denied: Only listed employees can log in.</span></div>
+                    <button type="submit" class="login-submit w-full"><span>Access Portal</span><i data-lucide="arrow-right" class="w-[18px] h-[18px]"></i></button>
+                    <div class="flex items-center gap-3 pt-1"><div class="h-px bg-slate-200 flex-1"></div><span class="text-[9px] font-bold uppercase tracking-[0.18em] text-slate-400">or</span><div class="h-px bg-slate-200 flex-1"></div></div>
+                    <div class="text-center"><button type="button" onclick="openForgotPasswordModal()" class="login-forgot">Forgot Password?</button></div>
                 </form>
+                <div class="mt-5 pt-4 border-t border-slate-200 flex items-start gap-3"><i data-lucide="info" class="w-4 h-4 text-slate-400 shrink-0 mt-0.5"></i><p class="text-[9px] leading-4 text-slate-400">This portal is intended for authorized ATS BLR personnel. If you are unable to sign in, use the password reset request or contact your administrator.</p></div>
             </div>
         </div>
     </div>
@@ -432,51 +636,53 @@
         </div>
     </div>
 
-    <!-- Admin Password, Exclusion, & PDF Calendar Control Center Modal -->
+    <!-- User Management Modal -->
     <div id="adminPassManagerModal" class="fixed inset-0 z-[140] flex items-center justify-center bg-slate-900/80 backdrop-blur-md p-4 hidden overflow-y-auto">
         <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl card-3d space-y-5 my-8">
             <div class="flex justify-between items-center border-b pb-3">
                 <h3 class="font-extrabold text-slate-900 text-base sm:text-lg flex items-center gap-2">
-                    <i data-lucide="key" class="text-amber-500 w-5 h-5"></i> Admin Password & Calendar Control
+                    <i data-lucide="users" class="text-amber-500 w-5 h-5"></i> User Management
                 </h3>
                 <button onclick="closeAdminPassManagerModal()" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
             </div>
 
-            <!-- Section 1: Upload PDF Holiday Calendar (Auto Detect Year & Dates) -->
-            <div class="bg-indigo-50/60 p-4 rounded-xl border border-indigo-200 space-y-3">
-                <h4 class="font-bold text-indigo-950 text-xs uppercase tracking-wider flex items-center gap-1.5">
-                    <i data-lucide="file-text" class="w-4 h-4 text-indigo-600"></i> Upload PDF Sabre Holiday Calendar
-                </h4>
-                <p class="text-[11px] text-slate-600">Upload official Sabre Holiday Calendar PDF (e.g. 2027). The system will automatically detect the year and update all dates & holidays.</p>
-                <div class="flex items-center gap-2">
-                    <label for="pdfCalendarFileInput" class="w-full flex items-center justify-center space-x-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold py-2.5 px-4 rounded-lg cursor-pointer btn-3d transition-colors">
-                        <i data-lucide="upload-cloud" class="w-4 h-4"></i>
-                        <span>Select PDF Calendar File</span>
-                    </label>
-                    <input type="file" id="pdfCalendarFileInput" accept=".pdf" class="hidden" onchange="handlePdfCalendarUpload(event)">
-                </div>
-            </div>
-
-            <!-- Section 2: Reset Password for Listed Employees -->
+            <!-- Section 1: Reset Password for Listed Employees -->
             <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
                 <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider flex items-center gap-1.5">
                     <i data-lucide="refresh-cw" class="w-4 h-4 text-indigo-600"></i> Generate Auto Password for Listed Employee
                 </h4>
                 <div>
                     <label class="block text-[11px] font-bold text-slate-700 mb-1">Select Employee</label>
-                    <select id="adminEmpPassSelect" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs font-semibold focus:ring-2 focus:ring-indigo-500 input-3d">
+                    <select id="adminEmpPassSelect" onchange="renderSelectedEmployeePasswordStatus()" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs font-semibold focus:ring-2 focus:ring-indigo-500 input-3d">
                         <!-- Options generated dynamically -->
                     </select>
                 </div>
+                <div id="selectedEmployeePasswordStatus" class="bg-white border border-slate-200 rounded-lg p-3 hidden">
+                    <div class="flex items-center justify-between gap-3">
+                        <div class="min-w-0">
+                            <div id="selectedEmployeePasswordName" class="font-bold text-[11px] text-slate-800 truncate"></div>
+                            <div id="selectedEmployeePasswordSg" class="text-[10px] text-slate-500 font-semibold mt-0.5"></div>
+                        </div>
+                        <div class="text-right shrink-0">
+                            <div id="selectedEmployeePasswordStatusBadge" class="inline-flex items-center px-2 py-0.5 rounded-full border text-[9px] font-extrabold"></div>
+                            <div id="selectedEmployeeTemporaryPassword" class="mt-1 text-[10px] font-mono font-bold text-slate-700"></div>
+                        </div>
+                    </div>
+                    <div id="selectedEmployeeExclusionActions" class="mt-3 pt-3 border-t border-slate-100 hidden">
+                        <button type="button" onclick="deleteSelectedExclusionEmployee()" class="w-full py-1.5 bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 font-extrabold rounded-lg text-[10px] btn-3d flex items-center justify-center gap-1.5">
+                            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Delete Exclusion Access
+                        </button>
+                    </div>
+                </div>
                 <button onclick="executeAdminAutoGeneratePassword()" class="w-full py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-lg text-xs btn-3d flex items-center justify-center gap-2">
-                    <i data-lucide="sparkles" class="w-4 h-4"></i> Generate 8-Char Uppercase Auto Password
+                    <i data-lucide="sparkles" class="w-4 h-4"></i> Generate Temporary Password
                 </button>
             </div>
 
-            <!-- Section 3: Add Exclusion Employees (Special Access) -->
-            <div class="bg-amber-50/60 p-4 rounded-xl border border-amber-200 space-y-3">
-                <h4 class="font-bold text-amber-900 text-xs uppercase tracking-wider flex items-center gap-1.5">
-                    <i data-lucide="user-check" class="w-4 h-4 text-amber-600"></i> Add Exclusion Employee & Generate Password
+            <!-- Add Exclusion Access remains in the same User Management window -->
+            <div class="mt-4 pt-4 border-t border-slate-200 space-y-3">
+                <h4 class="font-bold text-slate-700 text-xs uppercase tracking-wider flex items-center gap-1.5">
+                    <i data-lucide="user-check" class="w-4 h-4 text-amber-600"></i> Add Exclusion Access
                 </h4>
                 <div class="grid grid-cols-2 gap-2">
                     <div>
@@ -489,7 +695,7 @@
                     </div>
                 </div>
                 <button onclick="executeAddExclusionEmployee()" class="w-full py-2 bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold rounded-lg text-xs btn-3d uppercase">
-                    Add Exclusion Access & Generate Temp Password
+                    Add Exclusion Access
                 </button>
             </div>
 
@@ -618,9 +824,9 @@
 
                 <!-- Admin Action Buttons Bar -->
                 <div id="adminImportContainer" class="hidden flex items-center gap-2">
-                    <button onclick="openAdminPassManagerModal()" class="flex items-center space-x-1.5 bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors" title="Manage Passwords & Exclusions">
-                        <i data-lucide="key" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
-                        <span class="hidden xs:inline">Admin Passwords</span>
+                    <button onclick="openAdminPassManagerModal()" class="flex items-center space-x-1.5 bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors" title="User Management">
+                        <i data-lucide="users" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+                        <span class="hidden xs:inline">User Management</span>
                     </button>
                     <button onclick="openAddMonthModal()" class="flex items-center space-x-1.5 bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors" title="Create a New Roster Month">
                         <i data-lucide="calendar-plus" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
@@ -630,14 +836,18 @@
                         <i data-lucide="plus-circle" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
                         <span class="hidden xs:inline">Add Week</span>
                     </button>
-                    <button onclick="openAddEmployeeModal()" class="flex items-center space-x-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors">
+                    <button onclick="openAddEmployeeModal()" title="Add a new employee manually" aria-label="Add a new employee manually" class="flex items-center space-x-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors">
                         <i data-lucide="user-plus" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
                         <span class="hidden xs:inline">Add Employee</span>
                     </button>
-                    <label for="excelFileInput" class="flex items-center space-x-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg cursor-pointer btn-3d transition-colors">
+                    <label for="excelFileInput" title="Upload an Excel file to update roster shift data" aria-label="Upload an Excel file to update roster shift data" class="flex items-center space-x-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg cursor-pointer btn-3d transition-colors">
                         <i data-lucide="upload" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
                         <span class="hidden xs:inline">Import Excel</span>
                     </label>
+                    <button id="publishSavedDraftBtn" onclick="publishSavedAdminDraft()" title="Publish the saved Admin-only Excel draft" aria-label="Publish the saved Admin-only Excel draft" class="hidden items-center space-x-1.5 bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors">
+                        <i data-lucide="cloud-upload" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+                        <span class="hidden xs:inline">Publish Draft</span>
+                    </button>
                     <input type="file" id="excelFileInput" accept=".xlsx, .xls" class="hidden" onchange="importExcelData(event)">
                 </div>
 
@@ -680,18 +890,18 @@
     <main class="flex-grow w-full px-3 sm:px-6 lg:px-12 py-4 sm:py-6 space-y-4 sm:space-y-6 relative z-10">
 
         <div id="worldClocksContainer" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2.5 sm:gap-4 w-full">
-            <div class="clock-futuristic-3d p-2.5 sm:p-3.5 rounded-xl flex flex-col justify-between h-20 sm:h-24">
+            <div class="clock-futuristic-3d p-2.5 sm:p-3.5 rounded-xl flex flex-col justify-between h-20 sm:h-24" onclick="openWorldTimeComparison(this)" tabindex="0" role="button" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();openWorldTimeComparison(this)}">
                 <div class="flex items-center justify-between">
                     <span class="text-[10px] sm:text-[11px] font-orbitron font-bold uppercase tracking-wider text-cyan-400 flex items-center gap-1 sm:gap-1.5">
                         <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-cyan-400 animate-ping"></span> India
                     </span>
-                    <span class="text-[8px] sm:text-[9px] font-mono-digital bg-cyan-950/80 text-cyan-300 px-1 sm:px-1.5 py-0.5 rounded border border-cyan-800/80 font-bold">IST</span>
+                    <span class="text-[8px] sm:text-[9px] font-mono-digital bg-cyan-950/80 text-indigo-300 px-1 sm:px-1.5 py-0.5 rounded border border-cyan-800/80 font-bold">IST</span>
                 </div>
                 <div id="clock-IST" class="text-base sm:text-xl font-bold text-white font-mono-digital tracking-tight my-0.5 sm:my-1 text-cyan-50 drop-shadow-[0_0_8px_rgba(34,211,238,0.4)]">--:--:--</div>
                 <div id="date-IST" class="text-[9px] sm:text-[11px] text-slate-400 font-medium font-mono-digital">---</div>
             </div>
 
-            <div class="clock-futuristic-3d p-2.5 sm:p-3.5 rounded-xl flex flex-col justify-between h-20 sm:h-24">
+            <div class="clock-futuristic-3d p-2.5 sm:p-3.5 rounded-xl flex flex-col justify-between h-20 sm:h-24" onclick="openWorldTimeComparison(this)" tabindex="0" role="button" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();openWorldTimeComparison(this)}">
                 <div class="flex items-center justify-between">
                     <span class="text-[10px] sm:text-[11px] font-orbitron font-bold uppercase tracking-wider text-teal-400 flex items-center gap-1 sm:gap-1.5">
                         <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-teal-400 animate-pulse"></span> Krakow
@@ -702,7 +912,7 @@
                 <div id="date-KRK" class="text-[9px] sm:text-[11px] text-slate-400 font-medium font-mono-digital">---</div>
             </div>
 
-            <div class="clock-futuristic-3d p-2.5 sm:p-3.5 rounded-xl flex flex-col justify-between h-20 sm:h-24">
+            <div class="clock-futuristic-3d p-2.5 sm:p-3.5 rounded-xl flex flex-col justify-between h-20 sm:h-24" onclick="openWorldTimeComparison(this)" tabindex="0" role="button" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();openWorldTimeComparison(this)}">
                 <div class="flex items-center justify-between">
                     <span class="text-[10px] sm:text-[11px] font-orbitron font-bold uppercase tracking-wider text-sky-400 flex items-center gap-1 sm:gap-1.5">
                         <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-sky-400 animate-pulse"></span> UK
@@ -713,7 +923,7 @@
                 <div id="date-UK" class="text-[9px] sm:text-[11px] text-slate-400 font-medium font-mono-digital">---</div>
             </div>
 
-            <div class="clock-futuristic-3d p-2.5 sm:p-3.5 rounded-xl flex flex-col justify-between h-20 sm:h-24">
+            <div class="clock-futuristic-3d p-2.5 sm:p-3.5 rounded-xl flex flex-col justify-between h-20 sm:h-24" onclick="openWorldTimeComparison(this)" tabindex="0" role="button" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();openWorldTimeComparison(this)}">
                 <div class="flex items-center justify-between">
                     <span class="text-[10px] sm:text-[11px] font-orbitron font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1 sm:gap-1.5">
                         <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-emerald-400 animate-pulse"></span> Australia
@@ -724,7 +934,7 @@
                 <div id="date-AEST" class="text-[9px] sm:text-[11px] text-slate-400 font-medium font-mono-digital">---</div>
             </div>
 
-            <div class="clock-futuristic-3d p-2.5 sm:p-3.5 rounded-xl flex flex-col justify-between h-20 sm:h-24">
+            <div class="clock-futuristic-3d p-2.5 sm:p-3.5 rounded-xl flex flex-col justify-between h-20 sm:h-24" onclick="openWorldTimeComparison(this)" tabindex="0" role="button" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();openWorldTimeComparison(this)}">
                 <div class="flex items-center justify-between">
                     <span class="text-[10px] sm:text-[11px] font-orbitron font-bold uppercase tracking-wider text-amber-400 truncate" title="Singapore / Hongkong / Malaysia">SG / HK / MY</span>
                     <span class="text-[8px] sm:text-[9px] font-mono-digital bg-amber-950/80 text-amber-300 px-1 sm:px-1.5 py-0.5 rounded border border-amber-800/80 font-bold">UTC+8</span>
@@ -733,7 +943,7 @@
                 <div id="date-HKT" class="text-[9px] sm:text-[11px] text-slate-400 font-medium font-mono-digital">---</div>
             </div>
 
-            <div class="clock-futuristic-3d p-2.5 sm:p-3.5 rounded-xl flex flex-col justify-between h-20 sm:h-24">
+            <div class="clock-futuristic-3d p-2.5 sm:p-3.5 rounded-xl flex flex-col justify-between h-20 sm:h-24" onclick="openWorldTimeComparison(this)" tabindex="0" role="button" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();openWorldTimeComparison(this)}">
                 <div class="flex items-center justify-between">
                     <span class="text-[10px] sm:text-[11px] font-orbitron font-bold uppercase tracking-wider text-indigo-400">EST</span>
                     <span class="text-[8px] sm:text-[9px] font-mono-digital bg-indigo-950/80 text-indigo-300 px-1 sm:px-1.5 py-0.5 rounded border border-indigo-800/80 font-bold">UTC-5</span>
@@ -742,7 +952,7 @@
                 <div id="date-EST" class="text-[9px] sm:text-[11px] text-slate-400 font-medium font-mono-digital">---</div>
             </div>
 
-            <div class="clock-futuristic-3d p-2.5 sm:p-3.5 rounded-xl flex flex-col justify-between h-20 sm:h-24">
+            <div class="clock-futuristic-3d p-2.5 sm:p-3.5 rounded-xl flex flex-col justify-between h-20 sm:h-24" onclick="openWorldTimeComparison(this)" tabindex="0" role="button" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();openWorldTimeComparison(this)}">
                 <div class="flex items-center justify-between">
                     <span class="text-[10px] sm:text-[11px] font-orbitron font-bold uppercase tracking-wider text-purple-400">CST</span>
                     <span class="text-[8px] sm:text-[9px] font-mono-digital bg-purple-950/80 text-purple-300 px-1 sm:px-1.5 py-0.5 rounded border border-purple-800/80 font-bold">UTC-6</span>
@@ -751,7 +961,7 @@
                 <div id="date-CST" class="text-[9px] sm:text-[11px] text-slate-400 font-medium font-mono-digital">---</div>
             </div>
 
-            <div class="clock-futuristic-3d p-2.5 sm:p-3.5 rounded-xl flex flex-col justify-between h-20 sm:h-24">
+            <div class="clock-futuristic-3d p-2.5 sm:p-3.5 rounded-xl flex flex-col justify-between h-20 sm:h-24" onclick="openWorldTimeComparison(this)" tabindex="0" role="button" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();openWorldTimeComparison(this)}">
                 <div class="flex items-center justify-between">
                     <span class="text-[10px] sm:text-[11px] font-orbitron font-bold uppercase tracking-wider text-rose-400">MT / PST</span>
                     <span class="text-[8px] sm:text-[9px] font-mono-digital bg-rose-950/80 text-rose-300 px-1 sm:px-1.5 py-0.5 rounded border border-rose-800/80 font-bold">US W</span>
@@ -760,6 +970,21 @@
                 <div id="date-PST" class="text-[9px] sm:text-[11px] text-slate-400 font-medium font-mono-digital">---</div>
             </div>
         </div>
+
+<div id="worldTimeComparisonModal" class="world-time-modal hidden" aria-hidden="true" onclick="if(event.target===this)closeWorldTimeComparison()">
+  <div class="world-time-panel" role="dialog" aria-modal="true" aria-labelledby="worldTimeComparisonTitle">
+    <div class="world-time-head">
+      <div><div id="worldTimeComparisonTitle" class="world-time-title">World Time Compare</div><div class="world-time-subtitle">Choose countries or cities and compare their live local times.</div></div>
+      <button type="button" class="world-time-close" onclick="closeWorldTimeComparison()" aria-label="Close">×</button>
+    </div>
+    <div class="world-time-body">
+      <div class="world-time-selectors" id="worldTimeSelectors"></div>
+      <button type="button" class="world-time-add" onclick="addWorldTimeSelector()">＋ Add country / city</button>
+      <div id="worldTimeComparisonResults" class="world-time-compare-results"></div>
+    </div>
+    <div class="world-time-foot">Live comparison • Times refresh every second</div>
+  </div>
+</div>
 
         <div class="bg-white p-3 sm:p-4 rounded-xl card-3d flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4 w-full">
             <div class="flex flex-wrap gap-1.5 sm:gap-2">
@@ -772,10 +997,16 @@
                 <button onclick="switchCategory('qm', event)" id="tabQM" class="tab-btn tab-3d text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg flex items-center gap-1.5 sm:gap-2 transition-all">
                     <i data-lucide="shield-check" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i> QM Staff Allocation
                 </button>
-                <!-- Sabre Global Holiday Calendar Tab -->
-                <button onclick="switchCategory('holidays', event)" id="tabHolidays" class="tab-btn tab-3d text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg flex items-center gap-1.5 sm:gap-2 transition-all">
-                    <i data-lucide="globe" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i> <span id="holidayTabTitle">Sabre Global Holiday Calendar</span>
-                </button>
+                <!-- Sabre Global Holidays Tab + PDF Upload -->
+                <div class="flex items-center gap-1.5">
+                    <button onclick="switchCategory('holidays', event)" id="tabHolidays" class="tab-btn tab-3d text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg flex items-center gap-1.5 sm:gap-2 transition-all">
+                        <i data-lucide="globe" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i> <span id="holidayTabTitle">Sabre Global Holidays</span>
+                    </button>
+                    <label for="pdfCalendarFileInput" id="adminPdfCalendarUpload" title="Upload Sabre Calendar" aria-label="Upload Sabre Calendar" class="hidden tab-3d inline-flex items-center justify-center p-1.5 rounded-lg cursor-pointer text-indigo-700 bg-indigo-50 hover:bg-indigo-100 transition-all">
+                        <i data-lucide="upload-cloud" class="w-3.5 h-3.5"></i>
+                    </label>
+                    <input type="file" id="pdfCalendarFileInput" accept=".pdf" class="hidden" onchange="handlePdfCalendarUpload(event)">
+                </div>
             </div>
 
             <div id="periodNavigator" class="flex flex-wrap items-center gap-3 sm:gap-4">
@@ -836,11 +1067,11 @@
     <div id="adminActionDock" class="fixed bottom-0 inset-x-0 bg-slate-900/95 backdrop-blur-md text-white border-t border-slate-700 py-3 px-4 sm:px-12 z-50 flex items-center justify-between hidden shadow-2xl">
         <div class="flex items-center space-x-2">
             <span class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse"></span>
-            <span class="text-xs sm:text-sm font-semibold text-slate-200">Unsaved Admin Changes Pending...</span>
+            <span class="text-xs sm:text-sm font-semibold text-slate-200">Admin Changes Pending...</span>
         </div>
         <div class="flex items-center space-x-3">
             <button onclick="promptCancelChanges()" class="px-3 sm:px-4 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600 rounded-lg text-xs font-bold btn-3d">Cancel Changes</button>
-            <button onclick="promptApplyChanges()" class="px-4 sm:px-6 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-bold btn-3d shadow-lg">Apply & Save File</button>
+            <button onclick="promptApplyChanges()" class="px-4 sm:px-6 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-bold btn-3d shadow-lg">Publish Changes</button>
         </div>
     </div>
 
@@ -1053,6 +1284,39 @@
         </div>
     </div>
 
+    <!-- Excel Upload Review / Save / Publish Modal -->
+    <div id="excelImportReviewModal" class="fixed inset-0 bg-slate-950/75 backdrop-blur-md z-[90] hidden items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-2xl overflow-hidden card-3d">
+            <div class="px-5 sm:px-6 py-4 bg-slate-900 text-white flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 rounded-lg bg-emerald-600"><i data-lucide="file-spreadsheet" class="w-5 h-5"></i></div>
+                    <div>
+                        <h3 class="font-extrabold text-sm sm:text-base">Excel Roster Upload Ready</h3>
+                        <p class="text-[10px] sm:text-xs text-slate-400">Review the detected Excel dates and employee shifts before updating the existing roster.</p>
+                    </div>
+                </div>
+                <button onclick="closeExcelImportReview(true)" class="text-slate-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+            <div class="p-5 sm:p-6 space-y-4">
+                <div id="excelImportSummary" class="grid grid-cols-2 sm:grid-cols-4 gap-2"></div>
+                <div class="rounded-xl border border-indigo-200 bg-indigo-50 p-3 sm:p-4">
+                    <div class="flex items-start gap-2">
+                        <i data-lucide="info" class="w-4 h-4 text-indigo-600 mt-0.5 shrink-0"></i>
+                        <p class="text-[11px] sm:text-xs text-indigo-900 leading-relaxed">
+                            <strong>Save Draft</strong> keeps this uploaded roster available to Admin mode only on this browser. Normal employee view will continue using the last published roster. <strong>Publish</strong> replaces the public roster after the GitHub commit succeeds.
+                        </p>
+                    </div>
+                </div>
+                <div id="excelImportMonths" class="max-h-48 overflow-auto rounded-xl border border-slate-200 bg-slate-50 p-3"></div>
+                <div class="flex flex-col-reverse sm:flex-row sm:justify-end gap-2 pt-3 border-t border-slate-200">
+                    <button onclick="closeExcelImportReview(true)" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-bold btn-3d">Cancel Upload</button>
+                    <button onclick="saveExcelAsAdminDraft()" class="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-xs font-bold btn-3d"><i data-lucide="save" class="w-3.5 h-3.5 inline mr-1"></i>Save Draft</button>
+                    <button onclick="publishStagedExcelRoster()" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-bold btn-3d"><i data-lucide="globe-2" class="w-3.5 h-3.5 inline mr-1"></i>Publish</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <footer class="bg-white border-t border-slate-300 py-4 mt-8 shadow-inner w-full relative z-10">
         <div class="w-full px-4 text-center text-xs text-slate-500 font-medium">
             ATS BLR ROSTER PORTAL • Enterprise Dynamic Schedule Management Portal
@@ -1072,12 +1336,45 @@
         let isAdminMode = false;
         let pendingChangesExist = false;
         let backupRosterData = null;
+        // Immutable snapshot of the last PUBLICLY PUBLISHED roster. Admin drafts must never alter this.
+        let publishedRosterData = null;
+        let stagedExcelRosterData = null;
+        let stagedExcelFileName = '';
+        const ADMIN_DRAFT_STORAGE_KEY = 'ats_roster_admin_excel_draft_v1';
 
         let activeUserSession = null;
 
         let userCredentials = JSON.parse(localStorage.getItem('ats_user_creds') || '{}');
         let adminResetRequests = JSON.parse(localStorage.getItem('ats_admin_requests') || '[]');
         let exclusionEmployees = JSON.parse(localStorage.getItem('ats_exclusion_emps') || '[]');
+
+        // INITIALIZE SABRE GLOBAL HOLIDAYS DATA
+        let dynamicHolidayYear = "2026";
+        let selectedHolidayOffice = "ALL";
+        let SABRE_HOLIDAYS = [
+            { date: "2026-01-01", day: "Thursday", name: "New Year's Day", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
+            { date: "2026-01-19", day: "Monday", name: "Martin Luther King Jr. Day", offices: ["US"] },
+            { date: "2026-01-26", day: "Monday", name: "Republic Day", offices: ["BLR"] },
+            { date: "2026-02-17", day: "Tuesday", name: "Chinese New Year", offices: ["SGP"] },
+            { date: "2026-03-03", day: "Tuesday", name: "Holi / Dhulivandan", offices: ["BLR"] },
+            { date: "2026-04-03", day: "Friday", name: "Good Friday", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
+            { date: "2026-04-06", day: "Monday", name: "Easter Monday", offices: ["UK", "KRK"] },
+            { date: "2026-05-01", day: "Friday", name: "Labor Day / May Day", offices: ["BLR", "KRK", "MVD", "SGP"] },
+            { date: "2026-05-25", day: "Monday", name: "Memorial Day", offices: ["US"] },
+            { date: "2026-05-25", day: "Monday", name: "Spring Bank Holiday", offices: ["UK"] },
+            { date: "2026-06-19", day: "Friday", name: "Juneteenth", offices: ["US"] },
+            { date: "2026-07-03", day: "Friday", name: "Independence Day (Observed)", offices: ["US"] },
+            { date: "2026-08-15", day: "Saturday", name: "Independence Day", offices: ["BLR", "SGP"] },
+            { date: "2026-08-31", day: "Monday", name: "Summer Bank Holiday", offices: ["UK"] },
+            { date: "2026-09-07", day: "Monday", name: "Labor Day", offices: ["US"] },
+            { date: "2026-10-02", day: "Friday", name: "Gandhi Jayanti", offices: ["BLR"] },
+            { date: "2026-10-20", day: "Tuesday", name: "Dussehra", offices: ["BLR"] },
+            { date: "2026-11-08", day: "Sunday", name: "Diwali (Deepavali)", offices: ["BLR", "SGP"] },
+            { date: "2026-11-26", day: "Thursday", name: "Thanksgiving Day", offices: ["US"] },
+            { date: "2026-11-27", day: "Friday", name: "Day After Thanksgiving", offices: ["US"] },
+            { date: "2026-12-25", day: "Friday", name: "Christmas Day", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
+            { date: "2026-12-26", day: "Saturday", name: "Boxing Day / St. Stephen's Day", offices: ["UK", "KRK"] }
+        ];
 
         if (!userCredentials['316092']) {
             userCredentials['316092'] = {
@@ -1161,98 +1458,773 @@
             initializeDefaultEmpCredentials();
         }
 
+        // UNIVERSAL MULTI-STRATEGY PDF HOLIDAY PARSER
         async function handlePdfCalendarUpload(event) {
-            const file = event.target.files[0];
-            if (!file) return;
+    const file = event.target.files[0];
+    if (!file) return;
 
-            try {
-                const arrayBuffer = await file.arrayBuffer();
-                const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-                
-                let extractedText = '';
-                for (let i = 1; i <= pdf.numPages; i++) {
-                    const page = await pdf.getPage(i);
-                    const textContent = await page.getTextContent();
-                    const pageText = textContent.items.map(item => item.str).join(' ');
-                    extractedText += ' ' + pageText;
-                }
+    try {
+        const arrayBuffer = await file.arrayBuffer();
+        const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
 
-                const yearMatch = extractedText.match(/\b(202[5-9]|203[0-9])\b/);
-                const detectedYear = yearMatch ? yearMatch[1] : "2027";
+        // ---------------------------------------------------------------------
+        // PDF CALENDAR PARSER - ROW/COLUMN AWARE VERSION
+        // The important difference from the older parser is that we DO NOT
+        // split a PDF row simply because there is a large horizontal gap.
+        // Holiday names are often separated from their date/office by large
+        // gaps in calendar tables.
+        // ---------------------------------------------------------------------
+        const pageRows = [];
+        const knownOffices = ["US", "UK", "BLR", "KRK", "MVD", "SGP"];
 
-                const parsedHolidays = [];
-                const lines = extractedText.split(/(?=\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\b|\b\d{4}-\d{2}-\d{2}\b)/i);
+        for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+            const page = await pdf.getPage(pageNum);
+            const textContent = await page.getTextContent();
+            const viewport = page.getViewport({ scale: 1.0 });
 
-                const monthMap = { jan:'01', feb:'02', mar:'03', apr:'04', may:'05', jun:'06', jul:'07', aug:'08', sep:'09', oct:'10', nov:'11', dec:'12' };
+            const items = textContent.items
+                .filter(item => item.str && item.str.trim())
+                .map(item => {
+                    const tx = item.transform || [];
+                    return {
+                        text: item.str.trim(),
+                        x: Number(tx[4]) || 0,
+                        y: viewport.height - (Number(tx[5]) || 0),
+                        width: Number(item.width) || 0,
+                        height: Math.abs(Number(tx[3])) || 10
+                    };
+                })
+                .sort((a, b) => a.y - b.y || a.x - b.x);
 
-                lines.forEach(line => {
-                    const text = line.trim();
-                    if (!text) return;
+            const rows = [];
 
-                    const dateMatch = text.match(/\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d{1,2})\b/i);
-                    if (dateMatch) {
-                        const mStr = monthMap[dateMatch[1].toLowerCase()];
-                        const dStr = String(dateMatch[2]).padStart(2, '0');
-                        const isoDate = `${detectedYear}-${mStr}-${dStr}`;
+            // Adaptive row clustering.  Five pixels is too strict for some
+            // PDFs and can split text that visually belongs to one row.
+            items.forEach(item => {
+                const tolerance = Math.max(4, Math.min(9, item.height * 0.55));
+                let row = null;
 
-                        let dayName = "Monday";
-                        const dayMatch = text.match(/\b(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\b/i);
-                        if (dayMatch) dayName = dayMatch[1];
-
-                        let offices = [];
-                        ["US", "UK", "BLR", "KRK", "MVD", "SGP"].forEach(off => {
-                            if (new RegExp(`\\b${off}\\b`, 'i').test(text)) offices.push(off);
-                        });
-                        if (offices.length === 0) offices = ["US", "UK", "BLR", "KRK", "MVD", "SGP"];
-
-                        let name = text.replace(dateMatch[0], '').replace(dayName, '').replace(/(US|UK|BLR|KRK|MVD|SGP)/gi, '').trim();
-                        name = name.replace(/^[-:\s]+|[-:\s]+$/g, '') || "Sabre Holiday";
-
-                        parsedHolidays.push({
-                            date: isoDate,
-                            day: dayName,
-                            name: name,
-                            offices: offices
-                        });
+                for (let i = rows.length - 1; i >= 0; i--) {
+                    const candidate = rows[i];
+                    if (Math.abs(candidate.y - item.y) <= tolerance) {
+                        row = candidate;
+                        break;
                     }
-                });
-
-                if (parsedHolidays.length > 0) {
-                    SABRE_HOLIDAYS = parsedHolidays;
-                    dynamicHolidayYear = detectedYear;
-                } else {
-                    dynamicHolidayYear = detectedYear;
-                    SABRE_HOLIDAYS = SABRE_HOLIDAYS.map(h => {
-                        const parts = h.date.split('-');
-                        return { ...h, date: `${detectedYear}-${parts[1]}-${parts[2]}` };
-                    });
+                    if (candidate.y < item.y - 12) break;
                 }
 
-                saveCredentialsToStorageAndCloud();
-                
-                alert(`PDF Holiday Calendar parsed successfully!\nYear Detected: ${dynamicHolidayYear}\nTotal Holidays Loaded: ${SABRE_HOLIDAYS.length}`);
-                
-                closeAdminPassManagerModal();
-                if (activeCategory === 'holidays') renderHolidaysView();
+                if (!row) {
+                    row = { y: item.y, items: [] };
+                    rows.push(row);
+                }
 
-            } catch (err) {
-                console.error("PDF Parsing Error:", err);
-                alert("Could not automatically parse PDF text. Setting year to 2027 by default.");
-                
-                dynamicHolidayYear = "2027";
-                SABRE_HOLIDAYS = SABRE_HOLIDAYS.map(h => {
-                    const parts = h.date.split('-');
-                    return { ...h, date: `2027-${parts[1]}-${parts[2]}` };
+                row.items.push(item);
+                row.y = row.items.reduce((sum, v) => sum + v.y, 0) / row.items.length;
+            });
+
+            rows.forEach(row => {
+                row.items.sort((a, b) => a.x - b.x);
+
+                const text = row.items.map(i => i.text).join(" ").replace(/\s+/g, " ").trim();
+                if (!text) return;
+
+                pageRows.push({
+                    page: pageNum,
+                    y: row.y,
+                    items: row.items,
+                    text
                 });
-                saveCredentialsToStorageAndCloud();
-                closeAdminPassManagerModal();
-                if (activeCategory === 'holidays') renderHolidaysView();
-            }
-
-            event.target.value = '';
+            });
         }
 
-        function generateUppercase8CharPassword() {
+        // Sort in natural PDF reading order.
+        pageRows.sort((a, b) => a.page - b.page || a.y - b.y);
+
+        const fullDocumentText = pageRows.map(r => r.text).join("\n");
+
+        // ---------------------------------------------------------------------
+        // YEAR DETECTION
+        // Prefer a year explicitly attached to a date. Otherwise use the most
+        // frequent calendar year in the document.
+        // ---------------------------------------------------------------------
+        const yearMatches = fullDocumentText.match(/\b(20\d{2})\b/g) || [];
+        const fallbackYear =
+            (typeof dynamicHolidayYear !== "undefined" && dynamicHolidayYear)
+                ? String(dynamicHolidayYear)
+                : String(new Date().getFullYear());
+
+        let detectedYear = fallbackYear;
+
+        if (yearMatches.length) {
+            const freq = {};
+            yearMatches.forEach(y => freq[y] = (freq[y] || 0) + 1);
+            detectedYear = Object.keys(freq).sort((a, b) => freq[b] - freq[a])[0];
+        }
+
+        const monthMap = {
+            jan: "01", january: "01",
+            feb: "02", february: "02",
+            mar: "03", march: "03",
+            apr: "04", april: "04",
+            may: "05",
+            jun: "06", june: "06",
+            jul: "07", july: "07",
+            aug: "08", august: "08",
+            sep: "09", sept: "09", september: "09",
+            oct: "10", october: "10",
+            nov: "11", november: "11",
+            dec: "12", december: "12"
+        };
+
+        const monthPattern =
+            "Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|" +
+            "Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:t(?:ember)?)?|Oct(?:ober)?|" +
+            "Nov(?:ember)?|Dec(?:ember)?";
+
+        const dayPattern =
+            "Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday|" +
+            "Mon|Tue|Wed|Thu|Fri|Sat|Sun";
+
+        function makeIso(month, day, explicitYear) {
+            const y = explicitYear || detectedYear;
+            const m = String(month).padStart(2, "0");
+            const d = String(day).padStart(2, "0");
+            return `${y}-${m}-${d}`;
+        }
+
+        function calcDayName(isoDate) {
+            const [y, m, d] = isoDate.split("-").map(Number);
+            const dt = new Date(y, m - 1, d);
+            return isNaN(dt.getTime())
+                ? ""
+                : dt.toLocaleDateString("en-US", { weekday: "long" });
+        }
+
+        function findOffices(text) {
+            const found = [];
+            knownOffices.forEach(off => {
+                if (new RegExp(`\\b${off}\\b`, "i").test(text)) found.push(off);
+            });
+            return found;
+        }
+
+        function normalizeText(text) {
+            return String(text || "")
+                .replace(/[•·▪◦]/g, " ")
+                .replace(/\s+/g, " ")
+                .trim();
+        }
+
+        function sanitizeName(text) {
+            let clean = normalizeText(text);
+
+            // Remove dates and years before removing office/day labels.
+            clean = clean
+                .replace(new RegExp(
+                    `\\b(${monthPattern})[\\s,.-]+\\d{1,2}(?:st|nd|rd|th)?` +
+                    `(?:[\\s,.-]+20\\d{2})?\\b`, "gi"
+                ), " ")
+                .replace(new RegExp(
+                    `\\b\\d{1,2}(?:st|nd|rd|th)?[\\s,.-]+(${monthPattern})` +
+                    `(?:[\\s,.-]+20\\d{2})?\\b`, "gi"
+                ), " ")
+                .replace(/\b20\d{2}[-/.]\d{1,2}[-/.]\d{1,2}\b/g, " ")
+                .replace(/\b\d{1,2}[-/.]\d{1,2}[-/.](?:\d{2}|\d{4})\b/g, " ")
+                .replace(/\b\d{1,2}\s*(?:st|nd|rd|th)?\b/g, " ")
+                .replace(/\b20\d{2}\b/g, " ");
+
+            knownOffices.forEach(off => {
+                clean = clean.replace(new RegExp(`\\b${off}\\b`, "gi"), " ");
+            });
+
+            clean = clean
+                .replace(new RegExp(`\\b(?:${dayPattern})\\b`, "gi"), " ")
+                .replace(/\b(?:Calendar|Sabre|Official|Holiday|Holidays)\b/gi, match =>
+                    /holiday/i.test(match) ? " " : " "
+                )
+                .replace(/[^a-zA-Z0-9\s'()\/&.,-]/g, " ")
+                .replace(/\s+/g, " ")
+                .replace(/^[\s,./-]+|[\s,./-]+$/g, "")
+                .trim();
+
+            return clean;
+        }
+
+        // ---------------------------------------------------------------------
+        // DATE EXTRACTION
+        // Supports:
+        //   January 1
+        //   Jan 1, 2027
+        //   1 January
+        //   1 Jan 2027
+        //   01/01/2027
+        //   2027-01-01
+        //   01-01
+        // ---------------------------------------------------------------------
+        const dateRegex = new RegExp(
+            `\\b(?:` +
+            `(${monthPattern})[\\s,.-]+(\\d{1,2})(?:st|nd|rd|th)?(?:[\\s,.-]+(20\\d{2}))?` +
+            `|` +
+            `(\\d{1,2})(?:st|nd|rd|th)?[\\s,.-]+(${monthPattern})(?:[\\s,.-]+(20\\d{2}))?` +
+            `|` +
+            `(20\\d{2})[-/.](\\d{1,2})[-/.](\\d{1,2})` +
+            `|` +
+            `(\\d{1,2})[-/.](\\d{1,2})(?:[-/.](\\d{2}|\\d{4}))?` +
+            `)\\b`,
+            "gi"
+        );
+
+        function extractDates(text) {
+            const matches = [];
+            let m;
+
+            while ((m = dateRegex.exec(text)) !== null) {
+                let month, day, year;
+
+                if (m[1]) {
+                    month = monthMap[m[1].toLowerCase()];
+                    day = Number(m[2]);
+                    year = m[3] || detectedYear;
+                } else if (m[4]) {
+                    day = Number(m[4]);
+                    month = monthMap[m[5].toLowerCase()];
+                    year = m[6] || detectedYear;
+                } else if (m[7]) {
+                    year = m[7];
+                    month = String(Number(m[8])).padStart(2, "0");
+                    day = Number(m[9]);
+                } else if (m[10]) {
+                    month = String(Number(m[10])).padStart(2, "0");
+                    day = Number(m[11]);
+                    year = m[12] || detectedYear;
+                    if (String(year).length === 2) {
+                        year = Number(year) >= 70 ? `19${year}` : `20${year}`;
+                    }
+                }
+
+                const monthNum = Number(month);
+                if (
+                    monthNum >= 1 && monthNum <= 12 &&
+                    Number(day) >= 1 && Number(day) <= 31
+                ) {
+                    matches.push({
+                        iso: makeIso(monthNum, day, year),
+                        start: m.index,
+                        end: m.index + m[0].length,
+                        raw: m[0]
+                    });
+                }
+            }
+
+            return matches;
+        }
+
+        // ---------------------------------------------------------------------
+        // FALLBACK DATE DETECTION FOR CALENDAR TABLES
+        //
+        // Many Sabre/calendar PDFs do not repeat the month on every holiday
+        // row. Instead the PDF has a month header (for example "AUGUST") and
+        // rows such as "15 Friday Independence Day BLR".  The explicit date
+        // regex above cannot see "15" as a date by itself, so build month
+        // anchors from the PDF coordinates and use them for date-only rows.
+        // ---------------------------------------------------------------------
+        const monthNameToNumber = {};
+        Object.keys(monthMap).forEach(key => {
+            monthNameToNumber[key] = Number(monthMap[key]);
+        });
+
+        const monthAnchorsByPage = {};
+
+        pageRows.forEach(row => {
+            const lower = row.text.toLowerCase();
+            Object.keys(monthNameToNumber).forEach(monthName => {
+                const monthWordRegex = new RegExp(`\\b${monthName}\\b`, "i");
+                if (!monthWordRegex.test(lower)) return;
+
+                // Use the text item's X position when available. This matters
+                // when two or more month columns appear side-by-side.
+                const matchingItems = row.items.filter(item =>
+                    new RegExp(`\\b${monthName}\\b`, "i").test(item.text)
+                );
+
+                const anchorItems = matchingItems.length ? matchingItems : row.items;
+                const x = anchorItems.reduce((sum, item) => sum + item.x, 0) /
+                    Math.max(1, anchorItems.length);
+
+                if (!monthAnchorsByPage[row.page]) monthAnchorsByPage[row.page] = [];
+                monthAnchorsByPage[row.page].push({
+                    month: monthNameToNumber[monthName],
+                    x,
+                    y: row.y,
+                    page: row.page
+                });
+            });
+        });
+
+        function findMonthContext(row, numericItem) {
+            const anchors = monthAnchorsByPage[row.page] || [];
+            if (!anchors.length) return null;
+
+            const x = numericItem ? numericItem.x : 0;
+            let best = null;
+            let bestScore = Infinity;
+
+            anchors.forEach(anchor => {
+                // A month header normally occurs above its holiday rows.
+                if (anchor.y > row.y + 3) return;
+
+                const verticalDistance = row.y - anchor.y;
+                // Prevent a month header from leaking into a completely
+                // different section of a long page.
+                if (verticalDistance > 900) return;
+
+                const horizontalDistance = Math.abs(anchor.x - x);
+                const score = horizontalDistance * 2 + verticalDistance * 0.12;
+
+                if (score < bestScore) {
+                    bestScore = score;
+                    best = anchor;
+                }
+            });
+
+            return best;
+        }
+
+        function extractStandaloneDayCandidate(row) {
+            const lower = row.text.toLowerCase();
+            const hasWeekday = new RegExp(`\\b(?:${dayPattern})\\b`, "i").test(row.text);
+            const hasOffice = findOffices(row.text).length > 0;
+
+            // A standalone number is only treated as a date when the row also
+            // looks like a holiday/calendar row. This avoids turning years,
+            // employee IDs, page numbers, etc. into holidays.
+            if (!hasWeekday && !hasOffice) return [];
+
+            const results = [];
+            row.items.forEach(item => {
+                const match = item.text.match(/^(?:0?[1-9]|[12][0-9]|3[01])(?:st|nd|rd|th)?$/i);
+                if (!match) return;
+
+                const day = parseInt(match[0], 10);
+                if (day < 1 || day > 31) return;
+
+                const monthAnchor = findMonthContext(row, item);
+                if (!monthAnchor) return;
+
+                const iso = makeIso(monthAnchor.month, day, detectedYear);
+                results.push({
+                    iso,
+                    start: row.text.indexOf(item.text),
+                    end: row.text.indexOf(item.text) + item.text.length,
+                    raw: item.text,
+                    fallbackMonth: monthAnchor.month,
+                    fallbackDay: day,
+                    fallbackItemX: item.x
+                });
+            });
+
+            // If there are several standalone numbers in the same row, keep
+            // each one; their X positions identify separate calendar cells.
+            return results;
+        }
+
+        const fallbackDateByRow = new Map();
+        pageRows.forEach((row, idx) => {
+            if (extractDates(row.text).length) return;
+            const fallbackDates = extractStandaloneDayCandidate(row);
+            if (fallbackDates.length) fallbackDateByRow.set(idx, fallbackDates);
+        });
+
+        // ---------------------------------------------------------------------
+        // BUILD HOLIDAY CANDIDATES
+        //
+        // If a row contains multiple dates (common in side-by-side calendar
+        // columns), split the row between date positions so each holiday gets
+        // its own name instead of mixing two neighboring holidays.
+        // ---------------------------------------------------------------------
+        const candidates = [];
+
+        pageRows.forEach((row, rowIndex) => {
+            const explicitDates = extractDates(row.text);
+            const dates = explicitDates.length ? explicitDates : (fallbackDateByRow.get(rowIndex) || []);
+            if (!dates.length) return;
+
+            dates.forEach((dateInfo, dateIndex) => {
+                const previousBoundary = dateIndex === 0 ? 0 : dates[dateIndex - 1].end;
+                const nextBoundary = dateIndex === dates.length - 1
+                    ? row.text.length
+                    : dates[dateIndex + 1].start;
+
+                let segment = row.text.slice(previousBoundary, nextBoundary).trim();
+
+                // For standalone-day fallback rows, the date is usually just
+                // one small text item at the beginning of a calendar cell.
+                // Keep the rest of that row as the holiday-name source.
+                if (dateInfo.fallbackDay) {
+                    const rawPos = row.text.indexOf(dateInfo.raw);
+                    if (rawPos >= 0) {
+                        segment = row.text.slice(rawPos).trim();
+                    }
+                }
+
+                // For a single-date row, keep the entire row.
+                // For multi-date rows, this isolates each calendar cell.
+                if (dates.length === 1) {
+                    segment = row.text;
+                }
+
+                const offices = findOffices(segment);
+
+                candidates.push({
+                    iso: dateInfo.iso,
+                    rowIndex,
+                    page: row.page,
+                    y: row.y,
+                    segment,
+                    offices,
+                    dateRaw: dateInfo.raw,
+                    itemCount: row.items.length
+                });
+            });
+        });
+
+        // ---------------------------------------------------------------------
+        // NAME EXTRACTION
+        // Do NOT automatically take previous + current + next rows. That was
+        // the source of many incorrect holiday names.
+        //
+        // A neighboring row is used only when the current candidate has no
+        // meaningful name and the neighboring row contains no date at all.
+        // ---------------------------------------------------------------------
+        const parsedHolidays = [];
+
+        candidates.forEach(candidate => {
+            // Sabre's holiday table frequently wraps a single holiday across
+            // 2-3 PDF text rows. Example:
+            //   2026-10-20 Tuesday Dussehra /
+            //   Vijayadashami
+            //   BLR
+            //
+            // Do not wait for the name to be empty before looking at these
+            // continuation rows. The first row can contain a perfectly valid
+            // partial name ("Dussehra /"), so the old logic stopped too early.
+            // Instead, collect nearby date-free rows until the next dated
+            // holiday or a clear vertical/page break.
+            const blockParts = [candidate.segment];
+            let previousRow = pageRows[candidate.rowIndex];
+
+            for (let offset = 1; offset <= 3; offset++) {
+                const nextRow = pageRows[candidate.rowIndex + offset];
+                if (!nextRow || nextRow.page !== candidate.page) break;
+
+                // A new dated holiday starts the next block.
+                if (extractDates(nextRow.text).length) break;
+
+                const verticalGap = nextRow.y - previousRow.y;
+
+                // Continuation rows in the holiday table are tightly stacked.
+                // This also prevents page footers/headers from being absorbed.
+                if (verticalGap < -2 || verticalGap > 30) break;
+
+                const nextText = normalizeText(nextRow.text);
+                if (!nextText) break;
+
+                blockParts.push(nextText);
+                previousRow = nextRow;
+            }
+
+            nameSource = blockParts.join(" ");
+            let holidayName = sanitizeName(nameSource);
+
+            // If the candidate still contains only labels, inspect one close
+            // previous date-free row as a final fallback.
+            if (!holidayName || holidayName.length < 2) {
+                const previous = pageRows[candidate.rowIndex - 1];
+
+                if (
+                    previous &&
+                    previous.page === candidate.page &&
+                    !extractDates(previous.text).length &&
+                    Math.abs(candidate.y - previous.y) <= 30
+                ) {
+                    const previousName = sanitizeName(previous.text);
+                    if (previousName.length >= 2) holidayName = previousName;
+                }
+            }
+
+            // If the row contains only office/date/day labels, use a stable
+            // fallback rather than accidentally displaying another holiday.
+            if (!holidayName || holidayName.length < 2) {
+                holidayName = "Sabre Holiday";
+            }
+
+            // Avoid obvious headers from becoming holiday names.
+            if (/^(US|UK|BLR|KRK|MVD|SGP)$/i.test(holidayName)) {
+                holidayName = "Sabre Holiday";
+            }
+
+            const dayName = calcDayName(candidate.iso);
+
+            const existing = parsedHolidays.find(h =>
+                h.date === candidate.iso &&
+                h.name.toLowerCase() === holidayName.toLowerCase()
+            );
+
+            if (existing) {
+                // Merge office information when the same holiday appears more
+                // than once in the PDF.
+                candidate.offices.forEach(off => {
+                    if (!existing.offices.includes(off)) existing.offices.push(off);
+                });
+                return;
+            }
+
+            parsedHolidays.push({
+                date: candidate.iso,
+                day: dayName,
+                name: holidayName,
+                offices: candidate.offices.length
+                    ? candidate.offices
+                    : [...knownOffices]
+            });
+        });
+
+        // Remove duplicate generic fallback entries when a real name exists
+        // for the same date.
+        const cleanedHolidays = parsedHolidays.filter((holiday, index, arr) => {
+            if (holiday.name !== "Sabre Holiday") return true;
+            return !arr.some((other, otherIndex) =>
+                otherIndex !== index &&
+                other.date === holiday.date &&
+                other.name !== "Sabre Holiday"
+            );
+        });
+
+        cleanedHolidays.sort((a, b) => a.date.localeCompare(b.date));
+
+        // ---------------------------------------------------------------------
+        // MULTI-DAY HOLIDAY RANGES
+        //
+        // The Sabre PDF has a special final entry formatted as:
+        //   2026-12-26 to 12-31
+        //   Sat - Thu Sabre Year End Break
+        //   US, UK, BLR, KRK, MVD, SGP
+        //
+        // PDF.js can expose this as separate text rows, so normal single-date
+        // parsing is not enough. Expand the range into one holiday record per
+        // calendar date while keeping the same holiday name and offices.
+        // This makes Dec 26, 27, 28, 29, 30 and 31 independently searchable
+        // and visible in the holiday table.
+        // ---------------------------------------------------------------------
+        const rangeHolidays = [];
+        const rangeRegex = /\b(20\d{2})-(\d{1,2})-(\d{1,2})\s+to\s+(\d{1,2})-(\d{1,2})\b/i;
+
+        pageRows.forEach((row, rowIndex) => {
+            // PDF.js may split the final range across multiple text rows, e.g.
+            //   2026-12-26 to 12-
+            //   31 Sat - Thu Sabre Year End Break
+            // Build a small same-page window first, then normalize whitespace
+            // around the end-month hyphen before applying the range regex.
+            const rangeWindowParts = [row.text];
+            let rangeWindowRow = row;
+
+            for (let offset = 1; offset <= 2; offset++) {
+                const nextRow = pageRows[rowIndex + offset];
+                if (!nextRow || nextRow.page !== row.page) break;
+
+                const gap = nextRow.y - rangeWindowRow.y;
+                if (gap < -2 || gap > 35) break;
+
+                rangeWindowParts.push(nextRow.text);
+                rangeWindowRow = nextRow;
+            }
+
+            const rangeSearchText = rangeWindowParts
+                .join(' ')
+                .replace(/\s+/g, ' ')
+                .replace(/(\d{1,2})-\s+(\d{1,2})/g, '$1-$2')
+                .trim();
+
+            const rangeMatch = rangeSearchText.match(rangeRegex);
+            if (!rangeMatch) return;
+
+            const rangeYear = Number(rangeMatch[1]);
+            const startMonth = Number(rangeMatch[2]);
+            const startDay = Number(rangeMatch[3]);
+            const endMonth = Number(rangeMatch[4]);
+            const endDay = Number(rangeMatch[5]);
+
+            const continuationParts = [rangeSearchText];
+            let previousRangeRow = row;
+
+            for (let offset = 1; offset <= 3; offset++) {
+                const nextRow = pageRows[rowIndex + offset];
+                if (!nextRow || nextRow.page !== row.page) break;
+
+                const gap = nextRow.y - previousRangeRow.y;
+                if (gap < -2 || gap > 35) break;
+
+                // A different full dated holiday means the range block ended.
+                // The continuation rows themselves may contain no full date.
+                if (offset > 1 && extractDates(nextRow.text).length) break;
+
+                continuationParts.push(normalizeText(nextRow.text));
+                previousRangeRow = nextRow;
+            }
+
+            const rangeText = continuationParts.join(' ');
+            const lowerRangeText = rangeText.toLowerCase();
+
+            // Only treat a range as a holiday when it contains a meaningful
+            // holiday description. This prevents accidental calendar/date
+            // ranges elsewhere in the PDF from becoming holidays.
+            let rangeName = sanitizeName(rangeText);
+            const rangeLooksLikeYearEnd = /year\s+end\s+break/i.test(rangeText);
+            if (!rangeLooksLikeYearEnd && rangeName.length < 2) return;
+
+            if (rangeLooksLikeYearEnd) {
+                rangeName = 'Sabre Year End Break';
+            }
+
+            const rangeOffices = findOffices(rangeText);
+            const offices = rangeOffices.length ? rangeOffices : [...knownOffices];
+
+            const startDate = new Date(rangeYear, startMonth - 1, startDay);
+            const endDate = new Date(rangeYear, endMonth - 1, endDay);
+            if (isNaN(startDate.getTime()) || isNaN(endDate.getTime()) || startDate > endDate) return;
+
+            for (let cursor = new Date(startDate); cursor <= endDate; cursor.setDate(cursor.getDate() + 1)) {
+                const iso = `${cursor.getFullYear()}-${String(cursor.getMonth() + 1).padStart(2, '0')}-${String(cursor.getDate()).padStart(2, '0')}`;
+
+                // Remove any single-date version of this range entry first.
+                for (let i = cleanedHolidays.length - 1; i >= 0; i--) {
+                    if (cleanedHolidays[i].date === iso && /year\s+end\s+break/i.test(cleanedHolidays[i].name)) {
+                        cleanedHolidays.splice(i, 1);
+                    }
+                }
+
+                rangeHolidays.push({
+                    date: iso,
+                    day: cursor.toLocaleDateString('en-US', { weekday: 'long' }),
+                    name: rangeName,
+                    offices: [...offices]
+                });
+            }
+        });
+
+        // HARD FALLBACK FOR SABRE YEAR END BREAK
+        //
+        // Some PDF.js builds expose the final calendar entry as several
+        // independent text items/rows, so coordinate-based range detection
+        // can miss it completely. The source calendar explicitly defines
+        // Sabre Year End Break as Dec 26 through Dec 31. Detect the holiday
+        // name anywhere on the scanned pages and always materialize all six
+        // dates as separate records.
+        const allPdfHolidayText = pageRows.map(r => r.text || '').join(' ');
+        if (/year\s+end\s+break/i.test(allPdfHolidayText)) {
+            const yearEndYear = Number(detectedYear) || new Date().getFullYear();
+            const yearEndOffices = findOffices(allPdfHolidayText);
+            const yearEndOfficeList = yearEndOffices.length ? yearEndOffices : [...knownOffices];
+
+            for (let day = 26; day <= 31; day++) {
+                const iso = `${yearEndYear}-12-${String(day).padStart(2, '0')}`;
+
+                // Remove any malformed/single-date Year End Break record.
+                for (let i = cleanedHolidays.length - 1; i >= 0; i--) {
+                    if (
+                        cleanedHolidays[i].date === iso &&
+                        /year\s+end\s+break/i.test(cleanedHolidays[i].name)
+                    ) {
+                        cleanedHolidays.splice(i, 1);
+                    }
+                }
+
+                // Prevent duplicate records if the normal range parser also
+                // succeeded.
+                if (!rangeHolidays.some(h => h.date === iso && /year\s+end\s+break/i.test(h.name))) {
+                    rangeHolidays.push({
+                        date: iso,
+                        day: new Date(yearEndYear, 11, day).toLocaleDateString('en-US', { weekday: 'long' }),
+                        name: 'Sabre Year End Break',
+                        offices: [...yearEndOfficeList]
+                    });
+                }
+            }
+        }
+
+        // Merge the expanded range with normal holiday records without
+        // creating duplicate entries.
+        rangeHolidays.forEach(rangeHoliday => {
+            const existingIndex = cleanedHolidays.findIndex(h =>
+                h.date === rangeHoliday.date &&
+                h.name.toLowerCase() === rangeHoliday.name.toLowerCase()
+            );
+
+            if (existingIndex >= 0) {
+                rangeHoliday.offices.forEach(off => {
+                    if (!cleanedHolidays[existingIndex].offices.includes(off)) {
+                        cleanedHolidays[existingIndex].offices.push(off);
+                    }
+                });
+            } else {
+                cleanedHolidays.push(rangeHoliday);
+            }
+        });
+
+        cleanedHolidays.sort((a, b) => a.date.localeCompare(b.date));
+
+        // ---------------------------------------------------------------------
+        // SAVE + RENDER
+        // ---------------------------------------------------------------------
+        if (cleanedHolidays.length > 0) {
+            SABRE_HOLIDAYS = cleanedHolidays;
+            dynamicHolidayYear = detectedYear;
+
+            if (typeof saveCredentialsToStorageAndCloud === "function") {
+                saveCredentialsToStorageAndCloud();
+            }
+
+            alert(
+                `Calendar Scan Complete!\\n\\n` +
+                `Year Detected: ${dynamicHolidayYear}\\n` +
+                `Total Holidays Found: ${SABRE_HOLIDAYS.length}\n` +
+                `PDF Pages Scanned: ${pdf.numPages}`
+            );
+        } else {
+            alert(
+                `Calendar scan finished, but no holiday entries were detected.\\n\\n` +
+                `If the PDF is image-only/scanned, OCR is required before PDF.js can read the text.`
+            );
+        }
+
+        if (typeof closeAdminPassManagerModal === "function") {
+            closeAdminPassManagerModal();
+        }
+
+        if (
+            typeof activeCategory !== "undefined" &&
+            activeCategory === "holidays" &&
+            typeof renderHolidaysView === "function"
+        ) {
+            renderHolidaysView();
+        }
+
+        // Allow selecting the same PDF again after a failed/partial scan.
+        if (event && event.target) event.target.value = "";
+
+    } catch (err) {
+        console.error("PDF Calendar Scan failed:", err);
+        alert(
+            "An error occurred while scanning the PDF calendar.\\n\\n" +
+            (err && err.message ? err.message : "Unknown PDF parsing error.")
+        );
+
+        if (event && event.target) event.target.value = "";
+    }
+}
+
+
+function generateUppercase8CharPassword() {
             const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             let result = "";
             for (let i = 0; i < 8; i++) {
@@ -1290,6 +2262,82 @@
             });
 
             document.getElementById('adminPassManagerModal').classList.remove('hidden');
+            renderSelectedEmployeePasswordStatus();
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
+
+        function escapeHtml(value) {
+            return String(value ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        function renderSelectedEmployeePasswordStatus() {
+            const select = document.getElementById('adminEmpPassSelect');
+            const panel = document.getElementById('selectedEmployeePasswordStatus');
+            const nameEl = document.getElementById('selectedEmployeePasswordName');
+            const sgEl = document.getElementById('selectedEmployeePasswordSg');
+            const badgeEl = document.getElementById('selectedEmployeePasswordStatusBadge');
+            const passEl = document.getElementById('selectedEmployeeTemporaryPassword');
+            const exclusionActions = document.getElementById('selectedEmployeeExclusionActions');
+            if (!select || !panel || !badgeEl || !passEl) return;
+
+            const sgId = cleanSgId(select.value);
+            if (!sgId) {
+                panel.classList.add('hidden');
+                if (exclusionActions) exclusionActions.classList.add('hidden');
+                return;
+            }
+
+            let name = '';
+            rawRosterData.forEach(w => {
+                (w.employees || []).forEach(emp => {
+                    if (!name && cleanSgId(emp.sg_id) === sgId) name = emp.name || '';
+                });
+            });
+            const excluded = exclusionEmployees.find(ex => cleanSgId(ex.sg_id) === sgId);
+            if (!name && excluded) name = excluded.name || '';
+            if (exclusionActions) exclusionActions.classList.toggle('hidden', !excluded);
+
+            const cred = userCredentials[sgId];
+            const isTemp = !!(cred && cred.isTemporary);
+            const isPending = !!(cred && cred.pendingApproval) || cred?.status === 'PENDING_APPROVAL';
+            if (nameEl) nameEl.textContent = name || 'Selected Employee';
+            if (sgEl) sgEl.textContent = `SG${sgId}`;
+            badgeEl.textContent = isPending ? 'Pending Admin Approval' : (isTemp ? 'Temporary Password' : 'Password Set');
+            badgeEl.className = `inline-flex items-center px-2 py-0.5 rounded-full border text-[9px] font-extrabold ${isPending ? 'bg-indigo-100 text-indigo-800 border-indigo-200' : (isTemp ? 'bg-amber-100 text-amber-800 border-amber-200' : 'bg-emerald-100 text-emerald-800 border-emerald-200')}`;
+            passEl.textContent = isPending && cred && cred.password ? `New Password: ${cred.password}` : (isTemp && cred && cred.password ? `Temporary Password: ${cred.password}` : 'Password: Set by Employee');
+            panel.classList.remove('hidden');
+        }
+
+        function deleteSelectedExclusionEmployee() {
+            const select = document.getElementById('adminEmpPassSelect');
+            const sgId = cleanSgId(select ? select.value : '');
+            if (!sgId) return;
+
+            const excluded = exclusionEmployees.find(ex => cleanSgId(ex.sg_id) === sgId);
+            if (!excluded) {
+                alert('The selected employee does not have Exclusion Access.');
+                return;
+            }
+
+            const displayName = excluded.name || `SG${sgId}`;
+            if (!confirm(`Delete Exclusion Access for ${displayName} (SG${sgId})?\n\nThis removes the employee from the Exclusion Access list. Their normal roster record, if any, will not be deleted.`)) return;
+
+            exclusionEmployees = exclusionEmployees.filter(ex => cleanSgId(ex.sg_id) !== sgId);
+
+            // Only remove the special-access credential when this SG ID is not a normal roster employee.
+            const isRosterEmployee = rawRosterData.some(w => (w.employees || []).some(emp => cleanSgId(emp.sg_id) === sgId));
+            if (!isRosterEmployee) {
+                delete userCredentials[sgId];
+            }
+
+            saveCredentialsToStorageAndCloud();
+            alert(`Exclusion Access deleted for ${displayName} (SG${sgId}).`);
+            openAdminPassManagerModal();
         }
 
         function closeAdminPassManagerModal() {
@@ -1410,29 +2458,107 @@
             return result;
         }
 
-        function update3DClocks() {
-            const now = new Date();
+        const worldClockZones=[
+  {id:'IST',city:'India',zone:'Asia/Kolkata',label:'India • IST'},
+  {id:'CSTCN',city:'China',zone:'Asia/Shanghai',label:'China • CST'},
+  {id:'CETIT',city:'Italy',zone:'Europe/Rome',label:'Italy • CET/CEST'},
+  {id:'GST',city:'Dubai, UAE',zone:'Asia/Dubai',label:'Dubai • GST'},
+  {id:'SAST',city:'South Africa',zone:'Africa/Johannesburg',label:'South Africa • SAST'},
+  {id:'UK',city:'United Kingdom',zone:'Europe/London',label:'United Kingdom • GMT/BST'},
+  {id:'KRK',city:'Krakow, Poland',zone:'Europe/Warsaw',label:'Krakow • CET/CEST'},
+  {id:'AEST',city:'Australia — Sydney',zone:'Australia/Sydney',label:'Sydney • AEST/AEDT'},
+  {id:'HKT',city:'Singapore / Hong Kong / Malaysia',zone:'Asia/Hong_Kong',label:'Singapore / Hong Kong / Malaysia'},
+  {id:'EST',city:'United States — Eastern',zone:'America/New_York',label:'US Eastern'},
+  {id:'CST',city:'United States — Central',zone:'America/Chicago',label:'US Central'},
+  {id:'PST',city:'United States — Pacific',zone:'America/Los_Angeles',label:'US Pacific'}
+] ;
 
-            const timeZones = [
-                { id: 'IST', tz: 'Asia/Kolkata' },
-                { id: 'KRK', tz: 'Europe/Warsaw' },
-                { id: 'UK', tz: 'Europe/London' },
-                { id: 'AEST', tz: 'Australia/Sydney' },
-                { id: 'HKT', tz: 'Asia/Hong_Kong' }, 
-                { id: 'EST', tz: 'America/New_York' },
-                { id: 'CST', tz: 'America/Chicago' },
-                { id: 'PST', tz: 'America/Los_Angeles' }
-            ];
+// Full country and territory selector. Each entry uses a representative/default IANA time zone;
+// countries with multiple time zones can also be selected through the IANA zone selector below.
+const worldCountryZones=[{"id":"AF","country":"Afghanistan","zone":"Asia/Kabul"},{"id":"AL","country":"Albania","zone":"Europe/Tirane"},{"id":"DZ","country":"Algeria","zone":"Africa/Algiers"},{"id":"AS","country":"American Samoa","zone":"Pacific/Pago_Pago"},{"id":"AD","country":"Andorra","zone":"Europe/Andorra"},{"id":"AO","country":"Angola","zone":"Africa/Luanda"},{"id":"AI","country":"Anguilla","zone":"America/Anguilla"},{"id":"AQ","country":"Antarctica","zone":"Antarctica/Troll"},{"id":"AG","country":"Antigua and Barbuda","zone":"America/Antigua"},{"id":"AR","country":"Argentina","zone":"America/Argentina/Buenos_Aires"},{"id":"AM","country":"Armenia","zone":"Asia/Yerevan"},{"id":"AW","country":"Aruba","zone":"America/Aruba"},{"id":"AU","country":"Australia","zone":"Australia/Sydney"},{"id":"AT","country":"Austria","zone":"Europe/Vienna"},{"id":"AZ","country":"Azerbaijan","zone":"Asia/Baku"},{"id":"BS","country":"Bahamas","zone":"America/Nassau"},{"id":"BH","country":"Bahrain","zone":"Asia/Bahrain"},{"id":"BD","country":"Bangladesh","zone":"Asia/Dhaka"},{"id":"BB","country":"Barbados","zone":"America/Barbados"},{"id":"BY","country":"Belarus","zone":"Europe/Minsk"},{"id":"BE","country":"Belgium","zone":"Europe/Brussels"},{"id":"BZ","country":"Belize","zone":"America/Belize"},{"id":"BJ","country":"Benin","zone":"Africa/Porto-Novo"},{"id":"BM","country":"Bermuda","zone":"Atlantic/Bermuda"},{"id":"BT","country":"Bhutan","zone":"Asia/Thimphu"},{"id":"BO","country":"Bolivia, Plurinational State of","zone":"America/La_Paz"},{"id":"BQ","country":"Bonaire, Sint Eustatius and Saba","zone":"America/Kralendijk"},{"id":"BA","country":"Bosnia and Herzegovina","zone":"Europe/Sarajevo"},{"id":"BW","country":"Botswana","zone":"Africa/Gaborone"},{"id":"BV","country":"Bouvet Island","zone":"Etc/UTC"},{"id":"BR","country":"Brazil","zone":"America/Sao_Paulo"},{"id":"IO","country":"British Indian Ocean Territory","zone":"Indian/Chagos"},{"id":"BN","country":"Brunei Darussalam","zone":"Asia/Brunei"},{"id":"BG","country":"Bulgaria","zone":"Europe/Sofia"},{"id":"BF","country":"Burkina Faso","zone":"Africa/Ouagadougou"},{"id":"BI","country":"Burundi","zone":"Africa/Bujumbura"},{"id":"CV","country":"Cabo Verde","zone":"Atlantic/Cape_Verde"},{"id":"KH","country":"Cambodia","zone":"Asia/Phnom_Penh"},{"id":"CM","country":"Cameroon","zone":"Africa/Douala"},{"id":"CA","country":"Canada","zone":"America/Toronto"},{"id":"KY","country":"Cayman Islands","zone":"America/Cayman"},{"id":"CF","country":"Central African Republic","zone":"Africa/Lagos"},{"id":"TD","country":"Chad","zone":"Africa/Ndjamena"},{"id":"CL","country":"Chile","zone":"America/Santiago"},{"id":"CN","country":"China","zone":"Asia/Shanghai"},{"id":"CX","country":"Christmas Island","zone":"Indian/Christmas"},{"id":"CC","country":"Cocos (Keeling) Islands","zone":"Indian/Cocos"},{"id":"CO","country":"Colombia","zone":"America/Bogota"},{"id":"KM","country":"Comoros","zone":"Indian/Comoro"},{"id":"CG","country":"Congo","zone":"Africa/Brazzaville"},{"id":"CD","country":"Congo, The Democratic Republic of the","zone":"Africa/Kinshasa"},{"id":"CK","country":"Cook Islands","zone":"Pacific/Rarotonga"},{"id":"CR","country":"Costa Rica","zone":"America/Costa_Rica"},{"id":"HR","country":"Croatia","zone":"Europe/Zagreb"},{"id":"CU","country":"Cuba","zone":"America/Havana"},{"id":"CW","country":"Curaçao","zone":"America/Curacao"},{"id":"CY","country":"Cyprus","zone":"Asia/Nicosia"},{"id":"CZ","country":"Czechia","zone":"Europe/Prague"},{"id":"CI","country":"Côte d'Ivoire","zone":"Africa/Abidjan"},{"id":"DK","country":"Denmark","zone":"Europe/Copenhagen"},{"id":"DJ","country":"Djibouti","zone":"Africa/Djibouti"},{"id":"DM","country":"Dominica","zone":"America/Dominica"},{"id":"DO","country":"Dominican Republic","zone":"America/Santo_Domingo"},{"id":"EC","country":"Ecuador","zone":"America/Guayaquil"},{"id":"EG","country":"Egypt","zone":"Africa/Cairo"},{"id":"SV","country":"El Salvador","zone":"America/El_Salvador"},{"id":"GQ","country":"Equatorial Guinea","zone":"Africa/Malabo"},{"id":"ER","country":"Eritrea","zone":"Africa/Asmara"},{"id":"EE","country":"Estonia","zone":"Europe/Tallinn"},{"id":"SZ","country":"Eswatini","zone":"Africa/Mbabane"},{"id":"ET","country":"Ethiopia","zone":"Africa/Addis_Ababa"},{"id":"FK","country":"Falkland Islands (Malvinas)","zone":"Atlantic/Stanley"},{"id":"FO","country":"Faroe Islands","zone":"Atlantic/Faroe"},{"id":"FJ","country":"Fiji","zone":"Pacific/Fiji"},{"id":"FI","country":"Finland","zone":"Europe/Helsinki"},{"id":"FR","country":"France","zone":"Europe/Paris"},{"id":"GF","country":"French Guiana","zone":"America/Cayenne"},{"id":"PF","country":"French Polynesia","zone":"Pacific/Tahiti"},{"id":"TF","country":"French Southern Territories","zone":"Indian/Kerguelen"},{"id":"GA","country":"Gabon","zone":"Africa/Libreville"},{"id":"GM","country":"Gambia","zone":"Africa/Banjul"},{"id":"GE","country":"Georgia","zone":"Asia/Tbilisi"},{"id":"DE","country":"Germany","zone":"Europe/Berlin"},{"id":"GH","country":"Ghana","zone":"Africa/Accra"},{"id":"GI","country":"Gibraltar","zone":"Europe/Gibraltar"},{"id":"GR","country":"Greece","zone":"Europe/Athens"},{"id":"GL","country":"Greenland","zone":"America/Nuuk"},{"id":"GD","country":"Grenada","zone":"America/Grenada"},{"id":"GP","country":"Guadeloupe","zone":"America/Guadeloupe"},{"id":"GU","country":"Guam","zone":"Pacific/Guam"},{"id":"GT","country":"Guatemala","zone":"America/Guatemala"},{"id":"GG","country":"Guernsey","zone":"Europe/Guernsey"},{"id":"GN","country":"Guinea","zone":"Africa/Conakry"},{"id":"GW","country":"Guinea-Bissau","zone":"Africa/Bissau"},{"id":"GY","country":"Guyana","zone":"America/Guyana"},{"id":"HT","country":"Haiti","zone":"America/Port-au-Prince"},{"id":"HM","country":"Heard Island and McDonald Islands","zone":"Indian/Kerguelen"},{"id":"VA","country":"Holy See (Vatican City State)","zone":"Europe/Vatican"},{"id":"HN","country":"Honduras","zone":"America/Tegucigalpa"},{"id":"HK","country":"Hong Kong","zone":"Asia/Hong_Kong"},{"id":"HU","country":"Hungary","zone":"Europe/Budapest"},{"id":"IS","country":"Iceland","zone":"Atlantic/Reykjavik"},{"id":"IN","country":"India","zone":"Asia/Kolkata"},{"id":"ID","country":"Indonesia","zone":"Asia/Jakarta"},{"id":"IR","country":"Iran, Islamic Republic of","zone":"Asia/Tehran"},{"id":"IQ","country":"Iraq","zone":"Asia/Baghdad"},{"id":"IE","country":"Ireland","zone":"Europe/Dublin"},{"id":"IM","country":"Isle of Man","zone":"Europe/Isle_of_Man"},{"id":"IL","country":"Israel","zone":"Asia/Jerusalem"},{"id":"IT","country":"Italy","zone":"Europe/Rome"},{"id":"JM","country":"Jamaica","zone":"America/Jamaica"},{"id":"JP","country":"Japan","zone":"Asia/Tokyo"},{"id":"JE","country":"Jersey","zone":"Europe/Jersey"},{"id":"JO","country":"Jordan","zone":"Asia/Amman"},{"id":"KZ","country":"Kazakhstan","zone":"Asia/Almaty"},{"id":"KE","country":"Kenya","zone":"Africa/Nairobi"},{"id":"KI","country":"Kiribati","zone":"Pacific/Tarawa"},{"id":"KP","country":"Korea, Democratic People's Republic of","zone":"Asia/Pyongyang"},{"id":"KR","country":"Korea, Republic of","zone":"Asia/Seoul"},{"id":"XK","country":"Kosovo","zone":"Europe/Belgrade"},{"id":"KW","country":"Kuwait","zone":"Asia/Kuwait"},{"id":"KG","country":"Kyrgyzstan","zone":"Asia/Bishkek"},{"id":"LA","country":"Lao People's Democratic Republic","zone":"Asia/Vientiane"},{"id":"LV","country":"Latvia","zone":"Europe/Riga"},{"id":"LB","country":"Lebanon","zone":"Asia/Beirut"},{"id":"LS","country":"Lesotho","zone":"Africa/Maseru"},{"id":"LR","country":"Liberia","zone":"Africa/Monrovia"},{"id":"LY","country":"Libya","zone":"Africa/Tripoli"},{"id":"LI","country":"Liechtenstein","zone":"Europe/Vaduz"},{"id":"LT","country":"Lithuania","zone":"Europe/Vilnius"},{"id":"LU","country":"Luxembourg","zone":"Europe/Luxembourg"},{"id":"MO","country":"Macao","zone":"Asia/Macau"},{"id":"MG","country":"Madagascar","zone":"Indian/Antananarivo"},{"id":"MW","country":"Malawi","zone":"Africa/Blantyre"},{"id":"MY","country":"Malaysia","zone":"Asia/Kuala_Lumpur"},{"id":"MV","country":"Maldives","zone":"Indian/Maldives"},{"id":"ML","country":"Mali","zone":"Africa/Bamako"},{"id":"MT","country":"Malta","zone":"Europe/Malta"},{"id":"MH","country":"Marshall Islands","zone":"Pacific/Majuro"},{"id":"MQ","country":"Martinique","zone":"America/Martinique"},{"id":"MR","country":"Mauritania","zone":"Africa/Nouakchott"},{"id":"MU","country":"Mauritius","zone":"Indian/Mauritius"},{"id":"YT","country":"Mayotte","zone":"Africa/Nairobi"},{"id":"MX","country":"Mexico","zone":"America/Mexico_City"},{"id":"FM","country":"Micronesia, Federated States of","zone":"Pacific/Pohnpei"},{"id":"MD","country":"Moldova, Republic of","zone":"Europe/Chisinau"},{"id":"MC","country":"Monaco","zone":"Europe/Monaco"},{"id":"MN","country":"Mongolia","zone":"Asia/Ulaanbaatar"},{"id":"ME","country":"Montenegro","zone":"Europe/Podgorica"},{"id":"MS","country":"Montserrat","zone":"America/Montserrat"},{"id":"MA","country":"Morocco","zone":"Africa/Casablanca"},{"id":"MZ","country":"Mozambique","zone":"Africa/Maputo"},{"id":"MM","country":"Myanmar","zone":"Asia/Yangon"},{"id":"NA","country":"Namibia","zone":"Africa/Windhoek"},{"id":"NR","country":"Nauru","zone":"Pacific/Nauru"},{"id":"NP","country":"Nepal","zone":"Asia/Kathmandu"},{"id":"NL","country":"Netherlands","zone":"Europe/Amsterdam"},{"id":"NC","country":"New Caledonia","zone":"Pacific/Noumea"},{"id":"NZ","country":"New Zealand","zone":"Pacific/Auckland"},{"id":"NI","country":"Nicaragua","zone":"America/Managua"},{"id":"NE","country":"Niger","zone":"Africa/Niamey"},{"id":"NG","country":"Nigeria","zone":"Africa/Lagos"},{"id":"NU","country":"Niue","zone":"Pacific/Niue"},{"id":"NF","country":"Norfolk Island","zone":"Pacific/Norfolk"},{"id":"MK","country":"North Macedonia","zone":"Europe/Skopje"},{"id":"MP","country":"Northern Mariana Islands","zone":"Pacific/Saipan"},{"id":"NO","country":"Norway","zone":"Europe/Oslo"},{"id":"OM","country":"Oman","zone":"Asia/Muscat"},{"id":"PK","country":"Pakistan","zone":"Asia/Karachi"},{"id":"PW","country":"Palau","zone":"Pacific/Palau"},{"id":"PS","country":"Palestine, State of","zone":"Asia/Gaza"},{"id":"PA","country":"Panama","zone":"America/Panama"},{"id":"PG","country":"Papua New Guinea","zone":"Pacific/Port_Moresby"},{"id":"PY","country":"Paraguay","zone":"America/Asuncion"},{"id":"PE","country":"Peru","zone":"America/Lima"},{"id":"PH","country":"Philippines","zone":"Asia/Manila"},{"id":"PN","country":"Pitcairn","zone":"Pacific/Pitcairn"},{"id":"PL","country":"Poland","zone":"Europe/Warsaw"},{"id":"PT","country":"Portugal","zone":"Europe/Lisbon"},{"id":"PR","country":"Puerto Rico","zone":"America/Puerto_Rico"},{"id":"QA","country":"Qatar","zone":"Asia/Qatar"},{"id":"RO","country":"Romania","zone":"Europe/Bucharest"},{"id":"RU","country":"Russian Federation","zone":"Europe/Moscow"},{"id":"RW","country":"Rwanda","zone":"Africa/Kigali"},{"id":"RE","country":"Réunion","zone":"Indian/Reunion"},{"id":"BL","country":"Saint Barthélemy","zone":"America/Puerto_Rico"},{"id":"SH","country":"Saint Helena, Ascension and Tristan da Cunha","zone":"Atlantic/St_Helena"},{"id":"KN","country":"Saint Kitts and Nevis","zone":"America/St_Kitts"},{"id":"LC","country":"Saint Lucia","zone":"America/St_Lucia"},{"id":"MF","country":"Saint Martin (French part)","zone":"America/Marigot"},{"id":"PM","country":"Saint Pierre and Miquelon","zone":"America/Miquelon"},{"id":"VC","country":"Saint Vincent and the Grenadines","zone":"America/St_Vincent"},{"id":"WS","country":"Samoa","zone":"Pacific/Apia"},{"id":"SM","country":"San Marino","zone":"Europe/San_Marino"},{"id":"ST","country":"Sao Tome and Principe","zone":"Africa/Sao_Tome"},{"id":"SA","country":"Saudi Arabia","zone":"Asia/Riyadh"},{"id":"SN","country":"Senegal","zone":"Africa/Dakar"},{"id":"RS","country":"Serbia","zone":"Europe/Belgrade"},{"id":"SC","country":"Seychelles","zone":"Indian/Mahe"},{"id":"SL","country":"Sierra Leone","zone":"Africa/Freetown"},{"id":"SG","country":"Singapore","zone":"Asia/Singapore"},{"id":"SX","country":"Sint Maarten (Dutch part)","zone":"America/Lower_Princes"},{"id":"SK","country":"Slovakia","zone":"Europe/Bratislava"},{"id":"SI","country":"Slovenia","zone":"Europe/Ljubljana"},{"id":"SB","country":"Solomon Islands","zone":"Pacific/Guadalcanal"},{"id":"SO","country":"Somalia","zone":"Africa/Mogadishu"},{"id":"ZA","country":"South Africa","zone":"Africa/Johannesburg"},{"id":"GS","country":"South Georgia and the South Sandwich Islands","zone":"Atlantic/South_Georgia"},{"id":"SS","country":"South Sudan","zone":"Africa/Juba"},{"id":"ES","country":"Spain","zone":"Europe/Madrid"},{"id":"LK","country":"Sri Lanka","zone":"Asia/Colombo"},{"id":"SD","country":"Sudan","zone":"Africa/Khartoum"},{"id":"SR","country":"Suriname","zone":"America/Paramaribo"},{"id":"SJ","country":"Svalbard and Jan Mayen","zone":"Arctic/Longyearbyen"},{"id":"SE","country":"Sweden","zone":"Europe/Stockholm"},{"id":"CH","country":"Switzerland","zone":"Europe/Zurich"},{"id":"SY","country":"Syrian Arab Republic","zone":"Asia/Damascus"},{"id":"TW","country":"Taiwan, Province of China","zone":"Asia/Taipei"},{"id":"TJ","country":"Tajikistan","zone":"Asia/Dushanbe"},{"id":"TZ","country":"Tanzania, United Republic of","zone":"Africa/Dar_es_Salaam"},{"id":"TH","country":"Thailand","zone":"Asia/Bangkok"},{"id":"TL","country":"Timor-Leste","zone":"Asia/Dili"},{"id":"TG","country":"Togo","zone":"Africa/Lome"},{"id":"TK","country":"Tokelau","zone":"Pacific/Fakaofo"},{"id":"TO","country":"Tonga","zone":"Pacific/Tongatapu"},{"id":"TT","country":"Trinidad and Tobago","zone":"America/Port_of_Spain"},{"id":"TN","country":"Tunisia","zone":"Africa/Tunis"},{"id":"TM","country":"Turkmenistan","zone":"Asia/Ashgabat"},{"id":"TC","country":"Turks and Caicos Islands","zone":"America/Grand_Turk"},{"id":"TV","country":"Tuvalu","zone":"Pacific/Funafuti"},{"id":"TR","country":"Türkiye","zone":"Europe/Istanbul"},{"id":"UG","country":"Uganda","zone":"Africa/Kampala"},{"id":"UA","country":"Ukraine","zone":"Europe/Kyiv"},{"id":"AE","country":"United Arab Emirates","zone":"Asia/Dubai"},{"id":"GB","country":"United Kingdom","zone":"Europe/London"},{"id":"US","country":"United States","zone":"America/New_York"},{"id":"UM","country":"United States Minor Outlying Islands","zone":"Pacific/Wake"},{"id":"UY","country":"Uruguay","zone":"America/Montevideo"},{"id":"UZ","country":"Uzbekistan","zone":"Asia/Tashkent"},{"id":"VU","country":"Vanuatu","zone":"Pacific/Efate"},{"id":"VE","country":"Venezuela, Bolivarian Republic of","zone":"America/Caracas"},{"id":"VN","country":"Viet Nam","zone":"Asia/Ho_Chi_Minh"},{"id":"VG","country":"Virgin Islands, British","zone":"America/Tortola"},{"id":"VI","country":"Virgin Islands, U.S.","zone":"America/St_Thomas"},{"id":"WF","country":"Wallis and Futuna","zone":"Pacific/Wallis"},{"id":"EH","country":"Western Sahara","zone":"Africa/El_Aaiun"},{"id":"YE","country":"Yemen","zone":"Asia/Aden"},{"id":"ZM","country":"Zambia","zone":"Africa/Lusaka"},{"id":"ZW","country":"Zimbabwe","zone":"Africa/Harare"},{"id":"AX","country":"Åland Islands","zone":"Europe/Mariehamn"}];
 
-            timeZones.forEach(zone => {
-                const timeEl = document.getElementById(`clock-${zone.id}`);
-                const dateEl = document.getElementById(`date-${zone.id}`);
-                if (timeEl && dateEl) {
-                    timeEl.innerText = now.toLocaleTimeString('en-US', { timeZone: zone.tz, hour12: true, hour: '2-digit', minute: '2-digit', second: '2-digit' });
-                    dateEl.innerText = now.toLocaleDateString('en-US', { timeZone: zone.tz, weekday: 'short', month: 'short', day: 'numeric' });
-                }
-            });
-        }
+function formatWorldTime(zone){
+  const d=new Date();
+  const time=new Intl.DateTimeFormat('en-US',{timeZone:zone,hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true}).format(d);
+  const date=new Intl.DateTimeFormat('en-US',{timeZone:zone,weekday:'short',month:'short',day:'numeric',year:'numeric'}).format(d);
+  const offset=new Intl.DateTimeFormat('en-US',{timeZone:zone,timeZoneName:'longOffset'}).formatToParts(d).find(p=>p.type==='timeZoneName')?.value?.replace('GMT','UTC')||'';
+  return {time,date,offset};
+}
+function zoneOffsetMinutes(zone){
+  const d=new Date();
+  const tz=new Intl.DateTimeFormat('en-US',{timeZone:zone,timeZoneName:'longOffset'}).formatToParts(d).find(p=>p.type==='timeZoneName')?.value||'GMT';
+  const m=tz.match(/GMT([+-])(\d{1,2})(?::(\d{2}))?/);
+  if(!m)return 0;
+  return (m[1]==='-'?-1:1)*(Number(m[2])*60+Number(m[3]||0));
+}
+function comparisonDifference(baseZone,zone){
+  const diff=zoneOffsetMinutes(zone)-zoneOffsetMinutes(baseZone);
+  if(diff===0)return 'Same time zone offset';
+  const sign=diff>0?'+':'−', abs=Math.abs(diff), h=Math.floor(abs/60), m=abs%60;
+  return `${sign}${h}${m?'.'+String(Math.round(m/60*10)/10).split('.')[1]:''}h vs first`;
+}
+function setClockCardTime(card,zone){
+  const t=formatWorldTime(zone);
+  const id=card.querySelector('[id^="clock-"]')?.id?.replace('clock-','');
+  const el=card.querySelector('[id^="clock-"]'); if(el)el.textContent=t.time;
+  const de=card.querySelector('[id^="date-"]'); if(de)de.textContent=t.date;
+  card.dataset.timezone=zone;
+  return id;
+}
+function update3DClocks(){
+  document.querySelectorAll('#worldClocksContainer .clock-futuristic-3d').forEach(card=>{
+    const clock=card.querySelector('[id^="clock-"]');
+    const id=clock?.id?.replace('clock-','');
+    const z=worldClockZones.find(x=>x.id===id);
+    if(z)setClockCardTime(card,z.zone);
+  });
+  const modal=document.getElementById('worldTimeComparisonModal');
+  if(modal && !modal.classList.contains('hidden')) renderWorldTimeComparison();
+}
+function getFilteredWorldCountries(){
+  const q=(document.getElementById('worldTimeCountrySearch')?.value||'').trim().toLowerCase();
+  if(!q)return worldCountryZones;
+  return worldCountryZones.filter(z=>z.country.toLowerCase().includes(q)||z.zone.toLowerCase().includes(q)||z.id.toLowerCase()===q);
+}
+function addWorldTimeSelector(selected){
+  const wrap=document.getElementById('worldTimeSelectors'); if(!wrap)return;
+  const row=document.createElement('div'); row.className='world-time-selector-row';
+  const sel=document.createElement('select'); sel.className='world-time-select'; sel.setAttribute('aria-label','Select country or territory');
+  const list=getFilteredWorldCountries();
+  const source=list.length?list:worldCountryZones;
+  sel.innerHTML=source.map(z=>`<option value="${z.id}" ${z.id===selected?'selected':''}>${z.country} · ${z.zone}</option>`).join('');
+  if(selected&&!source.some(z=>z.id===selected)){
+    const selectedZone=worldCountryZones.find(z=>z.id===selected);
+    if(selectedZone)sel.insertAdjacentHTML('afterbegin',`<option value="${selectedZone.id}" selected>${selectedZone.country} · ${selectedZone.zone}</option>`);
+  }
+  const remove=document.createElement('button'); remove.type='button'; remove.className='world-time-remove'; remove.innerHTML='<i data-lucide="trash-2" class="w-4 h-4"></i>'; remove.title='Delete country'; remove.setAttribute('aria-label','Delete country');
+  remove.onclick=()=>{if(wrap.children.length>2){row.remove();renderWorldTimeComparison();}else{remove.animate([{transform:'scale(.9)'},{transform:'scale(1)'}],{duration:180});}};
+  sel.onchange=()=>renderWorldTimeComparison(); row.append(sel,remove); wrap.appendChild(row); if(window.lucide)lucide.createIcons();
+}
+function openWorldTimeComparison(card){
+  const modal=document.getElementById('worldTimeComparisonModal'); if(!modal)return;
+  modal.classList.remove('hidden'); modal.setAttribute('aria-hidden','false');
+  const wrap=document.getElementById('worldTimeSelectors'); wrap.innerHTML='';
+  const clickedId=card?.querySelector('[id^="clock-"]')?.id?.replace('clock-','')||'IST';
+  const clicked=worldClockZones.find(z=>z.id===clickedId)||worldClockZones[0];
+  const clickedCountry=worldCountryZones.find(z=>z.zone===clicked.zone)||worldCountryZones.find(z=>z.id==='IN')||worldCountryZones[0];
+  const second=worldCountryZones.find(z=>z.id!==(clickedCountry?.id||'IN')&&z.id==='CN')||worldCountryZones.find(z=>z.id!==(clickedCountry?.id||'IN'))||worldCountryZones[1];
+  addWorldTimeSelector(clickedCountry?.id||'IN'); addWorldTimeSelector(second?.id||'CN'); renderWorldTimeComparison();
+}
+function refreshWorldTimeSelectors(){
+  const wrap=document.getElementById('worldTimeSelectors'); if(!wrap)return;
+  const selected=[...wrap.querySelectorAll('select')].map(s=>s.value);
+  wrap.innerHTML=''; selected.forEach(id=>addWorldTimeSelector(id)); renderWorldTimeComparison();
+}
+function renderWorldTimeComparison(){
+  const wrap=document.getElementById('worldTimeSelectors'),out=document.getElementById('worldTimeComparisonResults'); if(!wrap||!out)return;
+  const zones=[...wrap.querySelectorAll('select')].map(s=>worldCountryZones.find(z=>z.id===s.value)).filter(Boolean);
+  const base=zones[0]?.zone||'Asia/Kolkata';
+  out.innerHTML=zones.map((z,i)=>{const t=formatWorldTime(z.zone);return `<div class="world-time-compare-card"><div><div class="world-time-city">${z.country}</div><div class="world-time-zone">${z.zone} · ${t.offset}</div></div><div class="world-time-value">${t.time}</div><div class="world-time-date">${t.date}<div class="world-time-diff">${i===0?'BASE TIME':comparisonDifference(base,z.zone)}</div></div></div>`}).join('');
+}
+function closeWorldTimeComparison(){const m=document.getElementById('worldTimeComparisonModal');if(m){m.classList.add('hidden');m.setAttribute('aria-hidden','true');}}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeComparison();});
+
 
         // FULL 5-WEEK COMPLETE ROSTER DATA
         const defaultHardcodedRosterData = [
@@ -1618,6 +2744,9 @@
                     return;
                 }
 
+                // A newly changed password is immediately valid on the employee's current
+                // session/device. It is not treated as temporary again while awaiting Admin approval.
+                // Admin approval is required before that password becomes the cloud-wide credential.
                 const now = new Date().getTime();
                 const daysLimit = (cleanId === '316092') ? 90 : 30;
                 const daysDiff = (now - userCred.lastChanged) / (1000 * 60 * 60 * 24);
@@ -1633,9 +2762,10 @@
                 empName: matchedEmp ? matchedEmp.name : (cleanId === '316092' ? 'Lelin Patra' : 'Employee')
             };
 
-            if (cleanId === '316092') {
-                isAdminMode = true;
-            }
+            // All normal portal logins, including SG ID 316092, enter Normal/Public Mode.
+            // Admin Mode is entered only through the explicit 'Switch to Admin Mode' action.
+            isAdminMode = false;
+            pendingChangesExist = false;
 
             updateTopRightUserHeader();
             grantPortalAccess();
@@ -1653,15 +2783,24 @@
 
             const adminBadge = document.getElementById('adminBadge');
             const adminDock = document.getElementById('adminImportContainer');
+            const adminPdfCalendarUpload = document.getElementById('adminPdfCalendarUpload');
+            const adminDeleteMonthBtn = document.getElementById('adminDeleteMonthBtn');
+            const adminDeleteWeekBtn = document.getElementById('adminDeleteWeekBtn');
 
             if (isAdminMode) {
                 adminBadge.classList.remove('hidden');
                 adminDock.classList.remove('hidden');
+                if (adminPdfCalendarUpload) adminPdfCalendarUpload.classList.remove('hidden');
+                if (adminDeleteMonthBtn) adminDeleteMonthBtn.classList.remove('hidden');
+                if (adminDeleteWeekBtn) adminDeleteWeekBtn.classList.remove('hidden');
                 switchBtnLabel.innerText = "Switch to Normal Mode";
                 switchBtnIcon.setAttribute("data-lucide", "user-check");
             } else {
                 adminBadge.classList.add('hidden');
                 adminDock.classList.add('hidden');
+                if (adminDeleteMonthBtn) adminDeleteMonthBtn.classList.add('hidden');
+                if (adminDeleteWeekBtn) adminDeleteWeekBtn.classList.add('hidden');
+                if (adminPdfCalendarUpload) adminPdfCalendarUpload.classList.add('hidden');
                 switchBtnLabel.innerText = "Switch to Admin Mode";
                 switchBtnIcon.setAttribute("data-lucide", "shield");
             }
@@ -1673,8 +2812,26 @@
             document.getElementById('userProfileDropdown').classList.add('hidden');
 
             if (isAdminMode) {
+                // IMPORTANT: Switching from Admin to Normal must discard the Admin-only
+                // draft view.  backupRosterData is the last published roster captured
+                // when Admin mode was entered, so Normal mode must render that data only.
+                if (pendingChangesExist) {
+                    const userConfirmed = confirm("You have unsaved Admin changes. Switching to Normal Mode will discard those unpublished changes. Continue?");
+                    if (!userConfirmed) return;
+                }
                 isAdminMode = false;
-                alert("Switched to Normal Roster Mode.");
+                pendingChangesExist = false;
+                // Normal mode MUST render only the immutable published snapshot.
+                // Never use rawRosterData here because it may contain an Admin-only draft.
+                const publicRoster = (publishedRosterData && Array.isArray(publishedRosterData))
+                    ? publishedRosterData
+                    : backupRosterData;
+                if (publicRoster && Array.isArray(publicRoster)) {
+                    rawRosterData = JSON.parse(JSON.stringify(publicRoster));
+                }
+                document.getElementById('adminActionDock').classList.add('hidden');
+                updateSavedDraftButton();
+                alert("Switched to Normal Roster Mode. Only the published roster is visible. Your saved Admin draft remains available when you return to Admin Mode.");
                 updateTopRightUserHeader();
                 renderView();
             } else {
@@ -1772,11 +2929,16 @@
 
             const cleanId = activeUserSession.sg_id;
             
+            const previousCredential = userCredentials[cleanId] ? { ...userCredentials[cleanId] } : null;
+
+            // The employee gets immediate access on this device, but the new password
+            // remains pending until an Admin approves it for cloud-wide login.
             userCredentials[cleanId] = {
                 password: newPass,
                 isTemporary: false,
+                pendingApproval: true,
                 lastChanged: new Date().getTime(),
-                status: 'ACTIVE'
+                status: 'PENDING_APPROVAL'
             };
 
             adminResetRequests = adminResetRequests.filter(r => r.sg_id !== cleanId || r.type !== 'APPROVAL_REQUEST');
@@ -1785,10 +2947,12 @@
                 sg_id: cleanId,
                 name: activeUserSession.empName,
                 newPassword: newPass,
+                previousCredential: previousCredential,
                 requestedAt: new Date().toLocaleTimeString()
             });
 
             saveCredentialsToStorageAndCloud();
+            renderSelectedEmployeePasswordStatus();
 
             document.getElementById('passwordExpiredModal').classList.add('hidden');
             grantPortalAccess();
@@ -1860,11 +3024,14 @@
         function approvePasswordChange(sgId) {
             if (userCredentials[sgId]) {
                 userCredentials[sgId].status = 'ACTIVE';
+                userCredentials[sgId].pendingApproval = false;
+                userCredentials[sgId].isTemporary = false;
                 userCredentials[sgId].lastChanged = new Date().getTime();
             }
 
             adminResetRequests = adminResetRequests.filter(r => r.sg_id !== sgId);
             saveCredentialsToStorageAndCloud();
+            renderSelectedEmployeePasswordStatus();
 
             alert(`Password approved and saved to Cloud for SG${sgId}. Employee can now log in from any location.`);
             dismissAdminNotice();
@@ -1872,11 +3039,17 @@
         }
 
         function rejectPasswordChange(sgId) {
-            delete userCredentials[sgId];
+            const req = adminResetRequests.find(r => r.sg_id === sgId && r.type === 'APPROVAL_REQUEST');
+            if (req && req.previousCredential) {
+                userCredentials[sgId] = { ...req.previousCredential };
+            } else {
+                delete userCredentials[sgId];
+            }
             adminResetRequests = adminResetRequests.filter(r => r.sg_id !== sgId);
             saveCredentialsToStorageAndCloud();
+            renderSelectedEmployeePasswordStatus();
 
-            alert(`Password approval request canceled for SG${sgId}.`);
+            alert(`Password approval request canceled for SG${sgId}. The previous password has been restored.`);
             dismissAdminNotice();
             checkPendingAdminNotifications();
         }
@@ -1910,12 +3083,16 @@
                     const liveData = await response.json();
                     if (liveData && Array.isArray(liveData) && liveData.length > 0) {
                         rawRosterData = liveData;
+                        publishedRosterData = JSON.parse(JSON.stringify(liveData));
+                        backupRosterData = JSON.parse(JSON.stringify(liveData));
                         syncCloudCredentialsToLocal(liveData);
                     }
                 }
             } catch (err) {
                 console.log("Using default fallback roster data:", err);
                 rawRosterData = JSON.parse(JSON.stringify(defaultHardcodedRosterData));
+                publishedRosterData = JSON.parse(JSON.stringify(defaultHardcodedRosterData));
+                backupRosterData = JSON.parse(JSON.stringify(defaultHardcodedRosterData));
                 initializeDefaultEmpCredentials();
             }
             initializePortal();
@@ -2008,7 +3185,9 @@
                 isAdminMode = true;
                 document.getElementById('adminLoginModal').classList.add('hidden');
                 
-                backupRosterData = JSON.parse(JSON.stringify(rawRosterData));
+                publishedRosterData = JSON.parse(JSON.stringify(rawRosterData));
+                backupRosterData = JSON.parse(JSON.stringify(publishedRosterData));
+                loadAdminExcelDraftIfAvailable();
 
                 updateTopRightUserHeader();
                 renderView();
@@ -2032,11 +3211,13 @@
             isAdminMode = false;
             pendingChangesExist = false;
 
-            if (backupRosterData) {
-                rawRosterData = JSON.parse(JSON.stringify(backupRosterData));
+            const publicRoster = (publishedRosterData && Array.isArray(publishedRosterData)) ? publishedRosterData : backupRosterData;
+            if (publicRoster) {
+                rawRosterData = JSON.parse(JSON.stringify(publicRoster));
             }
 
             document.getElementById('adminActionDock').classList.add('hidden');
+            updateSavedDraftButton();
 
             const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
             window.history.replaceState({ path: newUrl }, '', newUrl);
@@ -2119,7 +3300,8 @@
                 });
 
                 if (putRes.ok) {
-                    backupRosterData = JSON.parse(JSON.stringify(rawRosterData));
+                    publishedRosterData = JSON.parse(JSON.stringify(rawRosterData));
+                    backupRosterData = JSON.parse(JSON.stringify(publishedRosterData));
                     clearPendingChangesState();
                     renderView();
                     console.log("Committed credentials & roster data successfully to GitHub.");
@@ -2431,11 +3613,19 @@
             if(cat === 'holidays') document.getElementById('tabHolidays').classList.add('active');
 
             if(cat === 'weekly') {
+                // Roster Schedule always opens on the real current calendar month/week.
+                // This is independent of whichever period was last viewed in another tab.
+                const livePeriod = detectCurrentPeriod();
+                currentMonth = livePeriod.month;
+                currentWeekNum = livePeriod.week_num;
+                individualMonthFilter = currentMonth;
                 document.getElementById('periodNavigator').classList.remove('hidden');
                 document.getElementById('weekNavigator').classList.remove('hidden');
                 document.getElementById('chartSection').classList.remove('hidden');
                 document.getElementById('kpiContainer').classList.remove('hidden');
             } else if(cat === 'individual') {
+                // Keep the global Month/Week selection synchronized across tabs.
+                individualMonthFilter = currentMonth;
                 document.getElementById('periodNavigator').classList.remove('hidden');
                 document.getElementById('weekNavigator').classList.add('hidden');
                 document.getElementById('chartSection').classList.add('hidden');
@@ -2452,13 +3642,20 @@
                 document.getElementById('kpiContainer').classList.add('hidden');
             }
 
+            // Rebuild the shared selectors after every tab change so all tabs reflect
+            // the same global Month/Week state. The individual tab may additionally
+            // support its existing "All Months" filter without changing currentWeekNum.
+            updateMonthDropdown();
+            updateWeekOptions();
             renderView();
         }
 
         function updateMonthDropdown() {
             const monthSelect = document.getElementById('monthSelect');
             const deleteMonthBtn = document.getElementById('adminDeleteMonthBtn');
-            const availableMonths = [...new Set(rawRosterData.map(w => w.month))];
+            const monthOrder = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+            const availableMonths = [...new Set(rawRosterData.map(w => normalizeMonthName(w.month)).filter(Boolean))]
+                .sort((a,b) => monthOrder.indexOf(a) - monthOrder.indexOf(b));
             
             monthSelect.innerHTML = '';
             
@@ -2532,26 +3729,40 @@
 
         function onMonthChange() {
             const val = document.getElementById('monthSelect').value;
-            if (activeCategory === 'individual') {
-                individualMonthFilter = val;
-            } else {
-                currentMonth = val;
-                
-                const currDetect = detectCurrentPeriod();
-                if (currentMonth === currDetect.month) {
-                    currentWeekNum = currDetect.week_num;
-                } else {
-                    currentWeekNum = 1;
-                }
-                
-                updateWeekOptions();
-                document.getElementById('portalSubhead').innerText = `${currentMonth} 2026 • Live Interactive Schedule`;
+
+            if (activeCategory === 'individual' && val === 'ALL') {
+                // Preserve the existing All Months option without breaking the shared
+                // global Month/Week state used by the other tabs.
+                individualMonthFilter = 'ALL';
+                renderView();
+                return;
             }
+
+            // Month selection is global: every tab uses the same currentMonth/currentWeek.
+            currentMonth = normalizeMonthName(val) || val;
+            individualMonthFilter = currentMonth;
+
+            const livePeriod = detectCurrentPeriod();
+            if (currentMonth === livePeriod.month) {
+                currentWeekNum = livePeriod.week_num;
+            } else {
+                const monthWeeks = rawRosterData
+                    .filter(w => normalizeMonthName(w.month) === currentMonth)
+                    .sort((a,b) => Number(a.week_num) - Number(b.week_num));
+                currentWeekNum = monthWeeks.length ? Number(monthWeeks[0].week_num) : 1;
+            }
+
+            updateMonthDropdown();
+            updateWeekOptions();
+            document.getElementById('portalSubhead').innerText = `${currentMonth} 2026 • Live Interactive Schedule`;
             renderView();
         }
 
         function onWeekChange() {
-            currentWeekNum = parseInt(document.getElementById('weekSelect').value);
+            const selectedWeek = parseInt(document.getElementById('weekSelect').value);
+            if (Number.isFinite(selectedWeek)) currentWeekNum = selectedWeek;
+            // The selected week is global and is retained when moving between tabs.
+            updateWeekOptions();
             renderView();
         }
 
@@ -2989,9 +4200,9 @@
             document.getElementById('mainDisplayArea').innerHTML = html;
         }
 
-        // SABRE GLOBAL HOLIDAY CALENDAR VIEW RENDERER
+        // SABRE GLOBAL HOLIDAYS VIEW RENDERER
         function renderHolidaysView() {
-            document.getElementById('holidayTabTitle').innerText = `Sabre ${dynamicHolidayYear} Global Holiday Calendar`;
+            document.getElementById('holidayTabTitle').innerText = 'Sabre Global Holidays';
 
             let filteredHolidays = SABRE_HOLIDAYS.filter(h => {
                 const matchSearch = !searchQuery || 
@@ -3060,7 +4271,7 @@
                     <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-200 pb-3 gap-2">
                         <div>
                             <h3 class="font-extrabold text-slate-900 text-base sm:text-lg flex items-center gap-2">
-                                <i data-lucide="globe" class="text-indigo-600 w-5 h-5"></i> Sabre ${dynamicHolidayYear} Global Holiday Calendar
+                                <i data-lucide="globe" class="text-indigo-600 w-5 h-5"></i> Sabre 2026 Global Holiday Calendar
                             </h3>
                             <p class="text-slate-500 text-xs mt-0.5">Official Sabre global observances across international office locations</p>
                         </div>
@@ -3323,24 +4534,287 @@
             });
         }
 
+        function normalizeExcelHeader(value) {
+            return String(value ?? '')
+                .trim()
+                .toLowerCase()
+                .replace(/[\u2013\u2014]/g, '-')
+                .replace(/[^a-z0-9]+/g, '');
+        }
+
         function getRowValue(row, possibleKeys, defaultValue = '') {
-            const rowKeys = Object.keys(row);
-            for (let k of possibleKeys) {
-                const foundKey = rowKeys.find(rk => rk.trim().toLowerCase() === k.toLowerCase());
-                if (foundKey && row[foundKey] !== undefined && row[foundKey] !== null) {
-                    return String(row[foundKey]).trim();
+            const rowKeys = Object.keys(row || {});
+            const normalizedKeys = rowKeys.map(rk => [rk, normalizeExcelHeader(rk)]);
+            for (const k of possibleKeys) {
+                const target = normalizeExcelHeader(k);
+                const found = normalizedKeys.find(([rk, nk]) => nk === target);
+                if (found && row[found[0]] !== undefined && row[found[0]] !== null && String(row[found[0]]).trim() !== '') {
+                    return String(row[found[0]]).trim();
+                }
+            }
+            // Also accept day/date-style headers such as "Monday 05/10/2026" or "Mon - 05 Oct".
+            for (const k of possibleKeys) {
+                const target = normalizeExcelHeader(k);
+                if (target.length < 3) continue;
+                const found = normalizedKeys.find(([rk, nk]) => nk.startsWith(target) && nk.length > target.length);
+                if (found && row[found[0]] !== undefined && row[found[0]] !== null && String(row[found[0]]).trim() !== '') {
+                    return String(row[found[0]]).trim();
                 }
             }
             return defaultValue;
         }
 
+        function normalizeMonthName(value) {
+            const raw = String(value || '').trim();
+            if (!raw) return '';
+            const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+            const idx = months.findIndex(m => m.toLowerCase() === raw.toLowerCase() || m.toLowerCase().startsWith(raw.toLowerCase().slice(0,3)));
+            return idx >= 0 ? months[idx] : raw;
+        }
+
+        function parseExcelDateValue(value) {
+            if (value === undefined || value === null || value === '') return null;
+            if (value instanceof Date && !isNaN(value.getTime())) return value;
+            if (typeof value === 'number' && value > 20000 && value < 60000) {
+                const d = new Date(Date.UTC(1899, 11, 30) + value * 86400000);
+                return new Date(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
+            }
+            const raw = String(value).trim();
+            const m1 = raw.match(/^(\d{1,2})[\/-](\d{1,2})[\/-](\d{2,4})$/);
+            if (m1) {
+                let y = Number(m1[3]); if (y < 100) y += 2000;
+                const d = new Date(y, Number(m1[2])-1, Number(m1[1]));
+                return isNaN(d.getTime()) ? null : d;
+            }
+            const d = new Date(raw);
+            return isNaN(d.getTime()) ? null : d;
+        }
+
+        function formatDateForRoster(value) {
+            const d = parseExcelDateValue(value);
+            if (!d) return '';
+            return `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getFullYear()).slice(-2)}`;
+        }
+
+        function mondayOfDate(date) {
+            const d = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+            const day = d.getDay();
+            const diff = day === 0 ? -6 : 1 - day;
+            d.setDate(d.getDate() + diff);
+            return d;
+        }
+
+        function inferWeekNumberForDate(date, monthName) {
+            if (!date) return 1;
+            const first = new Date(date.getFullYear(), date.getMonth(), 1);
+            const firstMonday = mondayOfDate(first);
+            if (firstMonday.getMonth() !== first.getMonth()) firstMonday.setDate(firstMonday.getDate() + 7);
+            return Math.floor((mondayOfDate(date) - firstMonday) / (7 * 86400000)) + 1;
+        }
+
+        function getDateFromRow(row, keys) {
+            const value = getRowValue(row, keys, '');
+            return parseExcelDateValue(value);
+        }
+
+        function excelCellToDate(value) {
+            if (value === undefined || value === null || value === '') return null;
+            // SheetJS may expose an Excel date as either a serial number or a Date object.
+            // Normalize numeric Excel serials through UTC, but preserve the local calendar components
+            // of SheetJS Date objects so the browser timezone cannot change the Excel date.
+            if (typeof value === 'number' && value > 20000 && value < 60000) {
+                const utcMs = Date.UTC(1899, 11, 30) + Math.round(value) * 86400000;
+                const d = new Date(utcMs);
+                return new Date(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
+            }
+            if (value instanceof Date && !isNaN(value.getTime())) {
+                // SheetJS with cellDates:true supplies Excel calendar dates as Date objects.
+                // Use the browser-local calendar components here. Using UTC components in
+                // India (or other positive-offset time zones) can turn Excel midnight
+                // 05-Jan into 04-Jan and shift every imported day back by one.
+                return new Date(value.getFullYear(), value.getMonth(), value.getDate());
+            }
+            const raw = String(value).trim();
+            const iso = raw.match(/^(\d{4})[-](\d{1,2})[-](\d{1,2})/);
+            if (iso) return new Date(Number(iso[1]), Number(iso[2]) - 1, Number(iso[3]));
+            return parseExcelDateValue(value);
+        }
+
+        function excelTimeToRoster(value) {
+            if (value === undefined || value === null || value === '') return '';
+            if (value instanceof Date && !isNaN(value.getTime())) {
+                const h = value.getHours(), m = value.getMinutes(), hh = h % 12 || 12;
+                return `${String(hh).padStart(2,'0')}:${String(m).padStart(2,'0')} ${h >= 12 ? 'PM' : 'AM'}`;
+            }
+            if (typeof value === 'number' && value >= 0 && value < 1) {
+                const total = Math.round(value * 24 * 60), h24 = Math.floor(total / 60) % 24, m = total % 60, hh = h24 % 12 || 12;
+                return `${String(hh).padStart(2,'0')}:${String(m).padStart(2,'0')} ${h24 >= 12 ? 'PM' : 'AM'}`;
+            }
+            return String(value).trim();
+        }
+
+        function normalizeExcelShiftCell(value, startValue, endValue) {
+            if (value === undefined || value === null || String(value).trim() === '') return 'WO';
+            const raw = String(value).trim();
+            if (raw === '1' || raw === '1.0') {
+                const start = excelTimeToRoster(startValue), end = excelTimeToRoster(endValue);
+                return start && end ? `${start} - ${end}` : raw;
+            }
+            if (raw === '0' || raw.toLowerCase() === 'nan') return 'WO';
+            return raw;
+        }
+
+        function inferWeekFromMondayDate(date) {
+            if (!date) return 1;
+            const monthStart = new Date(date.getFullYear(), date.getMonth(), 1);
+            const firstMonday = mondayOfDate(monthStart);
+            if (firstMonday.getMonth() !== date.getMonth()) firstMonday.setDate(firstMonday.getDate() + 7);
+            return Math.floor((date.getTime() - firstMonday.getTime()) / (7 * 86400000)) + 1;
+        }
+
+        // Supports the ATS calendar-style Excel formats supplied by the user.
+        // These workbooks use repeated 7-day blocks separated by a blank column.
+        // Reads the ATS calendar-style workbooks used by the portal.
+        // Important: the Excel files store the first date of each calendar block as a real
+        // date, while the remaining dates are Excel formulas (for example =I3+1). SheetJS
+        // therefore returns those formula cells as strings in the browser. We intentionally
+        // reconstruct the seven dates from the first real date and the repeated 7-column
+        // calendar blocks instead of requiring every date cell to be a Date object.
+        function excelRowsFromWorksheet(worksheet, sheetName) {
+            // ATS calendar import: employee metadata is in B:F and the weekly shift
+            // blocks are separated by one blank column: G:M, O:U, W:AC, AE:AK, etc.
+            // IMPORTANT: do not derive dates from formula cells. In many ATS workbooks
+            // only the first date in each block has a cached value in SheetJS.
+            const clean = v => String(v ?? '').trim();
+            const cellAt = (row, col) => worksheet[XLSX.utils.encode_cell({ r: row, c: col })];
+            const cellValue = (row, col) => {
+                const cell = cellAt(row, col);
+                if (!cell) return '';
+                if (cell.v !== undefined && cell.v !== null) return cell.v;
+                if (cell.w !== undefined && cell.w !== null) return cell.w;
+                return '';
+            };
+
+            let range;
+            try { range = XLSX.utils.decode_range(worksheet['!ref'] || 'A1:AK1'); }
+            catch (_) { range = {s:{r:0,c:0}, e:{r:23,c:36}}; }
+
+            const dateRow = 2;   // Excel row 3
+            const headerRow = 3; // Excel row 4
+            const days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+
+            // Locate SG ID / employee metadata columns.
+            let metadataStartCol = -1;
+            for (let c = range.s.c; c <= Math.min(range.e.c, 12); c++) {
+                const h = clean(cellValue(headerRow, c)).toLowerCase().replace(/\s+/g, ' ');
+                if (h === 'sg id' || h === 'sgid' || h === 'employee id' || h === 'employee id.') {
+                    metadataStartCol = c;
+                    break;
+                }
+            }
+            if (metadataStartCol < 0) metadataStartCol = 1; // B
+
+            // First actual date anchor. For this January workbook it is G3 = 05-Jan-2026.
+            let firstDateCol = -1;
+            let firstDate = null;
+            for (let c = range.s.c; c <= range.e.c; c++) {
+                const cell = cellAt(dateRow, c);
+                const rawDateValue = cell && cell.v !== undefined ? cell.v : cellValue(dateRow, c);
+                const d = excelCellToDate(rawDateValue);
+                if (d) {
+                    firstDateCol = c;
+                    firstDate = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+                    break;
+                }
+            }
+            if (firstDateCol < 0 || !firstDate) return [];
+
+            // Employee rows: numeric SG ID + non-empty name.
+            const employeeRows = [];
+            for (let r = headerRow + 1; r <= range.e.r; r++) {
+                const id = clean(cellValue(r, metadataStartCol)).replace(/\.0+$/, '');
+                const name = clean(cellValue(r, metadataStartCol + 1));
+                if (/^\d+$/.test(id) && name) employeeRows.push(r);
+            }
+            if (!employeeRows.length) return [];
+
+            // Determine every weekly block by the physical ATS layout. A block is seven
+            // consecutive day columns followed by one spacer column. This deliberately
+            // includes the FIRST block and the FINAL block even when their date cells are
+            // formulas with no cached value.
+            const groups = [];
+            for (let groupIndex = 0; ; groupIndex++) {
+                const startCol = firstDateCol + groupIndex * 8;
+                if (startCol + 6 > range.e.c) break;
+                groups.push({ groupIndex, startCol, cols: Array.from({length:7}, (_, i) => startCol + i) });
+            }
+            if (!groups.length) return [];
+
+            const records = [];
+            groups.forEach(({groupIndex, cols}) => {
+                // The ATS blocks are sequential calendar weeks. Use the block's physical
+                // position for the week number rather than recalculating it from the date.
+                // This guarantees Jan 5-11 = Week 1, Jan 12-18 = Week 2, etc.
+                const blockAnchor = new Date(
+                    firstDate.getFullYear(), firstDate.getMonth(), firstDate.getDate() + (groupIndex * 7)
+                );
+                const weekNum = groupIndex + 1;
+                const dates = [];
+
+                cols.forEach((col, i) => {
+                    // ATS calendar blocks are physically Monday-Sunday. Do NOT parse
+                    // formula/cached date values here: SheetJS can expose stale or locale-
+                    // formatted cached values for formula cells. The physical column index
+                    // is the authoritative mapping for this ATS template.
+                    const d = new Date(blockAnchor.getFullYear(), blockAnchor.getMonth(), blockAnchor.getDate() + i);
+                    dates.push(formatDateForRoster(d));
+                });
+
+                const month = normalizeMonthName(blockAnchor.toLocaleString('en-US', {month:'long'}));
+
+                employeeRows.forEach(r => {
+                    const sgId = clean(cellValue(r, metadataStartCol)).replace(/\.0+$/, '');
+                    const name = clean(cellValue(r, metadataStartCol + 1));
+                    if (!sgId || !name) return;
+
+                    const skill = clean(cellValue(r, metadataStartCol + 2));
+                    const startValue = cellValue(r, metadataStartCol + 3);
+                    const endValue = cellValue(r, metadataStartCol + 4);
+                    const shifts = {};
+
+                    cols.forEach((col, i) => {
+                        const value = normalizeExcelShiftCell(cellValue(r, col), startValue, endValue);
+                        // The ATS template is fixed Monday-Sunday for every 7-column
+                        // block. Map the physical shift column directly to the corresponding
+                        // portal weekday. This avoids formula/cache date parsing moving PH
+                        // from Jan 14 to Jan 12 or Jan 26 to Jan 31.
+                        shifts[days[i]] = value;
+                    });
+
+                    records.push({
+                        month,
+                        week_num: weekNum,
+                        dates,
+                        sg_id: sgId,
+                        name,
+                        skilling: skill || 'ATS',
+                        default_start: excelTimeToRoster(startValue),
+                        default_end: excelTimeToRoster(endValue),
+                        days_office: 'No',
+                        shifts,
+                        __sheet_name: sheetName
+                    });
+                });
+            });
+
+            return records;
+        }
+
         function importExcelData(event) {
             const file = event.target.files[0];
             if (!file) return;
-
-            const userConfirmed = confirm("Are you sure you want to upload this Excel file and update the roster shift data?");
-            
-            if (!userConfirmed) {
+            if (!isAdminMode) {
+                alert('Excel roster upload is available only in Admin mode.');
                 event.target.value = '';
                 return;
             }
@@ -3349,130 +4823,500 @@
             reader.onload = function(e) {
                 try {
                     const data = new Uint8Array(e.target.result);
-                    const workbook = XLSX.read(data, { type: 'array' });
-                    
-                    const firstSheetName = workbook.SheetNames[0];
-                    const worksheet = workbook.Sheets[firstSheetName];
-                    const jsonData = XLSX.utils.sheet_to_json(worksheet, { defval: "" });
+                    // Do NOT use all workbook sheets. These ATS files keep older months in
+                    // hidden worksheets. Excel opens on the active worksheet, which is the
+                    // roster the user is actually viewing. Import that active sheet only.
+                    const workbook = XLSX.read(data, { type: 'array', cellDates: false, cellFormula: true });
 
-                    if (jsonData && jsonData.length > 0) {
-                        parseAndApplyImportedData(jsonData);
-                        triggerPendingChangesState();
-                        alert("Excel roster imported locally. Click 'Apply & Save File' at the bottom to commit changes permanently.");
+                    // IMPORTANT: These ATS workbooks contain historical months on hidden
+                    // worksheets. Excel may expose the active tab index differently from
+                    // SheetJS, so do not trust Workbook.Views.activeTab when selecting the
+                    // roster to import. First determine which sheets are actually visible.
+                    const sheetMeta = (workbook.Workbook && Array.isArray(workbook.Workbook.Sheets))
+                        ? workbook.Workbook.Sheets : [];
+                    const visibleSheetIndexes = workbook.SheetNames.map((name, index) => {
+                        const meta = sheetMeta[index] || {};
+                        return { index, name, hidden: Number(meta.Hidden || 0) };
+                    }).filter(x => x.hidden === 0);
+
+                    let selectedSheetIndex = 0;
+                    if (visibleSheetIndexes.length === 1) {
+                        // If Excel shows exactly one worksheet, that is unambiguously the
+                        // data the user can see and therefore the only sheet we import.
+                        selectedSheetIndex = visibleSheetIndexes[0].index;
+                    } else if (visibleSheetIndexes.length > 1) {
+                        // If there are multiple visible sheets, use the workbook's active tab
+                        // only as a tie-breaker, while still restricting the choice to visible
+                        // worksheets.
+                        const activeTab = workbook.Workbook && workbook.Workbook.Views &&
+                            workbook.Workbook.Views[0] && Number.isInteger(workbook.Workbook.Views[0].activeTab)
+                            ? workbook.Workbook.Views[0].activeTab : 0;
+                        selectedSheetIndex = visibleSheetIndexes.some(x => x.index === activeTab)
+                            ? activeTab : visibleSheetIndexes[0].index;
                     } else {
-                        alert("The imported Excel file is empty or formatted incorrectly.");
+                        // A workbook with no visible worksheets is invalid for this import.
+                        alert('The Excel workbook has no visible worksheet to import.');
+                        return;
                     }
+
+                    const activeSheetName = workbook.SheetNames[selectedSheetIndex];
+                    const worksheet = workbook.Sheets[activeSheetName];
+
+                    if (!worksheet) {
+                        alert('The Excel workbook does not contain a readable active worksheet.');
+                        return;
+                    }
+
+                    const allRows = excelRowsFromWorksheet(worksheet, activeSheetName);
+
+                    if (!allRows.length) {
+                        alert('The active Excel worksheet is empty or contains no readable roster rows.');
+                        return;
+                    }
+
+                    const parsed = parseAndApplyImportedData(allRows);
+                    if (!parsed || !parsed.length || !parsed.some(w => (w.employees || []).length)) {
+                        const sampleHeaders = Object.keys(allRows[0] || {}).filter(k => !k.startsWith('__')).slice(0, 12);
+                        alert('No valid employee roster records could be detected from the active worksheet.\n\nDetected columns: ' +
+                            (sampleHeaders.join(', ') || 'none'));
+                        return;
+                    }
+
+                    stagedExcelRosterData = parsed;
+                    stagedExcelFileName = file.name + ' — ' + activeSheetName;
+                    showExcelImportReview(parsed, file.name + ' — ' + activeSheetName);
                 } catch (err) {
-                    console.error("Error reading Excel file:", err);
-                    alert("Error parsing Excel file. Please make sure it's a valid .xlsx or .xls file.");
+                    console.error('Error reading Excel file:', err);
+                    alert('Error parsing Excel file: ' + (err.message || err) + '\n\nPlease make sure it is a valid .xlsx or .xls roster file.');
+                } finally {
+                    event.target.value = '';
                 }
-                event.target.value = '';
             };
-            
             reader.readAsArrayBuffer(file);
         }
 
         function parseAndApplyImportedData(jsonRows) {
             const structuredMap = {};
-
-            jsonRows.forEach(row => {
-                const month = getRowValue(row, ['month', 'mth'], currentMonth);
-                const weekNumVal = getRowValue(row, ['week', 'week_num', 'weeknum', 'wk'], String(currentWeekNum));
-                const weekNum = parseInt(weekNumVal) || 1;
-
-                const sgId = getRowValue(row, ['sg_id', 'sgid', 'id', 'emp_id', 'employee_id'], '000000');
-                const name = getRowValue(row, ['name', 'emp_name', 'employee_name', 'employee'], 'Unknown');
-                const skilling = getRowValue(row, ['skilling', 'skill', 'skill_set'], 'ATS');
-
-                const key = `${month}_${weekNum}`;
-
-                if (!structuredMap[key]) {
-                    structuredMap[key] = {
-                        month: month,
-                        week_num: weekNum,
-                        dates: [
-                            formatDateToDDMMYY(getRowValue(row, ['monday_date', 'mon_date', 'mondaydate'], "07/09/26")),
-                            formatDateToDDMMYY(getRowValue(row, ['tuesday_date', 'tue_date', 'tuesdaydate'], "08/09/26")),
-                            formatDateToDDMMYY(getRowValue(row, ['wednesday_date', 'wed_date', 'wednesdaydate'], "09/09/26")),
-                            formatDateToDDMMYY(getRowValue(row, ['thursday_date', 'thu_date', 'thursdaydate'], "10/09/26")),
-                            formatDateToDDMMYY(getRowValue(row, ['friday_date', 'fri_date', 'fridaydate'], "11/09/26")),
-                            formatDateToDDMMYY(getRowValue(row, ['saturday_date', 'sat_date', 'saturdaydate'], "12/09/26")),
-                            formatDateToDDMMYY(getRowValue(row, ['sunday_date', 'sun_date', 'sundaydate'], "13/09/26"))
-                        ],
-                        employeesMap: {},
-                        qm_staff_6am: {},
-                        qm_staff_10am: {}
-                    };
-                }
-
-                const dayCol = getRowValue(row, ['day'], '');
-                const shiftCol = getRowValue(row, ['shift'], '');
-
-                if (dayCol && shiftCol) {
-                    if (!structuredMap[key].employeesMap[sgId]) {
-                        structuredMap[key].employeesMap[sgId] = {
-                            sg_id: sgId,
-                            name: name,
-                            skilling: skilling,
-                            shifts: { Monday: 'WO', Tuesday: 'WO', Wednesday: 'WO', Thursday: 'WO', Friday: 'WO', Saturday: 'WO', Sunday: 'WO' }
-                        };
-                    }
-                    structuredMap[key].employeesMap[sgId].shifts[dayCol] = shiftCol;
-                } else {
-                    const shifts = {
-                        "Monday": getRowValue(row, ['monday', 'mon'], 'WO'),
-                        "Tuesday": getRowValue(row, ['tuesday', 'tue'], 'WO'),
-                        "Wednesday": getRowValue(row, ['wednesday', 'wed'], 'WO'),
-                        "Thursday": getRowValue(row, ['thursday', 'thu'], 'WO'),
-                        "Friday": getRowValue(row, ['friday', 'fri'], 'WO'),
-                        "Saturday": getRowValue(row, ['saturday', 'sat'], 'WO'),
-                        "Sunday": getRowValue(row, ['sunday', 'sun'], 'WO')
-                    };
-
-                    structuredMap[key].employeesMap[sgId] = {
-                        sg_id: sgId,
-                        name: name,
-                        skilling: skilling,
-                        shifts: shifts
-                    };
-                }
-            });
-
-            const newRosterData = [];
-            Object.keys(structuredMap).forEach(key => {
-                const item = structuredMap[key];
-                const employees = Object.values(item.employeesMap);
-
-                const weekObj = {
-                    month: item.month,
-                    week_num: item.week_num,
-                    dates: item.dates,
-                    employees: employees,
-                    qm_staff_6am: item.qm_staff_6am,
-                    qm_staff_10am: item.qm_staff_10am,
-                    total_headcount_6am: [0,0,0,0,0,0,0],
-                    total_headcount_8am: [0,0,0,0,0,0,0],
-                    total_headcount_10am: [0,0,0,0,0,0,0]
+            const mergeEmployee = (item,row) => {
+                const key=String(row.sg_id || row.name).trim().toUpperCase();
+                if (!key) return;
+                if (!item.employeesMap[key]) item.employeesMap[key]={
+                    sg_id:row.sg_id||'', name:row.name||'Unknown', skilling:row.skilling||'ATS',
+                    default_start:row.default_start||'', default_end:row.default_end||'', days_office:row.days_office||'No',
+                    shifts:{Monday:'WO',Tuesday:'WO',Wednesday:'WO',Thursday:'WO',Friday:'WO',Saturday:'WO',Sunday:'WO'}
                 };
+                const emp=item.employeesMap[key];
+                if(row.name) emp.name=row.name;
+                // Excel import must NEVER overwrite the portal's existing Skilling value.
+                // Skilling is maintained by the roster layout/admin controls.
+                if(!emp.skilling && row.skilling) emp.skilling=row.skilling;
+                if(!emp.default_start && row.default_start) emp.default_start=row.default_start;
+                if(!emp.default_end && row.default_end) emp.default_end=row.default_end;
+                if(!emp.days_office || emp.days_office === 'No') { if(row.days_office) emp.days_office=row.days_office; }
+                Object.keys(row.shifts||{}).forEach(day => {
+                    if(row.shifts[day]!==undefined && String(row.shifts[day]).trim()!=='') emp.shifts[day]=String(row.shifts[day]).trim();
+                });
+            };
 
-                recalculateHeadcount(weekObj);
-                newRosterData.push(weekObj);
+            (jsonRows||[]).forEach(row => {
+                if(row && row.sg_id && row.week_num && Array.isArray(row.dates)) {
+                    const month=normalizeMonthName(row.month), weekNum=Number(row.week_num);
+                    if(!month || !weekNum) return;
+                    const key=`${month}_${weekNum}`;
+                    if(!structuredMap[key]) structuredMap[key]={
+                        month,week_num:weekNum,dates:row.dates.slice(0,7),employeesMap:{},
+                        qm_staff_6am:{},qm_staff_10am:{}
+                    };
+                    const item=structuredMap[key];
+                    row.dates.forEach((d,i)=>{if(d)item.dates[i]=d;});
+                    mergeEmployee(item,row);
+                    return;
+                }
+
+                const explicitMonth=getRowValue(row,['month','mth'],'') || row.__sheet_month || '';
+                const singleDate=getDateFromRow(row,['date','roster_date','shift_date']);
+                const month=normalizeMonthName(explicitMonth) || (singleDate ? singleDate.toLocaleString('en-US',{month:'long'}) : '');
+                let weekNum=parseInt(String(getRowValue(row,['week','week_num','weeknum','wk'],'')).replace(/[^0-9]/g,''),10);
+                if(!weekNum) weekNum=inferWeekNumberForDate(singleDate);
+                const sgId=getRowValue(row,['sg_id','sgid','id','emp_id','employee_id','employee id'],'');
+                const name=getRowValue(row,['name','emp_name','employee_name','employee','full_name'],'');
+                if(!month || !weekNum || (!sgId && !name)) return;
+                const key=`${month}_${weekNum}`;
+                if(!structuredMap[key]) structuredMap[key]={month,week_num:weekNum,dates:['','','','','','',''],employeesMap:{},qm_staff_6am:{},qm_staff_10am:{}};
+                const item=structuredMap[key], dayNames=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+                dayNames.forEach((day,i)=>{const d=getDateFromRow(row,[`${day.toLowerCase()}_date`,`${day.slice(0,3).toLowerCase()}_date`,`${day.toLowerCase()}date`]);if(d)item.dates[i]=formatDateForRoster(d);});
+                const employee={
+                    sg_id:sgId,name,skilling:getRowValue(row,['skilling','skill','skill_set','level'],'ATS'),
+                    default_start:getRowValue(row,['start_time','start','default_start'],''),
+                    default_end:getRowValue(row,['end_time','end','default_end'],''),
+                    days_office:getRowValue(row,['days_to_office','days_office'],'No'),shifts:{}
+                };
+                dayNames.forEach(day=>employee.shifts[day]=getRowValue(row,[day.toLowerCase(),day.slice(0,3).toLowerCase()],'WO'));
+                mergeEmployee(item,employee);
             });
 
-            if (newRosterData.length > 0) {
-                rawRosterData = newRosterData;
-                
-                const currentDetect = detectCurrentPeriod();
-                currentMonth = currentDetect.month;
-                currentWeekNum = currentDetect.week_num;
-                
+            Object.values(structuredMap).forEach(item=>{
+                const anchor=item.dates.map(parseExcelDateValue).find(Boolean);
+                if(anchor){
+                    const monday=mondayOfDate(anchor);
+                    for(let i=0;i<7;i++) if(!item.dates[i]){const d=new Date(monday);d.setDate(monday.getDate()+i);item.dates[i]=formatDateForRoster(d);}
+                }
+            });
+
+            const monthOrder=['January','February','March','April','May','June','July','August','September','October','November','December'];
+            return Object.values(structuredMap)
+                .filter(item=>Object.keys(item.employeesMap||{}).length)
+                .sort((a,b)=>(monthOrder.indexOf(a.month)-monthOrder.indexOf(b.month))||(a.week_num-b.week_num))
+                .map(item=>{
+                    const weekObj={
+                        month:item.month,week_num:item.week_num,dates:item.dates,employees:Object.values(item.employeesMap),
+                        qm_staff_6am:item.qm_staff_6am,qm_staff_10am:item.qm_staff_10am,
+                        total_headcount_6am:[0,0,0,0,0,0,0],total_headcount_8am:[0,0,0,0,0,0,0],total_headcount_10am:[0,0,0,0,0,0,0]
+                    };
+                    recalculateHeadcount(weekObj); return weekObj;
+                });
+        }
+
+        function showExcelImportReview(rosterData, fileName) {
+            const months = [...new Set(rosterData.map(w => w.month))];
+            const employees = new Set();
+            rosterData.forEach(w => (w.employees || []).forEach(e => employees.add(String(e.sg_id || e.name))));
+            const summary = [
+                ['File', fileName],
+                ['Months', months.length],
+                ['Weeks', rosterData.length],
+                ['Employees', employees.size]
+            ];
+            document.getElementById('excelImportSummary').innerHTML = summary.map(([label,value]) => `
+                <div class="rounded-xl border border-slate-200 bg-slate-50 p-3 min-w-0">
+                    <p class="text-[9px] font-extrabold uppercase tracking-wider text-slate-400">${label}</p>
+                    <p class="text-xs sm:text-sm font-extrabold text-slate-800 truncate" title="${String(value).replace(/"/g,'&quot;')}">${value}</p>
+                </div>`).join('');
+            document.getElementById('excelImportMonths').innerHTML = months.map(month => {
+                const weeks = rosterData.filter(w => w.month === month).sort((a,b)=>a.week_num-b.week_num);
+                const empCount = new Set(weeks.flatMap(w => (w.employees||[]).map(e=>String(e.sg_id||e.name)))).size;
+                return `<div class="flex items-center justify-between gap-3 py-2 border-b last:border-b-0 border-slate-200 text-xs">
+                    <span class="font-extrabold text-slate-800">${month}</span><span class="text-slate-500 font-semibold">${weeks.length} week(s) • ${empCount} employee(s)</span>
+                </div>`;
+            }).join('');
+            const modal = document.getElementById('excelImportReviewModal');
+            modal.classList.remove('hidden'); modal.classList.add('flex');
+            lucide.createIcons();
+        }
+
+        function closeExcelImportReview(discard = false) {
+            if (discard) {
+                stagedExcelRosterData = null;
+                stagedExcelFileName = '';
+            }
+            const modal = document.getElementById('excelImportReviewModal');
+            modal.classList.add('hidden'); modal.classList.remove('flex');
+        }
+
+        function cloneRosterWeeks(data) {
+            return JSON.parse(JSON.stringify(Array.isArray(data) ? data : []));
+        }
+
+        // Merge imported Excel weeks into the existing roster without deleting older months/weeks.
+        // If the same Month + Week already exists, the uploaded Excel week is treated as the
+        // newest version of that week; all other existing weeks remain untouched.
+        // Excel import updates matching Month + Week records and creates missing Month + Week
+        // records. It preserves the portal's employee metadata and imports the seven daily
+        // shift/leave cells from the visible Excel worksheet.
+        function mergeRosterWeeks(baseRoster, importedRoster) {
+            const merged = cloneRosterWeeks(baseRoster || []);
+            const monthName = v => normalizeMonthName(v);
+            const findExistingEmployee = (id, name, weeks) => {
+                const idKey = String(id || '').replace(/\.0+$/, '').trim();
+                const nameKey = String(name || '').trim().toUpperCase();
+                for (const w of weeks) {
+                    for (const emp of (w.employees || [])) {
+                        if (idKey && String(emp.sg_id || '').replace(/\.0+$/, '').trim() === idKey) return emp;
+                        if (nameKey && String(emp.name || '').trim().toUpperCase() === nameKey) return emp;
+                    }
+                }
+                return null;
+            };
+
+            (importedRoster || []).forEach(importedWeek => {
+                if (!importedWeek || !importedWeek.month || importedWeek.week_num == null) return;
+                const month = monthName(importedWeek.month);
+                const weekNum = Number(importedWeek.week_num);
+                if (!month || !Number.isFinite(weekNum)) return;
+
+                let target = merged.find(w => monthName(w.month) === month && Number(w.week_num) === weekNum);
+                if (!target && Array.isArray(importedWeek.dates) && importedWeek.dates[0]) {
+                    target = merged.find(w => Array.isArray(w.dates) && w.dates[0] === importedWeek.dates[0]);
+                }
+
+                // If the Month + Week does not yet exist, create it. This is intentional:
+                // Excel upload is allowed to add the Month/Week to the MONTH and WEEK
+                // navigation dropdowns. It must NEVER add a month name to a shift selector.
+                if (!target) {
+                    target = {
+                        month,
+                        week_num: weekNum,
+                        dates: Array.isArray(importedWeek.dates) ? importedWeek.dates.slice(0,7) : [],
+                        employees: [],
+                        qm_staff_6am: {Monday:'Unassigned',Tuesday:'Unassigned',Wednesday:'Unassigned',Thursday:'Unassigned',Friday:'Unassigned',Saturday:'Unassigned',Sunday:'Unassigned'},
+                        qm_staff_10am: {Monday:'Unassigned',Tuesday:'Unassigned',Wednesday:'Unassigned',Thursday:'Unassigned',Friday:'Unassigned',Saturday:'Unassigned',Sunday:'Unassigned'}
+                    };
+                    merged.push(target);
+                } else if (Array.isArray(importedWeek.dates) && importedWeek.dates.length === 7) {
+                    target.dates = importedWeek.dates.slice(0,7);
+                }
+
+                const existingById = new Map();
+                (target.employees || []).forEach(emp => {
+                    const id = String(emp.sg_id || '').replace(/\.0+$/, '').trim();
+                    const name = String(emp.name || '').trim().toUpperCase();
+                    if (id) existingById.set('ID:' + id, emp);
+                    if (name) existingById.set('NAME:' + name, emp);
+                });
+
+                (importedWeek.employees || []).forEach(srcEmp => {
+                    const id = String(srcEmp.sg_id || '').replace(/\.0+$/, '').trim();
+                    const nameKey = String(srcEmp.name || '').trim().toUpperCase();
+                    let emp = existingById.get('ID:' + id) || existingById.get('NAME:' + nameKey);
+
+                    // For a newly-created week, reuse the employee metadata from any
+                    // existing roster week whenever possible. This preserves the portal's
+                    // Skilling/Start/End/Days-to-Office instead of importing those fields.
+                    if (!emp) {
+                        const templateEmp = findExistingEmployee(id, srcEmp.name, merged);
+                        if (templateEmp) {
+                            emp = {
+                                ...JSON.parse(JSON.stringify(templateEmp)),
+                                shifts: {Monday:'WO',Tuesday:'WO',Wednesday:'WO',Thursday:'WO',Friday:'WO',Saturday:'WO',Sunday:'WO'}
+                            };
+                        } else {
+                            emp = {
+                                sg_id: srcEmp.sg_id,
+                                name: srcEmp.name,
+                                skilling: srcEmp.skilling || 'ATS',
+                                default_start: srcEmp.default_start || '',
+                                default_end: srcEmp.default_end || '',
+                                days_office: srcEmp.days_office || 'No',
+                                shifts: {Monday:'WO',Tuesday:'WO',Wednesday:'WO',Thursday:'WO',Friday:'WO',Saturday:'WO',Sunday:'WO'}
+                            };
+                        }
+                        target.employees.push(emp);
+                        existingById.set('ID:' + id, emp);
+                        if (nameKey) existingById.set('NAME:' + nameKey, emp);
+                    }
+
+                    // The Excel file supplies ONLY the seven daily shift cells. Never copy
+                    // its Skilling or other metadata over the portal's employee record.
+                    emp.shifts = emp.shifts || {};
+                    const days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+                    days.forEach(day => {
+                        if (srcEmp.shifts && Object.prototype.hasOwnProperty.call(srcEmp.shifts, day)) {
+                            const value = String(srcEmp.shifts[day] ?? '').trim();
+                            // Never allow a month name to become a shift value.
+                            if (/^(January|February|March|April|May|June|July|August|September|October|November|December)$/i.test(value)) return;
+                            if (value !== '') emp.shifts[day] = value;
+                        }
+                    });
+                });
+
+                recalculateHeadcount(target);
+            });
+
+            // Keep Month navigation chronologically ordered, then Week numerically ordered.
+            // This affects only the Month/Week roster navigation, never the shift selectors.
+            const monthOrder = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+            merged.sort((a,b) => {
+                const am = monthOrder.indexOf(monthName(a.month));
+                const bm = monthOrder.indexOf(monthName(b.month));
+                if (am !== bm) return am - bm;
+                return Number(a.week_num) - Number(b.week_num);
+            });
+
+            // Final safety pass: a calendar Month name must never become a shift value.
+            // If an older draft was already polluted, convert that invalid shift back to WO.
+            const monthNameShift = /^(January|February|March|April|May|June|July|August|September|October|November|December)$/i;
+            const rosterDays = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+            merged.forEach(w => (w.employees || []).forEach(emp => {
+                emp.shifts = emp.shifts || {};
+                rosterDays.forEach(day => {
+                    if (monthNameShift.test(String(emp.shifts[day] ?? '').trim())) emp.shifts[day] = 'WO';
+                });
+            }));
+            const monthShiftGuard = /^(January|February|March|April|May|June|July|August|September|October|November|December)$/i;
+            merged.forEach(w => (w.employees || []).forEach(emp => {
+                Object.keys(emp.shifts || {}).forEach(day => {
+                    if (monthShiftGuard.test(String(emp.shifts[day] ?? '').trim())) emp.shifts[day] = 'WO';
+                });
+            }));
+            return merged;
+        }
+
+        function applyStagedExcelRosterToAdminView() {
+            if (!stagedExcelRosterData || !stagedExcelRosterData.length) return false;
+
+            const previousMonth = currentMonth;
+            const previousWeek = currentWeekNum;
+            const previousIndividualMonth = individualMonthFilter;
+            const monthSelect = document.getElementById('monthSelect');
+            const weekSelect = document.getElementById('weekSelect');
+
+            rawRosterData = mergeRosterWeeks(rawRosterData, stagedExcelRosterData);
+
+            // After an Excel import, immediately navigate to the first imported Month + Week
+            // so the user can see the employee rows and their imported shift timings. The
+            // previous version restored the old dropdown state here, which could leave the
+            // newly imported January roster hidden while the new Month/Week options existed.
+            if (stagedExcelRosterData.length) {
+                const importedTarget = stagedExcelRosterData.slice().sort((a,b) => {
+                    const monthOrder = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+                    const am = monthOrder.indexOf(normalizeMonthName(a.month));
+                    const bm = monthOrder.indexOf(normalizeMonthName(b.month));
+                    return (am - bm) || (Number(a.week_num) - Number(b.week_num));
+                })[0];
+                currentMonth = normalizeMonthName(importedTarget.month) || previousMonth;
+                currentWeekNum = Number(importedTarget.week_num) || previousWeek;
+            } else {
+                currentMonth = previousMonth;
+                currentWeekNum = previousWeek;
+            }
+            individualMonthFilter = previousIndividualMonth;
+            if (activeCategory === 'weekly') {
+                renderWeeklyView();
+                updateCharts();
+            } else if (activeCategory === 'individual') {
+                renderIndividualView();
+            } else if (activeCategory === 'qm') {
+                renderQMView();
+            } else if (activeCategory === 'holidays') {
+                renderHolidaysView();
+            }
+            lucide.createIcons();
+
+            // Rebuild Month/Week navigation from the merged roster. These controls are
+            // intentionally separate from the per-cell Shift Timing selector.
+            updateMonthDropdown();
+            updateWeekOptions();
+            if (monthSelect && activeCategory === 'individual' && previousIndividualMonth) {
+                monthSelect.value = previousIndividualMonth;
+            }
+            if (weekSelect && activeCategory !== 'individual') {
+                weekSelect.value = String(currentWeekNum);
+            }
+            return true;
+        }
+
+        function saveExcelAsAdminDraft() {
+            if (!isAdminMode || !stagedExcelRosterData) return;
+            try {
+                // Build the draft from the CURRENT roster + uploaded Excel. This means an
+                // October Week 1 already present will remain, while October Week 2/3/4 and
+                // November Week 1 from the Excel are added automatically. A matching week is
+                // refreshed from the newest upload rather than duplicated.
+                const baseRoster = rawRosterData && rawRosterData.length ? rawRosterData : (backupRosterData || []);
+                const mergedRoster = mergeRosterWeeks(baseRoster, stagedExcelRosterData);
+                const payload = {
+                    savedAt: new Date().toISOString(),
+                    fileName: stagedExcelFileName,
+                    roster: mergedRoster,
+                    importedWeeks: cloneRosterWeeks(stagedExcelRosterData)
+                };
+                localStorage.setItem(ADMIN_DRAFT_STORAGE_KEY, JSON.stringify(payload));
+                rawRosterData = cloneRosterWeeks(mergedRoster);
+                // Excel is allowed to add/update Month + Week navigation entries, but the
+                // SHIFT TIMING selectors must remain exactly the portal's existing controls.
+                // renderView() rebuilds only the Month/Week navigation and the roster cells;
+                // getShiftBadge() continues to use BASE_SHIFT_OPTIONS exclusively.
                 updateMonthDropdown();
-                document.getElementById('monthSelect').value = currentMonth;
                 updateWeekOptions();
-                document.getElementById('weekSelect').value = currentWeekNum;
-                document.getElementById('portalSubhead').innerText = `${currentMonth} 2026 • Live Interactive Schedule`;
-                
-                renderView();
+                if (activeCategory === 'weekly') { renderWeeklyView(); updateCharts(); }
+                else if (activeCategory === 'individual') renderIndividualView();
+                else if (activeCategory === 'qm') renderQMView();
+                else if (activeCategory === 'holidays') renderHolidaysView();
+                lucide.createIcons();
+                pendingChangesExist = false;
+                clearPendingChangesState();
+                closeExcelImportReview();
+                updateSavedDraftButton();
+                alert('Draft saved successfully. The Excel shifts were applied only to matching existing roster weeks and employees. Your Month/Week dropdown and employee Skilling were left unchanged. Normal employee view still uses the published roster.');
+            } catch (err) {
+                console.error('Draft save failed:', err);
+                alert('The draft could not be saved in this browser.');
+            }
+        }
+
+        function loadAdminExcelDraftIfAvailable() {
+            if (!isAdminMode) return false;
+            try {
+                const saved = JSON.parse(localStorage.getItem(ADMIN_DRAFT_STORAGE_KEY) || 'null');
+                if (saved && Array.isArray(saved.roster) && saved.roster.length) {
+                    // Merge the saved draft with the currently published roster as a safety
+                    // measure, so an older draft can never accidentally hide existing months.
+                    const publishedBase = backupRosterData && backupRosterData.length ? backupRosterData : rawRosterData;
+                    rawRosterData = mergeRosterWeeks(publishedBase || [], saved.roster);
+                    backupRosterData = backupRosterData || JSON.parse(JSON.stringify(publishedBase || []));
+                    currentMonth = detectCurrentPeriod().month;
+                    currentWeekNum = detectCurrentPeriod().week_num;
+                    individualMonthFilter = currentMonth;
+                    updateMonthDropdown();
+                    updateWeekOptions();
+                    renderView();
+                    updateSavedDraftButton();
+                    return true;
+                }
+            } catch (err) { console.warn('Could not load admin draft:', err); }
+            updateSavedDraftButton();
+            return false;
+        }
+
+        function updateSavedDraftButton() {
+            const btn = document.getElementById('publishSavedDraftBtn');
+            if (!btn) return;
+            const hasDraft = isAdminMode && !!localStorage.getItem(ADMIN_DRAFT_STORAGE_KEY);
+            btn.classList.toggle('hidden', !hasDraft);
+            btn.classList.toggle('flex', hasDraft);
+        }
+
+        async function publishSavedAdminDraft() {
+            if (!isAdminMode) return;
+            try {
+                const saved = JSON.parse(localStorage.getItem(ADMIN_DRAFT_STORAGE_KEY) || 'null');
+                if (!saved || !Array.isArray(saved.roster) || !saved.roster.length) {
+                    updateSavedDraftButton();
+                    alert('No saved Admin draft was found on this browser.');
+                    return;
+                }
+                if (!githubConfig.token || !githubConfig.owner || !githubConfig.repo) {
+                    alert('GitHub configuration is required to Publish the saved draft.');
+                    return;
+                }
+                stagedExcelRosterData = JSON.parse(JSON.stringify(saved.roster));
+                stagedExcelFileName = saved.fileName || 'Saved Admin Draft';
+                showExcelImportReview(stagedExcelRosterData, stagedExcelFileName);
+            } catch (err) {
+                console.error('Saved draft read failed:', err);
+                alert('The saved Admin draft could not be opened.');
+            }
+        }
+
+        async function publishStagedExcelRoster() {
+            if (!isAdminMode || !stagedExcelRosterData) return;
+            if (!githubConfig.token || !githubConfig.owner || !githubConfig.repo) {
+                alert('GitHub configuration is required to Publish. You can Save Draft without publishing.');
+                return;
+            }
+            if (!confirm(`Publish ${stagedExcelRosterData.length} week(s) from "${stagedExcelFileName}" to the public roster? Normal employee users will see it after the published file is refreshed.`)) return;
+            applyStagedExcelRosterToAdminView();
+            try {
+                await commitDataToGitHubRepository();
+                localStorage.removeItem(ADMIN_DRAFT_STORAGE_KEY);
+                stagedExcelRosterData = null;
+                stagedExcelFileName = '';
+                closeExcelImportReview();
+                updateSavedDraftButton();
+                alert('Excel roster published successfully. The public roster now contains the Excel shift updates in the existing roster layout.');
+            } catch (err) {
+                console.error('Excel publish failed:', err);
+                alert('Publish failed. The staged roster remains available in Admin mode.');
             }
         }
 
