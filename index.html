@@ -707,16 +707,21 @@
                 <h4 class="font-bold text-slate-700 text-xs uppercase tracking-wider flex items-center gap-1.5">
                     <i data-lucide="user-check" class="w-4 h-4 text-amber-600"></i> Add Exclusion Access
                 </h4>
-                <div class="grid grid-cols-2 gap-2">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
                     <div>
-                        <label class="block text-[11px] font-bold text-slate-700 mb-1">Exclusion SG ID</label>
-                        <input type="text" id="exclusionSgId" placeholder="e.g. 998877" class="w-full bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs font-semibold focus:ring-2 focus:ring-amber-500 input-3d">
-                    </div>
-                    <div>
-                        <label class="block text-[11px] font-bold text-slate-700 mb-1">Employee Full Name</label>
+                        <label class="block text-[11px] font-bold text-slate-700 mb-1">Full Name</label>
                         <input type="text" id="exclusionEmpName" placeholder="e.g. Jane Doe" class="w-full bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs font-semibold focus:ring-2 focus:ring-amber-500 input-3d">
                     </div>
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-700 mb-1">Email Address</label>
+                        <input type="email" id="exclusionEmail" placeholder="e.g. jane.doe@sabre.com" autocomplete="email" class="w-full bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs font-semibold focus:ring-2 focus:ring-amber-500 input-3d">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-700 mb-1">Employee ID</label>
+                        <input type="text" id="exclusionSgId" placeholder="e.g. 998877" class="w-full bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs font-semibold focus:ring-2 focus:ring-amber-500 input-3d">
+                    </div>
                 </div>
+                <p class="text-[9px] text-slate-400">No password is used for exclusion users. Access requires an exact Email Address + Employee ID match.</p>
                 <button onclick="executeAddExclusionEmployee()" class="w-full py-2 bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold rounded-lg text-xs btn-3d uppercase">
                     Add Exclusion Access
                 </button>
@@ -1435,21 +1440,22 @@
         function loadSavedLoginIdentity() {
             try {
                 const saved = JSON.parse(localStorage.getItem(LOGIN_IDENTITY_STORAGE_KEY) || 'null');
-                if (saved) {
-                    const emailEl = document.getElementById('loginEmail');
-                    const idEl = document.getElementById('loginEmpId');
-                    if (emailEl && saved.email) emailEl.value = saved.email;
-                    if (idEl && saved.sgId) idEl.value = saved.sgId;
-                }
-            } catch (_) {}
+                const emailEl = document.getElementById('loginEmail');
+                const idEl = document.getElementById('loginEmpId');
+                if (emailEl && saved && saved.email) emailEl.value = saved.email;
+                // Employee ID is NEVER saved. It must always be entered by the employee.
+                if (idEl) idEl.value = '';
+            } catch (_) {
+                const idEl = document.getElementById('loginEmpId');
+                if (idEl) idEl.value = '';
+            }
             updateAdminPasswordVisibility();
         }
 
         function saveLoginIdentity(email, sgId) {
             try {
                 localStorage.setItem(LOGIN_IDENTITY_STORAGE_KEY, JSON.stringify({
-                    email: normalizeLoginEmail(email),
-                    sgId: cleanSgId(sgId)
+                    email: normalizeLoginEmail(email)
                 }));
             } catch (_) {}
         }
@@ -1458,13 +1464,14 @@
         let adminResetRequests = JSON.parse(localStorage.getItem('ats_admin_requests') || '[]');
         let exclusionEmployees = JSON.parse(localStorage.getItem('ats_exclusion_emps') || '[]');
 
-        // Default exclusion login supplied for the ATS BLR portal.
-        if (!exclusionEmployees.some(ex => cleanSgId(ex.sg_id) === '223174')) {
-            exclusionEmployees.push({
-                sg_id: '223174',
-                name: 'Rajesh Warvadkar',
-                email: 'rajesh.warvadkar@sabre.com'
-            });
+        // Default exclusion login supplied for the ATS BLR portal. Exclusion users use
+        // Email + Employee ID only; no password is used.
+        const rajeshExclusion = exclusionEmployees.find(ex => cleanSgId(ex.sg_id) === '223174');
+        if (!rajeshExclusion) {
+            exclusionEmployees.push({ sg_id: '223174', name: 'Rajesh Warvadkar', email: 'rajesh.warvadkar@sabre.com' });
+            localStorage.setItem('ats_exclusion_emps', JSON.stringify(exclusionEmployees));
+        } else if (!rajeshExclusion.email) {
+            rajeshExclusion.email = 'rajesh.warvadkar@sabre.com';
             localStorage.setItem('ats_exclusion_emps', JSON.stringify(exclusionEmployees));
         }
 
@@ -2491,35 +2498,29 @@ function generateUppercase8CharPassword() {
         function executeAddExclusionEmployee() {
             const rawId = document.getElementById('exclusionSgId').value.trim();
             const name = document.getElementById('exclusionEmpName').value.trim();
+            const email = normalizeLoginEmail(document.getElementById('exclusionEmail').value);
 
-            if (!rawId || !name) {
-                alert("Please enter both Exclusion SG ID and Full Name.");
+            if (!rawId || !name || !email) {
+                alert("Please enter Full Name, Email Address and Employee ID.");
                 return;
             }
 
             const cleanId = cleanSgId(rawId);
-            const autoPassword = generateUppercase8CharPassword();
-
             const existingIndex = exclusionEmployees.findIndex(e => cleanSgId(e.sg_id) === cleanId);
-            if (existingIndex !== -1) {
-                exclusionEmployees[existingIndex] = { sg_id: cleanId, name: name };
-            } else {
-                exclusionEmployees.push({ sg_id: cleanId, name: name });
-            }
+            const record = { sg_id: cleanId, name: name, email: email };
 
-            userCredentials[cleanId] = {
-                password: autoPassword,
-                isTemporary: true,
-                lastChanged: new Date().getTime(),
-                status: 'ACTIVE'
-            };
+            if (existingIndex !== -1) exclusionEmployees[existingIndex] = record;
+            else exclusionEmployees.push(record);
 
+            // Exclusion users never receive or require a password.
+            delete userCredentials[cleanId];
             saveCredentialsToStorageAndCloud();
 
             document.getElementById('exclusionSgId').value = '';
             document.getElementById('exclusionEmpName').value = '';
+            document.getElementById('exclusionEmail').value = '';
 
-            alert(`Exclusion Employee SG${cleanId} (${name}) added!\n\nTemporary Password: ${autoPassword}`);
+            alert(`Exclusion Employee ${name} (ID ${cleanId}) added.\n\nLogin requires the registered Email Address + Employee ID. No password is used.`);
             openAdminPassManagerModal();
         }
 
@@ -2915,9 +2916,9 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 }
             }
 
-            // Save email + employee ID locally so the browser can autofill them next time.
+            // Save EMAIL ONLY. Employee ID must always be entered manually.
             // The browser's own password manager controls whether it offers to save the admin password.
-            saveLoginIdentity(inputEmail, cleanId);
+            saveLoginIdentity(inputEmail);
 
             activeUserSession = {
                 sg_id: cleanId,
@@ -2950,6 +2951,9 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             const adminPdfCalendarUpload = document.getElementById('adminPdfCalendarUpload');
             const adminDeleteMonthBtn = document.getElementById('adminDeleteMonthBtn');
             const adminDeleteWeekBtn = document.getElementById('adminDeleteWeekBtn');
+            const switchModeBtn = document.getElementById('switchModeBtn');
+            const canUseAdminMode = !!(activeUserSession && activeUserSession.isAdmin);
+            if (switchModeBtn) switchModeBtn.classList.toggle('hidden', !canUseAdminMode);
 
             if (isAdminMode) {
                 adminBadge.classList.remove('hidden');
@@ -2974,6 +2978,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
 
         function handleSwitchModeClick() {
             document.getElementById('userProfileDropdown').classList.add('hidden');
+            if (!activeUserSession || !activeUserSession.isAdmin) return;
 
             if (isAdminMode) {
                 // IMPORTANT: Switching from Admin to Normal must discard the Admin-only
