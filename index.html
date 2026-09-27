@@ -424,6 +424,46 @@
             header > div:first-child { padding-left:clamp(3rem,4vw,6rem) !important; padding-right:clamp(3rem,4vw,6rem) !important; }
         }
 
+        /* Weekly shift timing: one stable geometry on every device/orientation.
+           The previous sm: utilities changed padding and badge size when a phone/tablet
+           was rotated to landscape. Keep the shift cells visually identical everywhere. */
+        #mainDisplayArea .roster-shift-cell {
+            padding: 10px !important;
+            min-width: 100px;
+            width: 100px;
+            vertical-align: middle;
+        }
+        #mainDisplayArea .roster-day-header {
+            padding: 10px !important;
+            min-width: 100px !important;
+            width: 100px;
+            vertical-align: middle;
+        }
+        #mainDisplayArea .roster-shift-badge {
+            box-sizing: border-box;
+            display: inline-flex !important;
+            align-items: center;
+            justify-content: center;
+            min-height: 28px;
+            min-width: 74px;
+            max-width: 92px;
+            padding: 4px 8px !important;
+            font-size: 12px !important;
+            line-height: 1.1 !important;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            vertical-align: middle;
+        }
+        #mainDisplayArea .roster-shift-select {
+            box-sizing: border-box;
+            height: 30px;
+            min-height: 30px;
+            padding: 4px 6px !important;
+            font-size: 12px !important;
+            line-height: 1.1 !important;
+        }
+
         @media (max-width: 1024px) and (min-width: 768px) {
             header > div:first-child { padding-left:16px; padding-right:16px; }
             #loggedInUserName { max-width:120px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
@@ -4190,36 +4230,36 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 }
 
                 return `
-                    <select onchange="updateShiftInteractive('${sgId}', '${day}', this)" class="bg-white border border-slate-300 text-slate-800 text-xs font-bold rounded px-1.5 py-1 focus:ring-2 focus:ring-indigo-500 shadow-sm cursor-pointer w-full max-w-[130px] ${pendingChangesExist ? 'pending-change' : ''}">
+                    <select onchange="updateShiftInteractive('${sgId}', '${day}', this)" class="roster-shift-select bg-white border border-slate-300 text-slate-800 text-xs font-bold rounded px-1.5 py-1 focus:ring-2 focus:ring-indigo-500 shadow-sm cursor-pointer w-full max-w-[130px] ${pendingChangesExist ? 'pending-change' : ''}">
                         ${optionsHtml}
                     </select>
                 `;
             }
 
             if (!shift || shift === 'WO') {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-bold bg-slate-100 text-slate-700 border border-slate-300 shadow-sm">WO</span>`;
+                return `<span class="roster-shift-badge inline-flex items-center px-2 py-1 rounded-md text-xs font-bold bg-slate-100 text-slate-700 border border-slate-300 shadow-sm">WO</span>`;
             } else if (shift === 'PTO') {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-rose-600 text-white border border-rose-700 shadow-md">PTO</span>`;
+                return `<span class="roster-shift-badge inline-flex items-center px-2 py-1 rounded-md text-xs font-extrabold bg-rose-600 text-white border border-rose-700 shadow-md">PTO</span>`;
             } else if (shift === 'PH') {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-purple-100 text-purple-900 border border-purple-400 shadow-sm">PH</span>`;
+                return `<span class="roster-shift-badge inline-flex items-center px-2 py-1 rounded-md text-xs font-extrabold bg-purple-100 text-purple-900 border border-purple-400 shadow-sm">PH</span>`;
             } else if (shift === 'SL' || shift === 'HD SL') {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-rose-100 text-rose-800 border border-rose-300 shadow-sm">${shift}</span>`;
+                return `<span class="roster-shift-badge inline-flex items-center px-2 py-1 rounded-md text-xs font-extrabold bg-rose-100 text-rose-800 border border-rose-300 shadow-sm">${shift}</span>`;
             } else if (shift === '1st Half Off') {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-orange-100 text-orange-950 border border-orange-400 shadow-sm" title="1st Half Off">1st Half Off</span>`;
+                return `<span class="roster-shift-badge inline-flex items-center px-2 py-1 rounded-md text-xs font-extrabold bg-orange-100 text-orange-950 border border-orange-400 shadow-sm" title="1st Half Off">1st Half Off</span>`;
             } else if (shift === '2nd Half Off') {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-amber-200 text-amber-950 border border-amber-500 shadow-sm" title="2nd Half Off">2nd Half Off</span>`;
+                return `<span class="roster-shift-badge inline-flex items-center px-2 py-1 rounded-md text-xs font-extrabold bg-amber-200 text-amber-950 border border-amber-500 shadow-sm" title="2nd Half Off">2nd Half Off</span>`;
             } else if (shift.includes("10:00")) {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-amber-100 text-amber-950 border border-amber-400 shadow-sm" title="${shift}">10:00 AM</span>`;
+                return `<span class="roster-shift-badge inline-flex items-center px-2 py-1 rounded-md text-xs font-extrabold bg-amber-100 text-amber-950 border border-amber-400 shadow-sm" title="${shift}">10:00 AM</span>`;
             } else if (shift.includes("06:30") || shift.includes("6:30")) {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-emerald-200 text-emerald-950 border border-emerald-500 shadow-sm" title="${shift}">06:30 AM</span>`;
+                return `<span class="roster-shift-badge inline-flex items-center px-2 py-1 rounded-md text-xs font-extrabold bg-emerald-200 text-emerald-950 border border-emerald-500 shadow-sm" title="${shift}">06:30 AM</span>`;
             } else if (shift.includes("06:00") || shift.includes("6:00")) {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-emerald-100 text-emerald-900 border border-emerald-400 shadow-sm" title="${shift}">06:00 AM</span>`;
+                return `<span class="roster-shift-badge inline-flex items-center px-2 py-1 rounded-md text-xs font-extrabold bg-emerald-100 text-emerald-900 border border-emerald-400 shadow-sm" title="${shift}">06:00 AM</span>`;
             } else if (shift.includes("07:00") || shift.includes("7:00")) {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-teal-100 text-teal-900 border border-teal-400 shadow-sm" title="${shift}">07:00 AM</span>`;
+                return `<span class="roster-shift-badge inline-flex items-center px-2 py-1 rounded-md text-xs font-extrabold bg-teal-100 text-teal-900 border border-teal-400 shadow-sm" title="${shift}">07:00 AM</span>`;
             } else if (shift.includes("08:00") || shift.includes("8:00")) {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-blue-100 text-blue-900 border border-blue-400 shadow-sm" title="${shift}">08:00 AM</span>`;
+                return `<span class="roster-shift-badge inline-flex items-center px-2 py-1 rounded-md text-xs font-extrabold bg-blue-100 text-blue-900 border border-blue-400 shadow-sm" title="${shift}">08:00 AM</span>`;
             } else {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-indigo-100 text-indigo-900 border border-indigo-400 shadow-sm">${shift}</span>`;
+                return `<span class="roster-shift-badge inline-flex items-center px-2 py-1 rounded-md text-xs font-extrabold bg-indigo-100 text-indigo-900 border border-indigo-400 shadow-sm">${shift}</span>`;
             }
         }
 
@@ -4308,8 +4348,8 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 const isToday = (dateLabel === TODAY_DATE_STR);
                 
                 const headerClass = isToday 
-                    ? 'p-2.5 sm:p-4 text-center border-r border-slate-800 current-day-header min-w-[100px] sm:min-w-0' 
-                    : 'p-2.5 sm:p-4 text-center border-r border-slate-800 min-w-[100px] sm:min-w-0';
+                    ? 'roster-day-header p-2.5 text-center border-r border-slate-800 current-day-header min-w-[100px]' 
+                    : 'roster-day-header p-2.5 text-center border-r border-slate-800 min-w-[100px]';
 
                 headerHTML += `<th class="${headerClass}">${d} (${dateLabel})</th>`;
             });
@@ -4344,8 +4384,8 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                         const isToday = (dateLabel === TODAY_DATE_STR);
                         
                         const cellClass = isToday 
-                            ? 'p-2.5 sm:p-4 text-center border-r border-slate-100 current-day-col' 
-                            : 'p-2.5 sm:p-4 text-center border-r border-slate-100';
+                            ? 'roster-shift-cell p-2.5 text-center border-r border-slate-100 current-day-col' 
+                            : 'roster-shift-cell p-2.5 text-center border-r border-slate-100';
 
                         bodyHTML += `<td class="${cellClass}">${getShiftBadge(e.shifts ? e.shifts[d] : 'WO', e.sg_id, d)}</td>`;
                     });
