@@ -1401,6 +1401,85 @@ body[data-theme="terminal"] .world-time-remove{color:#fda4af!important}
   }
 }
 </style>
+
+<style id="final-mobile-login-session-fixes">
+/* LOGIN SCREEN ISOLATION: changing a portal theme must never restyle the login experience. */
+body.ats-theme-active #mandatoryLoginModal {
+  color: #0f172a !important;
+  background: rgba(15,23,42,.40) !important;
+}
+body.ats-theme-active #mandatoryLoginModal .login-form-panel {
+  background: linear-gradient(180deg,#ffffff 0%,#f8fafc 100%) !important;
+  color:#0f172a !important;
+}
+body.ats-theme-active #mandatoryLoginModal .login-card {
+  background:rgba(255,255,255,.98) !important;
+  border-color:rgba(203,213,225,.9) !important;
+}
+body.ats-theme-active #mandatoryLoginModal .text-slate-900 { color:#0f172a !important; }
+body.ats-theme-active #mandatoryLoginModal .text-slate-800 { color:#1e293b !important; }
+body.ats-theme-active #mandatoryLoginModal .text-slate-700 { color:#334155 !important; }
+body.ats-theme-active #mandatoryLoginModal .text-slate-600 { color:#475569 !important; }
+body.ats-theme-active #mandatoryLoginModal .text-slate-500 { color:#64748b !important; }
+body.ats-theme-active #mandatoryLoginModal .text-slate-400 { color:#94a3b8 !important; }
+body.ats-theme-active #mandatoryLoginModal .bg-white { background:#fff !important; }
+body.ats-theme-active #mandatoryLoginModal .bg-slate-50 { background:#f8fafc !important; }
+body.ats-theme-active #mandatoryLoginModal .border-slate-200 { border-color:#e2e8f0 !important; }
+body.ats-theme-active #mandatoryLoginModal .border-slate-300 { border-color:#cbd5e1 !important; }
+body.ats-theme-active #mandatoryLoginModal .border-slate-700 { border-color:#334155 !important; }
+body.ats-theme-active #mandatoryLoginModal .login-input-wrap {
+  background:#fff !important; border-color:#cbd5e1 !important; color:#0f172a !important;
+}
+body.ats-theme-active #mandatoryLoginModal .login-input { background:transparent !important; color:#0f172a !important; }
+body.ats-theme-active #mandatoryLoginModal .login-input::placeholder { color:#64748b !important; }
+
+/* MOBILE LANDSCAPE: keep the complete header vertically centered on one line. */
+@media (orientation:landscape) and (max-width:900px) {
+  header > div:first-child {
+    min-height:56px !important; height:56px !important; padding:6px 10px !important;
+    flex-wrap:nowrap !important; align-items:center !important;
+  }
+  header > div:first-child > div:first-child,
+  header > div:first-child > div:last-child {
+    align-items:center !important; flex-wrap:nowrap !important;
+  }
+  header > div:first-child > div:first-child { flex:1 1 auto !important; min-width:0 !important; }
+  header > div:first-child > div:last-child { flex:0 0 auto !important; margin-left:auto !important; }
+  header h1 { line-height:1 !important; margin:0 !important; }
+  #portalSubhead { margin-top:2px !important; line-height:1 !important; }
+  #searchInput {
+    height:32px !important; min-height:32px !important; width:clamp(150px,24vw,230px) !important;
+    padding-top:0 !important; padding-bottom:0 !important; line-height:32px !important;
+  }
+  #userProfileBtn { height:32px !important; min-height:32px !important; padding-top:5px !important; padding-bottom:5px !important; }
+  #loggedInUserName { max-width:120px !important; line-height:20px !important; }
+}
+
+/* MOBILE PORTRAIT: the frozen employee column must have an opaque surface while days slide underneath. */
+@media (max-width:767px) {
+  #mainDisplayArea .overflow-x-auto { position:relative; }
+  #mainDisplayArea table th:first-child {
+    position:sticky !important; left:0 !important; z-index:30 !important;
+    background:#020617 !important; background-color:#020617 !important;
+    opacity:1 !important; isolation:isolate !important;
+  }
+  #mainDisplayArea table td:first-child {
+    position:sticky !important; left:0 !important; z-index:30 !important;
+    background:#fff !important; background-color:#fff !important;
+    opacity:1 !important; isolation:isolate !important;
+    box-shadow:4px 0 8px rgba(15,23,42,.10) !important;
+  }
+  body.ats-theme-active #mainDisplayArea table td:first-child {
+    background:var(--theme-surface,#fff) !important; background-color:var(--theme-surface,#fff) !important;
+    color:var(--theme-text,#0f172a) !important;
+  }
+  body.ats-theme-active #mainDisplayArea table th:first-child {
+    background:var(--theme-header,#020617) !important; background-color:var(--theme-header,#020617) !important;
+    color:#fff !important;
+  }
+  #mainDisplayArea table td:first-child > div { position:relative; z-index:31; }
+}
+</style>
 </head>
 <body class="min-h-screen flex flex-col w-full overflow-x-hidden relative pb-16">
 
@@ -2317,23 +2396,75 @@ body[data-theme="terminal"] .world-time-remove{color:#fda4af!important}
         function loadSavedLoginIdentity() {
             try {
                 const saved = JSON.parse(localStorage.getItem(LOGIN_IDENTITY_STORAGE_KEY) || 'null');
-                if (saved) {
-                    const emailEl = document.getElementById('loginEmail');
-                    const idEl = document.getElementById('loginEmpId');
-                    if (emailEl && saved.email) emailEl.value = saved.email;
-                    if (idEl && saved.sgId) idEl.value = saved.sgId;
+                const emailEl = document.getElementById('loginEmail');
+                const idEl = document.getElementById('loginEmpId');
+                if (emailEl) emailEl.value = saved && saved.email ? saved.email : '';
+                // Employee ID is intentionally NEVER remembered. It must be entered manually.
+                if (idEl) idEl.value = '';
+                // Migrate any older saved record that may still contain an SG ID.
+                if (saved && saved.email) {
+                    localStorage.setItem(LOGIN_IDENTITY_STORAGE_KEY, JSON.stringify({ email: normalizeLoginEmail(saved.email) }));
                 }
             } catch (_) {}
             updateAdminPasswordVisibility();
         }
 
-        function saveLoginIdentity(email, sgId) {
+        function saveLoginIdentity(email) {
             try {
                 localStorage.setItem(LOGIN_IDENTITY_STORAGE_KEY, JSON.stringify({
-                    email: normalizeLoginEmail(email),
-                    sgId: cleanSgId(sgId)
+                    email: normalizeLoginEmail(email)
                 }));
             } catch (_) {}
+        }
+
+        const ACTIVE_SESSION_STORAGE_KEY = 'ats_active_portal_session_v1';
+
+        function saveActivePortalSession(email) {
+            try {
+                // Only the email address is persisted. SG ID is derived again from the email.
+                localStorage.setItem(ACTIVE_SESSION_STORAGE_KEY, JSON.stringify({
+                    email: normalizeLoginEmail(email)
+                }));
+            } catch (_) {}
+        }
+
+        function clearActivePortalSession() {
+            try { localStorage.removeItem(ACTIVE_SESSION_STORAGE_KEY); } catch (_) {}
+        }
+
+        function restoreActivePortalSession() {
+            try {
+                const saved = JSON.parse(localStorage.getItem(ACTIVE_SESSION_STORAGE_KEY) || 'null');
+                const email = normalizeLoginEmail(saved && saved.email);
+                if (!email) return false;
+
+                let sgId = getMappedSgIdForEmail(email);
+                let matchedEmp = null;
+                if (!sgId && Array.isArray(exclusionEmployees)) {
+                    const exclusion = exclusionEmployees.find(ex => normalizeLoginEmail(ex.email) === email);
+                    if (exclusion) sgId = cleanSgId(exclusion.sg_id);
+                }
+                if (!sgId) {
+                    clearActivePortalSession();
+                    return false;
+                }
+
+                matchedEmp = findEmployeeBySgId(sgId);
+                activeUserSession = {
+                    sg_id: sgId,
+                    empName: getPortalLoginEmployeeName(sgId, matchedEmp),
+                    email: email,
+                    isAdmin: isAdminLoginIdentity(email, sgId)
+                };
+                isAdminMode = false;
+                pendingChangesExist = false;
+                updateTopRightUserHeader();
+                grantPortalAccess();
+                return true;
+            } catch (_) {
+                clearActivePortalSession();
+                return false;
+            }
         }
 
         let userCredentials = JSON.parse(localStorage.getItem('ats_user_creds') || '{}');
@@ -3801,7 +3932,8 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
 
             // Save email + employee ID locally so the browser can autofill them next time.
             // The browser's own password manager controls whether it offers to save the admin password.
-            saveLoginIdentity(inputEmail, cleanId);
+            saveLoginIdentity(inputEmail);
+            saveActivePortalSession(inputEmail);
 
             activeUserSession = {
                 sg_id: cleanId,
@@ -3904,6 +4036,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
         }
 
         function logoutPortalSession() {
+            clearActivePortalSession();
             activeUserSession = null;
             isAdminMode = false;
             pendingChangesExist = false;
@@ -4332,6 +4465,10 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             setInterval(update3DClocks, 1000);
 
             initFreeFlightPlane();
+
+            // Restore the authenticated portal session after the roster is available.
+            // The stored session contains only the email; SG ID is resolved from it.
+            restoreActivePortalSession();
         }
 
         function authenticateAdmin() {
