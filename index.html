@@ -1687,6 +1687,56 @@ body.ats-theme-active #mainDisplayArea .roster-table thead th {
 }
 </style>
 
+<style id="roster-day-date-layout-lock-final">
+/* FINAL MASTER LOCK: every theme must use the Original ATS day/date geometry. */
+#mainDisplayArea table.roster-table thead th.roster-day-date-header {
+    white-space: nowrap !important;
+    word-break: keep-all !important;
+    overflow-wrap: normal !important;
+    hyphens: none !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    display: table-cell !important;
+    width: max-content !important;
+    min-width: max-content !important;
+    padding: 10px 16px !important;
+    font-size: 10px !important;
+    line-height: 1.25 !important;
+    font-weight: 600 !important;
+    letter-spacing: normal !important;
+    text-transform: uppercase !important;
+}
+@media (min-width: 640px) {
+    #mainDisplayArea table.roster-table thead th.roster-day-date-header {
+        padding: 16px !important;
+        font-size: 12px !important;
+        line-height: 1.25 !important;
+    }
+}
+/* Theme-specific CSS may change colors, but never the day/date header layout. */
+body.ats-theme-active #mainDisplayArea table.roster-table thead th.roster-day-date-header {
+    white-space: nowrap !important;
+    word-break: keep-all !important;
+    overflow-wrap: normal !important;
+    hyphens: none !important;
+    width: max-content !important;
+    min-width: max-content !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    display: table-cell !important;
+    font-size: 10px !important;
+    line-height: 1.25 !important;
+    font-weight: 600 !important;
+    letter-spacing: normal !important;
+    text-transform: uppercase !important;
+}
+@media (min-width: 640px) {
+    body.ats-theme-active #mainDisplayArea table.roster-table thead th.roster-day-date-header {
+        font-size: 12px !important;
+    }
+}
+</style>
+
 </head>
 <body class="min-h-screen flex flex-col w-full overflow-x-hidden relative pb-16">
 
@@ -5480,7 +5530,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                     ? 'p-2.5 sm:p-4 text-center border-r border-slate-800 current-day-header min-w-[100px] sm:min-w-0' 
                     : 'p-2.5 sm:p-4 text-center border-r border-slate-800 min-w-[100px] sm:min-w-0';
 
-                headerHTML += `<th class="${headerClass}">${d} (${dateLabel})</th>`;
+                headerHTML += `<th class="${headerClass} roster-day-date-header">${d} (${dateLabel})</th>`;
             });
 
             if (isAdminMode) {
@@ -5534,7 +5584,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             document.getElementById('mainDisplayArea').innerHTML = `
                 <div class="bg-white rounded-xl table-3d overflow-hidden w-full">
                     <div class="overflow-x-auto no-scrollbar w-full">
-                        <table class="w-full border-collapse">
+                        <table class="w-full border-collapse roster-table">
                             ${headerHTML}
                             <tbody class="divide-y divide-slate-100">${bodyHTML}</tbody>
                         </table>
