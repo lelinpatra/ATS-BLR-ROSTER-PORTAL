@@ -349,8 +349,12 @@
             .login-sabre-mark img {
                 height: 27px;
             }
-            /* Post-login Sabre logo: keep the logo visible and non-shrinking on portrait phones/tablets. */
-            header .sabre-logo-fallback,
+            /* Post-login Sabre logo: keep only the actual Sabre logo in the header.
+               The inline fallback contains a diagonal strike through the word Sabre and must not
+               appear in the post-login header, especially on portrait mobile/tablet layouts. */
+            header .sabre-logo-fallback { display: none !important; }
+            header .sabre-logo-fallback.force-show { display: none !important; }
+            header img[alt="Sabre Logo"],
             header img[alt="Sabre Logo"] {
                 flex: 0 0 auto !important;
                 width: auto !important;
