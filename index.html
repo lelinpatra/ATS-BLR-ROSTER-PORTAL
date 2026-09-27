@@ -267,7 +267,7 @@
         .login-form-panel{background:linear-gradient(180deg,#ffffff 0%,#f8fafc 100%);color:#0f172a}.login-sabre-mark{background:#050505;border-radius:9px;padding:9px 13px;display:inline-flex;align-items:center;box-shadow:0 6px 18px rgba(15,23,42,.12)}
         .login-input-wrap{display:flex;align-items:center;min-height:46px;border:1px solid #cbd5e1;border-radius:12px;background:#fff;box-shadow:0 2px 6px rgba(15,23,42,.04),inset 0 1px 0 rgba(255,255,255,.9);transition:.2s ease;overflow:hidden}.login-input-wrap:focus-within{border-color:#f59e0b;box-shadow:0 0 0 4px rgba(245,158,11,.1),0 5px 16px rgba(15,23,42,.06);transform:translateY(-1px)}.login-input-icon{width:48px;display:flex;justify-content:center;align-items:center;color:#64748b;flex:none}.login-input{width:100%;height:44px;border:0;outline:0;background:transparent;padding:0 10px 0 0;color:#0f172a;font-size:13px;font-weight:700}.login-input::placeholder{color:#64748b;font-weight:500}.login-eye{height:44px;width:44px;flex:none;display:flex;align-items:center;justify-content:center;color:#64748b;transition:.2s}.login-eye:hover{color:#0f172a}
         .login-submit{min-height:46px;display:flex;align-items:center;justify-content:center;gap:10px;border-radius:12px;background:linear-gradient(135deg,#f59e0b 0%,#d97706 100%);color:#111827;font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;box-shadow:0 8px 18px rgba(245,158,11,.20),inset 0 1px 0 rgba(255,255,255,.4);transition:.2s ease}.login-submit:hover{transform:translateY(-1px);box-shadow:0 13px 28px rgba(245,158,11,.3),inset 0 1px 0 rgba(255,255,255,.45)}.login-submit:active{transform:translateY(0)}.login-forgot{color:#475569;font-size:11px;font-weight:800;text-decoration:underline;text-underline-offset:3px;transition:.2s}.login-forgot:hover{color:#d97706}.login-error{display:flex;align-items:center;gap:9px;padding:10px 12px;border-radius:10px;background:#fff1f2;border:1px solid #fecdd3;color:#be123c;font-size:11px;font-weight:800;line-height:1.4}
-        .login-data-accent{color:#4f46e5}.login-sabre-mark{box-shadow:0 5px 14px rgba(15,23,42,.10)}.login-input-wrap:focus-within{border-color:#6366f1;box-shadow:0 0 0 3px rgba(99,102,241,.12),0 5px 14px rgba(15,23,42,.05)}.login-submit{background:linear-gradient(135deg,#f59e0b 0%,#d97706 100%)}
+        .login-data-accent{color:#4f46e5}.login-sabre-mark{box-shadow:0 5px 14px rgba(15,23,42,.10)}.login-sabre-mark-large{padding:10px 16px;min-width:170px;justify-content:center}.login-input-wrap:focus-within{border-color:#6366f1;box-shadow:0 0 0 3px rgba(99,102,241,.12),0 5px 14px rgba(15,23,42,.05)}.login-submit{background:linear-gradient(135deg,#f59e0b 0%,#d97706 100%)}
         @media (max-width:767px){.login-card{min-height:0;max-height:calc(100vh - 28px);overflow-y:auto;border-radius:22px}.login-form-panel{padding:20px 18px}}
         @media (max-width: 640px) {
             .chart-container-wrapper {
@@ -349,40 +349,6 @@
             .login-sabre-mark img {
                 height: 27px;
             }
-            /* Post-login Sabre logo: keep only the actual Sabre logo in the header.
-               The inline fallback contains a diagonal strike through the word Sabre and must not
-               appear in the post-login header, especially on portrait mobile/tablet layouts. */
-            header .sabre-logo-fallback { display: none !important; }
-            header .sabre-logo-fallback.force-show { display: none !important; }
-            header img[alt="Sabre Logo"],
-            header img[alt="Sabre Logo"] {
-                flex: 0 0 auto !important;
-                width: auto !important;
-                visibility: visible !important;
-            }
-            header > div:first-child > div:first-child > div:first-child {
-                flex: 0 0 auto !important;
-                min-width: 34px !important;
-            }
-            header > div:first-child > div:first-child > div:nth-child(2) {
-                min-width: 0 !important;
-                flex: 1 1 auto !important;
-            }
-            /* Post-login header: never render the struck fallback logo.
-               Keep the real logo responsive in both portrait and landscape. */
-            header .sabre-logo-fallback,
-            header .sabre-logo-fallback.force-show { display:none !important; }
-            header img[alt="Sabre Logo"] {
-                display:block !important;
-                flex:0 0 auto !important;
-                width:auto !important;
-                height:clamp(20px, 3vw, 26px) !important;
-                max-width:min(96px, 18vw) !important;
-                object-fit:contain !important;
-                visibility:visible !important;
-            }
-
-
             .login-form-panel .mb-5 {
                 margin-bottom: 16px;
             }
@@ -424,76 +390,6 @@
             header > div:first-child { padding-left:clamp(3rem,4vw,6rem) !important; padding-right:clamp(3rem,4vw,6rem) !important; }
         }
 
-        /* Weekly shift timing: one stable geometry on every device/orientation.
-           The previous sm: utilities changed padding and badge size when a phone/tablet
-           was rotated to landscape. Keep the shift cells visually identical everywhere. */
-        /* Weekly roster table: keep Employee + Skilling compact and let the seven
-           day columns use the remaining width. This prevents large desktop gaps. */
-        #mainDisplayArea .roster-week-table {
-            width: 100%;
-            table-layout: fixed;
-        }
-        #mainDisplayArea .roster-week-table th:first-child,
-        #mainDisplayArea .roster-week-table td:first-child {
-            width: clamp(170px, 19vw, 240px);
-        }
-        #mainDisplayArea .roster-week-table th:nth-child(2),
-        #mainDisplayArea .roster-week-table td:nth-child(2) {
-            width: clamp(78px, 8vw, 110px);
-        }
-        #mainDisplayArea .roster-week-table .roster-shift-cell {
-            padding: 10px 6px !important;
-            width: auto;
-            min-width: 0;
-            vertical-align: middle;
-        }
-        #mainDisplayArea .roster-week-table .roster-day-header {
-            padding: 8px 5px !important;
-            min-width: 0 !important;
-            width: auto;
-            vertical-align: middle;
-            white-space: normal !important;
-            overflow-wrap: anywhere;
-            word-break: normal;
-            line-height: 1.15;
-        }
-        #mainDisplayArea .roster-week-table .roster-day-header .roster-day-name,
-        #mainDisplayArea .roster-week-table .roster-day-header .roster-day-date {
-            display:inline;
-            width:auto;
-            white-space:normal !important;
-            overflow-wrap:anywhere;
-            word-break:normal;
-        }
-        #mainDisplayArea .roster-week-table .roster-day-header .roster-day-name { font-weight:800; }
-        #mainDisplayArea .roster-week-table .roster-day-header .roster-day-date { margin-top:0; font-size:1em; opacity:.9; }
-        #mainDisplayArea .roster-week-table .roster-day-header .roster-day-name::after { content:" ("; }
-        #mainDisplayArea .roster-week-table .roster-day-header .roster-day-date::after { content:")"; }
-        #mainDisplayArea .roster-week-table .roster-shift-badge {
-            box-sizing: border-box;
-            display: inline-flex !important;
-            align-items: center;
-            justify-content: center;
-            min-height: 28px;
-            min-width: 74px;
-            max-width: 92px;
-            padding: 4px 8px !important;
-            font-size: 12px !important;
-            line-height: 1.1 !important;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            vertical-align: middle;
-        }
-        #mainDisplayArea .roster-week-table .roster-shift-select {
-            box-sizing: border-box;
-            height: 30px;
-            min-height: 30px;
-            padding: 4px 6px !important;
-            font-size: 12px !important;
-            line-height: 1.1 !important;
-        }
-
         @media (max-width: 1024px) and (min-width: 768px) {
             header > div:first-child { padding-left:16px; padding-right:16px; }
             #loggedInUserName { max-width:120px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
@@ -512,7 +408,7 @@
             main { padding:10px 10px 18px !important; gap:12px; }
             #worldClocksContainer { grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
             #worldClocksContainer > div { min-width:0; height:82px; padding:9px; }
-            #worldClocksContainer [id^="clock-"] { font-size:clamp(12px,4vw,17px) !important; overflow:visible; white-space:nowrap; }
+            #worldClocksContainer [id^="clock-"] { font-size:clamp(14px,4.5vw,18px); }
             #worldClocksContainer [id^="date-"] { font-size:9px; white-space:nowrap; }
 
             /* Tabs remain readable and scroll horizontally instead of squeezing/wrapping. */
@@ -531,15 +427,7 @@
             /* Keep dense roster tables accurate; allow intentional horizontal scrolling rather than clipping columns. */
             #mainDisplayArea .overflow-x-auto { width:100%; max-width:100%; overflow-x:auto; }
             #mainDisplayArea table { min-width:max-content; }
-            #mainDisplayArea .roster-week-table { table-layout:auto; }
-            #mainDisplayArea .roster-week-table th:first-child,
-            #mainDisplayArea .roster-week-table td:first-child { width:auto; min-width:140px; }
-            #mainDisplayArea .roster-week-table th:nth-child(2),
-            #mainDisplayArea .roster-week-table td:nth-child(2) { width:auto; min-width:78px; }
-            #mainDisplayArea .roster-week-table .roster-day-header,
-            #mainDisplayArea .roster-week-table .roster-shift-cell { min-width:100px !important; width:100px; }
             #mainDisplayArea table th, #mainDisplayArea table td { white-space:nowrap; }
-            #mainDisplayArea .roster-week-table .roster-day-header { white-space:normal !important; }
             #mainDisplayArea table th:first-child, #mainDisplayArea table td:first-child { position:sticky; left:0; z-index:9; }
 
             /* Holiday/profile tables can use the available width where practical. */
@@ -564,6 +452,12 @@
             #worldClocksContainer > div { padding:7px; }
             #periodNavigator > div { gap:6px; }
             #periodNavigator label { font-size:9px; }
+        }
+
+        @media (orientation: landscape) and (max-height: 600px) and (max-width: 900px) {
+            #worldClocksContainer > div { height:70px; }
+            .chart-container-wrapper { height:180px; }
+            main { padding-top:8px !important; }
         }
 
         @media (max-width: 380px) {
@@ -614,28 +508,16 @@
         .world-time-foot{padding:9px 16px 11px;border-top:1px solid rgba(125,211,252,.12);font-size:8px;color:#64748b;text-align:center;position:relative;z-index:2}
         .clock-futuristic-3d{cursor:pointer}.clock-futuristic-3d:focus-visible{outline:2px solid #38bdf8;outline-offset:2px}
         /* Mobile landscape stability: keep clock values on one line and avoid per-second layout shifts. */
-        #worldClocksContainer [id^="clock-"]{
-            white-space:nowrap;
-            word-break:keep-all;
-            overflow:visible !important;
-            text-overflow:clip;
-            display:block;
-            min-width:0;
-            width:100%;
-            max-width:100%;
-            box-sizing:border-box;
-            font-size:clamp(10px,1.25vw,18px) !important;
-            letter-spacing:-.06em;
-            line-height:1.15;
-            text-align:left;
-            font-variant-numeric:tabular-nums;
-        }
+        #worldClocksContainer [id^="clock-"]{white-space:nowrap;word-break:keep-all;overflow:hidden;text-overflow:clip;display:block;min-width:0;}
         #worldClocksContainer .font-orbitron{white-space:nowrap;}
         #mainDisplayArea table td:nth-child(3) > span{white-space:nowrap;display:inline-flex;}
         @media (orientation:landscape) and (max-width:900px){
-          /* Landscape changes only the number of clock columns; keep card typography,
-             heights, roster sizing and spacing on the same responsive baseline as portrait. */
-          #worldClocksContainer{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;}
+          #worldClocksContainer{grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;}
+          #worldClocksContainer > div{min-width:0;height:72px;padding:7px 8px;}
+          #worldClocksContainer [id^="clock-"]{font-size:clamp(14px,3.1vw,18px)!important;line-height:1.1;letter-spacing:-.02em;}
+          #worldClocksContainer [id^="date-"]{white-space:nowrap;font-size:8px;line-height:1;}
+          #worldClocksContainer .font-orbitron{font-size:9px!important;line-height:1;}
+          #mainDisplayArea table td:nth-child(3) > span{white-space:nowrap;min-width:max-content;}
         }
         @media(max-width:620px){.world-time-panel{border-radius:18px}.world-time-body{padding:11px}.world-time-selectors,.world-time-compare-results{grid-template-columns:1fr}.world-time-head{padding:15px}.world-time-value{font-size:21px}.world-time-compare-card{min-height:100px}}
         @media(max-width:380px){.world-time-panel{width:calc(100vw - 14px)}.world-time-title{font-size:13px}.world-time-subtitle{font-size:9px}.world-time-value{font-size:19px}}
@@ -643,7 +525,680 @@
         /* Password reset/expiry workflows are no longer used for employee login. */
         #forgotPasswordModal, #passwordExpiredModal { display: none !important; }
         #mandatoryLoginModal .login-forgot { display:none !important; }
-    </style>
+    
+
+        /* ============================================================
+           FULL DEVICE RESPONSIVE LAYOUT
+           Keeps the original desktop visual design while making the
+           entire portal fluid across desktop, laptop, tablet and phone.
+           ============================================================ */
+
+        html {
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            overflow-x: hidden;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+        }
+
+        body {
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            overflow-x: hidden;
+            margin: 0;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        img, svg, canvas, video {
+            max-width: 100%;
+        }
+
+        /* Main page containers always stay inside the viewport. */
+        header,
+        header > div,
+        main,
+        #mainDisplayArea,
+        #worldClocksContainer,
+        #kpiContainer,
+        #chartSection,
+        #periodNavigator,
+        #adminActionDock {
+            min-width: 0;
+            max-width: 100%;
+        }
+
+        main {
+            width: 100%;
+            overflow: visible;
+        }
+
+        /* Fluid horizontal page gutters. */
+        @media (min-width: 1281px) {
+            main {
+                padding-left: clamp(24px, 3vw, 72px) !important;
+                padding-right: clamp(24px, 3vw, 72px) !important;
+            }
+
+            header > div:first-child {
+                padding-left: clamp(24px, 3vw, 72px) !important;
+                padding-right: clamp(24px, 3vw, 72px) !important;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1280px) {
+            main {
+                padding-left: clamp(14px, 2vw, 28px) !important;
+                padding-right: clamp(14px, 2vw, 28px) !important;
+                padding-top: 18px !important;
+                padding-bottom: 24px !important;
+            }
+
+            header > div:first-child {
+                padding-left: clamp(14px, 2vw, 28px) !important;
+                padding-right: clamp(14px, 2vw, 28px) !important;
+            }
+        }
+
+        /* Tablet / small laptop header: allow controls to reflow instead
+           of forcing horizontal overflow. */
+        @media (min-width: 769px) and (max-width: 1100px) {
+            header > div:first-child {
+                min-height: 64px;
+                height: auto;
+                padding-top: 8px;
+                padding-bottom: 8px;
+                gap: 8px;
+            }
+
+            header > div:first-child > div:first-child {
+                min-width: 0;
+                flex: 1 1 auto;
+            }
+
+            header > div:first-child > div:last-child {
+                min-width: 0;
+                flex: 0 1 auto;
+                gap: 6px;
+            }
+
+            #searchInput {
+                width: clamp(150px, 20vw, 220px) !important;
+            }
+
+            #adminImportContainer {
+                gap: 5px !important;
+                flex-wrap: nowrap;
+                min-width: 0;
+            }
+
+            #adminImportContainer button,
+            #adminImportContainer label {
+                padding-left: 8px !important;
+                padding-right: 8px !important;
+            }
+
+            #adminImportContainer span {
+                display: none !important;
+            }
+
+            #userProfileBtn {
+                max-width: 150px;
+                min-width: 0;
+            }
+
+            #loggedInUserName {
+                max-width: 82px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            #portalSubhead {
+                display: none;
+            }
+        }
+
+        /* Tablet portrait: stack the header controls cleanly. */
+        @media (min-width: 769px) and (max-width: 900px) {
+            header > div:first-child {
+                flex-wrap: wrap;
+            }
+
+            header > div:first-child > div:first-child {
+                flex: 1 1 52%;
+            }
+
+            header > div:first-child > div:last-child {
+                flex: 1 1 48%;
+                justify-content: flex-end;
+            }
+
+            #searchInput {
+                width: min(34vw, 210px) !important;
+            }
+
+            #worldClocksContainer {
+                grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+            }
+
+            #chartSection {
+                grid-template-columns: minmax(0, 1.6fr) minmax(260px, 1fr) !important;
+            }
+        }
+
+        /* World clock cards scale with the available width. */
+        #worldClocksContainer {
+            width: 100%;
+            min-width: 0;
+        }
+
+        #worldClocksContainer > .clock-futuristic-3d {
+            min-width: 0;
+            width: 100%;
+        }
+
+        #worldClocksContainer [id^="clock-"],
+        #worldClocksContainer [id^="date-"] {
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* Navigation card can shrink without crushing its controls. */
+        main > .card-3d.flex.flex-col,
+        main > .card-3d.flex.flex-col > div {
+            min-width: 0;
+            max-width: 100%;
+        }
+
+        main > .card-3d.flex.flex-col > div:first-child {
+            scrollbar-width: thin;
+        }
+
+        #periodNavigator {
+            min-width: 0;
+            max-width: 100%;
+        }
+
+        #periodNavigator > div {
+            min-width: 0;
+        }
+
+        #monthSelect,
+        #weekSelect {
+            max-width: min(42vw, 420px);
+            min-width: 0;
+        }
+
+        /* Charts are fluid at every width. */
+        #chartSection > div {
+            min-width: 0;
+            width: 100%;
+        }
+
+        .chart-container-wrapper {
+            width: 100%;
+            min-width: 0;
+        }
+
+        .chart-container-wrapper canvas {
+            width: 100% !important;
+            max-width: 100%;
+        }
+
+        /* Roster tables remain complete: on narrow screens they scroll
+           horizontally rather than becoming unreadably compressed. */
+        #mainDisplayArea {
+            width: 100%;
+            min-width: 0;
+        }
+
+        #mainDisplayArea .overflow-x-auto,
+        #mainDisplayArea .custom-scrollbar {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: auto;
+            overflow-y: visible;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            overscroll-behavior-x: contain;
+        }
+
+        #mainDisplayArea table {
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        /* Dense roster table gets a sensible minimum width so columns
+           never overlap. */
+        #mainDisplayArea table.roster-table,
+        #mainDisplayArea table[data-roster-table],
+        #mainDisplayArea .roster-table {
+            min-width: 900px;
+        }
+
+        /* Prevent long employee names / skills from breaking the layout. */
+        #mainDisplayArea td,
+        #mainDisplayArea th {
+            max-width: none;
+        }
+
+        /* Modals scale to the viewport instead of using desktop widths. */
+        [role="dialog"] > div,
+        .modal-panel,
+        .card-3d.max-w-sm,
+        .card-3d.max-w-md,
+        .card-3d.max-w-lg {
+            max-width: calc(100vw - 24px);
+        }
+
+        /* World-time comparison window: fluid desktop/tablet/phone sizing. */
+        .world-time-panel {
+            width: min(840px, calc(100vw - 28px));
+            max-width: calc(100vw - 28px);
+        }
+
+        /* Bottom admin dock wraps on small screens instead of overflowing. */
+        #adminActionDock {
+            min-height: 58px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        /* ------------------------------------------------------------
+           MOBILE
+           ------------------------------------------------------------ */
+        @media (max-width: 767px) {
+            body {
+                padding-bottom: max(12px, env(safe-area-inset-bottom));
+            }
+
+            header {
+                position: sticky;
+                top: 0;
+                width: 100%;
+            }
+
+            header > div:first-child {
+                min-height: 56px;
+                height: auto;
+                width: 100%;
+                padding: 8px 10px !important;
+                gap: 7px;
+            }
+
+            header > div:first-child > div:first-child {
+                min-width: 0;
+                flex: 1 1 auto;
+            }
+
+            header > div:first-child > div:last-child {
+                min-width: 0;
+                flex: 0 0 auto;
+                gap: 5px;
+            }
+
+            header h1 {
+                max-width: 48vw;
+                font-size: clamp(11px, 3.5vw, 15px) !important;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            #portalSubhead {
+                display: none;
+            }
+
+            header .sabre-logo-fallback {
+                display: none !important;
+            }
+
+            #userProfileBtn {
+                min-width: 38px;
+                max-width: 43vw;
+                padding: 7px 8px !important;
+            }
+
+            #loggedInUserName {
+                max-width: 24vw;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            /* Mobile search is intentionally on its own full-width row. */
+            header > div:nth-child(2) {
+                width: 100%;
+            }
+
+            main {
+                width: 100%;
+                padding: 10px 8px 20px !important;
+                gap: 12px;
+            }
+
+            #worldClocksContainer {
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                gap: 8px;
+            }
+
+            #worldClocksContainer > .clock-futuristic-3d {
+                height: clamp(76px, 20vw, 88px) !important;
+                padding: 8px !important;
+                border-radius: 11px;
+            }
+
+            #worldClocksContainer [id^="clock-"] {
+                font-size: clamp(13px, 4.6vw, 18px) !important;
+                line-height: 1.1;
+                letter-spacing: -0.03em;
+            }
+
+            #worldClocksContainer [id^="date-"] {
+                font-size: clamp(8px, 2.4vw, 10px) !important;
+            }
+
+            /* Tabs become a horizontal scroll strip, never a squeezed row. */
+            main > .card-3d.flex.flex-col {
+                width: 100%;
+                overflow: visible;
+            }
+
+            main > .card-3d.flex.flex-col > div:first-child {
+                display: flex;
+                flex-wrap: nowrap;
+                width: 100%;
+                max-width: 100%;
+                overflow-x: auto;
+                overflow-y: hidden;
+                padding-bottom: 3px;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            main > .card-3d.flex.flex-col > div:first-child .tab-btn {
+                flex: 0 0 auto;
+                white-space: nowrap;
+            }
+
+            #periodNavigator {
+                width: 100%;
+                display: grid !important;
+                grid-template-columns: minmax(0, 1fr);
+                gap: 8px !important;
+            }
+
+            #periodNavigator > div {
+                width: 100%;
+                min-width: 0;
+                display: flex;
+                align-items: center;
+            }
+
+            #periodNavigator label {
+                flex: 0 0 auto;
+                white-space: nowrap;
+            }
+
+            #periodNavigator select {
+                flex: 1 1 auto;
+                width: auto;
+                min-width: 0;
+                max-width: none;
+            }
+
+            #kpiContainer {
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                gap: 8px;
+            }
+
+            #chartSection {
+                grid-template-columns: minmax(0, 1fr) !important;
+                gap: 10px;
+            }
+
+            #chartSection > div {
+                width: 100%;
+                min-width: 0;
+                padding: 12px !important;
+            }
+
+            .chart-container-wrapper {
+                height: clamp(180px, 55vw, 230px);
+                max-height: none;
+            }
+
+            /* Horizontal table scrolling is deliberate on phones. */
+            #mainDisplayArea .overflow-x-auto,
+            #mainDisplayArea .custom-scrollbar {
+                overflow-x: auto !important;
+            }
+
+            #mainDisplayArea table {
+                min-width: max-content;
+            }
+
+            #mainDisplayArea table th,
+            #mainDisplayArea table td {
+                white-space: nowrap;
+            }
+
+            #mainDisplayArea table th:first-child,
+            #mainDisplayArea table td:first-child {
+                position: sticky;
+                left: 0;
+                z-index: 9;
+                background: inherit;
+            }
+
+            #adminActionDock {
+                padding: 8px 10px calc(8px + env(safe-area-inset-bottom));
+            }
+
+            #adminActionDock > div {
+                min-width: 0;
+            }
+
+            #adminActionDock > div:last-child {
+                display: flex;
+                flex: 1 1 auto;
+                justify-content: flex-end;
+            }
+
+            /* All common modal cards use nearly the full phone width. */
+            [role="dialog"] > div,
+            .modal-panel {
+                width: calc(100vw - 20px) !important;
+                max-width: calc(100vw - 20px) !important;
+                max-height: calc(100dvh - 20px);
+                overflow-y: auto;
+            }
+
+            .world-time-modal {
+                padding: 8px;
+            }
+
+            .world-time-panel {
+                width: calc(100vw - 16px);
+                max-width: calc(100vw - 16px);
+                max-height: calc(100dvh - 16px);
+            }
+        }
+
+        /* Small phones: maximize usable width while keeping touch targets. */
+        @media (max-width: 480px) {
+            main {
+                padding-left: 7px !important;
+                padding-right: 7px !important;
+            }
+
+            #worldClocksContainer {
+                gap: 6px;
+            }
+
+            #worldClocksContainer > .clock-futuristic-3d {
+                padding: 7px !important;
+                height: 76px !important;
+            }
+
+            #kpiContainer {
+                gap: 6px;
+            }
+
+            .tab-btn {
+                min-height: 38px;
+            }
+
+            #adminActionDock {
+                font-size: 10px;
+            }
+
+            #adminActionDock button {
+                min-height: 34px;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+        }
+
+        /* Very small phones: hide non-essential labels, never the controls. */
+        @media (max-width: 360px) {
+            header > div:first-child {
+                padding-left: 7px !important;
+                padding-right: 7px !important;
+            }
+
+            header h1 {
+                max-width: 42vw;
+                font-size: 11px !important;
+            }
+
+            #userProfileBtn {
+                width: 38px;
+                max-width: 38px;
+                justify-content: center;
+                padding: 7px !important;
+            }
+
+            #userProfileBtn #loggedInUserName,
+            #userProfileBtn svg:last-child {
+                display: none;
+            }
+
+            #worldClocksContainer > .clock-futuristic-3d {
+                height: 72px !important;
+                padding: 6px !important;
+            }
+
+            #worldClocksContainer [id^="clock-"] {
+                font-size: 13px !important;
+            }
+
+            #periodNavigator label {
+                font-size: 9px;
+            }
+        }
+
+        /* Landscape phones / compact tablets. */
+        @media (orientation: landscape) and (max-height: 600px) and (max-width: 900px) {
+            header > div:first-child {
+                min-height: 50px;
+                padding-top: 5px !important;
+                padding-bottom: 5px !important;
+            }
+
+            #worldClocksContainer {
+                grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+            }
+
+            #worldClocksContainer > .clock-futuristic-3d {
+                height: 68px !important;
+            }
+
+            .chart-container-wrapper {
+                height: 175px;
+            }
+
+            main {
+                padding-top: 7px !important;
+                padding-bottom: 15px !important;
+            }
+        }
+
+        /* Prevent iOS/Android form controls from zooming or exceeding the viewport. */
+        @media (max-width: 767px) {
+            input, select, button, textarea {
+                max-width: 100%;
+            }
+
+            input, select, textarea {
+                font-size: max(16px, 1em);
+            }
+
+            .login-input,
+            .world-time-country-search,
+            .world-time-select {
+                font-size: 16px !important;
+            }
+        }
+
+        /* Respect users who prefer reduced motion. */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                scroll-behavior: auto !important;
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001ms !important;
+            }
+        }
+
+
+/* Sabre logo: use the original logo asset only; never render the struck-text fallback. */
+.sabre-logo-fallback { display:none !important; }
+.login-sabre-mark { display:flex; align-items:center; min-width:0; }
+.login-sabre-mark img { display:block !important; height:auto; max-width:100%; object-fit:contain; }
+@media (max-width: 640px) { .login-sabre-mark img { max-width:150px; height:32px; } }
+@media (max-width: 420px) { .login-sabre-mark img { max-width:128px; height:29px; } }
+
+/* Compact Admin dialogs — preserve the earlier admin modal shape and sizing */
+#adminLoginModal > div {
+    width: min(100%, 384px) !important;
+    max-width: 384px !important;
+    padding: 16px !important;
+}
+#adminPassManagerModal > div,
+#addMonthModal > div,
+#addWeekModal > div,
+#addEmployeeModal > div,
+#editEmployeeModal > div {
+    width: min(100%, 448px) !important;
+    max-width: 448px !important;
+    padding: 16px !important;
+    margin-top: 16px !important;
+    margin-bottom: 16px !important;
+}
+#adminNotificationModal > div {
+    width: min(100%, 384px) !important;
+    max-width: 384px !important;
+    padding: 16px !important;
+}
+@media (max-width:640px) {
+    #adminLoginModal, #adminPassManagerModal, #adminNotificationModal { padding: 12px !important; }
+    #adminLoginModal > div, #adminPassManagerModal > div, #adminNotificationModal > div,
+    #addMonthModal > div, #addWeekModal > div, #addEmployeeModal > div, #editEmployeeModal > div {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 14px !important;
+        margin-top: 8px !important;
+        margin-bottom: 8px !important;
+    }
+}
+</style>
 </head>
 <body class="min-h-screen flex flex-col w-full overflow-x-hidden relative pb-16">
 
@@ -668,7 +1223,7 @@
                 <div class="login-orbit login-orbit-a"></div><div class="login-orbit login-orbit-b"></div><div class="login-flight-dot flight-dot-a"></div><div class="login-flight-dot flight-dot-b"></div>
             </div>
             <div class="login-form-panel flex-1 p-5 sm:p-7 lg:p-8">
-                <div class="flex items-center justify-between mb-5"><div class="login-sabre-mark"><img src="SABRE-LOGO-REGISTERED-SCREEN-WHITE-WIP.svg" alt="Sabre Logo" class="h-8 sm:h-9 w-auto object-contain" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><span class="sabre-logo-fallback" aria-label="Sabre"><svg viewBox="0 0 150 48" role="img" aria-hidden="true"><text x="3" y="38">Sabre</text><line x1="0" y1="31" x2="145" y2="20"></line></svg></span></div><div class="text-right"><div class="text-[9px] font-bold uppercase tracking-[0.2em] text-slate-400">Portal Access</div><div class="flex items-center justify-end gap-1.5 mt-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,.8)]"></span><span class="text-[9px] font-semibold text-slate-500">SYSTEM READY</span></div></div></div>
+                <div class="flex items-center mb-5"><div class="login-sabre-mark login-sabre-mark-large"><img src="SABRE-LOGO-REGISTERED-SCREEN-WHITE-WIP.svg" alt="Sabre" class="h-10 sm:h-11 lg:h-12 w-auto max-w-[220px] object-contain"></div></div>
                 <div class="mb-5"><div class="text-[9px] font-bold uppercase tracking-[0.24em] text-amber-500 mb-2">Welcome back</div><h2 class="font-orbitron text-xl sm:text-2xl font-black tracking-tight text-slate-900">Sign in to continue</h2><p class="text-[11px] sm:text-xs text-slate-500 mt-1.5">Use your employee credentials to access the roster portal.</p></div>
                 <form onsubmit="handlePortalLogin(event)" class="space-y-4" autocomplete="on">
                     <div><label class="block text-[10px] font-extrabold text-slate-500 uppercase tracking-[0.18em] mb-2">Email Address</label><div class="login-input-wrap"><div class="login-input-icon"><i data-lucide="mail" class="w-[18px] h-[18px]"></i></div><input type="email" id="loginEmail" name="email" placeholder="name@sabre.com" required autocomplete="email" autocapitalize="none" spellcheck="false" class="login-input"></div></div>
@@ -708,7 +1263,7 @@
 
     <!-- Forced Password Reset Modal (Temporary / Expired Password) -->
     <div id="passwordExpiredModal" class="fixed inset-0 z-[120] flex items-center justify-center bg-slate-900/80 backdrop-blur-md p-4 hidden">
-        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl card-3d space-y-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-4 sm:p-5 shadow-2xl card-3d space-y-3">
             <div class="text-center border-b pb-3">
                 <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-2 btn-3d">
                     <i data-lucide="lock" class="w-6 h-6"></i>
@@ -779,7 +1334,7 @@
 
     <!-- User Management Modal -->
     <div id="adminPassManagerModal" class="fixed inset-0 z-[140] flex items-center justify-center bg-slate-900/80 backdrop-blur-md p-4 hidden overflow-y-auto">
-        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl card-3d space-y-5 my-8">
+        <div class="bg-white rounded-2xl max-w-md w-full p-4 sm:p-5 shadow-2xl card-3d space-y-4 my-4">
             <div class="flex justify-between items-center border-b pb-3">
                 <h3 class="font-extrabold text-slate-900 text-base sm:text-lg flex items-center gap-2">
                     <i data-lucide="users" class="text-amber-500 w-5 h-5"></i> User Management
@@ -827,19 +1382,18 @@
                 </h4>
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
                     <div>
-                        <label class="block text-[11px] font-bold text-slate-700 mb-1">Full Name</label>
+                        <label class="block text-[11px] font-bold text-slate-700 mb-1">Employee ID</label>
+                        <input type="text" id="exclusionSgId" placeholder="e.g. 998877" class="w-full bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs font-semibold focus:ring-2 focus:ring-amber-500 input-3d">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-700 mb-1">Employee Full Name</label>
                         <input type="text" id="exclusionEmpName" placeholder="e.g. Jane Doe" class="w-full bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs font-semibold focus:ring-2 focus:ring-amber-500 input-3d">
                     </div>
                     <div>
                         <label class="block text-[11px] font-bold text-slate-700 mb-1">Email Address</label>
-                        <input type="email" id="exclusionEmail" placeholder="e.g. jane.doe@sabre.com" autocomplete="email" class="w-full bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs font-semibold focus:ring-2 focus:ring-amber-500 input-3d">
-                    </div>
-                    <div>
-                        <label class="block text-[11px] font-bold text-slate-700 mb-1">Employee ID</label>
-                        <input type="text" id="exclusionSgId" placeholder="e.g. 998877" class="w-full bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs font-semibold focus:ring-2 focus:ring-amber-500 input-3d">
+                        <input type="email" id="exclusionEmpEmail" placeholder="name@sabre.com" class="w-full bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs font-semibold focus:ring-2 focus:ring-amber-500 input-3d">
                     </div>
                 </div>
-                <p class="text-[9px] text-slate-400">No password is used for exclusion users. Access requires an exact Email Address + Employee ID match.</p>
                 <button onclick="executeAddExclusionEmployee()" class="w-full py-2 bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold rounded-lg text-xs btn-3d uppercase">
                     Add Exclusion Access
                 </button>
@@ -945,7 +1499,7 @@
         <div class="w-full px-4 sm:px-6 lg:px-12 h-16 flex items-center justify-between relative z-10">
             <div class="flex items-center space-x-3 sm:space-x-4">
                 <div class="flex items-center pr-2 sm:pr-3 border-r border-slate-700">
-                    <img src="SABRE-LOGO-REGISTERED-SCREEN-WHITE-WIP.svg" alt="Sabre Logo" class="h-5 sm:h-6 w-auto object-contain" onerror="this.style.display='none';this.nextElementSibling.style.display='block';" /><span class="sabre-logo-fallback" aria-label="Sabre"><svg viewBox="0 0 150 48" role="img" aria-hidden="true"><text x="3" y="38">Sabre</text><line x1="0" y1="31" x2="145" y2="20"></line></svg></span>
+                    <img src="SABRE-LOGO-REGISTERED-SCREEN-WHITE-WIP.svg" alt="Sabre Logo" class="h-5 sm:h-6 w-auto object-contain" onerror="this.style.display='none';" />
                 </div>
                 <div class="flex items-center space-x-2 sm:space-x-3">
                     <div class="bg-indigo-600 p-1.5 sm:p-2 rounded-lg text-white btn-3d">
@@ -1347,7 +1901,7 @@
 
     <!-- Admin Login Modal -->
     <div id="adminLoginModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-50 flex items-center justify-center hidden p-4">
-        <div class="bg-white rounded-xl card-3d w-full max-w-md p-6 space-y-4 shadow-2xl">
+        <div class="bg-white rounded-xl card-3d w-full max-w-sm p-4 sm:p-5 space-y-3 shadow-2xl">
             <div class="text-center space-y-1">
                 <div class="w-12 h-12 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center mx-auto mb-2 btn-3d">
                     <i data-lucide="lock" class="w-6 h-6"></i>
@@ -1530,7 +2084,6 @@
         const ADMIN_SG_ID = '316092';
         const ADMIN_PASSWORD = '1Q2W3E4R';
         const LOGIN_IDENTITY_STORAGE_KEY = 'ats_saved_login_identity_v1';
-        const ACTIVE_SESSION_STORAGE_KEY = 'ats_active_session_v1';
 
         function normalizeLoginEmail(email) {
             return String(email || '').trim().toLowerCase();
@@ -1559,22 +2112,21 @@
         function loadSavedLoginIdentity() {
             try {
                 const saved = JSON.parse(localStorage.getItem(LOGIN_IDENTITY_STORAGE_KEY) || 'null');
-                const emailEl = document.getElementById('loginEmail');
-                const idEl = document.getElementById('loginEmpId');
-                if (emailEl && saved && saved.email) emailEl.value = saved.email;
-                // Employee ID is NEVER saved. It must always be entered by the employee.
-                if (idEl) idEl.value = '';
-            } catch (_) {
-                const idEl = document.getElementById('loginEmpId');
-                if (idEl) idEl.value = '';
-            }
+                if (saved) {
+                    const emailEl = document.getElementById('loginEmail');
+                    const idEl = document.getElementById('loginEmpId');
+                    if (emailEl && saved.email) emailEl.value = saved.email;
+                    if (idEl && saved.sgId) idEl.value = saved.sgId;
+                }
+            } catch (_) {}
             updateAdminPasswordVisibility();
         }
 
         function saveLoginIdentity(email, sgId) {
             try {
                 localStorage.setItem(LOGIN_IDENTITY_STORAGE_KEY, JSON.stringify({
-                    email: normalizeLoginEmail(email)
+                    email: normalizeLoginEmail(email),
+                    sgId: cleanSgId(sgId)
                 }));
             } catch (_) {}
         }
@@ -1583,14 +2135,13 @@
         let adminResetRequests = JSON.parse(localStorage.getItem('ats_admin_requests') || '[]');
         let exclusionEmployees = JSON.parse(localStorage.getItem('ats_exclusion_emps') || '[]');
 
-        // Default exclusion login supplied for the ATS BLR portal. Exclusion users use
-        // Email + Employee ID only; no password is used.
-        const rajeshExclusion = exclusionEmployees.find(ex => cleanSgId(ex.sg_id) === '223174');
-        if (!rajeshExclusion) {
-            exclusionEmployees.push({ sg_id: '223174', name: 'Rajesh Warvadkar', email: 'rajesh.warvadkar@sabre.com' });
-            localStorage.setItem('ats_exclusion_emps', JSON.stringify(exclusionEmployees));
-        } else if (!rajeshExclusion.email) {
-            rajeshExclusion.email = 'rajesh.warvadkar@sabre.com';
+        // Default exclusion login supplied for the ATS BLR portal.
+        if (!exclusionEmployees.some(ex => cleanSgId(ex.sg_id) === '223174')) {
+            exclusionEmployees.push({
+                sg_id: '223174',
+                name: 'Rajesh Warvadkar',
+                email: 'rajesh.warvadkar@sabre.com'
+            });
             localStorage.setItem('ats_exclusion_emps', JSON.stringify(exclusionEmployees));
         }
 
@@ -2617,29 +3168,37 @@ function generateUppercase8CharPassword() {
         function executeAddExclusionEmployee() {
             const rawId = document.getElementById('exclusionSgId').value.trim();
             const name = document.getElementById('exclusionEmpName').value.trim();
-            const email = normalizeLoginEmail(document.getElementById('exclusionEmail').value);
+            const email = normalizeLoginEmail(document.getElementById('exclusionEmpEmail').value.trim());
 
             if (!rawId || !name || !email) {
-                alert("Please enter Full Name, Email Address and Employee ID.");
+                alert("Please enter Employee ID, Full Name, and Email Address.");
+                return;
+            }
+
+            if (!/^\S+@\S+\.\S+$/.test(email)) {
+                alert("Please enter a valid Email Address.");
                 return;
             }
 
             const cleanId = cleanSgId(rawId);
+
             const existingIndex = exclusionEmployees.findIndex(e => cleanSgId(e.sg_id) === cleanId);
-            const record = { sg_id: cleanId, name: name, email: email };
+            const exclusionRecord = { sg_id: cleanId, name: name, email: email };
+            if (existingIndex !== -1) {
+                exclusionEmployees[existingIndex] = exclusionRecord;
+            } else {
+                exclusionEmployees.push(exclusionRecord);
+            }
 
-            if (existingIndex !== -1) exclusionEmployees[existingIndex] = record;
-            else exclusionEmployees.push(record);
-
-            // Exclusion users never receive or require a password.
-            delete userCredentials[cleanId];
+            // Exclusion access uses Email Address + Employee ID. No password is created
+            // or required for exclusion users.
             saveCredentialsToStorageAndCloud();
 
             document.getElementById('exclusionSgId').value = '';
             document.getElementById('exclusionEmpName').value = '';
-            document.getElementById('exclusionEmail').value = '';
+            document.getElementById('exclusionEmpEmail').value = '';
 
-            alert(`Exclusion Employee ${name} (ID ${cleanId}) added.\n\nLogin requires the registered Email Address + Employee ID. No password is used.`);
+            alert(`Exclusion Employee SG${cleanId} (${name}) added successfully.`);
             openAdminPassManagerModal();
         }
 
@@ -3035,9 +3594,9 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 }
             }
 
-            // Save EMAIL ONLY. Employee ID must always be entered manually.
+            // Save email + employee ID locally so the browser can autofill them next time.
             // The browser's own password manager controls whether it offers to save the admin password.
-            saveLoginIdentity(inputEmail);
+            saveLoginIdentity(inputEmail, cleanId);
 
             activeUserSession = {
                 sg_id: cleanId,
@@ -3045,8 +3604,6 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 email: inputEmail,
                 isAdmin: isAdmin
             };
-
-            saveActivePortalSession();
 
             // A normal login always opens the public roster. Admin Mode remains a separate
             // action from the user menu and requires the existing Admin Authentication dialog.
@@ -3064,17 +3621,22 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             document.getElementById('userDropdownTitle').innerText = activeUserSession.empName;
             document.getElementById('userDropdownSgId').innerText = `SG ID: ${activeUserSession.sg_id}`;
 
+            const switchBtn = document.getElementById('switchModeBtn');
             const switchBtnIcon = document.getElementById('switchModeIcon');
             const switchBtnLabel = document.getElementById('switchModeLabel');
+
+            // Only SG ID 316092 is permitted to access Admin Mode.
+            // All regular employees and all exclusion-access employees see Logout only.
+            const isAuthorizedAdmin = cleanSgId(activeUserSession.sg_id) === '316092';
+            if (switchBtn) {
+                switchBtn.classList.toggle('hidden', !isAuthorizedAdmin);
+            }
 
             const adminBadge = document.getElementById('adminBadge');
             const adminDock = document.getElementById('adminImportContainer');
             const adminPdfCalendarUpload = document.getElementById('adminPdfCalendarUpload');
             const adminDeleteMonthBtn = document.getElementById('adminDeleteMonthBtn');
             const adminDeleteWeekBtn = document.getElementById('adminDeleteWeekBtn');
-            const switchModeBtn = document.getElementById('switchModeBtn');
-            const canUseAdminMode = !!(activeUserSession && activeUserSession.isAdmin);
-            if (switchModeBtn) switchModeBtn.classList.toggle('hidden', !canUseAdminMode);
 
             if (isAdminMode) {
                 adminBadge.classList.remove('hidden');
@@ -3099,7 +3661,13 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
 
         function handleSwitchModeClick() {
             document.getElementById('userProfileDropdown').classList.add('hidden');
-            if (!activeUserSession || !activeUserSession.isAdmin) return;
+
+            // Hard guard: only the designated admin SG ID may switch into Admin Mode.
+            if (!activeUserSession || cleanSgId(activeUserSession.sg_id) !== '316092') {
+                isAdminMode = false;
+                updateTopRightUserHeader();
+                return;
+            }
 
             if (isAdminMode) {
                 // IMPORTANT: Switching from Admin to Normal must discard the Admin-only
@@ -3134,7 +3702,6 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             activeUserSession = null;
             isAdminMode = false;
             pendingChangesExist = false;
-            try { localStorage.removeItem(ACTIVE_SESSION_STORAGE_KEY); } catch (_) {}
             stopAdminNotificationPolling();
 
             document.getElementById('userProfileDropdown').classList.add('hidden');
@@ -3147,52 +3714,12 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             renderView();
         }
 
-        // Keep the authenticated portal session across normal page refresh/reload.
-        // The email is saved separately; the active session stores only the already-verified
-        // identity so the roster remains visible without forcing the user back to login.
-        function saveActivePortalSession() {
-            try {
-                if (activeUserSession) {
-                    localStorage.setItem(ACTIVE_SESSION_STORAGE_KEY, JSON.stringify(activeUserSession));
-                }
-            } catch (_) {}
-        }
-
-        function restoreActivePortalSession() {
-            try {
-                const saved = JSON.parse(localStorage.getItem(ACTIVE_SESSION_STORAGE_KEY) || 'null');
-                if (!saved || !saved.sg_id || !saved.email) return false;
-                activeUserSession = {
-                    sg_id: cleanSgId(saved.sg_id),
-                    empName: String(saved.empName || ''),
-                    email: normalizeLoginEmail(saved.email),
-                    isAdmin: !!saved.isAdmin
-                };
-                isAdminMode = false;
-                pendingChangesExist = false;
-                const profileDropdown = document.getElementById('userProfileDropdown');
-                if (profileDropdown) profileDropdown.classList.add('hidden');
-                const loginModal = document.getElementById('mandatoryLoginModal');
-                if (loginModal) loginModal.classList.add('hidden', 'opacity-0', 'pointer-events-none');
-                updateTopRightUserHeader();
-                return true;
-            } catch (_) {
-                return false;
-            }
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
-            const restored = restoreActivePortalSession();
-            if (!restored) {
-                const loginModal = document.getElementById('mandatoryLoginModal');
-                if (loginModal) loginModal.classList.remove('hidden', 'opacity-0', 'pointer-events-none');
-                loadSavedLoginIdentity();
-            }
             const emailEl = document.getElementById('loginEmail');
             const idEl = document.getElementById('loginEmpId');
             if (emailEl) emailEl.addEventListener('input', updateAdminPasswordVisibility);
             if (idEl) idEl.addEventListener('input', updateAdminPasswordVisibility);
-            if (!restored) loadSavedLoginIdentity();
+            loadSavedLoginIdentity();
         });
 
         function grantPortalAccess() {
@@ -4046,11 +4573,9 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             if(cat === 'holidays') document.getElementById('tabHolidays').classList.add('active');
 
             if(cat === 'weekly') {
-                // Roster Schedule always opens on the real current calendar month/week.
-                // This is independent of whichever period was last viewed in another tab.
-                const livePeriod = detectCurrentPeriod();
-                currentMonth = livePeriod.month;
-                currentWeekNum = livePeriod.week_num;
+                // Month/Week are shared global selections. Returning to Roster Schedule
+                // must restore exactly the Month/Week selected in the previous tab.
+                // Do NOT reset them to the live/current calendar period here.
                 individualMonthFilter = currentMonth;
                 document.getElementById('periodNavigator').classList.remove('hidden');
                 document.getElementById('weekNavigator').classList.remove('hidden');
@@ -4283,36 +4808,36 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 }
 
                 return `
-                    <select onchange="updateShiftInteractive('${sgId}', '${day}', this)" class="roster-shift-select bg-white border border-slate-300 text-slate-800 text-xs font-bold rounded px-1.5 py-1 focus:ring-2 focus:ring-indigo-500 shadow-sm cursor-pointer w-full max-w-[130px] ${pendingChangesExist ? 'pending-change' : ''}">
+                    <select onchange="updateShiftInteractive('${sgId}', '${day}', this)" class="bg-white border border-slate-300 text-slate-800 text-xs font-bold rounded px-1.5 py-1 focus:ring-2 focus:ring-indigo-500 shadow-sm cursor-pointer w-full max-w-[130px] ${pendingChangesExist ? 'pending-change' : ''}">
                         ${optionsHtml}
                     </select>
                 `;
             }
 
             if (!shift || shift === 'WO') {
-                return `<span class="roster-shift-badge inline-flex items-center px-2 py-1 rounded-md text-xs font-bold bg-slate-100 text-slate-700 border border-slate-300 shadow-sm">WO</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-bold bg-slate-100 text-slate-700 border border-slate-300 shadow-sm">WO</span>`;
             } else if (shift === 'PTO') {
-                return `<span class="roster-shift-badge inline-flex items-center px-2 py-1 rounded-md text-xs font-extrabold bg-rose-600 text-white border border-rose-700 shadow-md">PTO</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-rose-600 text-white border border-rose-700 shadow-md">PTO</span>`;
             } else if (shift === 'PH') {
-                return `<span class="roster-shift-badge inline-flex items-center px-2 py-1 rounded-md text-xs font-extrabold bg-purple-100 text-purple-900 border border-purple-400 shadow-sm">PH</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-purple-100 text-purple-900 border border-purple-400 shadow-sm">PH</span>`;
             } else if (shift === 'SL' || shift === 'HD SL') {
-                return `<span class="roster-shift-badge inline-flex items-center px-2 py-1 rounded-md text-xs font-extrabold bg-rose-100 text-rose-800 border border-rose-300 shadow-sm">${shift}</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-rose-100 text-rose-800 border border-rose-300 shadow-sm">${shift}</span>`;
             } else if (shift === '1st Half Off') {
-                return `<span class="roster-shift-badge inline-flex items-center px-2 py-1 rounded-md text-xs font-extrabold bg-orange-100 text-orange-950 border border-orange-400 shadow-sm" title="1st Half Off">1st Half Off</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-orange-100 text-orange-950 border border-orange-400 shadow-sm" title="1st Half Off">1st Half Off</span>`;
             } else if (shift === '2nd Half Off') {
-                return `<span class="roster-shift-badge inline-flex items-center px-2 py-1 rounded-md text-xs font-extrabold bg-amber-200 text-amber-950 border border-amber-500 shadow-sm" title="2nd Half Off">2nd Half Off</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-amber-200 text-amber-950 border border-amber-500 shadow-sm" title="2nd Half Off">2nd Half Off</span>`;
             } else if (shift.includes("10:00")) {
-                return `<span class="roster-shift-badge inline-flex items-center px-2 py-1 rounded-md text-xs font-extrabold bg-amber-100 text-amber-950 border border-amber-400 shadow-sm" title="${shift}">10:00 AM</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-amber-100 text-amber-950 border border-amber-400 shadow-sm" title="${shift}">10:00 AM</span>`;
             } else if (shift.includes("06:30") || shift.includes("6:30")) {
-                return `<span class="roster-shift-badge inline-flex items-center px-2 py-1 rounded-md text-xs font-extrabold bg-emerald-200 text-emerald-950 border border-emerald-500 shadow-sm" title="${shift}">06:30 AM</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-emerald-200 text-emerald-950 border border-emerald-500 shadow-sm" title="${shift}">06:30 AM</span>`;
             } else if (shift.includes("06:00") || shift.includes("6:00")) {
-                return `<span class="roster-shift-badge inline-flex items-center px-2 py-1 rounded-md text-xs font-extrabold bg-emerald-100 text-emerald-900 border border-emerald-400 shadow-sm" title="${shift}">06:00 AM</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-emerald-100 text-emerald-900 border border-emerald-400 shadow-sm" title="${shift}">06:00 AM</span>`;
             } else if (shift.includes("07:00") || shift.includes("7:00")) {
-                return `<span class="roster-shift-badge inline-flex items-center px-2 py-1 rounded-md text-xs font-extrabold bg-teal-100 text-teal-900 border border-teal-400 shadow-sm" title="${shift}">07:00 AM</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-teal-100 text-teal-900 border border-teal-400 shadow-sm" title="${shift}">07:00 AM</span>`;
             } else if (shift.includes("08:00") || shift.includes("8:00")) {
-                return `<span class="roster-shift-badge inline-flex items-center px-2 py-1 rounded-md text-xs font-extrabold bg-blue-100 text-blue-900 border border-blue-400 shadow-sm" title="${shift}">08:00 AM</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-blue-100 text-blue-900 border border-blue-400 shadow-sm" title="${shift}">08:00 AM</span>`;
             } else {
-                return `<span class="roster-shift-badge inline-flex items-center px-2 py-1 rounded-md text-xs font-extrabold bg-indigo-100 text-indigo-900 border border-indigo-400 shadow-sm">${shift}</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-indigo-100 text-indigo-900 border border-indigo-400 shadow-sm">${shift}</span>`;
             }
         }
 
@@ -4401,10 +4926,10 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 const isToday = (dateLabel === TODAY_DATE_STR);
                 
                 const headerClass = isToday 
-                    ? 'roster-day-header p-2.5 text-center border-r border-slate-800 current-day-header' 
-                    : 'roster-day-header p-2.5 text-center border-r border-slate-800';
+                    ? 'p-2.5 sm:p-4 text-center border-r border-slate-800 current-day-header min-w-[100px] sm:min-w-0' 
+                    : 'p-2.5 sm:p-4 text-center border-r border-slate-800 min-w-[100px] sm:min-w-0';
 
-                headerHTML += `<th class="${headerClass}"><span class="roster-day-name">${d}</span><span class="roster-day-date">${dateLabel}</span></th>`;
+                headerHTML += `<th class="${headerClass}">${d} (${dateLabel})</th>`;
             });
 
             if (isAdminMode) {
@@ -4437,8 +4962,8 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                         const isToday = (dateLabel === TODAY_DATE_STR);
                         
                         const cellClass = isToday 
-                            ? 'roster-shift-cell p-2.5 text-center border-r border-slate-100 current-day-col' 
-                            : 'roster-shift-cell p-2.5 text-center border-r border-slate-100';
+                            ? 'p-2.5 sm:p-4 text-center border-r border-slate-100 current-day-col' 
+                            : 'p-2.5 sm:p-4 text-center border-r border-slate-100';
 
                         bodyHTML += `<td class="${cellClass}">${getShiftBadge(e.shifts ? e.shifts[d] : 'WO', e.sg_id, d)}</td>`;
                     });
@@ -4458,7 +4983,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             document.getElementById('mainDisplayArea').innerHTML = `
                 <div class="bg-white rounded-xl table-3d overflow-hidden w-full">
                     <div class="overflow-x-auto no-scrollbar w-full">
-                        <table class="w-full border-collapse roster-week-table">
+                        <table class="w-full border-collapse">
                             ${headerHTML}
                             <tbody class="divide-y divide-slate-100">${bodyHTML}</tbody>
                         </table>
