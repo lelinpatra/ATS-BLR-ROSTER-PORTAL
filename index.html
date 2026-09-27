@@ -368,43 +368,18 @@
                 min-width: 0 !important;
                 flex: 1 1 auto !important;
             }
-            @media (max-width: 767px) {
-                header .sabre-logo-fallback {
-                    display: inline-flex !important;
-                    align-items: center;
-                    height: 22px !important;
-                    min-width: 62px !important;
-                    max-width: 62px !important;
-                }
-                header .sabre-logo-fallback svg {
-                    width: 62px !important;
-                    height: 22px !important;
-                }
-                header img[alt="Sabre Logo"] {
-                    display: block !important;
-                    height: 22px !important;
-                    max-width: 62px !important;
-                    object-fit: contain !important;
-                }
-                header > div:first-child {
-                    flex-wrap: nowrap !important;
-                    overflow: visible !important;
-                }
-            }
-            @media (max-width: 380px) {
-                header .sabre-logo-fallback {
-                    height: 20px !important;
-                    min-width: 56px !important;
-                    max-width: 56px !important;
-                }
-                header .sabre-logo-fallback svg {
-                    width: 56px !important;
-                    height: 20px !important;
-                }
-                header img[alt="Sabre Logo"] {
-                    height: 20px !important;
-                    max-width: 56px !important;
-                }
+            /* Post-login header: never render the struck fallback logo.
+               Keep the real logo responsive in both portrait and landscape. */
+            header .sabre-logo-fallback,
+            header .sabre-logo-fallback.force-show { display:none !important; }
+            header img[alt="Sabre Logo"] {
+                display:block !important;
+                flex:0 0 auto !important;
+                width:auto !important;
+                height:clamp(20px, 3vw, 26px) !important;
+                max-width:min(96px, 18vw) !important;
+                object-fit:contain !important;
+                visibility:visible !important;
             }
 
 
@@ -513,12 +488,6 @@
             #periodNavigator label { font-size:9px; }
         }
 
-        @media (orientation: landscape) and (max-height: 600px) and (max-width: 900px) {
-            #worldClocksContainer > div { height:70px; }
-            .chart-container-wrapper { height:180px; }
-            main { padding-top:8px !important; }
-        }
-
         @media (max-width: 380px) {
             .login-shell { padding: 8px; }
             .login-card { border-radius: 16px; }
@@ -571,12 +540,9 @@
         #worldClocksContainer .font-orbitron{white-space:nowrap;}
         #mainDisplayArea table td:nth-child(3) > span{white-space:nowrap;display:inline-flex;}
         @media (orientation:landscape) and (max-width:900px){
-          #worldClocksContainer{grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;}
-          #worldClocksContainer > div{min-width:0;height:72px;padding:7px 8px;}
-          #worldClocksContainer [id^="clock-"]{font-size:clamp(14px,3.1vw,18px)!important;line-height:1.1;letter-spacing:-.02em;}
-          #worldClocksContainer [id^="date-"]{white-space:nowrap;font-size:8px;line-height:1;}
-          #worldClocksContainer .font-orbitron{font-size:9px!important;line-height:1;}
-          #mainDisplayArea table td:nth-child(3) > span{white-space:nowrap;min-width:max-content;}
+          /* Landscape changes only the number of clock columns; keep card typography,
+             heights, roster sizing and spacing on the same responsive baseline as portrait. */
+          #worldClocksContainer{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;}
         }
         @media(max-width:620px){.world-time-panel{border-radius:18px}.world-time-body{padding:11px}.world-time-selectors,.world-time-compare-results{grid-template-columns:1fr}.world-time-head{padding:15px}.world-time-value{font-size:21px}.world-time-compare-card{min-height:100px}}
         @media(max-width:380px){.world-time-panel{width:calc(100vw - 14px)}.world-time-title{font-size:13px}.world-time-subtitle{font-size:9px}.world-time-value{font-size:19px}}
