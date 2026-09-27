@@ -2952,18 +2952,30 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 return;
             }
 
-            const cleanId = activeUserSession.sg_id;
+            const cleanId = cleanSgId(activeUserSession.sg_id);
             const previousCredential = userCredentials[cleanId] ? { ...userCredentials[cleanId] } : null;
 
-            // IMPORTANT: Do not activate the employee's new password yet. The current
-            // credential remains the only valid login credential until Admin approval.
             if (!previousCredential) {
-                errEl.innerText = "Unable to create the approval request because the current employee credential could not be found.";
+                errEl.innerText = "Unable to update your password because your current employee credential could not be found.";
                 errEl.classList.remove('hidden');
                 return;
             }
 
-            adminResetRequests = adminResetRequests.filter(r => !(r.sg_id === cleanId && r.type === 'APPROVAL_REQUEST'));
+            // The employee's new password becomes active IMMEDIATELY. The Admin request
+            // is only a notification/cloud-approval record; it must never block the
+            // employee from continuing to use the portal.
+            userCredentials[cleanId] = {
+                ...previousCredential,
+                password: newPass,
+                isTemporary: false,
+                pendingApproval: true,
+                status: 'ACTIVE',
+                lastChanged: new Date().getTime()
+            };
+
+            // Keep a separate Admin notification so the Admin can approve the new
+            // credential for shared cloud use. The employee is not shown this status.
+            adminResetRequests = adminResetRequests.filter(r => !(cleanSgId(r.sg_id) === cleanId && r.type === 'APPROVAL_REQUEST'));
             adminResetRequests.push({
                 type: 'APPROVAL_REQUEST',
                 sg_id: cleanId,
@@ -2974,15 +2986,17 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 status: 'PENDING'
             });
 
-            // Keep the employee signed in on the current session, but do not make the
-            // new password usable anywhere until the Admin approves it.
+            // Save the new password locally so the employee can log in immediately.
+            // The employee browser must not attempt a GitHub write with an Admin token.
+            localStorage.setItem('ats_user_creds', JSON.stringify(userCredentials));
             localStorage.setItem('ats_admin_requests', JSON.stringify(adminResetRequests));
-            renderSelectedEmployeePasswordStatus();
 
             document.getElementById('passwordExpiredModal').classList.add('hidden');
             grantPortalAccess();
 
-            alert("Password change request submitted to Admin. Your new password will become active only after Admin approval.");
+            // Do not mention Admin approval to the employee. Approval is an Admin-side
+            // cloud synchronization step only.
+            alert("Your password has been changed successfully. You can continue using the portal with your new password.");
         }
 
         function checkPendingAdminNotifications() {
@@ -3010,16 +3024,16 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             } else if (req.type === 'APPROVAL_REQUEST') {
                 content.innerHTML = `
                     <div class="bg-indigo-50 border border-indigo-200 p-3 rounded-lg">
-                        <p class="font-bold text-indigo-900 text-sm mb-1">Password Cloud Sync Approval</p>
+                        <p class="font-bold text-indigo-900 text-sm mb-1">Password Change Approval</p>
                         <p><strong>Employee Name:</strong> ${req.name}</p>
                         <p><strong>Employee ID:</strong> SG${req.sg_id}</p>
                         <p class="text-[10px] text-slate-500 mt-1">Submitted at: ${req.requestedAt}</p>
                     </div>
-                    <p class="text-xs text-slate-600">The employee has requested a new password. The new password is NOT active yet. Approve it to save it to the shared cloud roster; only then can the employee use it on future logins.</p>
+                    <p class="text-xs text-slate-600">The employee's new password is already active. Approve this request to publish the updated credential to the shared cloud roster for future logins on other devices.</p>
                 `;
                 actions.innerHTML = `
-                    <button onclick="rejectPasswordChange('${req.sg_id}')" class="px-3 py-1.5 bg-rose-600 hover:bg-rose-500 text-white font-bold rounded-lg text-xs btn-3d">Cancel</button>
-                    <button onclick="approvePasswordChange('${req.sg_id}')" class="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg text-xs btn-3d">Approve for Cloud Login</button>
+                    <button onclick="rejectPasswordChange('${req.sg_id}')" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-lg text-xs btn-3d">Dismiss</button>
+                    <button onclick="approvePasswordChange('${req.sg_id}')" class="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg text-xs btn-3d">Approve & Sync</button>
                 `;
             }
 
@@ -3102,41 +3116,54 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 return;
             }
 
-            // Only Admin approval activates the requested password.
-            const previous = userCredentials[cleanId] ? { ...userCredentials[cleanId] } : (req.previousCredential ? { ...req.previousCredential } : null);
-            userCredentials[cleanId] = {
-                ...(previous || {}),
-                password: req.newPassword,
-                isTemporary: false,
-                pendingApproval: false,
-                status: 'ACTIVE',
-                lastChanged: new Date().getTime()
-            };
+            // The employee's new password is already active locally. Admin approval
+            // simply clears the notification and commits that active credential to the
+            // shared cloud roster so it can be used on future devices/sessions.
+            const activeCredential = userCredentials[cleanId] || null;
+            if (!activeCredential || activeCredential.password !== req.newPassword) {
+                userCredentials[cleanId] = {
+                    ...(req.previousCredential || {}),
+                    password: req.newPassword,
+                    isTemporary: false,
+                    pendingApproval: false,
+                    status: 'ACTIVE',
+                    lastChanged: new Date().getTime()
+                };
+            } else {
+                userCredentials[cleanId] = {
+                    ...activeCredential,
+                    pendingApproval: false,
+                    status: 'ACTIVE'
+                };
+            }
 
             adminResetRequests = adminResetRequests.filter(r => !(cleanSgId(r.sg_id) === cleanId && r.type === 'APPROVAL_REQUEST'));
 
-            // This Admin action is the cloud-commit point: the approved credential and
-            // cleared request are written to the shared roster.json.
+            // This Admin action is the cloud-commit point.
             saveCredentialsToStorageAndCloud();
             renderSelectedEmployeePasswordStatus();
 
-            alert(`Password approved and saved to Cloud for SG${cleanId}. Employee can now use the new password until it expires.`);
+            alert(`Password change approved and synchronized to Cloud for SG${cleanId}.`);
             dismissAdminNotice();
             checkPendingAdminNotifications();
         }
 
         function rejectPasswordChange(sgId) {
-            const req = adminResetRequests.find(r => r.sg_id === sgId && r.type === 'APPROVAL_REQUEST');
-            if (req && req.previousCredential) {
-                userCredentials[sgId] = { ...req.previousCredential };
-            } else {
-                delete userCredentials[sgId];
+            // The new password is already active for the employee. Dismissing the
+            // notification must not roll it back or lock the employee out.
+            const cleanId = cleanSgId(sgId);
+            if (userCredentials[cleanId]) {
+                userCredentials[cleanId] = {
+                    ...userCredentials[cleanId],
+                    pendingApproval: false,
+                    status: 'ACTIVE'
+                };
             }
-            adminResetRequests = adminResetRequests.filter(r => r.sg_id !== sgId);
+            adminResetRequests = adminResetRequests.filter(r => !(cleanSgId(r.sg_id) === cleanId && r.type === 'APPROVAL_REQUEST'));
             saveCredentialsToStorageAndCloud();
             renderSelectedEmployeePasswordStatus();
 
-            alert(`Password approval request canceled for SG${sgId}. The previous password has been restored.`);
+            alert(`Password approval notification dismissed for SG${cleanId}. The employee's new password remains active.`);
             dismissAdminNotice();
             checkPendingAdminNotifications();
         }
