@@ -448,11 +448,27 @@
             vertical-align: middle;
         }
         #mainDisplayArea .roster-week-table .roster-day-header {
-            padding: 10px 6px !important;
+            padding: 8px 5px !important;
             min-width: 0 !important;
             width: auto;
             vertical-align: middle;
+            white-space: normal !important;
+            overflow-wrap: anywhere;
+            word-break: normal;
+            line-height: 1.15;
         }
+        #mainDisplayArea .roster-week-table .roster-day-header .roster-day-name,
+        #mainDisplayArea .roster-week-table .roster-day-header .roster-day-date {
+            display:inline;
+            width:auto;
+            white-space:normal !important;
+            overflow-wrap:anywhere;
+            word-break:normal;
+        }
+        #mainDisplayArea .roster-week-table .roster-day-header .roster-day-name { font-weight:800; }
+        #mainDisplayArea .roster-week-table .roster-day-header .roster-day-date { margin-top:0; font-size:1em; opacity:.9; }
+        #mainDisplayArea .roster-week-table .roster-day-header .roster-day-name::after { content:" ("; }
+        #mainDisplayArea .roster-week-table .roster-day-header .roster-day-date::after { content:")"; }
         #mainDisplayArea .roster-week-table .roster-shift-badge {
             box-sizing: border-box;
             display: inline-flex !important;
@@ -496,7 +512,7 @@
             main { padding:10px 10px 18px !important; gap:12px; }
             #worldClocksContainer { grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
             #worldClocksContainer > div { min-width:0; height:82px; padding:9px; }
-            #worldClocksContainer [id^="clock-"] { font-size:clamp(14px,4.5vw,18px); }
+            #worldClocksContainer [id^="clock-"] { font-size:clamp(12px,4vw,17px) !important; overflow:visible; white-space:nowrap; }
             #worldClocksContainer [id^="date-"] { font-size:9px; white-space:nowrap; }
 
             /* Tabs remain readable and scroll horizontally instead of squeezing/wrapping. */
@@ -523,6 +539,7 @@
             #mainDisplayArea .roster-week-table .roster-day-header,
             #mainDisplayArea .roster-week-table .roster-shift-cell { min-width:100px !important; width:100px; }
             #mainDisplayArea table th, #mainDisplayArea table td { white-space:nowrap; }
+            #mainDisplayArea .roster-week-table .roster-day-header { white-space:normal !important; }
             #mainDisplayArea table th:first-child, #mainDisplayArea table td:first-child { position:sticky; left:0; z-index:9; }
 
             /* Holiday/profile tables can use the available width where practical. */
@@ -597,7 +614,22 @@
         .world-time-foot{padding:9px 16px 11px;border-top:1px solid rgba(125,211,252,.12);font-size:8px;color:#64748b;text-align:center;position:relative;z-index:2}
         .clock-futuristic-3d{cursor:pointer}.clock-futuristic-3d:focus-visible{outline:2px solid #38bdf8;outline-offset:2px}
         /* Mobile landscape stability: keep clock values on one line and avoid per-second layout shifts. */
-        #worldClocksContainer [id^="clock-"]{white-space:nowrap;word-break:keep-all;overflow:hidden;text-overflow:clip;display:block;min-width:0;}
+        #worldClocksContainer [id^="clock-"]{
+            white-space:nowrap;
+            word-break:keep-all;
+            overflow:visible !important;
+            text-overflow:clip;
+            display:block;
+            min-width:0;
+            width:100%;
+            max-width:100%;
+            box-sizing:border-box;
+            font-size:clamp(10px,1.25vw,18px) !important;
+            letter-spacing:-.06em;
+            line-height:1.15;
+            text-align:left;
+            font-variant-numeric:tabular-nums;
+        }
         #worldClocksContainer .font-orbitron{white-space:nowrap;}
         #mainDisplayArea table td:nth-child(3) > span{white-space:nowrap;display:inline-flex;}
         @media (orientation:landscape) and (max-width:900px){
@@ -4372,7 +4404,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                     ? 'roster-day-header p-2.5 text-center border-r border-slate-800 current-day-header' 
                     : 'roster-day-header p-2.5 text-center border-r border-slate-800';
 
-                headerHTML += `<th class="${headerClass}">${d} (${dateLabel})</th>`;
+                headerHTML += `<th class="${headerClass}"><span class="roster-day-name">${d}</span><span class="roster-day-date">${dateLabel}</span></th>`;
             });
 
             if (isAdminMode) {
