@@ -1484,8 +1484,26 @@ body.ats-theme-active #mandatoryLoginModal .login-input::placeholder { color:#64
 <style id="ats-uniform-mobile-shift-cells">
 /* Uniform shift cells across Monday-Sunday, especially in mobile landscape. */
 #mainDisplayArea table td:nth-child(n+3):nth-child(-n+9){vertical-align:middle!important;text-align:center!important;box-sizing:border-box!important;}
-#mainDisplayArea table td:nth-child(n+3):nth-child(-n+9)>span,#mainDisplayArea table td:nth-child(n+3):nth-child(-n+9)>select{box-sizing:border-box!important;min-width:88px!important;width:auto!important;max-width:none!important;min-height:30px!important;margin:0 auto!important;vertical-align:middle!important;white-space:nowrap!important;line-height:1.15!important;}
-@media (orientation:landscape) and (max-width:900px){#mainDisplayArea table td:nth-child(n+3):nth-child(-n+9)>span,#mainDisplayArea table td:nth-child(n+3):nth-child(-n+9)>select{min-width:88px!important;min-height:30px!important;padding-left:10px!important;padding-right:10px!important;font-size:12px!important;}}
+#mainDisplayArea table td:nth-child(n+3):nth-child(-n+9)>span{box-sizing:border-box!important;min-width:0!important;width:max-content!important;max-width:none!important;min-height:30px!important;margin:0 auto!important;vertical-align:middle!important;white-space:nowrap!important;line-height:1.15!important;text-align:center!important;justify-content:center!important;}
+#mainDisplayArea table td:nth-child(n+3):nth-child(-n+9)>select{box-sizing:border-box!important;min-width:88px!important;width:auto!important;max-width:none!important;min-height:30px!important;margin:0 auto!important;vertical-align:middle!important;white-space:nowrap!important;line-height:1.15!important;}
+@media (orientation:landscape) and (max-width:900px){#mainDisplayArea table td:nth-child(n+3):nth-child(-n+9)>span{min-width:0!important;width:max-content!important;min-height:30px!important;padding-left:10px!important;padding-right:10px!important;font-size:12px!important;}#mainDisplayArea table td:nth-child(n+3):nth-child(-n+9)>select{min-width:88px!important;min-height:30px!important;padding-left:10px!important;padding-right:10px!important;font-size:12px!important;}}
+
+/* Restore original content-sized centered PTO / SL roster badges. */
+#mainDisplayArea table td.roster-shift-cell .roster-status-badge,
+#mainDisplayArea table td:nth-child(n+3):nth-child(-n+9) > span.roster-status-badge{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:max-content!important;
+  min-width:0!important;
+  max-width:none!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  text-align:center!important;
+  white-space:nowrap!important;
+  box-sizing:border-box!important;
+}
+
 </style>
 </head>
 <body class="min-h-screen flex flex-col w-full overflow-x-hidden relative pb-16">
@@ -5152,7 +5170,9 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                     optionsHtml += `<option value="${opt}" ${selected}>${opt}</option>`;
                 });
 
-                if (!matchFound && shift) {
+                // HD SL remains a valid roster status for display, but it must never
+                // appear as an Admin shift-selection option.
+                if (!matchFound && shift && shift !== 'HD SL') {
                     optionsHtml += `<option value="${shift}" selected>${shift}</option>`;
                 }
 
@@ -5166,11 +5186,11 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             if (!shift || shift === 'WO') {
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-bold bg-slate-100 text-slate-700 border border-slate-300 shadow-sm">WO</span>`;
             } else if (shift === 'PTO') {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-rose-600 text-white border border-rose-700 shadow-md">PTO</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-rose-600 text-white border border-rose-700 shadow-md roster-status-badge">PTO</span>`;
             } else if (shift === 'PH') {
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-purple-100 text-purple-900 border border-purple-400 shadow-sm">PH</span>`;
             } else if (shift === 'SL' || shift === 'HD SL') {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-rose-100 text-rose-800 border border-rose-300 shadow-sm">${shift}</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-rose-100 text-rose-800 border border-rose-300 shadow-sm roster-status-badge">${shift}</span>`;
             } else if (shift === '1st Half Off') {
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-orange-100 text-orange-950 border border-orange-400 shadow-sm" title="1st Half Off">1st Half Off</span>`;
             } else if (shift === '2nd Half Off') {
@@ -5314,7 +5334,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                             ? 'p-2.5 sm:p-4 text-center border-r border-slate-100 current-day-col' 
                             : 'p-2.5 sm:p-4 text-center border-r border-slate-100';
 
-                        bodyHTML += `<td class="${cellClass}">${getShiftBadge(e.shifts ? e.shifts[d] : 'WO', e.sg_id, d)}</td>`;
+                        bodyHTML += `<td class="${cellClass} roster-shift-cell">${getShiftBadge(e.shifts ? e.shifts[d] : 'WO', e.sg_id, d)}</td>`;
                     });
 
                     if (isAdminMode) {
