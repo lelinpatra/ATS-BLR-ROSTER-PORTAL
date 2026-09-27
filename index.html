@@ -1641,6 +1641,52 @@ body.ats-theme-active #mainDisplayArea table th{letter-spacing:.015em}
 }
 @media(prefers-reduced-motion:reduce){body.ats-theme-active *,body.ats-theme-active *::before,body.ats-theme-active *::after{transition:none!important;animation:none!important}}
 </style>
+
+<style id="roster-day-date-layout-lock">
+/* ============================================================
+   ROSTER MASTER LAYOUT — DAY + DATE MUST NEVER STACK
+   The Original ATS roster header is the structural master.
+   Themes may change visual styling only, never this layout.
+   ============================================================ */
+#mainDisplayArea table.roster-table thead th,
+#mainDisplayArea table[data-roster-table] thead th,
+#mainDisplayArea .roster-table thead th {
+    white-space: nowrap !important;
+    word-break: keep-all !important;
+    overflow-wrap: normal !important;
+    hyphens: none !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+}
+
+/* Keep each day/date heading as one uninterrupted inline string. */
+#mainDisplayArea table.roster-table thead th:not(:first-child):not(:nth-child(2)),
+#mainDisplayArea table[data-roster-table] thead th:not(:first-child):not(:nth-child(2)),
+#mainDisplayArea .roster-table thead th:not(:first-child):not(:nth-child(2)) {
+    min-width: max-content !important;
+}
+
+/* Theme engine must not alter roster header typography/geometry. */
+body.ats-theme-active #mainDisplayArea table.roster-table thead th,
+body.ats-theme-active #mainDisplayArea table[data-roster-table] thead th,
+body.ats-theme-active #mainDisplayArea .roster-table thead th {
+    white-space: nowrap !important;
+    word-break: keep-all !important;
+    overflow-wrap: normal !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+}
+
+/* Preserve the Original ATS compact single-line day/date treatment on mobile too. */
+@media (max-width: 767px) {
+    #mainDisplayArea table.roster-table thead th,
+    #mainDisplayArea table[data-roster-table] thead th,
+    #mainDisplayArea .roster-table thead th {
+        white-space: nowrap !important;
+    }
+}
+</style>
+
 </head>
 <body class="min-h-screen flex flex-col w-full overflow-x-hidden relative pb-16">
 
