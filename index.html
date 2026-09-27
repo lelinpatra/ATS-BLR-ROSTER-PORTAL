@@ -510,14 +510,14 @@
         /* Mobile landscape stability: keep clock values on one line and avoid per-second layout shifts. */
         #worldClocksContainer [id^="clock-"]{white-space:nowrap;word-break:keep-all;overflow:hidden;text-overflow:clip;display:block;min-width:0;}
         #worldClocksContainer .font-orbitron{white-space:nowrap;}
-        #mainDisplayArea table td:nth-child(3) > span{white-space:nowrap;display:inline-flex;}
+        #mainDisplayArea table td:nth-child(n+3):nth-child(-n+9) > span{white-space:nowrap;display:inline-flex;}
         @media (orientation:landscape) and (max-width:900px){
           #worldClocksContainer{grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;}
           #worldClocksContainer > div{min-width:0;height:72px;padding:7px 8px;}
           #worldClocksContainer [id^="clock-"]{font-size:clamp(14px,3.1vw,18px)!important;line-height:1.1;letter-spacing:-.02em;}
           #worldClocksContainer [id^="date-"]{white-space:nowrap;font-size:8px;line-height:1;}
           #worldClocksContainer .font-orbitron{font-size:9px!important;line-height:1;}
-          #mainDisplayArea table td:nth-child(3) > span{white-space:nowrap;min-width:max-content;}
+          #mainDisplayArea table td:nth-child(n+3):nth-child(-n+9) > span{white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;min-width:88px;box-sizing:border-box;line-height:1.15;}
         }
         @media(max-width:620px){.world-time-panel{border-radius:18px}.world-time-body{padding:11px}.world-time-selectors,.world-time-compare-results{grid-template-columns:1fr}.world-time-head{padding:15px}.world-time-value{font-size:21px}.world-time-compare-card{min-height:100px}}
         @media(max-width:380px){.world-time-panel{width:calc(100vw - 14px)}.world-time-title{font-size:13px}.world-time-subtitle{font-size:9px}.world-time-value{font-size:19px}}
@@ -1479,6 +1479,13 @@ body.ats-theme-active #mandatoryLoginModal .login-input::placeholder { color:#64
   }
   #mainDisplayArea table td:first-child > div { position:relative; z-index:31; }
 }
+</style>
+
+<style id="ats-uniform-mobile-shift-cells">
+/* Uniform shift cells across Monday-Sunday, especially in mobile landscape. */
+#mainDisplayArea table td:nth-child(n+3):nth-child(-n+9){vertical-align:middle!important;text-align:center!important;box-sizing:border-box!important;}
+#mainDisplayArea table td:nth-child(n+3):nth-child(-n+9)>span,#mainDisplayArea table td:nth-child(n+3):nth-child(-n+9)>select{box-sizing:border-box!important;min-width:88px!important;width:auto!important;max-width:none!important;min-height:30px!important;margin:0 auto!important;vertical-align:middle!important;white-space:nowrap!important;line-height:1.15!important;}
+@media (orientation:landscape) and (max-width:900px){#mainDisplayArea table td:nth-child(n+3):nth-child(-n+9)>span,#mainDisplayArea table td:nth-child(n+3):nth-child(-n+9)>select{min-width:88px!important;min-height:30px!important;padding-left:10px!important;padding-right:10px!important;font-size:12px!important;}}
 </style>
 </head>
 <body class="min-h-screen flex flex-col w-full overflow-x-hidden relative pb-16">
