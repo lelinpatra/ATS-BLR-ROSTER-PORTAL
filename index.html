@@ -611,7 +611,7 @@
 
                 <div class="flex justify-end gap-2 pt-2 border-t">
                     <button type="submit" class="w-full py-2.5 bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold rounded-lg text-xs btn-3d uppercase">
-                        Save Password & Access Portal
+                        Submit Password for Admin Approval
                     </button>
                 </div>
             </form>
@@ -1423,6 +1423,8 @@
             localStorage.setItem('ats_admin_requests', JSON.stringify(adminResetRequests));
             localStorage.setItem('ats_exclusion_emps', JSON.stringify(exclusionEmployees));
 
+            // GitHub cloud writes are performed only by an authenticated Admin session.
+            // Never expose the Admin GitHub token to employee browsers.
             if (rawRosterData && rawRosterData.length > 0) {
                 rawRosterData[0]._user_credentials = userCredentials;
                 rawRosterData[0]._admin_reset_requests = adminResetRequests;
@@ -2712,6 +2714,27 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             return null;
         }
 
+        function getPortalLoginEmployeeName(inputSgId, matchedEmp = null) {
+            const cleanId = cleanSgId(inputSgId);
+
+            // Exclusion users are independent of the roster employee list.
+            // Always resolve their saved name first so they can never inherit
+            // the Admin user's display name as a fallback.
+            const exclusionMatch = Array.isArray(exclusionEmployees)
+                ? exclusionEmployees.find(ex => cleanSgId(ex.sg_id) === cleanId)
+                : null;
+
+            if (exclusionMatch && exclusionMatch.name) {
+                return exclusionMatch.name;
+            }
+
+            if (matchedEmp && matchedEmp.name) {
+                return matchedEmp.name;
+            }
+
+            return cleanId === '316092' ? 'Lelin Patra' : 'Employee';
+        }
+
         function handlePortalLogin(e) {
             e.preventDefault();
             const inputId = document.getElementById('loginEmpId').value.trim();
@@ -2730,6 +2753,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
 
             const cleanId = cleanSgId(inputId);
             const userCred = userCredentials[cleanId] || null;
+            const loginEmployeeName = getPortalLoginEmployeeName(inputId, matchedEmp);
 
             if (userCred) {
                 if (userCred.password !== inputPass) {
@@ -2739,7 +2763,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 }
 
                 if (userCred.isTemporary) {
-                    activeUserSession = { sg_id: cleanId, empName: matchedEmp ? matchedEmp.name : 'Lelin Patra (Admin)' };
+                    activeUserSession = { sg_id: cleanId, empName: loginEmployeeName };
                     document.getElementById('passwordExpiredModal').classList.remove('hidden');
                     return;
                 }
@@ -2751,7 +2775,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 const daysLimit = (cleanId === '316092') ? 90 : 30;
                 const daysDiff = (now - userCred.lastChanged) / (1000 * 60 * 60 * 24);
                 if (daysDiff >= daysLimit) {
-                    activeUserSession = { sg_id: cleanId, empName: matchedEmp ? matchedEmp.name : 'Lelin Patra (Admin)' };
+                    activeUserSession = { sg_id: cleanId, empName: loginEmployeeName };
                     document.getElementById('passwordExpiredModal').classList.remove('hidden');
                     return;
                 }
@@ -2759,7 +2783,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
 
             activeUserSession = {
                 sg_id: cleanId,
-                empName: matchedEmp ? matchedEmp.name : (cleanId === '316092' ? 'Lelin Patra' : 'Employee')
+                empName: loginEmployeeName
             };
 
             // All normal portal logins, including SG ID 316092, enter Normal/Public Mode.
@@ -2844,6 +2868,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             activeUserSession = null;
             isAdminMode = false;
             pendingChangesExist = false;
+            stopAdminNotificationPolling();
 
             document.getElementById('userProfileDropdown').classList.add('hidden');
             document.getElementById('mandatoryLoginModal').classList.remove('hidden', 'opacity-0', 'pointer-events-none');
@@ -2928,34 +2953,36 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             }
 
             const cleanId = activeUserSession.sg_id;
-            
             const previousCredential = userCredentials[cleanId] ? { ...userCredentials[cleanId] } : null;
 
-            // The employee gets immediate access on this device, but the new password
-            // remains pending until an Admin approves it for cloud-wide login.
-            userCredentials[cleanId] = {
-                password: newPass,
-                isTemporary: false,
-                pendingApproval: true,
-                lastChanged: new Date().getTime(),
-                status: 'PENDING_APPROVAL'
-            };
+            // IMPORTANT: Do not activate the employee's new password yet. The current
+            // credential remains the only valid login credential until Admin approval.
+            if (!previousCredential) {
+                errEl.innerText = "Unable to create the approval request because the current employee credential could not be found.";
+                errEl.classList.remove('hidden');
+                return;
+            }
 
-            adminResetRequests = adminResetRequests.filter(r => r.sg_id !== cleanId || r.type !== 'APPROVAL_REQUEST');
+            adminResetRequests = adminResetRequests.filter(r => !(r.sg_id === cleanId && r.type === 'APPROVAL_REQUEST'));
             adminResetRequests.push({
                 type: 'APPROVAL_REQUEST',
                 sg_id: cleanId,
                 name: activeUserSession.empName,
                 newPassword: newPass,
                 previousCredential: previousCredential,
-                requestedAt: new Date().toLocaleTimeString()
+                requestedAt: new Date().toLocaleString(),
+                status: 'PENDING'
             });
 
-            saveCredentialsToStorageAndCloud();
+            // Keep the employee signed in on the current session, but do not make the
+            // new password usable anywhere until the Admin approves it.
+            localStorage.setItem('ats_admin_requests', JSON.stringify(adminResetRequests));
             renderSelectedEmployeePasswordStatus();
 
             document.getElementById('passwordExpiredModal').classList.add('hidden');
             grantPortalAccess();
+
+            alert("Password change request submitted to Admin. Your new password will become active only after Admin approval.");
         }
 
         function checkPendingAdminNotifications() {
@@ -2988,7 +3015,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                         <p><strong>Employee ID:</strong> SG${req.sg_id}</p>
                         <p class="text-[10px] text-slate-500 mt-1">Submitted at: ${req.requestedAt}</p>
                     </div>
-                    <p class="text-xs text-slate-600">Employee has updated their password. Click approve to commit it to the cloud so they can login from any device globally.</p>
+                    <p class="text-xs text-slate-600">The employee has requested a new password. The new password is NOT active yet. Approve it to save it to the shared cloud roster; only then can the employee use it on future logins.</p>
                 `;
                 actions.innerHTML = `
                     <button onclick="rejectPasswordChange('${req.sg_id}')" class="px-3 py-1.5 bg-rose-600 hover:bg-rose-500 text-white font-bold rounded-lg text-xs btn-3d">Cancel</button>
@@ -3001,6 +3028,52 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
 
         function dismissAdminNotice() {
             document.getElementById('adminNotificationModal').classList.add('hidden');
+        }
+
+        // While Admin mode is open, poll the shared roster metadata so new password
+        // requests are surfaced without requiring a manual page refresh.
+        let adminNotificationPollTimer = null;
+        let lastAdminRequestFingerprint = '';
+
+        function getAdminRequestFingerprint(requests) {
+            return JSON.stringify((requests || []).map(r => ({
+                type: r.type,
+                sg_id: cleanSgId(r.sg_id),
+                requestedAt: r.requestedAt,
+                status: r.status
+            })));
+        }
+
+        async function pollCloudAdminNotifications() {
+            if (!isAdminMode) return;
+            try {
+                const response = await fetch('./roster.json?v=' + Date.now(), { cache: 'no-store' });
+                if (!response.ok) return;
+                const cloudData = await response.json();
+                const before = getAdminRequestFingerprint(adminResetRequests);
+                syncCloudCredentialsToLocal(cloudData);
+                const after = getAdminRequestFingerprint(adminResetRequests);
+                if (after !== before || after !== lastAdminRequestFingerprint) {
+                    lastAdminRequestFingerprint = after;
+                    checkPendingAdminNotifications();
+                }
+            } catch (err) {
+                console.debug('Admin cloud notification check unavailable:', err);
+            }
+        }
+
+        function startAdminNotificationPolling() {
+            if (adminNotificationPollTimer) clearInterval(adminNotificationPollTimer);
+            lastAdminRequestFingerprint = getAdminRequestFingerprint(adminResetRequests);
+            adminNotificationPollTimer = setInterval(pollCloudAdminNotifications, 10000);
+            pollCloudAdminNotifications();
+        }
+
+        function stopAdminNotificationPolling() {
+            if (adminNotificationPollTimer) {
+                clearInterval(adminNotificationPollTimer);
+                adminNotificationPollTimer = null;
+            }
         }
 
         function generateTempPassword(sgId) {
@@ -3021,19 +3094,33 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             checkPendingAdminNotifications();
         }
 
-        function approvePasswordChange(sgId) {
-            if (userCredentials[sgId]) {
-                userCredentials[sgId].status = 'ACTIVE';
-                userCredentials[sgId].pendingApproval = false;
-                userCredentials[sgId].isTemporary = false;
-                userCredentials[sgId].lastChanged = new Date().getTime();
+        async function approvePasswordChange(sgId) {
+            const cleanId = cleanSgId(sgId);
+            const req = adminResetRequests.find(r => cleanSgId(r.sg_id) === cleanId && r.type === 'APPROVAL_REQUEST');
+            if (!req || !req.newPassword) {
+                alert(`No pending password approval request was found for SG${cleanId}.`);
+                return;
             }
 
-            adminResetRequests = adminResetRequests.filter(r => r.sg_id !== sgId);
+            // Only Admin approval activates the requested password.
+            const previous = userCredentials[cleanId] ? { ...userCredentials[cleanId] } : (req.previousCredential ? { ...req.previousCredential } : null);
+            userCredentials[cleanId] = {
+                ...(previous || {}),
+                password: req.newPassword,
+                isTemporary: false,
+                pendingApproval: false,
+                status: 'ACTIVE',
+                lastChanged: new Date().getTime()
+            };
+
+            adminResetRequests = adminResetRequests.filter(r => !(cleanSgId(r.sg_id) === cleanId && r.type === 'APPROVAL_REQUEST'));
+
+            // This Admin action is the cloud-commit point: the approved credential and
+            // cleared request are written to the shared roster.json.
             saveCredentialsToStorageAndCloud();
             renderSelectedEmployeePasswordStatus();
 
-            alert(`Password approved and saved to Cloud for SG${sgId}. Employee can now log in from any location.`);
+            alert(`Password approved and saved to Cloud for SG${cleanId}. Employee can now use the new password until it expires.`);
             dismissAdminNotice();
             checkPendingAdminNotifications();
         }
@@ -3192,6 +3279,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 updateTopRightUserHeader();
                 renderView();
                 checkPendingAdminNotifications();
+                startAdminNotificationPolling();
             } else {
                 errorEl.classList.remove('hidden');
             }
@@ -3210,6 +3298,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
 
             isAdminMode = false;
             pendingChangesExist = false;
+            stopAdminNotificationPolling();
 
             const publicRoster = (publishedRosterData && Array.isArray(publishedRosterData)) ? publishedRosterData : backupRosterData;
             if (publicRoster) {
