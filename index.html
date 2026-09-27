@@ -476,7 +476,7 @@
         .world-time-panel .world-time-subtitle,.world-time-panel .world-time-foot{color:#64748b}
         .world-time-panel .world-time-add{background:rgba(255,255,255,.82);color:#1e4f78;border-color:rgba(37,99,168,.18)}
         .world-time-panel .world-time-select{background:rgba(255,255,255,.92);color:#1e3a5f;border-color:rgba(100,116,139,.28)}
-        .world-time-panel .world-time-close{background:rgba(255,255,255,.75);color:#475569;border-color:rgba(100,116,139,.22)}
+        .world-time-panel .world-time-close{background:linear-gradient(135deg,#e8f4fb,#dceff4 52%,#e2f3e8);color:#31566b;border-color:rgba(79,145,157,.28);box-shadow:0 3px 9px rgba(71,85,105,.10),inset 0 1px 0 rgba(255,255,255,.78)}
         
         .world-time-panel{position:relative;width:min(840px,calc(100vw - 24px));max-height:min(820px,calc(100vh - 24px));overflow:hidden;border:1px solid rgba(125,211,252,.28);border-radius:24px;background:linear-gradient(145deg,#dbeafe,#e0f2fe 48%,#dcfce7);box-shadow:0 28px 70px rgba(71,85,105,.24),inset 0 1px 0 rgba(255,255,255,.95),inset 0 -18px 45px rgba(148,163,184,.08);transform:perspective(1200px) rotateX(.6deg);}
         .world-time-panel:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(15,23,42,.15),rgba(15,23,42,.15)),linear-gradient(rgba(100,116,139,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(100,116,139,.045) 1px,transparent 1px);background-size:auto,28px 28px,28px 28px;pointer-events:none;opacity:.9}
@@ -484,8 +484,8 @@
         .world-time-head{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:18px 20px 14px;border-bottom:1px solid rgba(125,211,252,.14)}
         .world-time-title{font-size:16px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#1e3a5f;text-shadow:0 2px 12px rgba(56,189,248,.25)}
         .world-time-subtitle{margin-top:4px;font-size:10px;color:#64748b;letter-spacing:.03em}
-        .world-time-close{width:34px;height:34px;border:1px solid rgba(148,163,184,.25);border-radius:10px;background:rgba(15,23,42,.62);color:#cbd5e1;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:21px;line-height:1;box-shadow:0 4px 12px rgba(0,0,0,.22)}
-        .world-time-close:hover{background:rgba(30,41,59,.9);color:#fff;border-color:rgba(125,211,252,.45)}
+        .world-time-close{width:34px;height:34px;border:1px solid rgba(56,189,248,.30);border-radius:10px;background:linear-gradient(135deg,rgba(255,255,255,.92),rgba(224,242,254,.88));color:#1e4f78;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:21px;line-height:1;box-shadow:0 4px 10px rgba(71,85,105,.12),inset 0 1px 0 rgba(255,255,255,.9);transition:all .18s ease}
+        .world-time-close:hover{background:linear-gradient(135deg,#f2f9fc,#dff1f3 52%,#e8f6ec);color:#24485a;border-color:rgba(79,145,157,.48);box-shadow:0 5px 12px rgba(71,85,105,.13),0 0 10px rgba(79,145,157,.10)}
         .world-time-body{position:relative;z-index:2;padding:14px 18px 18px;overflow:auto;max-height:calc(min(760px,100vh - 24px) - 78px)}
         .world-time-country-tools{display:flex;align-items:center;gap:8px;margin:0 0 10px;padding:7px 8px;border:1px solid rgba(71,85,105,.14);border-radius:12px;background:rgba(255,255,255,.62)}
         .world-time-country-count{font-size:9px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;color:#2563a8;white-space:nowrap}
@@ -1504,6 +1504,142 @@ body.ats-theme-active #mandatoryLoginModal .login-input::placeholder { color:#64
   box-sizing:border-box!important;
 }
 
+</style>
+<style id="ats-premium-visual-upgrade">
+/* ===== Premium visual upgrade: modern enterprise / soft 3D ===== */
+:root{
+  --ats-glow:color-mix(in srgb,var(--theme-primary) 18%,transparent);
+  --ats-glow2:color-mix(in srgb,var(--theme-accent) 12%,transparent);
+  --ats-highlight:rgba(255,255,255,.82);
+}
+body.ats-theme-active{
+  background:
+    radial-gradient(900px 420px at 8% -5%,var(--ats-glow),transparent 62%),
+    radial-gradient(760px 420px at 95% 8%,var(--ats-glow2),transparent 60%),
+    var(--theme-bg)!important;
+}
+body.ats-theme-active::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.20;
+  background-image:linear-gradient(color-mix(in srgb,var(--theme-text) 5%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--theme-text) 5%,transparent) 1px,transparent 1px);
+  background-size:38px 38px;
+  mask-image:linear-gradient(to bottom,rgba(0,0,0,.5),transparent 72%);
+}
+/* Header: premium glass depth */
+body.ats-theme-active header{
+  background:linear-gradient(135deg,color-mix(in srgb,var(--theme-header) 96%,white),var(--theme-header))!important;
+  box-shadow:0 8px 24px rgba(15,23,42,.18),inset 0 1px 0 rgba(255,255,255,.12)!important;
+  border-bottom:1px solid color-mix(in srgb,var(--theme-primary) 28%,transparent)!important;
+}
+body.ats-theme-active header::after{
+  content:"";display:block;position:absolute;left:0;right:0;bottom:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--theme-primary),var(--theme-accent),transparent);opacity:.65;pointer-events:none;
+}
+/* Cards: less heavy, more premium 3D */
+body.ats-theme-active .card-3d{
+  background:linear-gradient(145deg,color-mix(in srgb,var(--theme-surface) 98%,white),var(--theme-surface2))!important;
+  border:1px solid color-mix(in srgb,var(--theme-border) 82%,var(--theme-primary))!important;
+  box-shadow:0 12px 28px rgba(15,23,42,.09),0 3px 7px rgba(15,23,42,.05),inset 0 1px 0 var(--ats-highlight)!important;
+  transform:translateZ(0);transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;
+}
+body.ats-theme-active .card-3d:hover{box-shadow:0 16px 34px rgba(15,23,42,.12),0 5px 10px rgba(15,23,42,.06),inset 0 1px 0 var(--ats-highlight)!important}
+/* Navigation tabs */
+body.ats-theme-active .tab-btn,body.ats-theme-active .tab-3d{
+  border-radius:10px!important;transition:transform .16s ease,box-shadow .16s ease,background .16s ease!important;
+}
+body.ats-theme-active .tab-btn:hover,body.ats-theme-active .tab-3d:hover{transform:translateY(-1px)}
+body.ats-theme-active .tab-btn.active,body.ats-theme-active .tab-3d.active{
+  box-shadow:0 5px 13px color-mix(in srgb,var(--theme-primary) 18%,transparent),inset 0 1px 0 rgba(255,255,255,.8)!important;
+}
+/* Period/month/week controls */
+body.ats-theme-active select,body.ats-theme-active input,body.ats-theme-active textarea{
+  border-radius:10px!important;box-shadow:0 2px 7px rgba(15,23,42,.045),inset 0 1px 0 rgba(255,255,255,.75)!important;
+  transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease;
+}
+body.ats-theme-active select:focus,body.ats-theme-active input:focus,body.ats-theme-active textarea:focus{
+  border-color:var(--theme-primary)!important;box-shadow:0 0 0 3px color-mix(in srgb,var(--theme-primary) 13%,transparent),0 5px 14px rgba(15,23,42,.06)!important;outline:none;
+}
+/* Buttons: consistent modern 3D treatment */
+body.ats-theme-active .btn-3d{
+  border:1px solid color-mix(in srgb,var(--theme-primary) 30%,var(--theme-border))!important;
+  border-bottom-width:2px!important;border-radius:10px!important;
+  box-shadow:0 4px 9px rgba(15,23,42,.10),inset 0 1px 0 rgba(255,255,255,.28)!important;
+  transition:transform .16s ease,box-shadow .16s ease,filter .16s ease!important;
+}
+body.ats-theme-active .btn-3d:hover{transform:translateY(-1px);filter:saturate(1.05);box-shadow:0 7px 15px rgba(15,23,42,.14),inset 0 1px 0 rgba(255,255,255,.34)!important}
+body.ats-theme-active .btn-3d:active{transform:translateY(1px)}
+/* Roster table: visual centerpiece */
+body.ats-theme-active .table-3d{
+  border:1px solid color-mix(in srgb,var(--theme-border) 78%,var(--theme-primary))!important;
+  border-radius:14px!important;overflow:hidden!important;
+  box-shadow:0 14px 30px rgba(15,23,42,.10),inset 0 1px 0 rgba(255,255,255,.8)!important;
+}
+body.ats-theme-active #mainDisplayArea table thead th{
+  background:linear-gradient(180deg,color-mix(in srgb,var(--theme-surface2) 92%,white),var(--theme-surface2))!important;
+  color:var(--theme-text)!important;border-color:var(--theme-border)!important;
+  box-shadow:inset 0 -1px 0 color-mix(in srgb,var(--theme-primary) 12%,transparent);
+}
+body.ats-theme-active #mainDisplayArea table tbody tr{transition:background-color .15s ease,box-shadow .15s ease}
+body.ats-theme-active #mainDisplayArea table tbody tr:hover{background:color-mix(in srgb,var(--theme-primary) 4%,var(--theme-surface))!important}
+body.ats-theme-active #mainDisplayArea table td{border-color:color-mix(in srgb,var(--theme-border) 75%,transparent)!important}
+/* Employee identity column gets a subtle raised edge */
+body.ats-theme-active #mainDisplayArea table th:first-child,body.ats-theme-active #mainDisplayArea table td:first-child{
+  box-shadow:inset -1px 0 0 color-mix(in srgb,var(--theme-primary) 13%,var(--theme-border)),inset 0 1px 0 rgba(255,255,255,.55);
+}
+/* Skilling badge: keep values such as ATS 2L on one line in EVERY theme, including Original ATS. */
+#mainDisplayArea table td:nth-child(2) > span{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:max-content!important;
+  min-width:max-content!important;
+  max-width:none!important;
+  white-space:nowrap!important;
+  word-break:keep-all!important;
+  overflow-wrap:normal!important;
+  flex-wrap:nowrap!important;
+  box-sizing:border-box!important;
+  text-align:center!important;
+  line-height:1.15!important;
+}
+
+/* Shift badges: compact, centered, content-sized, premium depth */
+#mainDisplayArea table td.roster-shift-cell .roster-status-badge,#mainDisplayArea table td:nth-child(n+3):nth-child(-n+9)>span.roster-status-badge{
+  border-radius:8px!important;padding-left:10px!important;padding-right:10px!important;min-height:28px!important;
+  box-shadow:0 3px 7px rgba(15,23,42,.10),inset 0 1px 0 rgba(255,255,255,.45)!important;
+  letter-spacing:.01em;vertical-align:middle;transition:transform .15s ease,box-shadow .15s ease;
+}
+#mainDisplayArea table td.roster-shift-cell .roster-status-badge:hover{transform:none!important;box-shadow:0 3px 8px rgba(15,23,42,.10),inset 0 1px 0 rgba(255,255,255,.5)!important}
+/* Status colors remain recognizable but become more polished */
+#mainDisplayArea .roster-status-badge[class*="bg-rose-600"]{background:linear-gradient(135deg,#fb7185,#e11d48)!important;border-color:#be123c!important}
+#mainDisplayArea .roster-status-badge[class*="bg-rose-100"]{background:linear-gradient(135deg,#fff1f2,#ffe4e6)!important}
+/* Current-day treatment */
+body.ats-theme-active .current-day-col{background:color-mix(in srgb,var(--theme-primary) 7%,var(--theme-surface))!important}
+body.ats-theme-active .current-day-header{background:linear-gradient(135deg,var(--theme-header),color-mix(in srgb,var(--theme-primary) 35%,var(--theme-header)))!important;color:#fff!important;box-shadow:inset 0 -2px 0 var(--theme-accent)}
+/* World time cards: clean glass + 3D */
+body.ats-theme-active .clock-futuristic-3d{
+  border-color:color-mix(in srgb,var(--theme-primary) 30%,var(--theme-border))!important;
+  box-shadow:0 10px 22px rgba(15,23,42,.20),inset 0 1px 0 rgba(255,255,255,.16),0 0 18px color-mix(in srgb,var(--theme-primary) 8%,transparent)!important;
+}
+body.ats-theme-active .clock-futuristic-3d:hover{transform:translateY(-3px) scale(1.005);box-shadow:0 16px 28px rgba(15,23,42,.24),inset 0 1px 0 rgba(255,255,255,.22),0 0 24px color-mix(in srgb,var(--theme-primary) 14%,transparent)!important}
+/* World Time Compare modal and cards */
+.world-time-compare-card{box-shadow:0 10px 22px rgba(15,23,42,.12),inset 0 1px 0 rgba(255,255,255,.9)!important;transform:perspective(700px) rotateX(1deg);transition:.18s ease!important}
+.world-time-compare-card:hover{transform:perspective(700px) translateY(-3px) rotateX(2deg)!important}
+.world-time-panel .world-time-close,.world-time-close{
+  background:linear-gradient(135deg,rgba(255,255,255,.96),rgba(224,242,254,.90))!important;color:#31536e!important;
+  border-color:rgba(56,189,248,.28)!important;box-shadow:0 3px 9px rgba(71,85,105,.10),inset 0 1px 0 rgba(255,255,255,.95)!important;
+}
+.world-time-panel .world-time-close:hover,.world-time-close:hover{background:linear-gradient(135deg,#fff,#dbeafe)!important;color:#17324d!important;border-color:rgba(56,189,248,.52)!important}
+/* Typography hierarchy */
+body.ats-theme-active main h1,body.ats-theme-active main h2,body.ats-theme-active main h3{letter-spacing:-.015em}
+body.ats-theme-active #mainDisplayArea table th{letter-spacing:.015em}
+/* Mobile: retain hierarchy and touch comfort */
+@media(max-width:767px){
+  body.ats-theme-active .card-3d{border-radius:12px!important;box-shadow:0 8px 18px rgba(15,23,42,.08),inset 0 1px 0 rgba(255,255,255,.78)!important}
+  body.ats-theme-active #mainDisplayArea table{box-shadow:none}
+  #mainDisplayArea table td.roster-shift-cell .roster-status-badge{min-height:27px!important;padding-left:9px!important;padding-right:9px!important}
+  body.ats-theme-active .clock-futuristic-3d:hover{transform:none}
+}
+@media(prefers-reduced-motion:reduce){body.ats-theme-active *,body.ats-theme-active *::before,body.ats-theme-active *::after{transition:none!important;animation:none!important}}
 </style>
 </head>
 <body class="min-h-screen flex flex-col w-full overflow-x-hidden relative pb-16">
@@ -6753,10 +6889,11 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
   {id:'royal',name:'Royal Blue',desc:'Strong blue corporate style',bg:'#e9edff',surface:'#ffffff',primary:'#1d4ed8',accent:'#f59e0b',header:'#172554'},
   {id:'mint',name:'Mint',desc:'Soft teal modern interface',bg:'#e8faf7',surface:'#ffffff',primary:'#0f766e',accent:'#f97316',header:'#134e4a'},
   {id:'rose',name:'Rose',desc:'Elegant rose enterprise theme',bg:'#fff0f4',surface:'#ffffff',primary:'#be185d',accent:'#f59e0b',header:'#4a1023'},
-  {id:'terminal',name:'Terminal',desc:'High-contrast operations console',bg:'#07110b',surface:'#0b1a10',primary:'#22c55e',accent:'#facc15',header:'#020a05'}
+  {id:'terminal',name:'Terminal',desc:'High-contrast operations console',bg:'#07110b',surface:'#0b1a10',primary:'#22c55e',accent:'#facc15',header:'#020a05'},
  ];
  let selected='default', applied=localStorage.getItem('atsPortalTheme')||'default';
  function getTheme(id){return themes.find(t=>t.id===id)||themes[0]}
+ if(!themes.some(t=>t.id===applied)){ applied='default'; localStorage.setItem('atsPortalTheme','default'); }
  function setThemePreview(t){
    const p=document.getElementById('themeLivePreview'), n=document.getElementById('themePreviewName'), d=document.getElementById('themePreviewDesc'); if(!p)return;
    p.style.background=t.bg; p.style.color=t.id==='terminal'||t.id==='midnight'?'#f8fafc':'#0f172a';
@@ -7157,5 +7294,6 @@ body:not(.ats-theme-active) #cloudContainer .bg-cloud{opacity:.72!important}
   #cloudContainer .bg-cloud{animation-duration:140s!important}
 }
 </style>
+
 </body>
 </html>
