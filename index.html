@@ -338,6 +338,13 @@
                 padding: 7px 10px;
                 border-radius: 8px;
             }
+
+            .sabre-logo-fallback { display:none; width:auto; height:32px; min-width:92px; }
+            .sabre-logo-fallback svg { display:block; width:auto; height:100%; overflow:visible; }
+            .sabre-logo-fallback text { font-family: Arial, Helvetica, sans-serif; font-size:44px; font-weight:800; font-style:italic; letter-spacing:-3px; fill:#fff; }
+            .sabre-logo-fallback line { stroke:#fff; stroke-width:4.5; stroke-linecap:round; }
+            .login-sabre-mark img { display:block; max-width:100%; }
+            @media (max-width:640px){ .sabre-logo-fallback{height:29px;min-width:84px;} }
             .login-sabre-mark img {
                 height: 27px;
             }
@@ -499,6 +506,18 @@
         .world-time-compare-card:nth-child(3n+1){border-top-color:rgba(45,212,191,.55)}.world-time-compare-card:nth-child(3n+2){border-top-color:rgba(96,165,250,.55)}.world-time-compare-card:nth-child(3n){border-top-color:rgba(250,204,21,.55)}
         .world-time-foot{padding:9px 16px 11px;border-top:1px solid rgba(125,211,252,.12);font-size:8px;color:#64748b;text-align:center;position:relative;z-index:2}
         .clock-futuristic-3d{cursor:pointer}.clock-futuristic-3d:focus-visible{outline:2px solid #38bdf8;outline-offset:2px}
+        /* Mobile landscape stability: keep clock values on one line and avoid per-second layout shifts. */
+        #worldClocksContainer [id^="clock-"]{white-space:nowrap;word-break:keep-all;overflow:hidden;text-overflow:clip;display:block;min-width:0;}
+        #worldClocksContainer .font-orbitron{white-space:nowrap;}
+        #mainDisplayArea table td:nth-child(3) > span{white-space:nowrap;display:inline-flex;}
+        @media (orientation:landscape) and (max-width:900px){
+          #worldClocksContainer{grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;}
+          #worldClocksContainer > div{min-width:0;height:72px;padding:7px 8px;}
+          #worldClocksContainer [id^="clock-"]{font-size:clamp(14px,3.1vw,18px)!important;line-height:1.1;letter-spacing:-.02em;}
+          #worldClocksContainer [id^="date-"]{white-space:nowrap;font-size:8px;line-height:1;}
+          #worldClocksContainer .font-orbitron{font-size:9px!important;line-height:1;}
+          #mainDisplayArea table td:nth-child(3) > span{white-space:nowrap;min-width:max-content;}
+        }
         @media(max-width:620px){.world-time-panel{border-radius:18px}.world-time-body{padding:11px}.world-time-selectors,.world-time-compare-results{grid-template-columns:1fr}.world-time-head{padding:15px}.world-time-value{font-size:21px}.world-time-compare-card{min-height:100px}}
         @media(max-width:380px){.world-time-panel{width:calc(100vw - 14px)}.world-time-title{font-size:13px}.world-time-subtitle{font-size:9px}.world-time-value{font-size:19px}}
 </style>
@@ -526,7 +545,7 @@
                 <div class="login-orbit login-orbit-a"></div><div class="login-orbit login-orbit-b"></div><div class="login-flight-dot flight-dot-a"></div><div class="login-flight-dot flight-dot-b"></div>
             </div>
             <div class="login-form-panel flex-1 p-5 sm:p-7 lg:p-8">
-                <div class="flex items-center justify-between mb-5"><div class="login-sabre-mark"><img src="SABRE-LOGO-REGISTERED-SCREEN-WHITE-WIP.svg" alt="Sabre Logo" class="h-8 sm:h-9 w-auto object-contain"></div><div class="text-right"><div class="text-[9px] font-bold uppercase tracking-[0.2em] text-slate-400">Portal Access</div><div class="flex items-center justify-end gap-1.5 mt-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,.8)]"></span><span class="text-[9px] font-semibold text-slate-500">SYSTEM READY</span></div></div></div>
+                <div class="flex items-center justify-between mb-5"><div class="login-sabre-mark"><img src="SABRE-LOGO-REGISTERED-SCREEN-WHITE-WIP.svg" alt="Sabre Logo" class="h-8 sm:h-9 w-auto object-contain" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><span class="sabre-logo-fallback" aria-label="Sabre"><svg viewBox="0 0 150 48" role="img" aria-hidden="true"><text x="3" y="38">Sabre</text><line x1="0" y1="31" x2="145" y2="20"></line></svg></span></div><div class="text-right"><div class="text-[9px] font-bold uppercase tracking-[0.2em] text-slate-400">Portal Access</div><div class="flex items-center justify-end gap-1.5 mt-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,.8)]"></span><span class="text-[9px] font-semibold text-slate-500">SYSTEM READY</span></div></div></div>
                 <div class="mb-5"><div class="text-[9px] font-bold uppercase tracking-[0.24em] text-amber-500 mb-2">Welcome back</div><h2 class="font-orbitron text-xl sm:text-2xl font-black tracking-tight text-slate-900">Sign in to continue</h2><p class="text-[11px] sm:text-xs text-slate-500 mt-1.5">Use your employee credentials to access the roster portal.</p></div>
                 <form onsubmit="handlePortalLogin(event)" class="space-y-4">
                     <div><label class="block text-[10px] font-extrabold text-slate-500 uppercase tracking-[0.18em] mb-2">Employee ID (SG ID)</label><div class="login-input-wrap"><div class="login-input-icon"><i data-lucide="user-round" class="w-[18px] h-[18px]"></i></div><input type="text" id="loginEmpId" placeholder="e.g. 316092" required autocomplete="username" class="login-input"></div></div>
@@ -799,7 +818,7 @@
         <div class="w-full px-4 sm:px-6 lg:px-12 h-16 flex items-center justify-between relative z-10">
             <div class="flex items-center space-x-3 sm:space-x-4">
                 <div class="flex items-center pr-2 sm:pr-3 border-r border-slate-700">
-                    <img src="SABRE-LOGO-REGISTERED-SCREEN-WHITE-WIP.svg" alt="Sabre Logo" class="h-5 sm:h-6 w-auto object-contain" />
+                    <img src="SABRE-LOGO-REGISTERED-SCREEN-WHITE-WIP.svg" alt="Sabre Logo" class="h-5 sm:h-6 w-auto object-contain" onerror="this.style.display='none';this.nextElementSibling.style.display='block';" /><span class="sabre-logo-fallback" aria-label="Sabre"><svg viewBox="0 0 150 48" role="img" aria-hidden="true"><text x="3" y="38">Sabre</text><line x1="0" y1="31" x2="145" y2="20"></line></svg></span>
                 </div>
                 <div class="flex items-center space-x-2 sm:space-x-3">
                     <div class="bg-indigo-600 p-1.5 sm:p-2 rounded-lg text-white btn-3d">
@@ -2507,6 +2526,26 @@ function setClockCardTime(card,zone){
   card.dataset.timezone=zone;
   return id;
 }
+function updateWorldTimeComparisonValues(){
+  const wrap=document.getElementById('worldTimeSelectors');
+  const out=document.getElementById('worldTimeComparisonResults');
+  if(!wrap||!out)return;
+  const zones=[...wrap.querySelectorAll('select')].map(s=>worldCountryZones.find(z=>z.id===s.value)).filter(Boolean);
+  const base=zones[0]?.zone||'Asia/Kolkata';
+  [...out.querySelectorAll('.world-time-compare-card')].forEach((card,i)=>{
+    const z=zones[i];
+    if(!z)return;
+    const t=formatWorldTime(z.zone);
+    const value=card.querySelector('.world-time-value');
+    const date=card.querySelector('.world-time-date');
+    if(value)value.textContent=t.time;
+    if(date){
+      const diff=date.querySelector('.world-time-diff');
+      date.childNodes[0].nodeValue=t.date;
+      if(diff)diff.textContent=i===0?'BASE TIME':comparisonDifference(base,z.zone);
+    }
+  });
+}
 function update3DClocks(){
   document.querySelectorAll('#worldClocksContainer .clock-futuristic-3d').forEach(card=>{
     const clock=card.querySelector('[id^="clock-"]');
@@ -2515,7 +2554,7 @@ function update3DClocks(){
     if(z)setClockCardTime(card,z.zone);
   });
   const modal=document.getElementById('worldTimeComparisonModal');
-  if(modal && !modal.classList.contains('hidden')) renderWorldTimeComparison();
+  if(modal && !modal.classList.contains('hidden')) updateWorldTimeComparisonValues();
 }
 function getFilteredWorldCountries(){
   const q=(document.getElementById('worldTimeCountrySearch')?.value||'').trim().toLowerCase();
