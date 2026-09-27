@@ -1467,6 +1467,7 @@
         const ADMIN_SG_ID = '316092';
         const ADMIN_PASSWORD = '1Q2W3E4R';
         const LOGIN_IDENTITY_STORAGE_KEY = 'ats_saved_login_identity_v1';
+        const ACTIVE_SESSION_STORAGE_KEY = 'ats_active_session_v1';
 
         function normalizeLoginEmail(email) {
             return String(email || '').trim().toLowerCase();
@@ -2982,6 +2983,8 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 isAdmin: isAdmin
             };
 
+            saveActivePortalSession();
+
             // A normal login always opens the public roster. Admin Mode remains a separate
             // action from the user menu and requires the existing Admin Authentication dialog.
             isAdminMode = false;
@@ -3068,6 +3071,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             activeUserSession = null;
             isAdminMode = false;
             pendingChangesExist = false;
+            try { localStorage.removeItem(ACTIVE_SESSION_STORAGE_KEY); } catch (_) {}
             stopAdminNotificationPolling();
 
             document.getElementById('userProfileDropdown').classList.add('hidden');
@@ -3080,12 +3084,52 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             renderView();
         }
 
+        // Keep the authenticated portal session across normal page refresh/reload.
+        // The email is saved separately; the active session stores only the already-verified
+        // identity so the roster remains visible without forcing the user back to login.
+        function saveActivePortalSession() {
+            try {
+                if (activeUserSession) {
+                    localStorage.setItem(ACTIVE_SESSION_STORAGE_KEY, JSON.stringify(activeUserSession));
+                }
+            } catch (_) {}
+        }
+
+        function restoreActivePortalSession() {
+            try {
+                const saved = JSON.parse(localStorage.getItem(ACTIVE_SESSION_STORAGE_KEY) || 'null');
+                if (!saved || !saved.sg_id || !saved.email) return false;
+                activeUserSession = {
+                    sg_id: cleanSgId(saved.sg_id),
+                    empName: String(saved.empName || ''),
+                    email: normalizeLoginEmail(saved.email),
+                    isAdmin: !!saved.isAdmin
+                };
+                isAdminMode = false;
+                pendingChangesExist = false;
+                const profileDropdown = document.getElementById('userProfileDropdown');
+                if (profileDropdown) profileDropdown.classList.add('hidden');
+                const loginModal = document.getElementById('mandatoryLoginModal');
+                if (loginModal) loginModal.classList.add('hidden', 'opacity-0', 'pointer-events-none');
+                updateTopRightUserHeader();
+                return true;
+            } catch (_) {
+                return false;
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
+            const restored = restoreActivePortalSession();
+            if (!restored) {
+                const loginModal = document.getElementById('mandatoryLoginModal');
+                if (loginModal) loginModal.classList.remove('hidden', 'opacity-0', 'pointer-events-none');
+                loadSavedLoginIdentity();
+            }
             const emailEl = document.getElementById('loginEmail');
             const idEl = document.getElementById('loginEmpId');
             if (emailEl) emailEl.addEventListener('input', updateAdminPasswordVisibility);
             if (idEl) idEl.addEventListener('input', updateAdminPasswordVisibility);
-            loadSavedLoginIdentity();
+            if (!restored) loadSavedLoginIdentity();
         });
 
         function grantPortalAccess() {
