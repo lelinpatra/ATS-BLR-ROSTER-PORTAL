@@ -339,6 +339,13 @@
                 border-radius: 8px;
             }
 
+            .sabre-logo-fallback { display:none; width:auto; height:32px; min-width:92px; }
+            .sabre-logo-fallback.force-show { display:inline-flex !important; align-items:center; }
+            .sabre-logo-fallback svg { display:block; width:auto; height:100%; overflow:visible; }
+            .sabre-logo-fallback text { font-family: Arial, Helvetica, sans-serif; font-size:44px; font-weight:800; font-style:italic; letter-spacing:-3px; fill:#fff; }
+            .sabre-logo-fallback line { stroke:#fff; stroke-width:4.5; stroke-linecap:round; }
+            .login-sabre-mark img { display:block; max-width:100%; }
+            @media (max-width:640px){ .sabre-logo-fallback{height:29px;min-width:84px;} }
             .login-sabre-mark img {
                 height: 27px;
             }
@@ -543,12 +550,12 @@
                 <div class="login-orbit login-orbit-a"></div><div class="login-orbit login-orbit-b"></div><div class="login-flight-dot flight-dot-a"></div><div class="login-flight-dot flight-dot-b"></div>
             </div>
             <div class="login-form-panel flex-1 p-5 sm:p-7 lg:p-8">
-                <div class="flex items-center justify-between mb-5"><div class="login-sabre-mark"><img src="SABRE-LOGO-REGISTERED-SCREEN-WHITE-WIP.svg" alt="Sabre Logo" class="h-8 sm:h-9 w-auto object-contain"></div><div class="text-right"><div class="text-[9px] font-bold uppercase tracking-[0.2em] text-slate-400">Portal Access</div><div class="flex items-center justify-end gap-1.5 mt-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,.8)]"></span><span class="text-[9px] font-semibold text-slate-500">SYSTEM READY</span></div></div></div>
+                <div class="flex items-center justify-between mb-5"><div class="login-sabre-mark"><img src="SABRE-LOGO-REGISTERED-SCREEN-WHITE-WIP.svg" alt="Sabre Logo" class="h-8 sm:h-9 w-auto object-contain" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><span class="sabre-logo-fallback" aria-label="Sabre"><svg viewBox="0 0 150 48" role="img" aria-hidden="true"><text x="3" y="38">Sabre</text><line x1="0" y1="31" x2="145" y2="20"></line></svg></span></div><div class="text-right"><div class="text-[9px] font-bold uppercase tracking-[0.2em] text-slate-400">Portal Access</div><div class="flex items-center justify-end gap-1.5 mt-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,.8)]"></span><span class="text-[9px] font-semibold text-slate-500">SYSTEM READY</span></div></div></div>
                 <div class="mb-5"><div class="text-[9px] font-bold uppercase tracking-[0.24em] text-amber-500 mb-2">Welcome back</div><h2 class="font-orbitron text-xl sm:text-2xl font-black tracking-tight text-slate-900">Sign in to continue</h2><p class="text-[11px] sm:text-xs text-slate-500 mt-1.5">Use your employee credentials to access the roster portal.</p></div>
                 <form onsubmit="handlePortalLogin(event)" class="space-y-4" autocomplete="on">
                     <div><label class="block text-[10px] font-extrabold text-slate-500 uppercase tracking-[0.18em] mb-2">Email Address</label><div class="login-input-wrap"><div class="login-input-icon"><i data-lucide="mail" class="w-[18px] h-[18px]"></i></div><input type="email" id="loginEmail" name="email" placeholder="name@sabre.com" required autocomplete="email" autocapitalize="none" spellcheck="false" class="login-input"></div></div>
-                    <div><label class="block text-[10px] font-extrabold text-slate-500 uppercase tracking-[0.18em] mb-2">Employee ID (SG ID)</label><div class="login-input-wrap"><div class="login-input-icon"><i data-lucide="user-round" class="w-[18px] h-[18px]"></i></div><input type="text" id="loginEmpId" name="employee_id" placeholder="e.g. 316092" required autocomplete="off" inputmode="numeric" class="login-input"></div></div>
-                    <div id="adminPasswordLoginWrap" class="hidden"><div class="flex items-center justify-between mb-2"><label class="block text-[10px] font-extrabold text-slate-500 uppercase tracking-[0.18em]">Administrator Password</label><span class="text-[9px] font-semibold text-indigo-500 uppercase tracking-wider">Admin</span></div><div class="login-input-wrap"><div class="login-input-icon"><i data-lucide="key-round" class="w-[18px] h-[18px]"></i></div><input type="password" id="loginPassword" name="password" placeholder="Enter administrator password" autocomplete="off" class="login-input"><button type="button" onclick="togglePasswordVisibility('loginPassword', 'loginEyeIcon')" class="login-eye" title="Show/Hide Password" aria-label="Show or hide password"><i id="loginEyeIcon" data-lucide="eye" class="w-[18px] h-[18px]"></i></button></div><p class="text-[9px] text-slate-400 mt-1.5">Administrator password does not expire.</p></div>
+                    <div><label class="block text-[10px] font-extrabold text-slate-500 uppercase tracking-[0.18em] mb-2">Employee ID (SG ID)</label><div class="login-input-wrap"><div class="login-input-icon"><i data-lucide="user-round" class="w-[18px] h-[18px]"></i></div><input type="text" id="loginEmpId" name="username" placeholder="e.g. 316092" required autocomplete="username" inputmode="numeric" class="login-input"></div></div>
+                    <div id="adminPasswordLoginWrap" class="hidden"><div class="flex items-center justify-between mb-2"><label class="block text-[10px] font-extrabold text-slate-500 uppercase tracking-[0.18em]">Administrator Password</label><span class="text-[9px] font-semibold text-indigo-500 uppercase tracking-wider">Admin</span></div><div class="login-input-wrap"><div class="login-input-icon"><i data-lucide="key-round" class="w-[18px] h-[18px]"></i></div><input type="password" id="loginPassword" name="password" placeholder="Enter administrator password" autocomplete="current-password" class="login-input"><button type="button" onclick="togglePasswordVisibility('loginPassword', 'loginEyeIcon')" class="login-eye" title="Show/Hide Password" aria-label="Show or hide password"><i id="loginEyeIcon" data-lucide="eye" class="w-[18px] h-[18px]"></i></button></div><p class="text-[9px] text-slate-400 mt-1.5">Administrator password does not expire.</p></div>
                     <div id="portalLoginError" class="hidden login-error"><i data-lucide="triangle-alert" class="w-4 h-4 shrink-0"></i><span>Access Denied.</span></div>
                     <button type="submit" class="login-submit w-full"><span>Access Portal</span><i data-lucide="arrow-right" class="w-[18px] h-[18px]"></i></button>
                 </form>
@@ -815,7 +822,7 @@
         <div class="w-full px-4 sm:px-6 lg:px-12 h-16 flex items-center justify-between relative z-10">
             <div class="flex items-center space-x-3 sm:space-x-4">
                 <div class="flex items-center pr-2 sm:pr-3 border-r border-slate-700">
-                    <img src="SABRE-LOGO-REGISTERED-SCREEN-WHITE-WIP.svg" alt="Sabre Logo" class="h-5 sm:h-6 w-auto object-contain" />
+                    <img src="SABRE-LOGO-REGISTERED-SCREEN-WHITE-WIP.svg" alt="Sabre Logo" class="h-5 sm:h-6 w-auto object-contain" onerror="this.style.display='none';this.nextElementSibling.style.display='block';" /><span class="sabre-logo-fallback" aria-label="Sabre"><svg viewBox="0 0 150 48" role="img" aria-hidden="true"><text x="3" y="38">Sabre</text><line x1="0" y1="31" x2="145" y2="20"></line></svg></span>
                 </div>
                 <div class="flex items-center space-x-2 sm:space-x-3">
                     <div class="bg-indigo-600 p-1.5 sm:p-2 rounded-lg text-white btn-3d">
@@ -1340,6 +1347,24 @@
     </footer>
 
     <script>
+        // Robust logo handling for mobile/tablet when the external SVG is unavailable.
+        function ensureSabreLogosVisible(){
+            document.querySelectorAll('img[alt="Sabre Logo"]').forEach(function(img){
+                const fallback = img.nextElementSibling;
+                const showFallback = function(){
+                    img.style.display = 'none';
+                    if (fallback && fallback.classList.contains('sabre-logo-fallback')) {
+                        fallback.classList.add('force-show');
+                        fallback.style.display = 'inline-flex';
+                    }
+                };
+                if (img.complete && img.naturalWidth === 0) showFallback();
+                img.addEventListener('error', showFallback);
+                setTimeout(function(){ if (!img.naturalWidth) showFallback(); }, 800);
+            });
+        }
+        document.addEventListener('DOMContentLoaded', ensureSabreLogosVisible);
+
         function getTodayFormatted() {
             const today = new Date();
             const day = String(today.getDate()).padStart(2, '0');
@@ -1414,10 +1439,7 @@
                     const emailEl = document.getElementById('loginEmail');
                     const idEl = document.getElementById('loginEmpId');
                     if (emailEl && saved.email) emailEl.value = saved.email;
-                    // Employee ID must always be entered manually and is never restored.
-                    if (idEl) idEl.value = '';
-                    // Migrate older saved data so the employee ID is not retained in storage.
-                    if (saved.email) localStorage.setItem(LOGIN_IDENTITY_STORAGE_KEY, JSON.stringify({ email: normalizeLoginEmail(saved.email) }));
+                    if (idEl && saved.sgId) idEl.value = saved.sgId;
                 }
             } catch (_) {}
             updateAdminPasswordVisibility();
@@ -1425,9 +1447,9 @@
 
         function saveLoginIdentity(email, sgId) {
             try {
-                // Persist ONLY the email address. Never store the employee ID.
                 localStorage.setItem(LOGIN_IDENTITY_STORAGE_KEY, JSON.stringify({
-                    email: normalizeLoginEmail(email)
+                    email: normalizeLoginEmail(email),
+                    sgId: cleanSgId(sgId)
                 }));
             } catch (_) {}
         }
@@ -2920,10 +2942,8 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             document.getElementById('userDropdownTitle').innerText = activeUserSession.empName;
             document.getElementById('userDropdownSgId').innerText = `SG ID: ${activeUserSession.sg_id}`;
 
-            const switchBtn = document.getElementById('switchModeBtn');
             const switchBtnIcon = document.getElementById('switchModeIcon');
             const switchBtnLabel = document.getElementById('switchModeLabel');
-            const canUseAdminMode = isAdminLoginIdentity(activeUserSession.email, activeUserSession.sg_id);
 
             const adminBadge = document.getElementById('adminBadge');
             const adminDock = document.getElementById('adminImportContainer');
@@ -2932,7 +2952,6 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             const adminDeleteWeekBtn = document.getElementById('adminDeleteWeekBtn');
 
             if (isAdminMode) {
-                if (switchBtn) switchBtn.classList.remove('hidden');
                 adminBadge.classList.remove('hidden');
                 adminDock.classList.remove('hidden');
                 if (adminPdfCalendarUpload) adminPdfCalendarUpload.classList.remove('hidden');
@@ -2941,7 +2960,6 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 switchBtnLabel.innerText = "Switch to Normal Mode";
                 switchBtnIcon.setAttribute("data-lucide", "user-check");
             } else {
-                if (switchBtn) switchBtn.classList.toggle('hidden', !canUseAdminMode);
                 adminBadge.classList.add('hidden');
                 adminDock.classList.add('hidden');
                 if (adminDeleteMonthBtn) adminDeleteMonthBtn.classList.add('hidden');
@@ -2981,10 +2999,6 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 updateTopRightUserHeader();
                 renderView();
             } else {
-                if (!activeUserSession || !isAdminLoginIdentity(activeUserSession.email, activeUserSession.sg_id)) {
-                    document.getElementById('userProfileDropdown').classList.add('hidden');
-                    return;
-                }
                 document.getElementById('adminEmpId').value = "316092";
                 document.getElementById('adminLoginModal').classList.remove('hidden');
             }
