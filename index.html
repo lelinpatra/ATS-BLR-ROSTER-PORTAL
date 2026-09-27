@@ -349,6 +349,61 @@
             .login-sabre-mark img {
                 height: 27px;
             }
+            /* Post-login Sabre logo: keep the logo visible and non-shrinking on portrait phones/tablets. */
+            header .sabre-logo-fallback,
+            header img[alt="Sabre Logo"] {
+                flex: 0 0 auto !important;
+                width: auto !important;
+                visibility: visible !important;
+            }
+            header > div:first-child > div:first-child > div:first-child {
+                flex: 0 0 auto !important;
+                min-width: 34px !important;
+            }
+            header > div:first-child > div:first-child > div:nth-child(2) {
+                min-width: 0 !important;
+                flex: 1 1 auto !important;
+            }
+            @media (max-width: 767px) {
+                header .sabre-logo-fallback {
+                    display: inline-flex !important;
+                    align-items: center;
+                    height: 22px !important;
+                    min-width: 62px !important;
+                    max-width: 62px !important;
+                }
+                header .sabre-logo-fallback svg {
+                    width: 62px !important;
+                    height: 22px !important;
+                }
+                header img[alt="Sabre Logo"] {
+                    display: block !important;
+                    height: 22px !important;
+                    max-width: 62px !important;
+                    object-fit: contain !important;
+                }
+                header > div:first-child {
+                    flex-wrap: nowrap !important;
+                    overflow: visible !important;
+                }
+            }
+            @media (max-width: 380px) {
+                header .sabre-logo-fallback {
+                    height: 20px !important;
+                    min-width: 56px !important;
+                    max-width: 56px !important;
+                }
+                header .sabre-logo-fallback svg {
+                    width: 56px !important;
+                    height: 20px !important;
+                }
+                header img[alt="Sabre Logo"] {
+                    height: 20px !important;
+                    max-width: 56px !important;
+                }
+            }
+
+
             .login-form-panel .mb-5 {
                 margin-bottom: 16px;
             }
