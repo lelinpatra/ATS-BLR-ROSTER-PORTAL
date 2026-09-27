@@ -427,16 +427,30 @@
         /* Weekly shift timing: one stable geometry on every device/orientation.
            The previous sm: utilities changed padding and badge size when a phone/tablet
            was rotated to landscape. Keep the shift cells visually identical everywhere. */
+        /* Weekly roster table: keep Employee + Skilling compact and let the seven
+           day columns use the remaining width. This prevents large desktop gaps. */
+        #mainDisplayArea .roster-week-table {
+            width: 100%;
+            table-layout: fixed;
+        }
+        #mainDisplayArea .roster-week-table th:first-child,
+        #mainDisplayArea .roster-week-table td:first-child {
+            width: clamp(170px, 19vw, 240px);
+        }
+        #mainDisplayArea .roster-week-table th:nth-child(2),
+        #mainDisplayArea .roster-week-table td:nth-child(2) {
+            width: clamp(78px, 8vw, 110px);
+        }
         #mainDisplayArea .roster-shift-cell {
-            padding: 10px !important;
-            min-width: 100px;
-            width: 100px;
+            padding: 10px 6px !important;
+            width: auto;
+            min-width: 0;
             vertical-align: middle;
         }
         #mainDisplayArea .roster-day-header {
-            padding: 10px !important;
-            min-width: 100px !important;
-            width: 100px;
+            padding: 10px 6px !important;
+            min-width: 0 !important;
+            width: auto;
             vertical-align: middle;
         }
         #mainDisplayArea .roster-shift-badge {
@@ -501,6 +515,13 @@
             /* Keep dense roster tables accurate; allow intentional horizontal scrolling rather than clipping columns. */
             #mainDisplayArea .overflow-x-auto { width:100%; max-width:100%; overflow-x:auto; }
             #mainDisplayArea table { min-width:max-content; }
+            #mainDisplayArea .roster-week-table { table-layout:auto; }
+            #mainDisplayArea .roster-week-table th:first-child,
+            #mainDisplayArea .roster-week-table td:first-child { width:auto; min-width:140px; }
+            #mainDisplayArea .roster-week-table th:nth-child(2),
+            #mainDisplayArea .roster-week-table td:nth-child(2) { width:auto; min-width:78px; }
+            #mainDisplayArea .roster-week-table .roster-day-header,
+            #mainDisplayArea .roster-week-table .roster-shift-cell { min-width:100px !important; width:100px; }
             #mainDisplayArea table th, #mainDisplayArea table td { white-space:nowrap; }
             #mainDisplayArea table th:first-child, #mainDisplayArea table td:first-child { position:sticky; left:0; z-index:9; }
 
@@ -4348,8 +4369,8 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 const isToday = (dateLabel === TODAY_DATE_STR);
                 
                 const headerClass = isToday 
-                    ? 'roster-day-header p-2.5 text-center border-r border-slate-800 current-day-header min-w-[100px]' 
-                    : 'roster-day-header p-2.5 text-center border-r border-slate-800 min-w-[100px]';
+                    ? 'roster-day-header p-2.5 text-center border-r border-slate-800 current-day-header' 
+                    : 'roster-day-header p-2.5 text-center border-r border-slate-800';
 
                 headerHTML += `<th class="${headerClass}">${d} (${dateLabel})</th>`;
             });
@@ -4405,7 +4426,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             document.getElementById('mainDisplayArea').innerHTML = `
                 <div class="bg-white rounded-xl table-3d overflow-hidden w-full">
                     <div class="overflow-x-auto no-scrollbar w-full">
-                        <table class="w-full border-collapse">
+                        <table class="w-full border-collapse roster-week-table">
                             ${headerHTML}
                             <tbody class="divide-y divide-slate-100">${bodyHTML}</tbody>
                         </table>
