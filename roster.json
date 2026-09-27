@@ -263,6 +263,12 @@
       1
     ],
     "_user_credentials": {
+      "123456": {
+        "password": "TN78NSO5",
+        "isTemporary": true,
+        "lastChanged": 1790354675740,
+        "status": "ACTIVE"
+      },
       "223254": {
         "password": "PASS1234",
         "isTemporary": true,
@@ -337,7 +343,13 @@
       }
     },
     "_admin_reset_requests": [],
-    "_exclusion_employees": [],
+    "_exclusion_employees": [
+      {
+        "sg_id": "223174",
+        "name": "Rajesh Warvadkar",
+        "email": "rajesh.warvadkar@sabre.com"
+      }
+    ],
     "_sabre_holidays": [
       {
         "date": "2026-01-01",
