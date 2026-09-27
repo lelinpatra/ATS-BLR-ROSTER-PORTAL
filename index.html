@@ -7634,5 +7634,163 @@ body:not(.ats-theme-active) #cloudContainer .bg-cloud{opacity:.72!important}
 
 </style>
 
+
+<!-- FINAL LOGIN SCREEN THEME LOCK
+     Portal themes may change the logged-in workspace only.
+     The login screen remains visually identical to the original ATS design. -->
+<style id="final-login-theme-lock">
+  /* Keep the login overlay itself completely independent of portal theme colors. */
+  body.ats-theme-active #mandatoryLoginModal,
+  body[data-theme] #mandatoryLoginModal {
+    background: rgba(15,23,42,.40) !important;
+    color: #0f172a !important;
+  }
+
+  /* Preserve the original aviation/login visual panel. */
+  body.ats-theme-active #mandatoryLoginModal .login-visual,
+  body[data-theme] #mandatoryLoginModal .login-visual {
+    background: linear-gradient(145deg,#0f172a 0%,#1e293b 62%,#172554 100%) !important;
+    color: #fff !important;
+  }
+
+  body.ats-theme-active #mandatoryLoginModal .login-form-panel,
+  body[data-theme] #mandatoryLoginModal .login-form-panel {
+    background: linear-gradient(180deg,#ffffff 0%,#f8fafc 100%) !important;
+    color: #0f172a !important;
+  }
+
+  body.ats-theme-active #mandatoryLoginModal .login-card,
+  body[data-theme] #mandatoryLoginModal .login-card {
+    background: rgba(255,255,255,.98) !important;
+    border-color: rgba(203,213,225,.9) !important;
+  }
+
+  /* Freeze login typography/colors against theme text overrides. */
+  body.ats-theme-active #mandatoryLoginModal .text-white,
+  body[data-theme] #mandatoryLoginModal .text-white { color:#fff !important; }
+
+  body.ats-theme-active #mandatoryLoginModal .text-slate-900,
+  body[data-theme] #mandatoryLoginModal .text-slate-900 { color:#0f172a !important; }
+  body.ats-theme-active #mandatoryLoginModal .text-slate-800,
+  body[data-theme] #mandatoryLoginModal .text-slate-800 { color:#1e293b !important; }
+  body.ats-theme-active #mandatoryLoginModal .text-slate-700,
+  body[data-theme] #mandatoryLoginModal .text-slate-700 { color:#334155 !important; }
+  body.ats-theme-active #mandatoryLoginModal .text-slate-600,
+  body[data-theme] #mandatoryLoginModal .text-slate-600 { color:#475569 !important; }
+  body.ats-theme-active #mandatoryLoginModal .text-slate-500,
+  body[data-theme] #mandatoryLoginModal .text-slate-500 { color:#64748b !important; }
+  body.ats-theme-active #mandatoryLoginModal .text-slate-400,
+  body[data-theme] #mandatoryLoginModal .text-slate-400 { color:#94a3b8 !important; }
+
+  body.ats-theme-active #mandatoryLoginModal .text-amber-500,
+  body[data-theme] #mandatoryLoginModal .text-amber-500 { color:#f59e0b !important; }
+
+  body.ats-theme-active #mandatoryLoginModal .text-indigo-300,
+  body[data-theme] #mandatoryLoginModal .text-indigo-300 { color:#a5b4fc !important; }
+  body.ats-theme-active #mandatoryLoginModal .text-indigo-300\/80,
+  body[data-theme] #mandatoryLoginModal .text-indigo-300\/80 { color:rgba(165,180,252,.8) !important; }
+  body.ats-theme-active #mandatoryLoginModal .text-indigo-300\/70,
+  body[data-theme] #mandatoryLoginModal .text-indigo-300\/70 { color:rgba(165,180,252,.7) !important; }
+
+  /* Freeze white/neutral surfaces, borders and inputs. */
+  body.ats-theme-active #mandatoryLoginModal .bg-white,
+  body[data-theme] #mandatoryLoginModal .bg-white { background:#fff !important; }
+
+  body.ats-theme-active #mandatoryLoginModal .bg-slate-50,
+  body[data-theme] #mandatoryLoginModal .bg-slate-50 { background:#f8fafc !important; }
+
+  body.ats-theme-active #mandatoryLoginModal .border-slate-200,
+  body[data-theme] #mandatoryLoginModal .border-slate-200 { border-color:#e2e8f0 !important; }
+
+  body.ats-theme-active #mandatoryLoginModal .border-slate-300,
+  body[data-theme] #mandatoryLoginModal .border-slate-300 { border-color:#cbd5e1 !important; }
+
+  body.ats-theme-active #mandatoryLoginModal .login-input-wrap,
+  body[data-theme] #mandatoryLoginModal .login-input-wrap {
+    background:#fff !important;
+    border-color:#cbd5e1 !important;
+    color:#0f172a !important;
+  }
+
+  body.ats-theme-active #mandatoryLoginModal .login-input,
+  body[data-theme] #mandatoryLoginModal .login-input {
+    background:transparent !important;
+    color:#0f172a !important;
+  }
+
+  body.ats-theme-active #mandatoryLoginModal .login-input::placeholder,
+  body[data-theme] #mandatoryLoginModal .login-input::placeholder {
+    color:#64748b !important;
+  }
+
+  body.ats-theme-active #mandatoryLoginModal .login-input-icon,
+  body[data-theme] #mandatoryLoginModal .login-input-icon,
+  body.ats-theme-active #mandatoryLoginModal .login-eye,
+  body[data-theme] #mandatoryLoginModal .login-eye {
+    color:#64748b !important;
+  }
+
+  body.ats-theme-active #mandatoryLoginModal .login-eye:hover,
+  body[data-theme] #mandatoryLoginModal .login-eye:hover {
+    color:#0f172a !important;
+  }
+
+  /* Freeze the login button to the original amber aviation styling. */
+  body.ats-theme-active #mandatoryLoginModal .login-submit,
+  body[data-theme] #mandatoryLoginModal .login-submit {
+    background:linear-gradient(135deg,#f59e0b 0%,#d97706 100%) !important;
+    color:#111827 !important;
+    box-shadow:0 8px 18px rgba(245,158,11,.20),inset 0 1px 0 rgba(255,255,255,.4) !important;
+  }
+
+  body.ats-theme-active #mandatoryLoginModal .login-submit:hover,
+  body[data-theme] #mandatoryLoginModal .login-submit:hover {
+    background:linear-gradient(135deg,#f59e0b 0%,#d97706 100%) !important;
+    color:#111827 !important;
+    box-shadow:0 13px 28px rgba(245,158,11,.3),inset 0 1px 0 rgba(255,255,255,.45) !important;
+  }
+
+  body.ats-theme-active #mandatoryLoginModal .login-sabre-mark,
+  body[data-theme] #mandatoryLoginModal .login-sabre-mark {
+    background:#050505 !important;
+  }
+
+  /* Freeze the remaining login-specific visual elements. */
+  body.ats-theme-active #mandatoryLoginModal .login-status-dot,
+  body[data-theme] #mandatoryLoginModal .login-status-dot {
+    background:#22c55e !important;
+    box-shadow:0 0 12px rgba(34,197,94,.8) !important;
+  }
+
+  body.ats-theme-active #mandatoryLoginModal .login-line-icon,
+  body[data-theme] #mandatoryLoginModal .login-line-icon {
+    border-color:rgba(148,163,184,.14) !important;
+    background:rgba(255,255,255,.04) !important;
+    color:#67e8f9 !important;
+  }
+
+  body.ats-theme-active #mandatoryLoginModal .login-error,
+  body[data-theme] #mandatoryLoginModal .login-error {
+    background:#fff1f2 !important;
+    border-color:#fecdd3 !important;
+    color:#be123c !important;
+  }
+
+  body.ats-theme-active #mandatoryLoginModal .login-forgot,
+  body[data-theme] #mandatoryLoginModal .login-forgot {
+    color:#475569 !important;
+  }
+
+  body.ats-theme-active #mandatoryLoginModal .login-forgot:hover,
+  body[data-theme] #mandatoryLoginModal .login-forgot:hover {
+    color:#d97706 !important;
+  }
+
+  body.ats-theme-active #mandatoryLoginModal .login-grid,
+  body[data-theme] #mandatoryLoginModal .login-grid {
+    opacity:.06 !important;
+  }
+</style>
+
 </body>
 </html>
