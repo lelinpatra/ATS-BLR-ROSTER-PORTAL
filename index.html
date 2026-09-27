@@ -3951,7 +3951,14 @@ function addWorldTimeSelector(selected){
 }
 function openWorldTimeComparison(card){
   const modal=document.getElementById('worldTimeComparisonModal'); if(!modal)return;
-  modal.classList.remove('hidden'); modal.setAttribute('aria-hidden','false');
+  modal.classList.remove('hidden','world-time-closing');
+  modal.setAttribute('aria-hidden','false');
+  const panel=modal.querySelector('.world-time-panel');
+  if(panel){
+    panel.style.animation='none';
+    void panel.offsetWidth;
+    panel.style.animation='';
+  }
   const wrap=document.getElementById('worldTimeSelectors'); wrap.innerHTML='';
   const clickedId=card?.querySelector('[id^="clock-"]')?.id?.replace('clock-','')||'IST';
   const clicked=worldClockZones.find(z=>z.id===clickedId)||worldClockZones[0];
@@ -3970,7 +3977,29 @@ function renderWorldTimeComparison(){
   const base=zones[0]?.zone||'Asia/Kolkata';
   out.innerHTML=zones.map((z,i)=>{const t=formatWorldTime(z.zone);return `<div class="world-time-compare-card"><div><div class="world-time-city">${z.country}</div><div class="world-time-zone">${z.zone} · ${t.offset}</div></div><div class="world-time-value">${t.time}</div><div class="world-time-date">${t.date}<div class="world-time-diff">${i===0?'BASE TIME':comparisonDifference(base,z.zone)}</div></div></div>`}).join('');
 }
-function closeWorldTimeComparison(){const m=document.getElementById('worldTimeComparisonModal');if(m){m.classList.add('hidden');m.setAttribute('aria-hidden','true');}}
+function closeWorldTimeComparison(){
+  const m=document.getElementById('worldTimeComparisonModal');
+  if(!m)return;
+  const panel=m.querySelector('.world-time-panel');
+  const portrait=window.matchMedia && window.matchMedia('(max-width: 767px) and (orientation: portrait)').matches;
+
+  if(!portrait || !panel){
+    m.classList.add('hidden');
+    m.setAttribute('aria-hidden','true');
+    return;
+  }
+
+  if(m.classList.contains('world-time-closing')) return;
+  m.classList.add('world-time-closing');
+  panel.style.animation='worldTimeSlideOutPortrait .24s cubic-bezier(.4,0,.8,1) both';
+
+  window.setTimeout(()=>{
+    m.classList.add('hidden');
+    m.classList.remove('world-time-closing');
+    m.setAttribute('aria-hidden','true');
+    panel.style.animation='';
+  },240);
+}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeComparison();});
 
 
@@ -7389,6 +7418,207 @@ body:not(.ats-theme-active) #cloudContainer .bg-cloud{opacity:.72!important}
 @media (prefers-reduced-motion:reduce){
   #cloudContainer .bg-cloud{animation-duration:140s!important}
 }
+
+
+/* ============================================================
+   WORLD TIME COMPARE — MOBILE PORTRAIT FINAL RESPONSIVE FIX
+   Desktop/tablet styling remains unchanged.
+   ============================================================ */
+@media (max-width: 767px) and (orientation: portrait) {
+  .world-time-modal {
+    align-items: stretch;
+    justify-content: flex-start;
+    padding: 0;
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    overflow: hidden;
+    overscroll-behavior: contain;
+    touch-action: pan-y;
+  }
+
+  .world-time-panel {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    max-height: 100dvh;
+    min-height: 0;
+    margin: 0;
+    border-radius: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transform: translate3d(-100%, 0, 0);
+    animation: worldTimeSlideInPortrait .30s cubic-bezier(.22,.8,.28,1) both;
+    will-change: transform;
+  }
+
+  .world-time-head {
+    flex: 0 0 auto;
+    min-width: 0;
+    padding: 13px 14px 11px;
+    gap: 10px;
+  }
+
+  .world-time-head > div:first-child {
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  .world-time-title {
+    font-size: clamp(12px, 3.8vw, 15px);
+    line-height: 1.15;
+    letter-spacing: .055em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .world-time-subtitle {
+    font-size: 8.5px;
+    line-height: 1.3;
+    max-width: 100%;
+  }
+
+  .world-time-close {
+    flex: 0 0 36px;
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+  }
+
+  .world-time-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: none;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+    padding: 10px 10px 12px;
+  }
+
+  .world-time-selectors {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+    width: 100%;
+  }
+
+  .world-time-selector-row {
+    width: 100%;
+    min-width: 0;
+    gap: 6px;
+    padding: 6px;
+  }
+
+  .world-time-select {
+    min-width: 0;
+    width: 100%;
+    font-size: 10px;
+    padding: 8px 7px;
+  }
+
+  .world-time-remove {
+    flex: 0 0 36px;
+    min-width: 36px;
+    min-height: 36px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .world-time-add {
+    min-height: 38px;
+    padding: 8px 9px;
+    font-size: 10px;
+  }
+
+  .world-time-compare-results {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+    width: 100%;
+  }
+
+  .world-time-compare-card {
+    width: 100%;
+    min-width: 0;
+    min-height: 92px;
+    padding: 11px 12px;
+  }
+
+  .world-time-value {
+    font-size: clamp(19px, 6vw, 23px);
+  }
+
+  .world-time-date {
+    font-size: 8.5px;
+  }
+
+  .world-time-foot {
+    flex: 0 0 auto;
+    padding: 8px 10px calc(8px + env(safe-area-inset-bottom, 0px));
+    font-size: 7.5px;
+  }
+
+  /* Prevent any internal content from creating horizontal overflow. */
+  .world-time-panel,
+  .world-time-panel * {
+    max-width: 100%;
+  }
+}
+
+/* Very narrow portrait phones. */
+@media (max-width: 380px) and (orientation: portrait) {
+  .world-time-head {
+    padding-left: 11px;
+    padding-right: 11px;
+  }
+
+  .world-time-body {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .world-time-title {
+    font-size: 12px;
+  }
+
+  .world-time-subtitle {
+    font-size: 8px;
+  }
+
+  .world-time-close {
+    flex-basis: 34px;
+    width: 34px;
+    min-width: 34px;
+    height: 34px;
+  }
+
+  .world-time-compare-card {
+    min-height: 88px;
+    padding: 10px;
+  }
+}
+
+@keyframes worldTimeSlideInPortrait {
+  from { transform: translate3d(-100%, 0, 0); }
+  to   { transform: translate3d(0, 0, 0); }
+}
+
+@keyframes worldTimeSlideOutPortrait {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(100%, 0, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .world-time-panel {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
 </style>
 
 </body>
