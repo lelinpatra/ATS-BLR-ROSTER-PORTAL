@@ -1262,6 +1262,18 @@ body.ats-theme-active .min-h-screen{background:transparent!important}
 @media (prefers-reduced-motion:reduce){
   #cloudContainer .bg-cloud{animation-duration:140s!important}
 }
+
+/* ============================================================
+   HIDE WORLD TIME / TIME-ZONE AREA ON MOBILE & TABLET
+   For touch devices below the 12-inch-style viewport breakpoint.
+   Desktop/laptop layouts remain unchanged.
+   ============================================================ */
+@media (max-width:1199px) and (pointer:coarse) {
+  #worldClocksContainer,
+  #worldTimeComparisonModal {
+    display: none !important;
+  }
+}
 /* Keep clouds visible against every theme while preserving the theme background. */
 body[data-theme="midnight"] .bg-cloud,
 body[data-theme="terminal"] .bg-cloud{
