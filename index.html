@@ -7794,3 +7794,291 @@ body:not(.ats-theme-active) #cloudContainer .bg-cloud{opacity:.72!important}
 
 </body>
 </html>
+
+<style id="final-login-screen-absolute-lock">
+/*
+  ABSOLUTE LOGIN SCREEN LOCK
+  Theme selection is for the logged-in portal only.
+  The login screen must remain exactly in the original ATS visual palette.
+  This block is intentionally LAST so it wins over all theme/cloud rules above.
+*/
+
+/* Freeze the page canvas visible behind the login overlay. */
+body:has(#mandatoryLoginModal:not(.hidden)) {
+  background-color:#cbd5e1 !important;
+}
+
+/* Freeze the original cloud appearance while the login screen is visible. */
+body:has(#mandatoryLoginModal:not(.hidden)) #cloudContainer .bg-cloud {
+  background:linear-gradient(180deg,#ffffff 0%,#e2e8f0 100%) !important;
+  opacity:.92 !important;
+  filter:drop-shadow(0 15px 20px rgba(15,23,42,.18)) !important;
+}
+
+/* Freeze the complete login shell and major panels. */
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal {
+  background:rgba(15,23,42,.40) !important;
+  color:#0f172a !important;
+}
+
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-visual,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-visual {
+  background:linear-gradient(145deg,#0f172a 0%,#1e293b 62%,#172554 100%) !important;
+  color:#fff !important;
+}
+
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-form-panel,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-form-panel {
+  background:linear-gradient(180deg,#ffffff 0%,#f8fafc 100%) !important;
+  color:#0f172a !important;
+}
+
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-card,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-card {
+  background:rgba(255,255,255,.98) !important;
+  border-color:rgba(203,213,225,.9) !important;
+}
+
+/* Freeze every login text color that is affected by the theme engine. */
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .text-white,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .text-white { color:#fff !important; }
+
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .text-slate-900,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .text-slate-900 { color:#0f172a !important; }
+
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .text-slate-800,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .text-slate-800 { color:#1e293b !important; }
+
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .text-slate-700,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .text-slate-700 { color:#334155 !important; }
+
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .text-slate-600,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .text-slate-600 { color:#475569 !important; }
+
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .text-slate-500,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .text-slate-500 { color:#64748b !important; }
+
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .text-slate-400,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .text-slate-400 { color:#94a3b8 !important; }
+
+/* Secure Operations Network label: explicitly locked to the original login palette. */
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .text-slate-300,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .text-slate-300 { color:#cbd5e1 !important; }
+
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .text-indigo-500,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .text-indigo-500 { color:#6366f1 !important; }
+
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .text-indigo-300,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .text-indigo-300 { color:#a5b4fc !important; }
+
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .text-indigo-300\/80,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .text-indigo-300\/80 { color:rgba(165,180,252,.8) !important; }
+
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .text-indigo-300\/70,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .text-indigo-300\/70 { color:rgba(165,180,252,.7) !important; }
+
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .text-amber-500,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .text-amber-500 { color:#f59e0b !important; }
+
+/* Freeze neutral surfaces and form controls. */
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .bg-white,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .bg-white { background:#fff !important; }
+
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .bg-slate-50,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .bg-slate-50 { background:#f8fafc !important; }
+
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .border-slate-200,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .border-slate-200 { border-color:#e2e8f0 !important; }
+
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .border-slate-300,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .border-slate-300 { border-color:#cbd5e1 !important; }
+
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal input,
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal select,
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal textarea,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal input,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal select,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal textarea {
+  background-color:#fff !important;
+  color:#0f172a !important;
+  border-color:#cbd5e1 !important;
+}
+
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal input::placeholder,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal input::placeholder {
+  color:#64748b !important;
+}
+
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-input-wrap,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-input-wrap {
+  background:#fff !important;
+  border-color:#cbd5e1 !important;
+  color:#0f172a !important;
+}
+
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-input,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-input {
+  background:transparent !important;
+  color:#0f172a !important;
+}
+
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-input-icon,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-input-icon,
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-eye,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-eye {
+  color:#64748b !important;
+}
+
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-eye:hover,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-eye:hover {
+  color:#0f172a !important;
+}
+
+/* Freeze login button, Sabre mark and status/utility visuals. */
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-submit,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-submit {
+  background:linear-gradient(135deg,#f59e0b 0%,#d97706 100%) !important;
+  color:#111827 !important;
+  box-shadow:0 8px 18px rgba(245,158,11,.20),inset 0 1px 0 rgba(255,255,255,.4) !important;
+}
+
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-submit:hover,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-submit:hover {
+  background:linear-gradient(135deg,#f59e0b 0%,#d97706 100%) !important;
+  color:#111827 !important;
+  box-shadow:0 13px 28px rgba(245,158,11,.3),inset 0 1px 0 rgba(255,255,255,.45) !important;
+}
+
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-sabre-mark,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-sabre-mark {
+  background:#050505 !important;
+}
+
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-status-dot,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-status-dot {
+  background:#22c55e !important;
+  box-shadow:0 0 12px rgba(34,197,94,.8) !important;
+}
+
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-line-icon,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-line-icon {
+  border-color:rgba(148,163,184,.14) !important;
+  background:rgba(255,255,255,.04) !important;
+  color:#67e8f9 !important;
+}
+
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-error,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-error {
+  background:#fff1f2 !important;
+  border-color:#fecdd3 !important;
+  color:#be123c !important;
+}
+
+/* Keep login-only pseudo-elements independent of theme variables. */
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-shell::before,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-shell::before {
+  background:linear-gradient(115deg,transparent 0%,rgba(255,255,255,.018) 42%,transparent 43%),
+             radial-gradient(circle at 50% 50%,transparent 0 48%,rgba(15,23,42,.16) 100%) !important;
+}
+</style>
+
+
+<style id="final-login-field-color-lock">
+/* FINAL LOGIN FIELD COLOR LOCK — EMAIL + EMPLOYEE ID */
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal #loginEmail,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal #loginEmail,
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal #loginEmpId,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal #loginEmpId {
+  background-color: transparent !important;
+  color: #0f172a !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+  accent-color: #64748b !important;
+}
+
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-input-wrap:has(#loginEmail),
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-input-wrap:has(#loginEmail),
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-input-wrap:has(#loginEmpId),
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-input-wrap:has(#loginEmpId),
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-input-wrap:has(#loginEmail):focus-within,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-input-wrap:has(#loginEmail):focus-within,
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-input-wrap:has(#loginEmpId):focus-within,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-input-wrap:has(#loginEmpId):focus-within,
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-input-wrap:has(#loginEmail):hover,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-input-wrap:has(#loginEmail):hover,
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-input-wrap:has(#loginEmpId):hover,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-input-wrap:has(#loginEmpId):hover {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 2px 6px rgba(15,23,42,.04), inset 0 1px 0 rgba(255,255,255,.9) !important;
+  color: #0f172a !important;
+  transform: none !important;
+}
+
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal #loginEmail::placeholder,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal #loginEmail::placeholder,
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal #loginEmpId::placeholder,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal #loginEmpId::placeholder {
+  color: #64748b !important;
+  opacity: 1 !important;
+}
+
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal #loginEmail:-webkit-autofill,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal #loginEmail:-webkit-autofill,
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal #loginEmpId:-webkit-autofill,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal #loginEmpId:-webkit-autofill {
+  -webkit-text-fill-color: #0f172a !important;
+  -webkit-box-shadow: 0 0 0 1000px #ffffff inset !important;
+  box-shadow: 0 0 0 1000px #ffffff inset !important;
+  background-color: #ffffff !important;
+  caret-color: #0f172a !important;
+}
+
+</style>
+
+<style id="final-secure-operations-network-lock">
+/* ABSOLUTE LOCK — SECURE OPERATIONS NETWORK LOGIN BADGE */
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-visual .relative.z-10 > .inline-flex.items-center.gap-3,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-visual .relative.z-10 > .inline-flex.items-center.gap-3 {
+  background: rgba(255,255,255,.06) !important;
+  background-color: rgba(255,255,255,.06) !important;
+  border-color: rgba(255,255,255,.10) !important;
+  color: #cbd5e1 !important;
+  box-shadow: none !important;
+  filter: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+  text-shadow: none !important;
+  -webkit-text-fill-color: #cbd5e1 !important;
+}
+
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-visual .relative.z-10 > .inline-flex.items-center.gap-3 .text-slate-300,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-visual .relative.z-10 > .inline-flex.items-center.gap-3 .text-slate-300 {
+  color: #cbd5e1 !important;
+  -webkit-text-fill-color: #cbd5e1 !important;
+  opacity: 1 !important;
+  text-shadow: none !important;
+}
+
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-visual .relative.z-10 > .inline-flex.items-center.gap-3 .login-status-dot,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-visual .relative.z-10 > .inline-flex.items-center.gap-3 .login-status-dot {
+  background: #22c55e !important;
+  border-color: transparent !important;
+  box-shadow: 0 0 12px rgba(34,197,94,.8) !important;
+  filter: none !important;
+}
+
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-visual .relative.z-10 > .inline-flex.items-center.gap-3::before,
+body.ats-theme-active:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-visual .relative.z-10 > .inline-flex.items-center.gap-3::after,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-visual .relative.z-10 > .inline-flex.items-center.gap-3::before,
+body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .login-visual .relative.z-10 > .inline-flex.items-center.gap-3::after {
+  color: inherit !important;
+  background: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+</style>
