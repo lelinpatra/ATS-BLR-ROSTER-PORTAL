@@ -2143,7 +2143,7 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
 
                 <!-- Top Right Notifications -->
                 <div class="relative inline-block text-left">
-                    <button id="notificationBtn" onclick="toggleNotificationsPanel()"
+                    <button id="notificationBtn" onclick="toggleNotificationsPanel(event)"
                         class="relative flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 bg-slate-800 hover:bg-slate-700 text-slate-100 rounded-lg border border-slate-700 btn-3d transition-all"
                         title="Notifications" aria-label="Notifications" aria-expanded="false">
                         <i data-lucide="bell" class="w-4 h-4 sm:w-5 sm:h-5 text-amber-400"></i>
@@ -3224,6 +3224,7 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
             const badge = document.getElementById('notificationBadge');
             const subtext = document.getElementById('notificationPanelSubtext');
             if (!list || !badge) return;
+            list.dataset.rendered = 'true';
             clearExpiredReadNotifications();
             const readId = getNotificationReadId();
             const unreadCount = readId ? portalNotifications.findIndex(n => n.id === readId) : portalNotifications.length;
@@ -3262,15 +3263,50 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
             lucide.createIcons();
         }
 
-        function toggleNotificationsPanel() {
+        // Fast notification toggle: open/close immediately on the first click.
+        // Rendering is already kept in sync when notification data changes, so
+        // reopening the panel does not need to rebuild the entire notification
+        // list synchronously (which could delay the browser's first paint).
+        let notificationsRenderPending = false;
+        function toggleNotificationsPanel(event) {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+
             const panel = document.getElementById('notificationsPanel');
             const btn = document.getElementById('notificationBtn');
             if (!panel) return;
+
             const willOpen = panel.classList.contains('hidden');
             document.getElementById('userProfileDropdown')?.classList.add('hidden');
-            panel.classList.toggle('hidden', !willOpen);
-            if (btn) btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
-            if (willOpen) renderNotifications();
+
+            if (willOpen) {
+                // The class change happens before any expensive work, allowing
+                // the browser to display the panel without waiting on icon work.
+                panel.classList.remove('hidden');
+                panel.style.visibility = 'visible';
+                if (btn) btn.setAttribute('aria-expanded', 'true');
+
+                // Only refresh if the panel has not yet been populated. Defer
+                // this fallback refresh until after the opening paint.
+                const list = document.getElementById('notificationsList');
+                if (list && !list.dataset.rendered) {
+                    if (!notificationsRenderPending) {
+                        notificationsRenderPending = true;
+                        requestAnimationFrame(() => {
+                            notificationsRenderPending = false;
+                            renderNotifications();
+                            const currentList = document.getElementById('notificationsList');
+                            if (currentList) currentList.dataset.rendered = 'true';
+                        });
+                    }
+                }
+            } else {
+                panel.classList.add('hidden');
+                panel.style.visibility = '';
+                if (btn) btn.setAttribute('aria-expanded', 'false');
+            }
         }
 
         function markAllNotificationsRead() {
