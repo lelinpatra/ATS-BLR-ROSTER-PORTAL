@@ -1760,6 +1760,35 @@ body.ats-theme-active #mainDisplayArea table.roster-table thead th.roster-day-da
 .sabre-blr-holiday-capsule::before{content:'★ ';}
 @media (min-width:640px){.sabre-blr-holiday-capsule{font-size:10px;padding:3px 9px;}}
 </style>
+
+<style id="roster-employee-column-left-lock">
+/* FINAL LOCK: SG ID / EMPLOYEE column stays left-aligned like the employee data below.
+   This applies across Original ATS and all themes without changing other roster columns. */
+#mainDisplayArea table.roster-table thead th:first-child,
+#mainDisplayArea table[data-roster-table] thead th:first-child,
+#mainDisplayArea .roster-table thead th:first-child {
+    text-align: left !important;
+}
+#mainDisplayArea table.roster-table tbody td:first-child,
+#mainDisplayArea table[data-roster-table] tbody td:first-child,
+#mainDisplayArea .roster-table tbody td:first-child {
+    text-align: left !important;
+}
+#mainDisplayArea table.roster-table tbody td:first-child > div,
+#mainDisplayArea table[data-roster-table] tbody td:first-child > div,
+#mainDisplayArea .roster-table tbody td:first-child > div {
+    text-align: left !important;
+}
+body.ats-theme-active #mainDisplayArea table.roster-table thead th:first-child,
+body.ats-theme-active #mainDisplayArea table[data-roster-table] thead th:first-child,
+body.ats-theme-active #mainDisplayArea .roster-table thead th:first-child,
+body.ats-theme-active #mainDisplayArea table.roster-table tbody td:first-child,
+body.ats-theme-active #mainDisplayArea table[data-roster-table] tbody td:first-child,
+body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
+    text-align: left !important;
+}
+</style>
+
 </head>
 <body class="min-h-screen flex flex-col w-full overflow-x-hidden relative pb-16">
 
