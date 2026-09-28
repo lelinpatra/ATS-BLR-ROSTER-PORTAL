@@ -83,7 +83,7 @@
       {
         "sg_id": 223255,
         "name": "Deepak K",
-        "skilling": "ATS",
+        "skilling": "ATS 2L",
         "default_start": "10:00 AM",
         "default_end": "07:00 PM",
         "days_office": "Wed/Thu/Fri",
@@ -934,7 +934,7 @@
       {
         "sg_id": 223255,
         "name": "Deepak K",
-        "skilling": "ATS",
+        "skilling": "ATS 2L",
         "default_start": "10:00 AM",
         "default_end": "07:00 PM",
         "days_office": "Tue/Wed/Thu/Fri",
@@ -1198,7 +1198,7 @@
       {
         "sg_id": 223255,
         "name": "Deepak K",
-        "skilling": "ATS",
+        "skilling": "ATS 2L",
         "default_start": "10:00 AM",
         "default_end": "07:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
@@ -1450,24 +1450,24 @@
         "default_end": "03:00 PM",
         "days_office": "Mon/Tue/Wed/Thu",
         "shifts": {
-          "Monday": "06:00 AM - 03:00 PM",
+          "Monday": "WO",
           "Tuesday": "06:00 AM - 03:00 PM",
           "Wednesday": "06:00 AM - 03:00 PM",
           "Thursday": "06:00 AM - 03:00 PM",
           "Friday": "06:00 AM - 03:00 PM",
           "Saturday": "WO",
-          "Sunday": "WO"
+          "Sunday": "06:30 AM - 03:30 PM"
         }
       },
       {
         "sg_id": 223255,
         "name": "Deepak K",
-        "skilling": "ATS",
+        "skilling": "ATS 2L",
         "default_start": "10:00 AM",
         "default_end": "07:00 PM",
         "days_office": "Mon/Tue/Wed/Thu",
         "shifts": {
-          "Monday": "WO",
+          "Monday": "10:00 AM - 07:00 PM",
           "Tuesday": "10:00 AM - 07:00 PM",
           "Wednesday": "10:00 AM - 07:00 PM",
           "Thursday": "07:00 AM -04:00 PM",
@@ -1615,13 +1615,13 @@
       "Sunday": "Unassigned"
     },
     "total_headcount_6am": [
-      5,
+      4,
       5,
       5,
       5,
       5,
       1,
-      1
+      2
     ],
     "total_headcount_8am": [
       2,
@@ -1633,7 +1633,7 @@
       0
     ],
     "total_headcount_10am": [
-      3,
+      4,
       4,
       4,
       3,
@@ -1692,7 +1692,7 @@
       {
         "sg_id": 223255,
         "name": "Deepak K",
-        "skilling": "ATS",
+        "skilling": "ATS 2L",
         "default_start": "08:00 AM",
         "default_end": "05:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
