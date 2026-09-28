@@ -1198,6 +1198,9 @@
         margin-bottom: 8px !important;
     }
 }
+
+/* Sub Admin restrictions: Deepak K (SG ID 223255) may edit shifts and QM allocation only. */
+#adminImportContainer [data-full-admin-only].hidden { display:none !important; }
 </style>
 
 <style id="ats-theme-system">
@@ -2062,27 +2065,27 @@ body.ats-theme-active #mainDisplayArea table.roster-table thead th.roster-day-da
 
                 <!-- Admin Action Buttons Bar -->
                 <div id="adminImportContainer" class="hidden flex items-center gap-2">
-                    <button onclick="openAdminPassManagerModal()" class="flex items-center space-x-1.5 bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors" title="User Management">
+                    <button onclick="openAdminPassManagerModal()" data-full-admin-only="true" class="flex items-center space-x-1.5 bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors" title="User Management">
                         <i data-lucide="users" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
                         <span class="hidden xs:inline">User Management</span>
                     </button>
-                    <button onclick="openAddMonthModal()" class="flex items-center space-x-1.5 bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors" title="Create a New Roster Month">
+                    <button onclick="openAddMonthModal()" data-full-admin-only="true" class="flex items-center space-x-1.5 bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors" title="Create a New Roster Month">
                         <i data-lucide="calendar-plus" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
                         <span class="hidden xs:inline">Add Month</span>
                     </button>
-                    <button onclick="openAddWeekModal()" class="flex items-center space-x-1.5 bg-teal-600 hover:bg-teal-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors" title="Add Week to Current Month">
+                    <button onclick="openAddWeekModal()" data-full-admin-only="true" class="flex items-center space-x-1.5 bg-teal-600 hover:bg-teal-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors" title="Add Week to Current Month">
                         <i data-lucide="plus-circle" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
                         <span class="hidden xs:inline">Add Week</span>
                     </button>
-                    <button onclick="openAddEmployeeModal()" title="Add a new employee manually" aria-label="Add a new employee manually" class="flex items-center space-x-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors">
+                    <button onclick="openAddEmployeeModal()" data-full-admin-only="true" title="Add a new employee manually" aria-label="Add a new employee manually" class="flex items-center space-x-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors">
                         <i data-lucide="user-plus" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
                         <span class="hidden xs:inline">Add Employee</span>
                     </button>
-                    <label for="excelFileInput" title="Upload an Excel file to update roster shift data" aria-label="Upload an Excel file to update roster shift data" class="flex items-center space-x-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg cursor-pointer btn-3d transition-colors">
+                    <label for="excelFileInput" data-full-admin-only="true" title="Upload an Excel file to update roster shift data" aria-label="Upload an Excel file to update roster shift data" class="flex items-center space-x-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg cursor-pointer btn-3d transition-colors">
                         <i data-lucide="upload" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
                         <span class="hidden xs:inline">Import Excel</span>
                     </label>
-                    <button id="publishSavedDraftBtn" onclick="publishSavedAdminDraft()" title="Publish the saved Admin-only Excel draft" aria-label="Publish the saved Admin-only Excel draft" class="hidden items-center space-x-1.5 bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors">
+                    <button id="publishSavedDraftBtn" data-full-admin-only="true" onclick="publishSavedAdminDraft()" title="Publish the saved Admin-only Excel draft" aria-label="Publish the saved Admin-only Excel draft" class="hidden items-center space-x-1.5 bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg btn-3d transition-colors">
                         <i data-lucide="cloud-upload" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
                         <span class="hidden xs:inline">Publish Draft</span>
                     </button>
@@ -2448,7 +2451,7 @@ body.ats-theme-active #mainDisplayArea table.roster-table thead th.roster-day-da
                     <i data-lucide="lock" class="w-6 h-6"></i>
                 </div>
                 <h3 class="font-extrabold text-slate-900 text-lg">Admin Authentication</h3>
-                <p class="text-slate-500 text-xs">Enter credentials and GitHub settings to enable live cloud commits</p>
+                <p class="text-slate-500 text-xs">Full Admin authentication and GitHub cloud commit settings</p>
             </div>
             <div class="space-y-3 pt-2">
                 <div class="grid grid-cols-2 gap-2">
@@ -2491,6 +2494,48 @@ body.ats-theme-active #mainDisplayArea table.roster-table thead th.roster-day-da
             <div class="flex justify-end gap-2 pt-2 border-t border-slate-200">
                 <button onclick="cancelAdminLogin()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-lg text-xs btn-3d w-1/2">Cancel</button>
                 <button onclick="authenticateAdmin()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-lg text-xs btn-3d w-1/2">Login</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sub Admin GitHub Authorization Modal -->
+    <div id="subAdminGithubAuthModal" class="fixed inset-0 bg-slate-950/75 backdrop-blur-md z-[95] hidden items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-md overflow-hidden card-3d">
+            <div class="px-5 py-4 bg-slate-900 text-white flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 rounded-lg bg-indigo-600"><i data-lucide="github" class="w-5 h-5"></i></div>
+                    <div>
+                        <h3 class="font-extrabold text-sm">Sub Admin GitHub Access</h3>
+                        <p class="text-[10px] text-slate-400">Authorize roster publishing with your GitHub access</p>
+                    </div>
+                </div>
+                <button onclick="cancelSubAdminGithubAuth()" class="text-slate-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+            <div class="p-5 space-y-4">
+                <div class="rounded-xl border border-indigo-200 bg-indigo-50 p-3">
+                    <p class="text-[11px] leading-relaxed text-indigo-900">
+                        Your GitHub account <strong>Deepak223255</strong> must have <strong>write access</strong> to the
+                        <strong>ATS-BLR-ROSTER-PORTAL</strong> repository. Enter your
+                        <strong>GitHub Personal Access Token (classic)</strong> with the
+                        <strong>repo</strong> scope enabled.
+                    </p>
+                </div>
+                <div>
+                    <label class="block text-[11px] font-bold text-slate-700 mb-1">GitHub Personal Access Token</label>
+                    <input type="password" id="subAdminGithubToken" autocomplete="off"
+                           placeholder="github_pat_••••••••••••"
+                           class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs font-semibold focus:ring-2 focus:ring-indigo-500 input-3d">
+                </div>
+                <p id="subAdminGithubAuthError" class="hidden text-rose-600 text-[11px] font-bold"></p>
+                <p class="text-[10px] text-slate-500">
+                    Use Deepak's own <strong>classic PAT</strong> with the <strong>repo</strong> scope. The token is kept only in memory while this portal session is active. It is not saved to the roster or browser storage.
+                </p>
+            </div>
+            <div class="px-5 py-3 border-t border-slate-200 flex justify-end gap-2">
+                <button onclick="cancelSubAdminGithubAuth()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-lg text-xs btn-3d">Cancel</button>
+                <button onclick="authorizeSubAdminGithub()" id="authorizeSubAdminGithubBtn" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-lg text-xs btn-3d">
+                    Authorize & Enter Admin Mode
+                </button>
             </div>
         </div>
     </div>
@@ -2624,6 +2669,43 @@ body.ats-theme-active #mainDisplayArea table.roster-table thead th.roster-day-da
         const ADMIN_EMAIL = 'lelin.patra@sabre.com';
         const ADMIN_SG_ID = '316092';
         const ADMIN_PASSWORD = '1Q2W3E4R';
+
+        // Privileged portal roles. Normal employees continue to use Public View.
+        // Deepak K (SG ID 223255) is a Sub Admin: he can edit employee shift timings
+        // and QM staff allocation, but cannot access the full Admin Management tools.
+        const SUB_ADMIN_EMAIL = 'deepak.k@sabre.com';
+        const SUB_ADMIN_SG_ID = '223255';
+        const SUB_ADMIN_NAME = 'Deepak K';
+        const SUB_ADMIN_GITHUB_PROFILE = 'https://github.com/Deepak223255';
+
+        function getPortalRole(email, sgId) {
+            const normalizedEmail = normalizeLoginEmail(email);
+            const cleanId = cleanSgId(sgId);
+            if (normalizedEmail === ADMIN_EMAIL && cleanId === ADMIN_SG_ID) return 'admin';
+            if (normalizedEmail === SUB_ADMIN_EMAIL && cleanId === SUB_ADMIN_SG_ID) return 'subadmin';
+            return 'employee';
+        }
+
+        function isPrivilegedPortalUser() {
+            return !!activeUserSession && (activeUserSession.role === 'admin' || activeUserSession.role === 'subadmin');
+        }
+
+        function isFullAdminMode() {
+            return !!activeUserSession && activeUserSession.role === 'admin' && isAdminMode;
+        }
+
+        function canEditRosterShifts() {
+            return isAdminMode && isPrivilegedPortalUser();
+        }
+
+        function canEditEmployeeProfiles() {
+            return isFullAdminMode();
+        }
+
+        function canEditQmAllocation() {
+            return isAdminMode && isPrivilegedPortalUser();
+        }
+
         const LOGIN_IDENTITY_STORAGE_KEY = 'ats_saved_login_identity_v1';
 
         function normalizeLoginEmail(email) {
@@ -2707,11 +2789,13 @@ body.ats-theme-active #mainDisplayArea table.roster-table thead th.roster-day-da
                 }
 
                 matchedEmp = findEmployeeBySgId(sgId);
+                const restoredRole = getPortalRole(email, sgId);
                 activeUserSession = {
                     sg_id: sgId,
                     empName: getPortalLoginEmployeeName(sgId, matchedEmp),
                     email: email,
-                    isAdmin: isAdminLoginIdentity(email, sgId)
+                    isAdmin: restoredRole === 'admin',
+                    role: restoredRole
                 };
                 isAdminMode = false;
                 pendingChangesExist = false;
@@ -2775,6 +2859,16 @@ body.ats-theme-active #mainDisplayArea table.roster-table thead th.roster-day-da
             };
         }
 
+        // GitHub-only Sub Admin publishing:
+        // Deepak is a collaborator on the ATS repository and uses his own fine-grained
+        // GitHub Personal Access Token (PAT). The PAT is kept in memory for this browser
+        // session only and is NEVER written to roster.json, localStorage, or the HTML.
+        const SUB_ADMIN_GITHUB_OWNER = 'lelinpatra';
+        const SUB_ADMIN_GITHUB_REPO = 'ATS-BLR-ROSTER-PORTAL';
+        const SUB_ADMIN_GITHUB_PATH = 'roster.json';
+
+        let subAdminGithubToken = '';
+
         let githubConfig = {
             token: '',
             owner: '',
@@ -2813,8 +2907,8 @@ body.ats-theme-active #mainDisplayArea table.roster-table thead th.roster-day-da
             localStorage.setItem('ats_admin_requests', JSON.stringify(adminResetRequests));
             localStorage.setItem('ats_exclusion_emps', JSON.stringify(exclusionEmployees));
 
-            // GitHub cloud writes are performed only by an authenticated Admin session.
-            // Never expose the Admin GitHub token to employee browsers.
+            // GitHub cloud writes are performed only by an authenticated Admin or Sub Admin session.
+            // Sub Admin GitHub authorization is session-only and is never stored in roster.json.
             if (rawRosterData && rawRosterData.length > 0) {
                 rawRosterData[0]._user_credentials = userCredentials;
                 rawRosterData[0]._admin_reset_requests = adminResetRequests;
@@ -4176,7 +4270,8 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
 
             const matchedEmp = findEmployeeBySgId(cleanId);
             const loginEmployeeName = getPortalLoginEmployeeName(cleanId, matchedEmp);
-            const isAdmin = isAdminLoginIdentity(inputEmail, cleanId);
+            const portalRole = getPortalRole(inputEmail, cleanId);
+            const isAdmin = portalRole === 'admin';
 
             if (isAdmin) {
                 if (inputPass !== ADMIN_PASSWORD) {
@@ -4196,7 +4291,8 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 sg_id: cleanId,
                 empName: loginEmployeeName,
                 email: inputEmail,
-                isAdmin: isAdmin
+                isAdmin: isAdmin,
+                role: portalRole
             };
 
             // A normal login always opens the public roster. Admin Mode remains a separate
@@ -4219,9 +4315,9 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             const switchBtnIcon = document.getElementById('switchModeIcon');
             const switchBtnLabel = document.getElementById('switchModeLabel');
 
-            // Only SG ID 316092 is permitted to access Admin Mode.
-            // All regular employees and all exclusion-access employees see Logout only.
-            const isAuthorizedAdmin = cleanSgId(activeUserSession.sg_id) === '316092';
+            // Admin Mode is available to the full Admin and the designated Sub Admin.
+            // Deepak K (223255) receives only the restricted Sub Admin tools.
+            const isAuthorizedAdmin = isPrivilegedPortalUser();
             if (switchBtn) {
                 switchBtn.classList.toggle('hidden', !isAuthorizedAdmin);
             }
@@ -4232,17 +4328,24 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             const adminDeleteMonthBtn = document.getElementById('adminDeleteMonthBtn');
             const adminDeleteWeekBtn = document.getElementById('adminDeleteWeekBtn');
 
-            if (isAdminMode) {
+            if (isAdminMode && isAuthorizedAdmin) {
                 adminBadge.classList.remove('hidden');
-                adminDock.classList.remove('hidden');
-                if (adminPdfCalendarUpload) adminPdfCalendarUpload.classList.remove('hidden');
-                if (adminDeleteMonthBtn) adminDeleteMonthBtn.classList.remove('hidden');
-                if (adminDeleteWeekBtn) adminDeleteWeekBtn.classList.remove('hidden');
+                adminBadge.innerText = activeUserSession.role === 'subadmin' ? 'Sub Admin Mode' : 'Admin Mode';
+                // The top action toolbar is reserved for the full Admin.
+                // Sub Admin uses the roster/QM controls in the page itself plus Publish Changes.
+                const fullAdminOnly = activeUserSession.role === 'admin';
+                if (adminDock) adminDock.classList.toggle('hidden', !fullAdminOnly);
+
+                // Full Admin-only controls. Sub Admin gets roster/QM editing only.
+                if (adminPdfCalendarUpload) adminPdfCalendarUpload.classList.toggle('hidden', !fullAdminOnly);
+                if (adminDeleteMonthBtn) adminDeleteMonthBtn.classList.toggle('hidden', !fullAdminOnly);
+                if (adminDeleteWeekBtn) adminDeleteWeekBtn.classList.toggle('hidden', !fullAdminOnly);
+
                 switchBtnLabel.innerText = "Switch to Normal Mode";
                 switchBtnIcon.setAttribute("data-lucide", "user-check");
             } else {
                 adminBadge.classList.add('hidden');
-                adminDock.classList.add('hidden');
+                if (adminDock) adminDock.classList.add('hidden');
                 if (adminDeleteMonthBtn) adminDeleteMonthBtn.classList.add('hidden');
                 if (adminDeleteWeekBtn) adminDeleteWeekBtn.classList.add('hidden');
                 if (adminPdfCalendarUpload) adminPdfCalendarUpload.classList.add('hidden');
@@ -4250,14 +4353,134 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 switchBtnIcon.setAttribute("data-lucide", "shield");
             }
 
+            // Hide full Admin management buttons from Sub Admin.
+            const fullAdminControls = document.querySelectorAll('#adminImportContainer [data-full-admin-only]');
+            fullAdminControls.forEach(el => el.classList.toggle('hidden', activeUserSession.role !== 'admin' || !isAdminMode));
+
             lucide.createIcons();
+        }
+
+        function openSubAdminGithubAuth() {
+            if (!activeUserSession || activeUserSession.role !== 'subadmin') return;
+            const modal = document.getElementById('subAdminGithubAuthModal');
+            const tokenEl = document.getElementById('subAdminGithubToken');
+            const errorEl = document.getElementById('subAdminGithubAuthError');
+            if (!modal) return;
+            if (tokenEl) tokenEl.value = subAdminGithubToken || '';
+            if (errorEl) {
+                errorEl.classList.add('hidden');
+                errorEl.innerText = '';
+            }
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => tokenEl?.focus(), 50);
+            lucide.createIcons();
+        }
+
+        function cancelSubAdminGithubAuth() {
+            const modal = document.getElementById('subAdminGithubAuthModal');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        }
+
+        async function authorizeSubAdminGithub() {
+            if (!activeUserSession || activeUserSession.role !== 'subadmin') return;
+
+            const tokenEl = document.getElementById('subAdminGithubToken');
+            const errorEl = document.getElementById('subAdminGithubAuthError');
+            const button = document.getElementById('authorizeSubAdminGithubBtn');
+            const token = tokenEl ? tokenEl.value.trim() : '';
+
+            if (!token) {
+                errorEl.innerText = 'Please enter your GitHub Personal Access Token.';
+                errorEl.classList.remove('hidden');
+                return;
+            }
+
+            button.disabled = true;
+            button.innerText = 'Verifying GitHub Access...';
+            errorEl.classList.add('hidden');
+
+            try {
+                // First verify that the PAT belongs to the designated Sub Admin GitHub account.
+                // This prevents another collaborator's token from being used for this role.
+                const userResponse = await fetch('https://api.github.com/user', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Accept': 'application/vnd.github+json',
+                        'X-GitHub-Api-Version': '2022-11-28'
+                    }
+                });
+
+                if (!userResponse.ok) {
+                    let message = 'GitHub authentication failed.';
+                    try {
+                        const details = await userResponse.json();
+                        if (details && details.message) message += ` ${details.message}`;
+                    } catch (_) {}
+                    throw new Error(message);
+                }
+
+                const githubUser = await userResponse.json();
+                if (String(githubUser.login || '').toLowerCase() !== SUB_ADMIN_GITHUB_PROFILE.replace('https://github.com/', '').toLowerCase()) {
+                    throw new Error(`This token belongs to GitHub user "${githubUser.login || 'unknown'}". Please use the classic PAT from GitHub account ${SUB_ADMIN_GITHUB_PROFILE.replace('https://github.com/', '')}.`);
+                }
+
+                // Then verify that the designated GitHub account can read the target roster.json.
+                // A successful GET here confirms repository access before Admin Mode is enabled.
+                const url = `https://api.github.com/repos/${SUB_ADMIN_GITHUB_OWNER}/${SUB_ADMIN_GITHUB_REPO}/contents/${SUB_ADMIN_GITHUB_PATH}`;
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Accept': 'application/vnd.github+json',
+                        'X-GitHub-Api-Version': '2022-11-28'
+                    }
+                });
+
+                if (!response.ok) {
+                    let message = 'GitHub repository access failed.';
+                    try {
+                        const details = await response.json();
+                        if (details && details.message) message += ` ${details.message}`;
+                    } catch (_) {}
+                    throw new Error(message + ' Make sure Deepak is a collaborator with write access to the repository and the classic PAT has the repo scope.');
+                }
+
+                // Keep the token only in memory. Never persist it.
+                subAdminGithubToken = token;
+                githubConfig.token = token;
+                githubConfig.owner = SUB_ADMIN_GITHUB_OWNER;
+                githubConfig.repo = SUB_ADMIN_GITHUB_REPO;
+                githubConfig.path = SUB_ADMIN_GITHUB_PATH;
+
+                isAdminMode = true;
+                pendingChangesExist = false;
+                publishedRosterData = JSON.parse(JSON.stringify(rawRosterData));
+                backupRosterData = JSON.parse(JSON.stringify(publishedRosterData));
+
+                cancelSubAdminGithubAuth();
+                updateTopRightUserHeader();
+                renderView();
+                alert('GitHub access verified. Sub Admin Mode is now active. Your Save/Publish action will update roster.json directly in GitHub.');
+            } catch (err) {
+                console.error('Sub Admin GitHub authorization failed:', err);
+                errorEl.innerText = err.message || 'Unable to verify GitHub access. Check that Deepak is using his classic PAT with the repo scope and that his GitHub account has write access to the repository.';
+                errorEl.classList.remove('hidden');
+            } finally {
+                button.disabled = false;
+                button.innerText = 'Authorize & Enter Admin Mode';
+            }
         }
 
         function handleSwitchModeClick() {
             document.getElementById('userProfileDropdown').classList.add('hidden');
 
-            // Hard guard: only the designated admin SG ID may switch into Admin Mode.
-            if (!activeUserSession || cleanSgId(activeUserSession.sg_id) !== '316092') {
+            // Hard guard: only the full Admin or designated Sub Admin may switch modes.
+            if (!activeUserSession || !isPrivilegedPortalUser()) {
                 isAdminMode = false;
                 updateTopRightUserHeader();
                 return;
@@ -4287,6 +4510,12 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 updateTopRightUserHeader();
                 renderView();
             } else {
+                // Sub Admin must authorize with their own GitHub access before entering
+                // edit mode, because Save publishes directly to roster.json.
+                if (activeUserSession.role === 'subadmin') {
+                    openSubAdminGithubAuth();
+                    return;
+                }
                 document.getElementById('adminEmpId').value = "316092";
                 document.getElementById('adminLoginModal').classList.remove('hidden');
             }
@@ -4439,7 +4668,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
         }
 
         function checkPendingAdminNotifications() {
-            if (!isAdminMode) return;
+            if (!isFullAdminMode()) return;
             if (adminResetRequests.length === 0) return;
 
             const req = adminResetRequests[0];
@@ -4498,7 +4727,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
         }
 
         async function pollCloudAdminNotifications() {
-            if (!isAdminMode) return;
+            if (!isFullAdminMode()) return;
             try {
                 const response = await fetch('./roster.json?v=' + Date.now(), { cache: 'no-store' });
                 if (!response.ok) return;
@@ -4516,6 +4745,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
         }
 
         function startAdminNotificationPolling() {
+            if (!isFullAdminMode()) return;
             if (adminNotificationPollTimer) clearInterval(adminNotificationPollTimer);
             lastAdminRequestFingerprint = getAdminRequestFingerprint(adminResetRequests);
             adminNotificationPollTimer = setInterval(pollCloudAdminNotifications, 10000);
@@ -4739,6 +4969,11 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 githubConfig.repo = document.getElementById('ghRepo').value.trim();
                 githubConfig.path = document.getElementById('ghPath').value.trim() || 'roster.json';
 
+                if (!activeUserSession || activeUserSession.role !== 'admin') {
+                    errorEl.innerText = 'Full Admin access is not available for this account.';
+                    errorEl.classList.remove('hidden');
+                    return;
+                }
                 isAdminMode = true;
                 document.getElementById('adminLoginModal').classList.add('hidden');
                 
@@ -4768,6 +5003,8 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
 
             isAdminMode = false;
             pendingChangesExist = false;
+            subAdminGithubToken = '';
+            githubConfig.token = '';
             stopAdminNotificationPolling();
 
             const publicRoster = (publishedRosterData && Array.isArray(publishedRosterData)) ? publishedRosterData : backupRosterData;
@@ -4809,6 +5046,20 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
 
             rawRosterData.forEach(week => recalculateHeadcount(week));
 
+            if (activeUserSession && activeUserSession.role === 'subadmin') {
+                if (!subAdminGithubToken) {
+                    alert('GitHub authorization is required before Sub Admin changes can be published.');
+                    openSubAdminGithubAuth();
+                    return;
+                }
+                githubConfig.token = subAdminGithubToken;
+                githubConfig.owner = SUB_ADMIN_GITHUB_OWNER;
+                githubConfig.repo = SUB_ADMIN_GITHUB_REPO;
+                githubConfig.path = SUB_ADMIN_GITHUB_PATH;
+                await commitDataToGitHubRepository('Sub Admin');
+                return;
+            }
+
             if (githubConfig.token && githubConfig.owner && githubConfig.repo) {
                 await commitDataToGitHubRepository();
             } else {
@@ -4819,20 +5070,28 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             }
         }
 
-        async function commitDataToGitHubRepository() {
+        async function commitDataToGitHubRepository(publisherRole = 'Admin') {
             try {
                 const { token, owner, repo, path } = githubConfig;
                 const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
 
                 const getRes = await fetch(url, {
-                    headers: { 'Authorization': `token ${token}` }
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Accept': 'application/vnd.github+json',
+                        'X-GitHub-Api-Version': '2022-11-28'
+                    }
                 });
 
-                let sha = '';
-                if (getRes.ok) {
-                    const fileMeta = await getRes.json();
-                    sha = fileMeta.sha;
+                if (!getRes.ok) {
+                    let details = {};
+                    try { details = await getRes.json(); } catch (_) {}
+                    throw new Error(details.message || 'Unable to read roster.json from GitHub.');
                 }
+
+                const fileMeta = await getRes.json();
+                const sha = fileMeta.sha;
 
                 if (rawRosterData && rawRosterData.length > 0) {
                     rawRosterData[0]._user_credentials = userCredentials;
@@ -4848,11 +5107,13 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 const putRes = await fetch(url, {
                     method: 'PUT',
                     headers: {
-                        'Authorization': `token ${token}`,
-                        'Content-Type': 'application/json'
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/vnd.github+json',
+                        'X-GitHub-Api-Version': '2022-11-28'
                     },
                     body: JSON.stringify({
-                        message: `Admin Update Roster Shift Data - ${new Date().toLocaleString()}`,
+                        message: `${publisherRole} Update Roster Shift Data - ${new Date().toLocaleString()}`,
                         content: encodedContent,
                         sha: sha || undefined
                     })
@@ -4863,13 +5124,17 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                     backupRosterData = JSON.parse(JSON.stringify(publishedRosterData));
                     clearPendingChangesState();
                     renderView();
-                    console.log("Committed credentials & roster data successfully to GitHub.");
+                    console.log(`${publisherRole} committed roster data successfully to GitHub.`);
+                    alert(`${publisherRole} changes were published successfully to roster.json in GitHub.`);
                 } else {
                     const errErr = await putRes.json();
                     console.error("GitHub Commit Error:", errErr.message);
+                    alert(`GitHub publish failed: ${errErr.message || 'Unknown GitHub API error'}. Your changes were not published.`);
+                    return;
                 }
             } catch (err) {
                 console.error("GitHub Commit Failure:", err);
+                alert(`GitHub publish failed: ${err.message || 'Unknown error'}. Your changes were not published.`);
             }
         }
 
@@ -4883,6 +5148,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
         }
 
         function openAddMonthModal() {
+            if (!isFullAdminMode()) return;
             document.getElementById('addMonthModal').classList.remove('hidden');
             generateWeekDateInputs();
         }
@@ -4916,6 +5182,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
         }
 
         function confirmAddMonth() {
+            if (!isFullAdminMode()) return;
             const selectedMonthName = document.getElementById('newMonthSelect').value;
             const weeksCount = parseInt(document.getElementById('newMonthWeeksCount').value) || 4;
             
@@ -4979,7 +5246,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
         }
 
         function deleteCurrentMonth() {
-            if (!isAdminMode) return;
+            if (!isFullAdminMode()) return;
             const confirmDel = confirm(`Are you sure you want to delete the entire month "${currentMonth}" and all its weeks?`);
             if (!confirmDel) return;
 
@@ -5001,7 +5268,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
         }
 
         function deleteCurrentWeek() {
-            if (!isAdminMode) return;
+            if (!isFullAdminMode()) return;
             const confirmDel = confirm(`Are you sure you want to delete Week ${currentWeekNum} of "${currentMonth}"?`);
             if (!confirmDel) return;
 
@@ -5028,6 +5295,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
         }
 
         function openAddWeekModal() {
+            if (!isFullAdminMode()) return;
             document.getElementById('addWeekMonthTitle').innerText = currentMonth;
             
             const monthWeeks = rawRosterData.filter(w => w.month === currentMonth);
@@ -5044,6 +5312,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
         }
 
         function confirmAddWeek() {
+            if (!isFullAdminMode()) return;
             const startVal = document.getElementById('singleWeekStartDate').value;
             const endVal = document.getElementById('singleWeekEndDate').value;
             const datesArray = generate7DaysRange(startVal, endVal);
@@ -5098,7 +5367,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
         }
 
         function openEditEmployeeModal(sgId) {
-            if (!isAdminMode) return;
+            if (!canEditEmployeeProfiles()) return;
             const weekData = getActiveWeekData();
             const emp = weekData.employees.find(e => String(e.sg_id) === String(sgId));
             if (!emp) return;
@@ -5116,6 +5385,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
         }
 
         function confirmEditEmployee() {
+            if (!canEditEmployeeProfiles()) return;
             const oldSgId = document.getElementById('editEmpOldSgId').value;
             const newSgId = document.getElementById('editEmpSgId').value.trim();
             const newName = document.getElementById('editEmpName').value.trim();
@@ -5387,7 +5657,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
         }
 
         function getShiftBadge(shift, sgId, day) {
-            if (isAdminMode && sgId && day) {
+            if (canEditRosterShifts() && sgId && day) {
                 let optionsHtml = '';
                 let matchFound = false;
 
@@ -5443,6 +5713,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
         }
 
         function updateShiftInteractive(sgId, day, selectElem) {
+            if (!canEditRosterShifts()) return;
             const newShift = selectElem.value;
             const weekData = getActiveWeekData();
             const emp = weekData.employees.find(e => String(e.sg_id) === String(sgId));
@@ -5533,7 +5804,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 headerHTML += `<th class="${headerClass} roster-day-date-header">${d} (${dateLabel})</th>`;
             });
 
-            if (isAdminMode) {
+            if (isFullAdminMode()) {
                 headerHTML += `<th class="p-2.5 sm:p-4 text-center">Action</th>`;
             }
 
@@ -5541,11 +5812,11 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
 
             let bodyHTML = ``;
             if (filteredEmployees.length === 0) {
-                bodyHTML = `<tr><td colspan="${isAdminMode ? 10 : 9}" class="p-8 text-center text-slate-400 text-xs sm:text-sm">No employee records found for ${currentMonth} - Week ${currentWeekNum}</td></tr>`;
+                bodyHTML = `<tr><td colspan="${isFullAdminMode() ? 10 : 9}" class="p-8 text-center text-slate-400 text-xs sm:text-sm">No employee records found for ${currentMonth} - Week ${currentWeekNum}</td></tr>`;
             } else {
                 filteredEmployees.forEach(e => {
-                    const nameClickAttr = isAdminMode ? `onclick="openEditEmployeeModal('${e.sg_id}')" class="cursor-pointer group group-hover:text-indigo-600"` : '';
-                    const editHint = isAdminMode ? `<i data-lucide="pencil" class="inline-block w-3 h-3 text-slate-400 ml-1 opacity-0 group-hover:opacity-100 transition-opacity"></i>` : '';
+                    const nameClickAttr = canEditEmployeeProfiles() ? `onclick="openEditEmployeeModal('${e.sg_id}')" class="cursor-pointer group group-hover:text-indigo-600"` : '';
+                    const editHint = canEditEmployeeProfiles() ? `<i data-lucide="pencil" class="inline-block w-3 h-3 text-slate-400 ml-1 opacity-0 group-hover:opacity-100 transition-opacity"></i>` : '';
 
                     bodyHTML += `<tr class="hover:bg-slate-100/80 border-b border-slate-200">
                         <td class="p-2.5 sm:p-4 sticky left-0 bg-white border-r border-slate-200 shadow-sm">
@@ -5555,7 +5826,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                             <div class="text-slate-600 font-bold text-[10px] sm:text-xs mt-0.5">SG ID: ${e.sg_id || 'N/A'}</div>
                         </td>
                         <td class="p-2.5 sm:p-4 text-center border-r border-slate-100">
-                            <span ${isAdminMode ? `onclick="openEditEmployeeModal('${e.sg_id}')"` : ''} class="px-2 sm:px-3 py-0.5 sm:py-1 bg-slate-200 border border-slate-300 rounded text-slate-800 text-[10px] sm:text-xs font-bold ${isAdminMode ? 'cursor-pointer hover:bg-indigo-100 hover:border-indigo-300' : ''}">${e.skilling || 'ATS'}</span>
+                            <span ${canEditEmployeeProfiles() ? `onclick="openEditEmployeeModal('${e.sg_id}')"` : ''} class="px-2 sm:px-3 py-0.5 sm:py-1 bg-slate-200 border border-slate-300 rounded text-slate-800 text-[10px] sm:text-xs font-bold ${canEditEmployeeProfiles() ? 'cursor-pointer hover:bg-indigo-100 hover:border-indigo-300' : ''}">${e.skilling || 'ATS'}</span>
                         </td>`;
                     
                     days.forEach((d, idx) => {
@@ -5569,7 +5840,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                         bodyHTML += `<td class="${cellClass} roster-shift-cell">${getShiftBadge(e.shifts ? e.shifts[d] : 'WO', e.sg_id, d)}</td>`;
                     });
 
-                    if (isAdminMode) {
+                    if (isFullAdminMode()) {
                         bodyHTML += `<td class="p-2.5 sm:p-4 text-center">
                             <button onclick="deleteEmployee('${e.sg_id}', '${e.name}')" class="text-rose-600 hover:text-rose-800 p-1 rounded hover:bg-rose-50" title="Delete Employee">
                                 <i data-lucide="trash-2" class="w-4 h-4"></i>
@@ -5701,7 +5972,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 const staff = (weekData.qm_staff_6am && weekData.qm_staff_6am[d]) ? weekData.qm_staff_6am[d] : 'Unassigned / Off';
                 
                 let valDisplay = '';
-                if (isAdminMode) {
+                if (canEditQmAllocation()) {
                     let optionsHtml = `<option value="Unassigned / Off" ${staff === 'Unassigned / Off' ? 'selected' : ''}>Unassigned / Off</option>`;
                     employees.forEach(e => {
                         const sel = (staff === e.name) ? 'selected' : '';
@@ -5732,7 +6003,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 const staff = (weekData.qm_staff_10am && weekData.qm_staff_10am[d]) ? weekData.qm_staff_10am[d] : 'Unassigned / Off';
                 
                 let valDisplay = '';
-                if (isAdminMode) {
+                if (canEditQmAllocation()) {
                     let optionsHtml = `<option value="Unassigned / Off" ${staff === 'Unassigned / Off' ? 'selected' : ''}>Unassigned / Off</option>`;
                     employees.forEach(e => {
                         const sel = (staff === e.name) ? 'selected' : '';
@@ -5866,6 +6137,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
         }
 
         function updateQmStaffInteractive(qmKey, day, selectElem) {
+            if (!canEditQmAllocation()) return;
             const newStaff = selectElem.value;
             const weekData = getActiveWeekData();
             if (!weekData[qmKey]) weekData[qmKey] = {};
@@ -5876,6 +6148,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
         }
 
         function openAddEmployeeModal() {
+            if (!isFullAdminMode()) return;
             document.getElementById('addEmployeeModal').classList.remove('hidden');
         }
 
@@ -5886,6 +6159,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
         }
 
         function confirmAddEmployee() {
+            if (!isFullAdminMode()) return;
             const sgIdVal = document.getElementById('newSgId').value.trim();
             const nameVal = document.getElementById('newName').value.trim();
             const skillingVal = document.getElementById('newSkilling').value.trim() || 'ATS';
