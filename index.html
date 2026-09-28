@@ -2805,24 +2805,35 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
             } catch (_) {}
         }
 
-        const ACTIVE_SESSION_STORAGE_KEY = 'ats_active_portal_session_v1';
+        // AUTHENTICATION LIFETIME
+        // The active authenticated session is intentionally TAB-SCOPED.
+        // sessionStorage is isolated to this browser tab and is discarded when
+        // that tab is closed, so reopening the portal requires a fresh sign-in.
+        // The remembered email identity remains in localStorage separately and
+        // is NOT an authentication credential.
+        const ACTIVE_SESSION_STORAGE_KEY = 'ats_active_portal_session_tab_v2';
+        const LEGACY_ACTIVE_SESSION_STORAGE_KEY = 'ats_active_portal_session_v1';
 
         function saveActivePortalSession(email) {
             try {
-                // Only the email address is persisted. SG ID is derived again from the email.
-                localStorage.setItem(ACTIVE_SESSION_STORAGE_KEY, JSON.stringify({
-                    email: normalizeLoginEmail(email)
+                // Only the email address is stored in the tab session. SG ID is derived again.
+                sessionStorage.setItem(ACTIVE_SESSION_STORAGE_KEY, JSON.stringify({
+                    email: normalizeLoginEmail(email),
+                    createdAt: Date.now()
                 }));
+                // Never allow the previous persistent authentication record to revive a session.
+                localStorage.removeItem(LEGACY_ACTIVE_SESSION_STORAGE_KEY);
             } catch (_) {}
         }
 
         function clearActivePortalSession() {
-            try { localStorage.removeItem(ACTIVE_SESSION_STORAGE_KEY); } catch (_) {}
+            try { sessionStorage.removeItem(ACTIVE_SESSION_STORAGE_KEY); } catch (_) {}
+            try { localStorage.removeItem(LEGACY_ACTIVE_SESSION_STORAGE_KEY); } catch (_) {}
         }
 
         function restoreActivePortalSession() {
             try {
-                const saved = JSON.parse(localStorage.getItem(ACTIVE_SESSION_STORAGE_KEY) || 'null');
+                const saved = JSON.parse(sessionStorage.getItem(ACTIVE_SESSION_STORAGE_KEY) || 'null');
                 const email = normalizeLoginEmail(saved && saved.email);
                 if (!email) return false;
 
@@ -2849,6 +2860,8 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
                 isAdminMode = false;
                 pendingChangesExist = false;
                 updateTopRightUserHeader();
+                mobileTabletHiddenSince = document.visibilityState === 'hidden' ? Date.now() : null;
+                startMobileTabletInactivityTimer();
                 grantPortalAccess();
                 return true;
             } catch (_) {
@@ -2856,6 +2869,81 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
                 return false;
             }
         }
+
+        // MOBILE / TABLET AUTO-LOGOUT
+        // Phones and tablets are signed out after 30 minutes away from the portal.
+        // The timer is based on document visibility, so merely leaving the page in
+        // another tab/app for more than 30 minutes is enough to require sign-in again.
+        const MOBILE_TABLET_INACTIVITY_MS = 30 * 60 * 1000;
+        let mobileTabletHiddenSince = null;
+        let mobileTabletInactivityTimer = null;
+
+        function isMobileOrTabletDevice() {
+            const narrowScreen = window.matchMedia ? window.matchMedia('(max-width: 1024px)').matches : window.innerWidth <= 1024;
+            const coarsePointer = window.matchMedia ? window.matchMedia('(pointer: coarse)').matches : false;
+            const touchCapable = Number(navigator.maxTouchPoints || 0) > 0;
+            const mobileUa = /Android|iPhone|iPad|iPod|Mobile|Tablet/i.test(navigator.userAgent || '');
+            return narrowScreen && (coarsePointer || touchCapable || mobileUa);
+        }
+
+        function stopMobileTabletInactivityTimer() {
+            if (mobileTabletInactivityTimer) {
+                clearTimeout(mobileTabletInactivityTimer);
+                mobileTabletInactivityTimer = null;
+            }
+        }
+
+        function startMobileTabletInactivityTimer() {
+            stopMobileTabletInactivityTimer();
+            if (!isMobileOrTabletDevice() || !activeUserSession) return;
+
+            mobileTabletInactivityTimer = setTimeout(() => {
+                if (!activeUserSession) return;
+                const hiddenFor = mobileTabletHiddenSince ? Date.now() - mobileTabletHiddenSince : 0;
+                if (document.visibilityState === 'hidden' && hiddenFor >= MOBILE_TABLET_INACTIVITY_MS) {
+                    logoutPortalSession('mobile/tablet inactivity');
+                } else if (document.visibilityState === 'visible') {
+                    // Defensive check for browsers that suspend timers while hidden.
+                    mobileTabletInactivityTimer = null;
+                }
+            }, MOBILE_TABLET_INACTIVITY_MS + 1000);
+        }
+
+        function handleMobileTabletVisibilityChange() {
+            if (!isMobileOrTabletDevice()) return;
+
+            if (document.visibilityState === 'hidden') {
+                if (!mobileTabletHiddenSince) mobileTabletHiddenSince = Date.now();
+                startMobileTabletInactivityTimer();
+                return;
+            }
+
+            if (document.visibilityState === 'visible') {
+                const hiddenFor = mobileTabletHiddenSince ? Date.now() - mobileTabletHiddenSince : 0;
+                mobileTabletHiddenSince = null;
+                stopMobileTabletInactivityTimer();
+
+                if (activeUserSession && hiddenFor >= MOBILE_TABLET_INACTIVITY_MS) {
+                    logoutPortalSession('mobile/tablet inactivity');
+                }
+            }
+        }
+
+        // On desktop/laptop, clear the tab session during page teardown as an
+        // additional safeguard for closing the tab/browser. Mobile/tablet is
+        // deliberately excluded here because mobile browsers can emit pagehide
+        // when the user merely backgrounds the browser; its 30-minute visibility
+        // timeout must remain in control there.
+        window.addEventListener('pagehide', () => {
+            if (!isMobileOrTabletDevice()) {
+                try { sessionStorage.removeItem(ACTIVE_SESSION_STORAGE_KEY); } catch (_) {}
+                activeUserSession = null;
+                isAdminMode = false;
+                pendingChangesExist = false;
+            }
+        });
+
+        document.addEventListener('visibilitychange', handleMobileTabletVisibilityChange);
 
         let userCredentials = JSON.parse(localStorage.getItem('ats_user_creds') || '{}');
         let adminResetRequests = JSON.parse(localStorage.getItem('ats_admin_requests') || '[]');
@@ -4344,6 +4432,10 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 role: portalRole
             };
 
+            // Start/restart the mobile/tablet visibility timeout for this authenticated tab.
+            mobileTabletHiddenSince = document.visibilityState === 'hidden' ? Date.now() : null;
+            startMobileTabletInactivityTimer();
+
             // A normal login always opens the public roster. Admin Mode remains a separate
             // action from the user menu and requires the existing Admin Authentication dialog.
             isAdminMode = false;
@@ -4570,11 +4662,13 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             }
         }
 
-        function logoutPortalSession() {
+        function logoutPortalSession(reason = 'manual logout') {
             clearActivePortalSession();
             activeUserSession = null;
             isAdminMode = false;
             pendingChangesExist = false;
+            mobileTabletHiddenSince = null;
+            stopMobileTabletInactivityTimer();
             stopAdminNotificationPolling();
 
             document.getElementById('userProfileDropdown').classList.add('hidden');
