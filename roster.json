@@ -1456,7 +1456,7 @@
           "Thursday": "06:00 AM - 03:00 PM",
           "Friday": "06:00 AM - 03:00 PM",
           "Saturday": "WO",
-          "Sunday": "06:30 AM - 03:30 PM"
+          "Sunday": "10:00 AM - 07:00 PM"
         }
       },
       {
@@ -1473,7 +1473,7 @@
           "Thursday": "07:00 AM -04:00 PM",
           "Friday": "07:00 AM -04:00 PM",
           "Saturday": "WO",
-          "Sunday": "10:00 AM - 07:00 PM"
+          "Sunday": "WO"
         }
       },
       {
@@ -1621,7 +1621,7 @@
       5,
       5,
       1,
-      2
+      1
     ],
     "total_headcount_8am": [
       2,
