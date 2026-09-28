@@ -1752,6 +1752,14 @@ body.ats-theme-active #mainDisplayArea table.roster-table thead th.roster-day-da
 }
 </style>
 
+
+<style id="sabre-blr-holiday-capsule-style">
+.roster-day-date-stack{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;line-height:1.15;width:100%;}
+.roster-day-date-line{display:block;white-space:nowrap;}
+.sabre-blr-holiday-capsule{display:inline-block;max-width:100%;padding:3px 8px;border:1px solid #f59e0b;border-radius:9999px;background:linear-gradient(180deg,#fef3c7 0%,#fde68a 100%);color:#78350f;font-size:9px;font-weight:800;line-height:1.2;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-shadow:0 1px 2px rgba(120,53,15,.12);}
+.sabre-blr-holiday-capsule::before{content:'★ ';}
+@media (min-width:640px){.sabre-blr-holiday-capsule{font-size:10px;padding:3px 9px;}}
+</style>
 </head>
 <body class="min-h-screen flex flex-col w-full overflow-x-hidden relative pb-16">
 
@@ -5738,6 +5746,39 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             renderView();
         }
 
+
+        function rosterDateToISO(dateValue) {
+            const value = String(dateValue || '').trim();
+            if (!value || value === 'N/A') return '';
+            if (/^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
+            const match = value.match(/^(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{2}|\d{4})$/);
+            if (match) {
+                const day = String(Number(match[1])).padStart(2, '0');
+                const month = String(Number(match[2])).padStart(2, '0');
+                const year = match[3].length === 2 ? `20${match[3]}` : match[3];
+                return `${year}-${month}-${day}`;
+            }
+            return '';
+        }
+
+        function getSabreBLRHolidayNames(dateValue) {
+            const iso = rosterDateToISO(dateValue);
+            if (!iso || !Array.isArray(SABRE_HOLIDAYS)) return [];
+            return SABRE_HOLIDAYS
+                .filter(h => String(h && h.date || '') === iso && Array.isArray(h.offices) && h.offices.some(o => String(o).toUpperCase() === 'BLR'))
+                .map(h => String(h.name || '').trim())
+                .filter(Boolean)
+                .filter((name, index, arr) => arr.indexOf(name) === index);
+        }
+
+        function renderSabreBLRHolidayCapsule(dateValue) {
+            const names = getSabreBLRHolidayNames(dateValue);
+            if (!names.length) return '';
+            const label = names.join(' • ');
+            const safeLabel = escapeHtml(label);
+            return `<span class="sabre-blr-holiday-capsule" title="${safeLabel}" aria-label="Sabre Global Holiday: ${safeLabel}">${safeLabel}</span>`;
+        }
+
         function renderWeeklyView() {
             const weekData = getActiveWeekData();
             const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
@@ -5813,7 +5854,8 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                     ? 'p-2.5 sm:p-4 text-center border-r border-slate-800 current-day-header min-w-[100px] sm:min-w-0' 
                     : 'p-2.5 sm:p-4 text-center border-r border-slate-800 min-w-[100px] sm:min-w-0';
 
-                headerHTML += `<th class="${headerClass} roster-day-date-header">${d} (${dateLabel})</th>`;
+                const holidayCapsule = renderSabreBLRHolidayCapsule(dateLabel);
+                headerHTML += `<th class="${headerClass} roster-day-date-header"><span class="roster-day-date-stack"><span class="roster-day-date-line">${d} (${dateLabel})</span>${holidayCapsule}</span></th>`;
             });
 
             if (isFullAdminMode()) {
