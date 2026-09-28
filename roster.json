@@ -1467,7 +1467,7 @@
         "default_end": "07:00 PM",
         "days_office": "Mon/Tue/Wed/Thu",
         "shifts": {
-          "Monday": "08:00 AM - 05:00 PM",
+          "Monday": "10:00 AM - 07:00 PM",
           "Tuesday": "10:00 AM - 07:00 PM",
           "Wednesday": "10:00 AM - 07:00 PM",
           "Thursday": "07:00 AM -04:00 PM",
@@ -1624,7 +1624,7 @@
       1
     ],
     "total_headcount_8am": [
-      3,
+      2,
       2,
       2,
       2,
@@ -1633,7 +1633,7 @@
       0
     ],
     "total_headcount_10am": [
-      3,
+      4,
       4,
       4,
       3,
