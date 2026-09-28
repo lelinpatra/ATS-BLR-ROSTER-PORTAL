@@ -2929,19 +2929,15 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
             }
         }
 
-        // On desktop/laptop, clear the tab session during page teardown as an
-        // additional safeguard for closing the tab/browser. Mobile/tablet is
-        // deliberately excluded here because mobile browsers can emit pagehide
-        // when the user merely backgrounds the browser; its 30-minute visibility
-        // timeout must remain in control there.
-        window.addEventListener('pagehide', () => {
-            if (!isMobileOrTabletDevice()) {
-                try { sessionStorage.removeItem(ACTIVE_SESSION_STORAGE_KEY); } catch (_) {}
-                activeUserSession = null;
-                isAdminMode = false;
-                pendingChangesExist = false;
-            }
-        });
+        // IMPORTANT: Do not clear the authenticated tab session on pagehide.
+        // pagehide fires for both a normal browser refresh/reload and for leaving
+        // the page. Clearing sessionStorage here would therefore sign the user
+        // out every time the page is refreshed. The session is intentionally
+        // stored in sessionStorage, which preserves it across reloads while
+        // remaining scoped to the current browser tab.
+        //
+        // Mobile/tablet inactivity is still handled separately by the
+        // visibility-change timeout above.
 
         document.addEventListener('visibilitychange', handleMobileTabletVisibilityChange);
 
