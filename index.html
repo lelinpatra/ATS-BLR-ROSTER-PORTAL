@@ -1818,7 +1818,7 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
                 <form onsubmit="handlePortalLogin(event)" class="space-y-4" autocomplete="on">
                     <div><label class="block text-[10px] font-extrabold text-slate-500 uppercase tracking-[0.18em] mb-2">Email Address</label><div class="login-input-wrap"><div class="login-input-icon"><i data-lucide="mail" class="w-[18px] h-[18px]"></i></div><input type="email" id="loginEmail" name="email" placeholder="name@sabre.com" required autocomplete="email" autocapitalize="none" spellcheck="false" class="login-input"></div></div>
                     <div><label class="block text-[10px] font-extrabold text-slate-500 uppercase tracking-[0.18em] mb-2">Employee ID (SG ID)</label><div class="login-input-wrap"><div class="login-input-icon"><i data-lucide="user-round" class="w-[18px] h-[18px]"></i></div><input type="text" id="loginEmpId" name="username" placeholder="e.g. 316092" required autocomplete="username" inputmode="numeric" class="login-input"></div></div>
-                    <div id="adminPasswordLoginWrap" class="hidden"><div class="flex items-center justify-between mb-2"><label class="block text-[10px] font-extrabold text-slate-500 uppercase tracking-[0.18em]">Administrator Password</label><span class="text-[9px] font-semibold text-indigo-500 uppercase tracking-wider">Admin</span></div><div class="login-input-wrap"><div class="login-input-icon"><i data-lucide="key-round" class="w-[18px] h-[18px]"></i></div><input type="password" id="loginPassword" name="password" placeholder="Enter administrator password" autocomplete="current-password" class="login-input"><button type="button" onclick="togglePasswordVisibility('loginPassword', 'loginEyeIcon')" class="login-eye" title="Show/Hide Password" aria-label="Show or hide password"><i id="loginEyeIcon" data-lucide="eye" class="w-[18px] h-[18px]"></i></button></div><p class="text-[9px] text-slate-400 mt-1.5">Administrator password does not expire.</p></div>
+                    <div id="adminPasswordLoginWrap" class="hidden"><div class="flex items-center justify-between mb-2"><label class="block text-[10px] font-extrabold text-slate-500 uppercase tracking-[0.18em]">Administrator Password</label></div><div class="login-input-wrap"><div class="login-input-icon"><i data-lucide="key-round" class="w-[18px] h-[18px]"></i></div><input type="password" id="loginPassword" name="password" placeholder="Enter administrator password" autocomplete="current-password" class="login-input"><button type="button" onclick="togglePasswordVisibility('loginPassword', 'loginEyeIcon')" class="login-eye" title="Show/Hide Password" aria-label="Show or hide password"><i id="loginEyeIcon" data-lucide="eye" class="w-[18px] h-[18px]"></i></button></div><p class="text-[9px] text-slate-400 mt-1.5">Administrator password does not expire.</p></div>
                     <div id="portalLoginError" class="hidden login-error"><i data-lucide="triangle-alert" class="w-4 h-4 shrink-0"></i><span>Access Denied.</span></div>
                     <button type="submit" class="login-submit w-full"><span>Access Portal</span><i data-lucide="arrow-right" class="w-[18px] h-[18px]"></i></button>
                 </form>
@@ -2139,6 +2139,26 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
                         <span class="hidden xs:inline">Publish Draft</span>
                     </button>
                     <input type="file" id="excelFileInput" accept=".xlsx, .xls" class="hidden" onchange="importExcelData(event)">
+                </div>
+
+                <!-- Top Right Notifications -->
+                <div class="relative inline-block text-left">
+                    <button id="notificationBtn" onclick="toggleNotificationsPanel()"
+                        class="relative flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 bg-slate-800 hover:bg-slate-700 text-slate-100 rounded-lg border border-slate-700 btn-3d transition-all"
+                        title="Notifications" aria-label="Notifications" aria-expanded="false">
+                        <i data-lucide="bell" class="w-4 h-4 sm:w-5 sm:h-5 text-amber-400"></i>
+                        <span id="notificationBadge" class="hidden absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 rounded-full bg-rose-600 text-white text-[9px] leading-[18px] font-black text-center border-2 border-slate-900">0</span>
+                    </button>
+                    <div id="notificationsPanel" class="hidden absolute right-0 mt-2 w-[min(390px,calc(100vw-24px))] rounded-2xl bg-white shadow-2xl border border-slate-200 z-[9999] overflow-hidden card-3d">
+                        <div class="px-4 py-3 bg-slate-50 border-b border-slate-200 flex items-center justify-between gap-3">
+                            <div>
+                                <p class="text-xs font-black text-slate-900">Notifications</p>
+                                <p id="notificationPanelSubtext" class="text-[10px] font-semibold text-slate-500">Latest roster updates</p>
+                            </div>
+                            <button onclick="markAllNotificationsRead()" class="text-[10px] font-extrabold text-indigo-600 hover:text-indigo-800">Mark all read</button>
+                        </div>
+                        <div id="notificationsList" class="max-h-[min(420px,65vh)] overflow-y-auto bg-white"></div>
+                    </div>
                 </div>
 
                 <!-- Top Right Employee User Menu Dropdown -->
@@ -2694,6 +2714,11 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
         let stagedExcelRosterData = null;
         let stagedExcelFileName = '';
         const ADMIN_DRAFT_STORAGE_KEY = 'ats_roster_admin_excel_draft_v1';
+        const NOTIFICATION_READ_STORAGE_KEY = 'ats_roster_notifications_read_v1';
+        const NOTIFICATION_READ_AT_STORAGE_KEY = 'ats_roster_notifications_read_at_v1';
+        const NOTIFICATION_READ_RETENTION_MS = 7 * 24 * 60 * 60 * 1000;
+        const MAX_PORTAL_NOTIFICATIONS = 100;
+        let portalNotifications = [];
 
         let activeUserSession = null;
 
@@ -3035,6 +3060,234 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
             }
         }
 
+
+
+        function getNotificationReadId() {
+            try { return localStorage.getItem(NOTIFICATION_READ_STORAGE_KEY) || ''; } catch (_) { return ''; }
+        }
+
+        function getNotificationReadAt() {
+            try {
+                const value = Number(localStorage.getItem(NOTIFICATION_READ_AT_STORAGE_KEY) || 0);
+                return Number.isFinite(value) ? value : 0;
+            } catch (_) { return 0; }
+        }
+
+        function setNotificationReadId(id) {
+            try {
+                const value = String(id || '');
+                localStorage.setItem(NOTIFICATION_READ_STORAGE_KEY, value);
+                localStorage.setItem(NOTIFICATION_READ_AT_STORAGE_KEY, String(Date.now()));
+            } catch (_) {}
+        }
+
+        function clearExpiredReadNotifications() {
+            const readId = getNotificationReadId();
+            const readAt = getNotificationReadAt();
+            if (!readId || !readAt) return;
+
+            // Only notifications that have already been marked read are eligible
+            // for the 7-day cleanup. Unread notifications are never auto-removed.
+            if (Date.now() - readAt < NOTIFICATION_READ_RETENTION_MS) return;
+
+            const readIndex = portalNotifications.findIndex(n => n && n.id === readId);
+            if (readIndex < 0) return;
+
+            // The read marker represents all notifications at and after the
+            // marker in the newest-first list. Once seven days have elapsed,
+            // those already-read notifications can disappear from this user's
+            // notification view. Newer unread notifications remain untouched.
+            portalNotifications = portalNotifications.filter((n, idx) => idx < readIndex);
+            try {
+                localStorage.removeItem(NOTIFICATION_READ_STORAGE_KEY);
+                localStorage.removeItem(NOTIFICATION_READ_AT_STORAGE_KEY);
+            } catch (_) {}
+        }
+
+        function normalizeNotificationDate(dateValue) {
+            const s = String(dateValue || '').trim();
+            if (!s) return '';
+            const d = new Date(s);
+            if (!Number.isNaN(d.getTime())) {
+                const dd = String(d.getDate()).padStart(2, '0');
+                const mm = String(d.getMonth() + 1).padStart(2, '0');
+                const yy = String(d.getFullYear()).slice(-2);
+                return `${dd}/${mm}/${yy}`;
+            }
+            return s;
+        }
+
+        function getWeekDayDate(week, day) {
+            const days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+            const idx = days.indexOf(day);
+            return idx >= 0 && Array.isArray(week?.dates) ? normalizeNotificationDate(week.dates[idx]) : '';
+        }
+
+        function findRosterEmployee(week, employee) {
+            const id = cleanSgId(employee?.sg_id);
+            const name = String(employee?.name || '').trim().toUpperCase();
+            return (week?.employees || []).find(e => {
+                return (id && cleanSgId(e.sg_id) === id) || (name && String(e.name || '').trim().toUpperCase() === name);
+            }) || null;
+        }
+
+        function buildRosterChangeNotifications(previousRoster, currentRoster, publisherRole = 'Admin') {
+            const previous = Array.isArray(previousRoster) ? previousRoster : [];
+            const current = Array.isArray(currentRoster) ? currentRoster : [];
+            const notifications = [];
+            const previousMonths = new Set(previous.map(w => normalizeMonthName(w.month)).filter(Boolean));
+            const previousByKey = new Map(previous.map(w => [`${normalizeMonthName(w.month)}|${Number(w.week_num)}`, w]));
+            const now = new Date();
+
+            const push = (title, message, type = 'roster', month = '', week = null, employee = '') => {
+                const id = `n_${now.getTime()}_${notifications.length}_${Math.random().toString(36).slice(2,8)}`;
+                notifications.push({ id, createdAt: now.toISOString(), title, message, type, month, week, employee });
+            };
+
+            // New calendar months get a concise publication notification instead of
+            // hundreds of individual shift notifications for the newly-created month.
+            const newMonths = [];
+            current.forEach(w => {
+                const month = normalizeMonthName(w.month);
+                if (month && !previousMonths.has(month) && !newMonths.includes(month)) newMonths.push(month);
+            });
+            newMonths.forEach(month => {
+                push(`${month} roster uploaded`, `${month} month roster is uploaded and ready to view.`, 'month', month);
+            });
+
+            // Compare existing Month + Week records day-by-day and employee-by-employee.
+            // A changed shift/leave status becomes one notification per employee/date.
+            current.forEach(cw => {
+                const month = normalizeMonthName(cw.month);
+                const key = `${month}|${Number(cw.week_num)}`;
+                const pw = previousByKey.get(key);
+                if (!month || newMonths.includes(month)) return;
+                if (!pw) {
+                    push(`${month} Week ${Number(cw.week_num)} roster uploaded`, `${month} Week ${Number(cw.week_num)} roster data is uploaded and ready to view.`, 'week', month, Number(cw.week_num));
+                    return;
+                }
+                const currentEmployees = cw.employees || [];
+                currentEmployees.forEach(ce => {
+                    const pe = findRosterEmployee(pw, ce);
+                    if (!pe) return;
+                    const days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+                    days.forEach(day => {
+                        const before = String(pe.shifts?.[day] ?? '').trim();
+                        const after = String(ce.shifts?.[day] ?? '').trim();
+                        if (before === after) return;
+                        const date = getWeekDayDate(cw, day);
+                        const displayName = ce.name || pe.name || `SG${cleanSgId(ce.sg_id)}`;
+                        const dateText = date ? ` on ${date}` : '';
+                        push(`${displayName} roster changed`, `${displayName} shift/status changed${dateText} from ${before || 'blank'} to ${after || 'blank'}.`, 'employee', month, Number(cw.week_num), displayName);
+                    });
+                });
+            });
+
+            // Keep the newest notification at the front.
+            return notifications.reverse();
+        }
+
+        function mergePortalNotifications(existing, additions) {
+            const list = Array.isArray(existing) ? existing.slice() : [];
+            const added = Array.isArray(additions) ? additions : [];
+            const combined = [...added, ...list];
+            const seen = new Set();
+            return combined.filter(n => {
+                if (!n || !n.id || seen.has(n.id)) return false;
+                seen.add(n.id);
+                return true;
+            }).slice(0, MAX_PORTAL_NOTIFICATIONS);
+        }
+
+        function syncPortalNotificationsFromCloud(fetchedData) {
+            const incoming = fetchedData?.[0]?._portal_notifications;
+            portalNotifications = Array.isArray(incoming) ? incoming.slice(0, MAX_PORTAL_NOTIFICATIONS) : [];
+            renderNotifications();
+        }
+
+        function formatNotificationAge(iso) {
+            const t = new Date(iso || 0).getTime();
+            if (!Number.isFinite(t)) return '';
+            const diff = Math.max(0, Date.now() - t);
+            const mins = Math.floor(diff / 60000);
+            if (mins < 1) return 'Just now';
+            if (mins < 60) return `${mins} min${mins === 1 ? '' : 's'} ago`;
+            const hrs = Math.floor(mins / 60);
+            if (hrs < 24) return `${hrs} hour${hrs === 1 ? '' : 's'} ago`;
+            const days = Math.floor(hrs / 24);
+            if (days < 7) return `${days} day${days === 1 ? '' : 's'} ago`;
+            return new Date(t).toLocaleDateString();
+        }
+
+        function renderNotifications() {
+            const list = document.getElementById('notificationsList');
+            const badge = document.getElementById('notificationBadge');
+            const subtext = document.getElementById('notificationPanelSubtext');
+            if (!list || !badge) return;
+            clearExpiredReadNotifications();
+            const readId = getNotificationReadId();
+            const unreadCount = readId ? portalNotifications.findIndex(n => n.id === readId) : portalNotifications.length;
+            const unread = readId && unreadCount >= 0 ? unreadCount : portalNotifications.length;
+            badge.textContent = unread > 99 ? '99+' : String(unread);
+            badge.classList.toggle('hidden', unread <= 0);
+            if (subtext) subtext.textContent = unread > 0 ? `${unread} new notification${unread === 1 ? '' : 's'}` : 'No new notifications';
+
+            // The ATS notification panel is based on NEW/UNREAD notifications.
+            // If everything has already been read, always show the empty state
+            // instead of displaying old notification history. This remains true
+            // after changing themes because the unread state is stored separately.
+            if (unread <= 0) {
+                list.innerHTML = `<div class="px-5 py-10 text-center"><i data-lucide="bell-off" class="w-7 h-7 mx-auto text-slate-300 mb-2"></i><p class="text-xs font-extrabold text-slate-500">No notifications</p><p class="text-[10px] font-semibold text-slate-400 mt-1">You have no new notifications.</p></div>`;
+                lucide.createIcons();
+                return;
+            }
+
+            list.innerHTML = portalNotifications.slice(0, unread).map((n, idx) => {
+                const isUnread = true;
+                const icon = n.type === 'month' ? 'calendar-days' : 'clock-3';
+                const dot = isUnread ? '<span class="w-2 h-2 rounded-full bg-indigo-600 shrink-0 mt-1.5"></span>' : '<span class="w-2 h-2 rounded-full bg-slate-200 shrink-0 mt-1.5"></span>';
+                return `<div class="px-4 py-3 border-b border-slate-100 ${isUnread ? 'bg-indigo-50/60' : 'bg-white'}">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-lg ${n.type === 'month' ? 'bg-emerald-100 text-emerald-700' : 'bg-indigo-100 text-indigo-700'} flex items-center justify-center shrink-0"><i data-lucide="${icon}" class="w-4 h-4"></i></div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-start gap-2">
+                                <p class="text-[11px] font-black text-slate-900 flex-1">${String(n.title || '').replace(/[<>]/g,'')}</p>${dot}
+                            </div>
+                            <p class="text-[10px] leading-4 font-semibold text-slate-600 mt-0.5">${String(n.message || '').replace(/[<>]/g,'')}</p>
+                            <p class="text-[9px] font-bold text-slate-400 mt-1">${formatNotificationAge(n.createdAt)}</p>
+                        </div>
+                    </div>
+                </div>`;
+            }).join('');
+            lucide.createIcons();
+        }
+
+        function toggleNotificationsPanel() {
+            const panel = document.getElementById('notificationsPanel');
+            const btn = document.getElementById('notificationBtn');
+            if (!panel) return;
+            const willOpen = panel.classList.contains('hidden');
+            document.getElementById('userProfileDropdown')?.classList.add('hidden');
+            panel.classList.toggle('hidden', !willOpen);
+            if (btn) btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+            if (willOpen) renderNotifications();
+        }
+
+        function markAllNotificationsRead() {
+            if (portalNotifications.length) setNotificationReadId(portalNotifications[0].id);
+            renderNotifications();
+        }
+
+        document.addEventListener('click', function(event) {
+            const panel = document.getElementById('notificationsPanel');
+            const btn = document.getElementById('notificationBtn');
+            if (!panel || panel.classList.contains('hidden')) return;
+            if (!panel.contains(event.target) && !btn?.contains(event.target)) {
+                panel.classList.add('hidden');
+                btn?.setAttribute('aria-expanded', 'false');
+            }
+        });
+
         function saveCredentialsToStorageAndCloud() {
             localStorage.setItem('ats_user_creds', JSON.stringify(userCredentials));
             localStorage.setItem('ats_admin_requests', JSON.stringify(adminResetRequests));
@@ -3073,6 +3326,7 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
                     SABRE_HOLIDAYS = fetchedData[0]._sabre_holidays;
                     dynamicHolidayYear = fetchedData[0]._dynamic_holiday_year || "2026";
                 }
+                syncPortalNotificationsFromCloud(fetchedData);
             }
             initializeDefaultEmpCredentials();
         }
@@ -5008,6 +5262,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                         publishedRosterData = JSON.parse(JSON.stringify(liveData));
                         backupRosterData = JSON.parse(JSON.stringify(liveData));
                         syncCloudCredentialsToLocal(liveData);
+                        syncPortalNotificationsFromCloud(liveData);
                     }
                 }
             } catch (err) {
@@ -5077,6 +5332,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             individualMonthFilter = period.month;
 
             lucide.createIcons();
+            renderNotifications();
             document.getElementById('searchInput').addEventListener('input', (e) => {
                 searchQuery = e.target.value.toLowerCase();
                 renderView();
@@ -5233,6 +5489,12 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 const sha = fileMeta.sha;
 
                 if (rawRosterData && rawRosterData.length > 0) {
+                    // Generate notifications only from changes since the last published snapshot.
+                    // Credential/holiday metadata commits therefore do not create false roster alerts.
+                    const previousPublished = (backupRosterData && Array.isArray(backupRosterData)) ? backupRosterData : [];
+                    const rosterChangeNotifications = buildRosterChangeNotifications(previousPublished, rawRosterData, publisherRole);
+                    portalNotifications = mergePortalNotifications(portalNotifications, rosterChangeNotifications);
+                    rawRosterData[0]._portal_notifications = portalNotifications;
                     rawRosterData[0]._user_credentials = userCredentials;
                     rawRosterData[0]._admin_reset_requests = adminResetRequests;
                     rawRosterData[0]._exclusion_employees = exclusionEmployees;
@@ -5261,6 +5523,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 if (putRes.ok) {
                     publishedRosterData = JSON.parse(JSON.stringify(rawRosterData));
                     backupRosterData = JSON.parse(JSON.stringify(publishedRosterData));
+                    syncPortalNotificationsFromCloud(publishedRosterData);
                     clearPendingChangesState();
                     renderView();
                     console.log(`${publisherRole} committed roster data successfully to GitHub.`);
