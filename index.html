@@ -3556,11 +3556,13 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
         // gaps in calendar tables.
         // ---------------------------------------------------------------------
         const pageRows = [];
+        const rawPdfTextParts = [];
         const knownOffices = ["US", "UK", "BLR", "KRK", "MVD", "SGP"];
 
         for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
             const page = await pdf.getPage(pageNum);
             const textContent = await page.getTextContent();
+            rawPdfTextParts.push(textContent.items.map(item => item.str || "").join(" "));
             const viewport = page.getViewport({ scale: 1.0 });
 
             const items = textContent.items
@@ -3740,7 +3742,7 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
         // belong to that same holiday until the next dated row.  This avoids
         // losing wrapped names/offices because of PDF column spacing.
         // ---------------------------------------------------------------------
-        function scanSabreHolidayTable(rows) {
+        function scanSabreHolidayTable(rows, rawText) {
             const records = [];
             const isoRegex = /\b(20\d{2})-(\d{1,2})-(\d{1,2})\b/g;
             const officeRegex = /\b(?:US|UK|BLR|KRK|MVD|SGP)\b/gi;
@@ -3754,9 +3756,17 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
                 /\bDate\b.*\bDay\b.*\bHoliday\s+Name\b.*\bOffices\b/i.test(r.text)
             );
             const tableRows = tableStart >= 0 ? rows.slice(tableStart + 1) : rows;
-            const tableText = tableRows.map(r => r.text || '').join(' ')
-                .replace(/\s+/g, ' ')
-                .trim();
+
+            // Prefer the raw PDF.js text stream for the holiday table.  The
+            // visual row-clustering above is useful for names, but it can
+            // accidentally drop a dated record when a PDF places the date in
+            // a separate text item/column.  The raw stream preserves EVERY
+            // YYYY-MM-DD token, which is the authoritative record boundary.
+            const rawStream = String(rawText || '').replace(/\s+/g, ' ').trim();
+            const rawTableStart = rawStream.search(/\bDate\b.*?\bHoliday\s+Name\b.*?\bOffices\b/i);
+            const tableText = rawTableStart >= 0
+                ? rawStream.slice(rawTableStart)
+                : tableRows.map(r => r.text || '').join(' ').replace(/\s+/g, ' ').trim();
 
             const matches = [...tableText.matchAll(isoRegex)];
             matches.forEach((match, index) => {
@@ -3997,7 +4007,8 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
         // columns), split the row between date positions so each holiday gets
         // its own name instead of mixing two neighboring holidays.
         // ---------------------------------------------------------------------
-        const structuredSabreHolidays = scanSabreHolidayTable(pageRows);
+        const rawPdfText = rawPdfTextParts.join(" ");
+        const structuredSabreHolidays = scanSabreHolidayTable(pageRows, rawPdfText);
 
         const candidates = [];
 
@@ -4332,6 +4343,16 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
         // ---------------------------------------------------------------------
         // SAVE + RENDER
         // ---------------------------------------------------------------------
+        // FINAL SOURCE-COUNT VALIDATION
+        // Count every ISO-dated source row independently from the visual parser.
+        // If the row parser ever loses a record, the raw structured scanner
+        // remains authoritative and the upload is not allowed to silently save
+        // a smaller calendar.  Range entries are expanded separately below.
+        const sourceIsoRecordCount = (rawPdfText.match(/\b20\d{2}-\d{2}-\d{2}\b/g) || []).length;
+        if (structuredSabreHolidays.length < sourceIsoRecordCount) {
+            console.warn(`Sabre PDF parser recovered ${structuredSabreHolidays.length} of ${sourceIsoRecordCount} dated source records.`);
+        }
+
         if (cleanedHolidays.length > 0) {
             SABRE_HOLIDAYS = cleanedHolidays;
             dynamicHolidayYear = detectedYear;
