@@ -2797,7 +2797,7 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
                     <div class="flex items-start gap-2">
                         <i data-lucide="info" class="w-4 h-4 text-indigo-600 mt-0.5 shrink-0"></i>
                         <p class="text-[11px] sm:text-xs text-indigo-900 leading-relaxed">
-                            <strong>Save Draft</strong> stores this uploaded roster for Admin mode only on this browser and sends <strong>no employee notifications</strong>. Normal employee view continues using the last published roster. <strong>Publish</strong> makes the roster public and generates employee notifications only after the GitHub commit succeeds.
+                            <strong>Save Draft</strong> keeps this uploaded roster available to Admin mode only on this browser. Normal employee view will continue using the last published roster. <strong>Publish</strong> replaces the public roster after the GitHub commit succeeds.
                         </p>
                     </div>
                 </div>
@@ -3124,60 +3124,27 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
         let selectedHolidayOffice = "ALL";
         let SABRE_HOLIDAYS = [
             { date: "2026-01-01", day: "Thursday", name: "New Year's Day", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
-            { date: "2026-01-02", day: "Friday", name: "Sabre Year End Break", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
-            { date: "2026-01-06", day: "Tuesday", name: "Epiphany", offices: ["KRK"] },
-            { date: "2026-01-15", day: "Thursday", name: "Makara Sankranti", offices: ["BLR"] },
-            { date: "2026-01-19", day: "Monday", name: "Martin Luther King, Jr. Day", offices: ["US"] },
+            { date: "2026-01-19", day: "Monday", name: "Martin Luther King Jr. Day", offices: ["US"] },
             { date: "2026-01-26", day: "Monday", name: "Republic Day", offices: ["BLR"] },
-            { date: "2026-02-16", day: "Monday", name: "Presidents' Day", offices: ["US"] },
-            { date: "2026-02-16", day: "Monday", name: "Carnival (non-working)", offices: ["MVD"] },
-            { date: "2026-02-17", day: "Tuesday", name: "Carnival", offices: ["MVD"] },
-            { date: "2026-02-17", day: "Tuesday", name: "Chinese / Lunar New Year", offices: ["SGP"] },
-            { date: "2026-02-18", day: "Wednesday", name: "Chinese / Lunar New Year", offices: ["SGP"] },
-            { date: "2026-03-04", day: "Wednesday", name: "Holi", offices: ["BLR"] },
-            { date: "2026-03-19", day: "Thursday", name: "Ugadi / Gudhi Padwa", offices: ["BLR"] },
-            { date: "2026-03-21", day: "Saturday", name: "Hari Raya Haji", offices: ["SGP"] },
-            { date: "2026-04-02", day: "Thursday", name: "Holy Week (non-working)", offices: ["MVD"] },
+            { date: "2026-02-17", day: "Tuesday", name: "Chinese New Year", offices: ["SGP"] },
+            { date: "2026-03-03", day: "Tuesday", name: "Holi / Dhulivandan", offices: ["BLR"] },
             { date: "2026-04-03", day: "Friday", name: "Good Friday", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
             { date: "2026-04-06", day: "Monday", name: "Easter Monday", offices: ["UK", "KRK"] },
-            { date: "2026-05-01", day: "Friday", name: "May Day / Labor Day", offices: ["UK", "KRK", "MVD", "SGP"] },
-            { date: "2026-05-04", day: "Monday", name: "Early May Bank Holiday", offices: ["UK"] },
-            { date: "2026-05-25", day: "Monday", name: "Spring Bank / Memorial Day", offices: ["US", "UK"] },
-            { date: "2026-05-27", day: "Wednesday", name: "Hari Raya Puasa", offices: ["SGP"] },
-            { date: "2026-05-28", day: "Thursday", name: "Bakrid", offices: ["BLR"] },
-            { date: "2026-06-01", day: "Monday", name: "Vesak Day (replacement)", offices: ["SGP"] },
-            { date: "2026-06-04", day: "Thursday", name: "Corpus Christi", offices: ["KRK"] },
+            { date: "2026-05-01", day: "Friday", name: "Labor Day / May Day", offices: ["BLR", "KRK", "MVD", "SGP"] },
+            { date: "2026-05-25", day: "Monday", name: "Memorial Day", offices: ["US"] },
+            { date: "2026-05-25", day: "Monday", name: "Spring Bank Holiday", offices: ["UK"] },
             { date: "2026-06-19", day: "Friday", name: "Juneteenth", offices: ["US"] },
-            { date: "2026-07-03", day: "Friday", name: "Independence Day (observed)", offices: ["US"] },
-            { date: "2026-07-18", day: "Saturday", name: "Constitution Day (non-working)", offices: ["MVD"] },
-            { date: "2026-08-10", day: "Monday", name: "National Day (replacement)", offices: ["SGP"] },
-            { date: "2026-08-14", day: "Friday", name: "Assumption Day (obs.)", offices: ["KRK"] },
-            { date: "2026-08-15", day: "Saturday", name: "Independence Day", offices: ["BLR"] },
-            { date: "2026-08-25", day: "Tuesday", name: "Independence Day (non-working)", offices: ["MVD"] },
+            { date: "2026-07-03", day: "Friday", name: "Independence Day (Observed)", offices: ["US"] },
+            { date: "2026-08-15", day: "Saturday", name: "Independence Day", offices: ["BLR", "SGP"] },
             { date: "2026-08-31", day: "Monday", name: "Summer Bank Holiday", offices: ["UK"] },
-            { date: "2026-09-04", day: "Friday", name: "Janmashtami", offices: ["BLR"] },
             { date: "2026-09-07", day: "Monday", name: "Labor Day", offices: ["US"] },
-            { date: "2026-09-14", day: "Monday", name: "Ganesh Chaturthi", offices: ["BLR"] },
             { date: "2026-10-02", day: "Friday", name: "Gandhi Jayanti", offices: ["BLR"] },
-            { date: "2026-10-12", day: "Monday", name: "Columbus Day", offices: ["US"] },
-            { date: "2026-10-20", day: "Tuesday", name: "Dussehra / Vijayadashami", offices: ["BLR"] },
-            { date: "2026-11-01", day: "Sunday", name: "Kannada Rajyotsava", offices: ["BLR"] },
-            { date: "2026-11-09", day: "Monday", name: "Deepavali (replacement)", offices: ["SGP"] },
-            { date: "2026-11-10", day: "Tuesday", name: "Deepavali", offices: ["BLR"] },
-            { date: "2026-11-11", day: "Wednesday", name: "Independence / Veterans Day", offices: ["US", "KRK"] },
-            { date: "2026-11-24", day: "Tuesday", name: "Guru Nanak's Birthday", offices: ["BLR"] },
+            { date: "2026-10-20", day: "Tuesday", name: "Dussehra", offices: ["BLR"] },
+            { date: "2026-11-08", day: "Sunday", name: "Diwali (Deepavali)", offices: ["BLR", "SGP"] },
             { date: "2026-11-26", day: "Thursday", name: "Thanksgiving Day", offices: ["US"] },
-            { date: "2026-11-27", day: "Friday", name: "Thanksgiving Friday", offices: ["US"] },
-            { date: "2026-12-23", day: "Wednesday", name: "Boxing Day (observed)", offices: ["UK"] },
-            { date: "2026-12-24", day: "Thursday", name: "Christmas Eve", offices: ["KRK", "MVD"] },
+            { date: "2026-11-27", day: "Friday", name: "Day After Thanksgiving", offices: ["US"] },
             { date: "2026-12-25", day: "Friday", name: "Christmas Day", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
-            { date: "2026-12-26", day: "Saturday", name: "Boxing Day", offices: ["UK", "KRK"] },
-            { date: "2026-12-26", day: "Saturday", name: "Sabre Year End Break", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
-            { date: "2026-12-27", day: "Sunday", name: "Sabre Year End Break", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
-            { date: "2026-12-28", day: "Monday", name: "Sabre Year End Break", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
-            { date: "2026-12-29", day: "Tuesday", name: "Sabre Year End Break", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
-            { date: "2026-12-30", day: "Wednesday", name: "Sabre Year End Break", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
-            { date: "2026-12-31", day: "Thursday", name: "Sabre Year End Break", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] }
+            { date: "2026-12-26", day: "Saturday", name: "Boxing Day / St. Stephen's Day", offices: ["UK", "KRK"] }
         ];
 
         if (!userCredentials['316092']) {
@@ -3556,20 +3523,11 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
         // gaps in calendar tables.
         // ---------------------------------------------------------------------
         const pageRows = [];
-        const rawPdfTextParts = [];
-        const rawPdfCompactTextParts = [];
         const knownOffices = ["US", "UK", "BLR", "KRK", "MVD", "SGP"];
 
         for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
             const page = await pdf.getPage(pageNum);
             const textContent = await page.getTextContent();
-            // Keep BOTH spaced and compact text streams. PDF.js can split an ISO
-            // date across adjacent text items (for example "2026-12-" + "26").
-            // The spaced stream is best for names/offices; the compact stream is
-            // authoritative for finding every date boundary.
-            const pdfItemStrings = textContent.items.map(item => item.str || "");
-            rawPdfTextParts.push(pdfItemStrings.join(" "));
-            rawPdfCompactTextParts.push(pdfItemStrings.join(""));
             const viewport = page.getViewport({ scale: 1.0 });
 
             const items = textContent.items
@@ -3738,88 +3696,6 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
                 .trim();
 
             return clean;
-        }
-
-        // ---------------------------------------------------------------------
-        // STRUCTURED SABRE HOLIDAY TABLE SCANNER
-        //
-        // Sabre's Global Holiday Calendar has a dedicated holiday table after
-        // the monthly calendar pages.  Scan that table as logical records:
-        // every dated row starts a holiday block, and following date-free rows
-        // belong to that same holiday until the next dated row.  This avoids
-        // losing wrapped names/offices because of PDF column spacing.
-        // ---------------------------------------------------------------------
-        function scanSabreHolidayTable(rows, rawText) {
-            const records = [];
-            const isoRegex = /\b(20\d{2})-(\d{1,2})-(\d{1,2})\b/g;
-            const officeRegex = /\b(?:US|UK|BLR|KRK|MVD|SGP)\b/gi;
-            const weekdayRegex = /\b(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday|Mon|Tue|Wed|Thu|Fri|Sat|Sun)\b/gi;
-
-            // The Sabre holiday table is the authoritative source. Build a
-            // continuous text stream and split on EVERY ISO date. This avoids
-            // losing records when PDF.js places two table cells on one visual
-            // row or when a holiday name wraps across several PDF text rows.
-            const tableStart = rows.findIndex(r =>
-                /\bDate\b.*\bDay\b.*\bHoliday\s+Name\b.*\bOffices\b/i.test(r.text)
-            );
-            const tableRows = tableStart >= 0 ? rows.slice(tableStart + 1) : rows;
-
-            // Prefer the raw PDF.js text stream for the holiday table.  The
-            // visual row-clustering above is useful for names, but it can
-            // accidentally drop a dated record when a PDF places the date in
-            // a separate text item/column.  The raw stream preserves EVERY
-            // YYYY-MM-DD token, which is the authoritative record boundary.
-            const rawStream = String(rawText || '').replace(/\s+/g, ' ').trim();
-            const rawTableStart = rawStream.search(/\bDate\b.*?\bHoliday\s+Name\b.*?\bOffices\b/i);
-            const tableText = rawTableStart >= 0
-                ? rawStream.slice(rawTableStart)
-                : tableRows.map(r => r.text || '').join(' ').replace(/\s+/g, ' ').trim();
-
-            const matches = [...tableText.matchAll(isoRegex)];
-            matches.forEach((match, index) => {
-                const year = Number(match[1]);
-                const month = Number(match[2]);
-                const day = Number(match[3]);
-                if (month < 1 || month > 12 || day < 1 || day > 31) return;
-
-                const blockStart = match.index;
-                const blockEnd = index + 1 < matches.length ? matches[index + 1].index : tableText.length;
-                let blockText = tableText.slice(blockStart, blockEnd).trim();
-
-                const offices = [...new Set((blockText.match(officeRegex) || [])
-                    .map(x => x.toUpperCase()))]
-                    .filter(x => knownOffices.includes(x));
-
-                let name = blockText
-                    .replace(/^20\d{2}-\d{1,2}-\d{1,2}\s*/, '')
-                    .replace(weekdayRegex, ' ')
-                    .replace(officeRegex, ' ')
-                    .replace(/\b(?:Date|Day|Holiday|Name|Offices)\b/gi, ' ')
-                    .replace(/\bto\s+\d{1,2}-\d{1,2}\b/gi, ' ')
-                    .replace(/\s+/g, ' ')
-                    .trim();
-
-                // Remove page numbers/copyright/footer text that can sit
-                // between the last record on one page and the next date.
-                name = name
-                    .replace(/\b\d+\s+confidential\s+confidential\b/gi, ' ')
-                    .replace(/\|\s*©?20\d{2}.*?reserved\.?/gi, ' ')
-                    .replace(/\s+/g, ' ')
-                    .trim();
-
-                name = sanitizeName(name);
-                if (!name || name.length < 2) name = 'Sabre Holiday';
-
-                const iso = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-                records.push({
-                    date: iso,
-                    day: calcDayName(iso),
-                    name,
-                    offices: offices.length ? offices : [...knownOffices]
-                });
-            });
-
-            return records;
         }
 
         // ---------------------------------------------------------------------
@@ -4014,11 +3890,6 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
         // columns), split the row between date positions so each holiday gets
         // its own name instead of mixing two neighboring holidays.
         // ---------------------------------------------------------------------
-        const rawPdfText = rawPdfTextParts.join(" ");
-        // Compact stream recovers dates that PDF.js split across text items.
-        const rawPdfCompactText = rawPdfCompactTextParts.join(" ");
-        const structuredSabreHolidays = scanSabreHolidayTable(pageRows, rawPdfText);
-
         const candidates = [];
 
         pageRows.forEach((row, rowIndex) => {
@@ -4142,10 +4013,19 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
 
             const dayName = calcDayName(candidate.iso);
 
-            // Do not collapse separate source rows merely because their date
-            // and normalized holiday name match. A PDF may legitimately contain
-            // separate office records for the same date/name. The structured
-            // Sabre scanner above preserves those source records.
+            const existing = parsedHolidays.find(h =>
+                h.date === candidate.iso &&
+                h.name.toLowerCase() === holidayName.toLowerCase()
+            );
+
+            if (existing) {
+                // Merge office information when the same holiday appears more
+                // than once in the PDF.
+                candidate.offices.forEach(off => {
+                    if (!existing.offices.includes(off)) existing.offices.push(off);
+                });
+                return;
+            }
 
             parsedHolidays.push({
                 date: candidate.iso,
@@ -4167,14 +4047,6 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
                 other.name !== "Sabre Holiday"
             );
         });
-
-        // The structured table is the authoritative PDF source when it finds
-        // holiday rows. This is the same record-oriented approach used by the
-        // corrected Sabre calendar and prevents wrapped rows from being lost.
-        if (structuredSabreHolidays.length > 0) {
-            cleanedHolidays.length = 0;
-            structuredSabreHolidays.forEach(h => cleanedHolidays.push(h));
-        }
 
         cleanedHolidays.sort((a, b) => a.date.localeCompare(b.date));
 
@@ -4350,124 +4222,8 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
         cleanedHolidays.sort((a, b) => a.date.localeCompare(b.date));
 
         // ---------------------------------------------------------------------
-        // AUTHORITATIVE SABRE RECORD RECONCILIATION
-        //
-        // For Sabre Global Holiday Calendar PDFs, the ISO date rows in the
-        // holiday table are the authoritative record boundaries. Do not use
-        // the visual-row parser as the final source because PDF.js can split
-        // one table row into several text rows or combine neighboring cells.
-        // ---------------------------------------------------------------------
-        function buildAuthoritativeSabreRecords(rawText) {
-            const text = String(rawText || '').replace(/\s+/g, ' ').trim();
-            const headerMatch = text.match(/\bDate\b.*?\bHoliday\s+Name\b.*?\bOffices\b/i);
-            const table = headerMatch ? text.slice(headerMatch.index) : text;
-            const re = /\b(20\d{2})-(\d{1,2})-(\d{1,2})\b/g;
-            const matches = [...table.matchAll(re)];
-            const out = [];
-            const officesRe = /\b(?:US|UK|BLR|KRK|MVD|SGP)\b/gi;
-            const weekdayRe = /\b(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday|Mon|Tue|Wed|Thu|Fri|Sat|Sun)\b/gi;
-
-            matches.forEach((m, i) => {
-                const start = m.index;
-                const end = i + 1 < matches.length ? matches[i + 1].index : table.length;
-                let block = table.slice(start, end)
-                    .replace(/\b\d+\s+confidential\s+confidential\b.*?(?=20\d{2}-\d{1,2}-\d{1,2}|$)/gi, ' ')
-                    .replace(/\|\s*©?20\d{2}.*?reserved\.?/gi, ' ')
-                    .replace(/\s+/g, ' ')
-                    .trim();
-
-                const offices = [...new Set((block.match(officesRe) || [])
-                    .map(x => x.toUpperCase()))].filter(x => knownOffices.includes(x));
-
-                let name = block
-                    .replace(/^20\d{2}-\d{1,2}-\d{1,2}\s*/, ' ')
-                    .replace(weekdayRe, ' ')
-                    .replace(officesRe, ' ')
-                    .replace(/\b(?:Date|Day|Holiday|Name|Offices)\b/gi, ' ')
-                    .replace(/\bto\s+\d{1,2}-\d{1,2}\b/gi, ' ')
-                    .replace(/\s+/g, ' ')
-                    .trim();
-
-                name = sanitizeName(name);
-                if (!name || name.length < 2) name = 'Sabre Holiday';
-
-                const iso = `${m[1]}-${String(Number(m[2])).padStart(2,'0')}-${String(Number(m[3])).padStart(2,'0')}`;
-                out.push({
-                    date: iso,
-                    day: calcDayName(iso),
-                    name,
-                    offices: offices.length ? offices : [...knownOffices]
-                });
-            });
-            return out;
-        }
-
-        // Use the unclustered PDF.js text stream. It contains all 50 explicit
-        // ISO-dated Sabre holiday rows in the supplied 2026 calendar.
-        const hybridSabreText = rawPdfText
-            .replace(/(20\d{2})\s*-\s*(\d{1,2})\s*-\s*(\d{1,2})/g, '$1-$2-$3');
-        const compactDateMatches = rawPdfCompactText.match(/20\d{2}-\d{2}-\d{2}/g) || [];
-        const authoritativeSabreRecords = buildAuthoritativeSabreRecords(hybridSabreText);
-
-        // If PDF.js split an ISO date across separate text items, recover the
-        // corresponding record from the compact stream before saving. We use
-        // date occurrences (not unique dates), so two holidays on one date are
-        // retained as two separate records.
-        if (authoritativeSabreRecords.length < compactDateMatches.length) {
-            const recovered = buildAuthoritativeSabreRecords(rawPdfCompactText);
-            if (recovered.length > authoritativeSabreRecords.length) {
-                authoritativeSabreRecords.length = 0;
-                recovered.forEach(h => authoritativeSabreRecords.push(h));
-            }
-        }
-        if (authoritativeSabreRecords.length > 0) {
-            cleanedHolidays.length = 0;
-            authoritativeSabreRecords.forEach(h => cleanedHolidays.push(h));
-        }
-
-        // SABRE YEAR END BREAK: 12/26 THROUGH 12/31.
-        // IMPORTANT: 12/26 may ALSO appear as a separate Boxing Day record.
-        // They are two distinct source records and must NOT be merged.  The
-        // holiday calendar therefore keeps all six Year End Break dates,
-        // including its own 12/26 record.
-        if (/year\s+end\s+break/i.test(rawPdfText)) {
-            const year = Number(detectedYear) || new Date().getFullYear();
-            const offices = [...knownOffices];
-            for (let day = 26; day <= 31; day++) {
-                const iso = `${year}-12-${String(day).padStart(2,'0')}`;
-                cleanedHolidays.push({
-                    date: iso,
-                    day: calcDayName(iso),
-                    name: 'Sabre Year End Break',
-                    offices: [...offices]
-                });
-            }
-        }
-
-        // FINAL COUNT RECONCILIATION.
-        // The PDF's holiday table contains every explicit ISO date, while a
-        // Year End Break range contributes one additional record for EACH
-        // calendar day in the range. Do not deduplicate these records merely
-        // because their dates overlap another holiday.
-
-        cleanedHolidays.sort((a,b) => a.date.localeCompare(b.date));
-
-        // ---------------------------------------------------------------------
         // SAVE + RENDER
         // ---------------------------------------------------------------------
-        // FINAL SOURCE-COUNT VALIDATION
-        // Count every ISO-dated source row independently from the visual parser.
-        // If the row parser ever loses a record, the raw structured scanner
-        // remains authoritative and the upload is not allowed to silently save
-        // a smaller calendar.  Range entries are expanded separately below.
-        const sourceIsoRecordCount = Math.max(
-            (rawPdfText.match(/\b20\d{2}-\d{2}-\d{2}\b/g) || []).length,
-            compactDateMatches.length
-        );
-        if (structuredSabreHolidays.length < sourceIsoRecordCount) {
-            console.warn(`Sabre PDF parser recovered ${structuredSabreHolidays.length} of ${sourceIsoRecordCount} dated source records.`);
-        }
-
         if (cleanedHolidays.length > 0) {
             SABRE_HOLIDAYS = cleanedHolidays;
             dynamicHolidayYear = detectedYear;
@@ -5115,6 +4871,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
         }
 
         function updateTopRightUserHeader() {
+            window.refreshThemeForUser?.(activeUserSession);
             if (!activeUserSession) return;
 
             document.getElementById('loggedInUserName').innerText = activeUserSession.empName;
@@ -5332,6 +5089,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
         }
 
         function logoutPortalSession(reason = 'manual logout') {
+            window.refreshThemeForUser?.(null);
             clearActivePortalSession();
             activeUserSession = null;
             isAdminMode = false;
@@ -5696,14 +5454,14 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
 
         const BASE_SHIFT_OPTIONS = [
             "06:00 AM - 03:00 PM",
+            "06:00 AM (1st Half Off)",
+            "06:00 AM (2nd Half Off)",
             "07:00 AM - 04:00 PM",
             "08:00 AM - 05:00 PM",
             "10:00 AM - 07:00 PM",
-            "11:00 AM - 08:00 PM",
-            "12:00 PM - 09:00 PM",
+            "10:00 AM (1st Half Off)",
+            "10:00 AM (2nd Half Off)",
             "WO",
-            "1st Half Off",
-            "2nd Half Off",
             "PTO",
             "SL",
             "PH"
@@ -6453,11 +6211,11 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                         return;
                     }
 
-                    if (shift.includes("10:00") || shift === "2nd Half Off") {
+                    if (shift.includes("10:00") || shift === "2nd Half Off" || shift === "10:00 AM (1st Half Off)" || shift === "10:00 AM (2nd Half Off)") {
                         hc10am[idx]++;
                     } else if (shift.includes("08:00") || shift.includes("8:00")) {
                         hc8am[idx]++;
-                    } else if (shift.includes("06:00") || shift.includes("6:00") || shift.includes("06:30") || shift.includes("6:30") || shift.includes("07:00") || shift.includes("7:00") || shift === "1st Half Off") {
+                    } else if (shift.includes("06:00") || shift.includes("6:00") || shift.includes("06:30") || shift.includes("6:30") || shift.includes("07:00") || shift.includes("7:00") || shift === "1st Half Off" || shift === "06:00 AM (1st Half Off)" || shift === "06:00 AM (2nd Half Off)") {
                         hc6am[idx]++;
                     }
                 });
@@ -6513,37 +6271,42 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             } else if (shift === 'PTO') {
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-rose-600 text-white border border-rose-700 shadow-md roster-status-badge">PTO</span>`;
             } else if (shift === 'PH') {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-rose-50 text-rose-700 border border-rose-500 shadow-sm">PH</span>`;
-            } else if (shift === 'SL') {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-orange-100 text-orange-950 border border-orange-500 shadow-sm">SL</span>`;
-            } else if (shift === 'HD SL') {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-fuchsia-100 text-fuchsia-900 border border-fuchsia-500 shadow-sm">HD SL</span>`;
-            } else if (shift === '1st Half Off') {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-orange-200 text-orange-950 border border-orange-600 shadow-sm" title="1st Half Off">1st Half Off</span>`;
-            } else if (shift === '2nd Half Off') {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-cyan-100 text-cyan-900 border border-cyan-500 shadow-sm" title="2nd Half Off">2nd Half Off</span>`;
-            } else if (shift.includes("12:00 PM") || shift.includes("12:00")) {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-violet-100 text-violet-900 border border-violet-500 shadow-sm" title="${shift}">12:00 PM</span>`;
-            } else if (shift.includes("11:00 AM") || shift.includes("11:00")) {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-indigo-100 text-indigo-900 border border-indigo-500 shadow-sm" title="${shift}">11:00 AM</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-purple-100 text-purple-900 border border-purple-400 shadow-sm">PH</span>`;
+            } else if (shift === 'SL' || shift === 'HD SL') {
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-rose-100 text-rose-800 border border-rose-300 shadow-sm roster-status-badge">${shift}</span>`;
+            } else if (shift === '06:00 AM (1st Half Off)') {
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-orange-100 text-orange-950 border border-orange-400 shadow-sm" title="06:00 AM (1st Half Off)">06:00 AM (1st Half Off)</span>`;
+            } else if (shift === '06:00 AM (2nd Half Off)') {
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-lime-100 text-lime-950 border border-lime-500 shadow-sm" title="06:00 AM (2nd Half Off)">06:00 AM (2nd Half Off)</span>`;
+            } else if (shift === '10:00 AM (1st Half Off)') {
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-cyan-100 text-cyan-950 border border-cyan-500 shadow-sm" title="10:00 AM (1st Half Off)">10:00 AM (1st Half Off)</span>`;
+            } else if (shift === '10:00 AM (2nd Half Off)') {
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-violet-100 text-violet-950 border border-violet-500 shadow-sm" title="10:00 AM (2nd Half Off)">10:00 AM (2nd Half Off)</span>`;
             } else if (shift.includes("10:00")) {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-yellow-100 text-yellow-950 border border-yellow-500 shadow-sm" title="${shift}">10:00 AM</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-amber-100 text-amber-950 border border-amber-400 shadow-sm" title="${shift}">10:00 AM</span>`;
             } else if (shift.includes("06:30") || shift.includes("6:30")) {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-lime-100 text-lime-950 border border-lime-500 shadow-sm" title="${shift}">06:30 AM</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-emerald-200 text-emerald-950 border border-emerald-500 shadow-sm" title="${shift}">06:30 AM</span>`;
             } else if (shift.includes("06:00") || shift.includes("6:00")) {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-emerald-100 text-emerald-900 border border-emerald-500 shadow-sm" title="${shift}">06:00 AM</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-emerald-100 text-emerald-900 border border-emerald-400 shadow-sm" title="${shift}">06:00 AM</span>`;
             } else if (shift.includes("07:00") || shift.includes("7:00")) {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-teal-100 text-teal-900 border border-teal-500 shadow-sm" title="${shift}">07:00 AM</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-teal-100 text-teal-900 border border-teal-400 shadow-sm" title="${shift}">07:00 AM</span>`;
             } else if (shift.includes("08:00") || shift.includes("8:00")) {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-blue-100 text-blue-900 border border-blue-500 shadow-sm" title="${shift}">08:00 AM</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-blue-100 text-blue-900 border border-blue-400 shadow-sm" title="${shift}">08:00 AM</span>`;
             } else {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-sky-100 text-sky-900 border border-sky-500 shadow-sm">${shift}</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-indigo-100 text-indigo-900 border border-indigo-400 shadow-sm">${shift}</span>`;
             }
+        }
+
+        function normalizeHalfDayShiftValue(value) {
+            const v = String(value || '').trim();
+            if (v === '1st Half Off') return '06:00 AM (1st Half Off)';
+            if (v === '2nd Half Off') return '10:00 AM (2nd Half Off)';
+            return v;
         }
 
         function updateShiftInteractive(sgId, day, selectElem) {
             if (!canEditRosterShifts()) return;
-            const newShift = selectElem.value;
+            const newShift = normalizeHalfDayShiftValue(selectElem.value);
             const weekData = getActiveWeekData();
             const emp = weekData.employees.find(e => String(e.sg_id) === String(sgId));
 
@@ -6749,15 +6512,6 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             empNames.sort((nameA, nameB) => {
                 const empA = empMap[nameA];
                 const empB = empMap[nameB];
-
-                // Keep the currently authenticated roster employee at the very top
-                // of Individual Profiles. The existing 2L-first ordering and
-                // alphabetical ordering are preserved for everyone else.
-                const activeSgId = activeUserSession ? cleanSgId(activeUserSession.sg_id) : '';
-                const isAActive = activeSgId && cleanSgId(empA.sg_id) === activeSgId ? 1 : 0;
-                const isBActive = activeSgId && cleanSgId(empB.sg_id) === activeSgId ? 1 : 0;
-
-                if (isAActive !== isBActive) return isBActive - isAActive;
 
                 const isA2L = (empA.skilling && empA.skilling.toUpperCase().includes("2L")) ? 1 : 0;
                 const isB2L = (empB.skilling && empB.skilling.toUpperCase().includes("2L")) ? 1 : 0;
@@ -7124,38 +6878,10 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             let dailyWO = 0;
             let dailyLeave = 0;
 
-            // Keep the employee lists used by the pie-chart tooltip in exactly the
-            // same categories as recalculateHeadcount(). This lets each coloured
-            // slice reveal the people represented by that slice when hovered.
-            const dailyShiftEmployees = {
-                '06:00/06:30/07:00 Shift': [],
-                '08:00 AM Shift': [],
-                '10:00 AM Shift': [],
-                'Off Days': [],
-                'PTO / Leave / Half Off': []
-            };
-
             (weekData.employees || []).forEach(e => {
-                const name = String(e.name || '').trim() || String(e.sg_id || '').trim() || 'Unnamed Employee';
-                const s = e.shifts ? String(e.shifts[activeDayName] || '').trim() : 'WO';
-
-                if (!s || s === 'WO') {
-                    dailyWO++;
-                    dailyShiftEmployees['Off Days'].push(name);
-                } else if (s === 'PTO' || s === 'PH' || s === 'SL' || s === 'HD SL' || s.includes('Half Off')) {
-                    dailyLeave++;
-                    dailyShiftEmployees['PTO / Leave / Half Off'].push(name);
-                } else if (s.includes('10:00')) {
-                    dailyShiftEmployees['10:00 AM Shift'].push(name);
-                } else if (s.includes('08:00') || s.includes('8:00')) {
-                    dailyShiftEmployees['08:00 AM Shift'].push(name);
-                } else if (s.includes('06:00') || s.includes('6:00') || s.includes('06:30') || s.includes('6:30') || s.includes('07:00') || s.includes('7:00')) {
-                    dailyShiftEmployees['06:00/06:30/07:00 Shift'].push(name);
-                }
-            });
-
-            Object.keys(dailyShiftEmployees).forEach(key => {
-                dailyShiftEmployees[key].sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
+                const s = e.shifts ? e.shifts[activeDayName] : 'WO';
+                if (!s || s === 'WO') dailyWO++;
+                else if (s === 'PTO' || s === 'PH' || s === 'SL' || s === 'HD SL' || s.includes('Half Off')) dailyLeave++;
             });
 
             const ctx1 = document.getElementById('coverageChart').getContext('2d');
@@ -7253,33 +6979,15 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: {
-                        tooltip: {
-                            displayColors: true,
-                            callbacks: {
-                                // Keep the tooltip tied to the slice colour/label.
-                                title: (tooltipItems) => tooltipItems.length ? tooltipItems[0].label : '',
-                                label: (context) => ` ${context.raw} employee${context.raw === 1 ? '' : 's'}`,
-                                afterBody: (tooltipItems) => {
-                                    if (!tooltipItems.length) return [];
-                                    const label = tooltipItems[0].label;
-                                    const names = dailyShiftEmployees[label] || [];
-                                    if (!names.length) return ['No employees in this category'];
-                                    return ['Employees:', ...names.map((name, index) => `${index + 1}. ${name}`)];
-                                }
-                            },
-                            bodySpacing: 4,
-                            padding: 10,
-                            titleMarginBottom: 6
-                        },
-                        legend: {
+                    plugins: { 
+                        legend: { 
                             position: 'bottom',
                             labels: {
                                 boxWidth: 12,
                                 padding: 8,
                                 font: { size: window.innerWidth < 640 ? 10 : 12 }
                             }
-                        }
+                        } 
                     }
                 }
             });
@@ -7972,17 +7680,6 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                     importedWeeks: cloneRosterWeeks(stagedExcelRosterData)
                 };
                 localStorage.setItem(ADMIN_DRAFT_STORAGE_KEY, JSON.stringify(payload));
-
-                // IMPORTANT: Save Draft is an Admin-only staging operation.
-                // It must never change the immutable published snapshot or create/update
-                // employee notifications. Notifications are generated only when the
-                // staged roster is actually published through commitDataToGitHubRepository().
-                // Keep the published snapshot and its notification state untouched.
-                const publishedSnapshotBeforeDraft = publishedRosterData
-                    ? JSON.stringify(publishedRosterData)
-                    : null;
-                const notificationSnapshotBeforeDraft = JSON.stringify(portalNotifications);
-
                 rawRosterData = cloneRosterWeeks(mergedRoster);
                 // Excel is allowed to add/update Month + Week navigation entries, but the
                 // SHIFT TIMING selectors must remain exactly the portal's existing controls.
@@ -7995,19 +7692,11 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 else if (activeCategory === 'qm') renderQMView();
                 else if (activeCategory === 'holidays') renderHolidaysView();
                 lucide.createIcons();
-                // A draft may be visible inside Admin mode, but it is not published.
-                // Restore the last public snapshot and notification list so Save Draft
-                // cannot accidentally notify employees or mark the draft as public.
-                if (publishedSnapshotBeforeDraft) {
-                    publishedRosterData = JSON.parse(publishedSnapshotBeforeDraft);
-                }
-                portalNotifications = JSON.parse(notificationSnapshotBeforeDraft);
-
                 pendingChangesExist = false;
                 clearPendingChangesState();
                 closeExcelImportReview();
                 updateSavedDraftButton();
-                alert('Draft saved successfully. No employee notifications were sent. Employees will be notified only after you choose Publish and the GitHub publish succeeds.');
+                alert('Draft saved successfully. The Excel shifts were applied only to matching existing roster weeks and employees. Your Month/Week dropdown and employee Skilling were left unchanged. Normal employee view still uses the published roster.');
             } catch (err) {
                 console.error('Draft save failed:', err);
                 alert('The draft could not be saved in this browser.');
@@ -8177,47 +7866,170 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
     <div class="grid lg:grid-cols-[1fr_1.15fr] gap-4 sm:gap-5">
       <div><div id="themeOptionsGrid" class="theme-grid grid grid-cols-2 sm:grid-cols-3 gap-2.5"></div></div>
       <div><div id="themeLivePreview" class="theme-preview-large"><div class="tp-head"><span>ATS BLR ROSTER PORTAL</span><span>MONTH · WEEK</span></div><div class="tp-content"><div class="tp-card">TOTAL EMPLOYEES<br><strong>128</strong></div><div class="tp-card">SKILLING<br><strong>ATS 2L</strong></div><div class="tp-card">WORLD TIME<br><strong>INDIA</strong></div></div><div class="tp-table"><strong>ROSTER SCHEDULE</strong><br>MON  ·  TUE  ·  WED  ·  THU  ·  FRI</div></div>
-        <div class="flex items-center justify-between gap-3 mt-3 p-3 rounded-xl bg-slate-50 border border-slate-200"><div><div id="themePreviewName" class="text-xs font-black text-slate-900">Default</div><div id="themePreviewDesc" class="text-[10px] text-slate-500 font-semibold">Original ATS portal appearance</div></div><button id="applyThemeBtn" onclick="applySelectedTheme()" class="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-extrabold btn-3d">Apply Theme</button></div>
+        <div class="flex items-center justify-between gap-3 mt-3 p-3 rounded-xl bg-slate-50 border border-slate-200"><div><div id="themePreviewName" class="text-xs font-black text-slate-900">Default</div><div id="themePreviewDesc" class="text-[10px] text-slate-500 font-semibold">Original ATS portal appearance</div></div><button id="applyThemeBtn" type="button" onclick="return applySelectedTheme(event)" class="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-extrabold btn-3d">Apply Theme</button></div>
       </div>
     </div>
   </div>
 </div>
 
+<style id="ats-316092-cinematic-themes">
+/* ============================================================
+   316092 CINEMATIC MOVIE WALLPAPER ENGINE
+   The cinematic themes are intentionally visual/layout themes:
+   wallpaper + glass tables + poster-like headers + motion layers.
+   ============================================================ */
+#cinematicThemeFx{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden;display:none;perspective:1100px;background:#02030a}
+body.ats-cinematic-active #cinematicThemeFx{display:block}
+#cinematicThemeFx .cin-wallpaper{position:absolute;inset:-7%;background-image:var(--cin-wallpaper);background-size:cover;background-position:center;background-repeat:no-repeat;filter:saturate(1.12) contrast(1.06) brightness(.62);transform:scale(1.08);animation:cinWallpaperDrift 18s ease-in-out infinite alternate;will-change:transform,background-position}
+#cinematicThemeFx .cin-wallpaper:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.76) 0%,rgba(0,0,0,.38) 35%,rgba(0,0,0,.18) 65%,rgba(0,0,0,.68) 100%),linear-gradient(180deg,rgba(0,0,0,.48),transparent 28%,transparent 65%,rgba(0,0,0,.7));}
+#cinematicThemeFx .cin-poster{position:absolute;left:2.2vw;bottom:4vh;width:min(360px,28vw);height:92px;border:1px solid color-mix(in srgb,var(--cin-primary) 75%,white 25%);border-radius:18px;background:linear-gradient(90deg,rgba(0,0,0,.78),rgba(0,0,0,.28));backdrop-filter:blur(9px);box-shadow:0 18px 55px rgba(0,0,0,.48),0 0 35px color-mix(in srgb,var(--cin-primary) 35%,transparent);transform:translateZ(20px);overflow:hidden}
+#cinematicThemeFx .cin-poster:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--cin-primary),transparent 30%,transparent 70%,var(--cin-accent));opacity:.16}
+#cinematicThemeFx .cin-poster-title{position:absolute;left:18px;top:14px;color:#fff;font:900 17px/1.05 Inter,system-ui,sans-serif;letter-spacing:.13em;text-transform:uppercase;text-shadow:0 0 18px var(--cin-primary)}
+#cinematicThemeFx .cin-poster-sub{position:absolute;left:18px;bottom:14px;color:rgba(255,255,255,.72);font:800 9px/1 Inter,system-ui,sans-serif;letter-spacing:.22em;text-transform:uppercase}
+#cinematicThemeFx .cin-grid{position:absolute;left:-20%;right:-20%;bottom:-18%;height:62%;transform:rotateX(63deg);transform-origin:50% 100%;background-image:linear-gradient(color-mix(in srgb,var(--cin-primary) 38%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--cin-primary) 38%,transparent) 1px,transparent 1px);background-size:70px 70px;animation:cinGridMove 4.5s linear infinite;opacity:.34}
+#cinematicThemeFx .cin-core{position:absolute;left:50%;top:43%;width:210px;height:210px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,#fff 0 3%,var(--cin-primary) 10%,rgba(0,0,0,0) 68%);filter:drop-shadow(0 0 30px var(--cin-primary));animation:cinCorePulse 2.2s ease-in-out infinite}
+#cinematicThemeFx .cin-ring{position:absolute;left:50%;top:43%;width:360px;height:120px;border:2px solid var(--cin-primary);border-radius:50%;transform:translate(-50%,-50%) rotateX(70deg);box-shadow:0 0 20px var(--cin-primary),inset 0 0 20px var(--cin-primary);animation:cinRing 4s linear infinite}
+#cinematicThemeFx .cin-ring.r2{width:540px;height:180px;border-color:var(--cin-accent);transform:translate(-50%,-50%) rotateX(70deg) rotateZ(55deg);animation-duration:7s;animation-direction:reverse}
+#cinematicThemeFx .cin-beam{position:absolute;top:-20%;left:15%;width:3px;height:140%;background:linear-gradient(transparent,var(--cin-accent),transparent);box-shadow:0 0 22px var(--cin-accent);transform:rotate(22deg);animation:cinBeam 5s ease-in-out infinite}
+#cinematicThemeFx .cin-beam.b2{left:72%;background:linear-gradient(transparent,var(--cin-primary),transparent);animation-delay:2.1s;animation-duration:6.5s;transform:rotate(-18deg)}
+#cinematicThemeFx .cin-particles{position:absolute;inset:0;background-image:radial-gradient(circle,var(--cin-primary) 0 1px,transparent 2px);background-size:43px 37px;opacity:.35;animation:cinParticles 12s linear infinite}
+#cinematicThemeFx .cin-scan{position:absolute;inset:0;background:repeating-linear-gradient(180deg,transparent 0 4px,rgba(255,255,255,.018) 5px 6px);mix-blend-mode:screen;opacity:.7}
+#cinematicThemeFx .cin-action{position:absolute;inset:-20%;border-radius:50%;background:conic-gradient(from 0deg,transparent 0 62%,color-mix(in srgb,var(--cin-accent) 28%,transparent) 66%,transparent 70% 100%);animation:cinAction 7s linear infinite;mix-blend-mode:screen}
+#cinematicThemeFx .cin-vignette{position:absolute;inset:0;background:radial-gradient(circle at 50% 44%,transparent 18%,rgba(0,0,0,.2) 55%,rgba(0,0,0,.78) 100%)}
+@keyframes cinWallpaperDrift{0%{transform:scale(1.08) translate3d(-1%,0,0);background-position:48% 50%}100%{transform:scale(1.15) translate3d(1%, -1%,0);background-position:53% 47%}}
+@keyframes cinGridMove{to{background-position:0 70px,70px 0}}
+@keyframes cinCorePulse{0%,100%{scale:.82;opacity:.7}50%{scale:1.16;opacity:1}}
+@keyframes cinRing{to{transform:translate(-50%,-50%) rotateX(70deg) rotateZ(360deg)}}
+@keyframes cinBeam{0%,100%{opacity:0;translate:-20% 0}50%{opacity:.8;translate:55% 0}}
+@keyframes cinParticles{to{background-position:43px 74px}}
+@keyframes cinAction{to{transform:rotate(360deg)}}
+
+/* Movie-specific action treatment */
+body[data-theme="cinematic-cyber"] #cinematicThemeFx .cin-grid{transform:rotateX(67deg) skewX(-8deg);opacity:.55}
+body[data-theme="cinematic-arc"] #cinematicThemeFx .cin-core{width:280px;height:280px}
+body[data-theme="cinematic-arc"] #cinematicThemeFx .cin-ring{border-radius:48%;}
+body[data-theme="cinematic-web"] #cinematicThemeFx .cin-particles{background-image:radial-gradient(circle,var(--cin-primary) 0 1px,transparent 2px),repeating-conic-gradient(from 0deg,transparent 0 8deg,rgba(255,255,255,.16) 8.5deg 9deg,transparent 9.5deg 18deg);background-size:45px 45px,220px 220px}
+body[data-theme="cinematic-nexus"] #cinematicThemeFx .cin-action{background:conic-gradient(from 0deg,transparent 0 12%,rgba(255,255,255,.25) 14%,transparent 16% 45%,var(--cin-accent) 47%,transparent 50% 100%)}
+body[data-theme="cinematic-doomsday"] #cinematicThemeFx .cin-wallpaper{animation:cinDoom 1.9s ease-in-out infinite alternate}
+body[data-theme="cinematic-interstellar"] #cinematicThemeFx .cin-wallpaper{animation:cinSpace 20s ease-in-out infinite alternate}
+body[data-theme="cinematic-galaxy"] #cinematicThemeFx .cin-grid{opacity:.12;transform:rotateX(76deg)}
+body[data-theme="cinematic-neon"] #cinematicThemeFx .cin-scan{opacity:1}
+body[data-theme="cinematic-noir"] #cinematicThemeFx .cin-particles{background-size:2px 24px;opacity:.18;animation:cinRain .55s linear infinite}
+body[data-theme="cinematic-dimension"] #cinematicThemeFx .cin-wallpaper{filter:saturate(1.35) contrast(1.18) brightness(.58);animation:cinRift 8s ease-in-out infinite alternate}
+@keyframes cinDoom{0%{transform:scale(1.08) translate(0,0)}45%{transform:scale(1.12) translate(-.5%,.3%)}50%{transform:scale(1.125) translate(.6%,-.2%)}100%{transform:scale(1.14) translate(-.7%,.4%)}}
+@keyframes cinSpace{0%{transform:scale(1.06);background-position:45% 52%}100%{transform:scale(1.2);background-position:56% 46%}}
+@keyframes cinRain{to{background-position:0 100px}}
+@keyframes cinRift{0%{transform:scale(1.08) skewX(0)}100%{transform:scale(1.18) skewX(-1deg)}}
+
+/* Make the actual portal tables become cinematic set pieces instead of flat recolors. */
+body.ats-cinematic-active #mainDisplayArea .roster-table,
+body.ats-cinematic-active #mainDisplayArea table,
+body.ats-cinematic-active .table-3d,
+body.ats-cinematic-active .bg-white.p-4,
+body.ats-cinematic-active .bg-white.rounded-xl,
+body.ats-cinematic-active .bg-white.rounded-2xl{
+  background:linear-gradient(135deg,rgba(4,7,18,.84),rgba(10,15,32,.66))!important;
+  border-color:color-mix(in srgb,var(--cin-primary) 58%,transparent)!important;
+  box-shadow:0 20px 65px rgba(0,0,0,.42),0 0 28px color-mix(in srgb,var(--cin-primary) 18%,transparent),inset 0 1px 0 rgba(255,255,255,.12)!important;
+  backdrop-filter:blur(10px) saturate(1.22);
+}
+body.ats-cinematic-active #mainDisplayArea .roster-table thead th,
+body.ats-cinematic-active #mainDisplayArea table thead th{
+  background-image:linear-gradient(90deg,rgba(0,0,0,.82),rgba(0,0,0,.38)),var(--cin-wallpaper)!important;
+  background-size:auto,cover!important;background-position:center!important;
+  color:#fff!important;text-shadow:0 0 12px var(--cin-primary)!important;
+  border-color:color-mix(in srgb,var(--cin-primary) 70%,transparent)!important;
+  position:relative;overflow:hidden;
+}
+body.ats-cinematic-active #mainDisplayArea .roster-table tbody tr,
+body.ats-cinematic-active #mainDisplayArea table tbody tr{
+  background:rgba(5,9,22,.48)!important;transition:transform .25s ease,background .25s ease,box-shadow .25s ease;
+}
+body.ats-cinematic-active #mainDisplayArea .roster-table tbody tr:hover,
+body.ats-cinematic-active #mainDisplayArea table tbody tr:hover{
+  background:rgba(20,27,52,.68)!important;transform:translateX(3px);box-shadow:inset 4px 0 0 var(--cin-accent),0 8px 24px rgba(0,0,0,.25);
+}
+body.ats-cinematic-active #mainDisplayArea .roster-table td,
+body.ats-cinematic-active #mainDisplayArea table td{border-color:rgba(148,163,184,.16)!important;color:#f8fafc!important}
+body.ats-cinematic-active #mainDisplayArea .roster-table td:first-child{background:linear-gradient(90deg,rgba(0,0,0,.46),rgba(0,0,0,.12))!important;font-weight:900;text-shadow:0 0 10px color-mix(in srgb,var(--cin-primary) 55%,transparent)}
+body.ats-cinematic-active .tab-btn{background:rgba(3,7,18,.74)!important;color:#fff!important;border:1px solid color-mix(in srgb,var(--cin-primary) 48%,transparent)!important;box-shadow:0 8px 25px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.12)!important}
+body.ats-cinematic-active .tab-btn.active{background:linear-gradient(135deg,var(--cin-primary),var(--cin-accent))!important;color:#fff!important;transform:translateY(-2px) scale(1.015);box-shadow:0 0 25px color-mix(in srgb,var(--cin-primary) 45%,transparent)!important}
+body.ats-cinematic-active #mainDisplayArea .bg-slate-50,
+body.ats-cinematic-active #mainDisplayArea .bg-slate-100{background:rgba(3,7,18,.48)!important}
+body.ats-cinematic-active header{box-shadow:0 8px 45px rgba(0,0,0,.42),0 1px 0 color-mix(in srgb,var(--cin-primary) 55%,transparent)!important}
+body.ats-cinematic-active #mainDisplayArea .rounded-xl,
+body.ats-cinematic-active #mainDisplayArea .rounded-2xl{transition:transform .25s ease,box-shadow .25s ease}
+body.ats-cinematic-active #mainDisplayArea .rounded-xl:hover,
+body.ats-cinematic-active #mainDisplayArea .rounded-2xl:hover{transform:translateY(-2px);box-shadow:0 18px 45px rgba(0,0,0,.34),0 0 22px color-mix(in srgb,var(--cin-primary) 16%,transparent)!important}
+
+/* Keep mobile readable: wallpaper remains visible but tables become more opaque. */
+@media(max-width:768px){
+  #cinematicThemeFx .cin-poster{left:10px;bottom:12px;width:calc(100vw - 20px);height:66px}
+  #cinematicThemeFx .cin-poster-title{font-size:13px;top:10px}
+  #cinematicThemeFx .cin-poster-sub{font-size:7px;bottom:9px}
+  #cinematicThemeFx .cin-core{width:130px;height:130px}
+  #cinematicThemeFx .cin-ring{width:230px;height:76px}
+  body.ats-cinematic-active #mainDisplayArea .roster-table tbody tr,
+  body.ats-cinematic-active #mainDisplayArea table tbody tr{background:rgba(5,9,22,.72)!important}
+}
+@media(prefers-reduced-motion:reduce){#cinematicThemeFx *{animation:none!important}}
+</style>
 <script id="ats-theme-engine">
 (function(){
  const themes=[
-  {id:'default',name:'Original ATS',desc:'Clean original portal design',bg:'#cbd5e1',surface:'#ffffff',primary:'#4f46e5',accent:'#f59e0b',header:'#020617'},
-  {id:'midnight',name:'Midnight',desc:'Dark executive operations look',bg:'#0b1120',surface:'#111827',primary:'#38bdf8',accent:'#fbbf24',header:'#020617'},
-  {id:'ocean',name:'Ocean',desc:'Cool blue enterprise layout',bg:'#dff6ff',surface:'#ffffff',primary:'#0284c7',accent:'#0d9488',header:'#073b4c'},
-  {id:'emerald',name:'Emerald',desc:'Fresh green operations theme',bg:'#e7f7ef',surface:'#ffffff',primary:'#059669',accent:'#d97706',header:'#064e3b'},
-  {id:'violet',name:'Violet',desc:'Modern premium purple style',bg:'#f2edff',surface:'#ffffff',primary:'#7c3aed',accent:'#db2777',header:'#2e1065'},
-  {id:'sunset',name:'Sunset',desc:'Warm orange command-center style',bg:'#fff1e8',surface:'#fffdfb',primary:'#ea580c',accent:'#eab308',header:'#431407'},
-  {id:'graphite',name:'Graphite',desc:'Minimal monochrome workspace',bg:'#e5e7eb',surface:'#f9fafb',primary:'#374151',accent:'#0891b2',header:'#111827'},
-  {id:'royal',name:'Royal Blue',desc:'Strong blue corporate style',bg:'#e9edff',surface:'#ffffff',primary:'#1d4ed8',accent:'#f59e0b',header:'#172554'},
-  {id:'mint',name:'Mint',desc:'Soft teal modern interface',bg:'#e8faf7',surface:'#ffffff',primary:'#0f766e',accent:'#f97316',header:'#134e4a'},
-  {id:'rose',name:'Rose',desc:'Elegant rose enterprise theme',bg:'#fff0f4',surface:'#ffffff',primary:'#be185d',accent:'#f59e0b',header:'#4a1023'},
-  {id:'terminal',name:'Terminal',desc:'High-contrast operations console',bg:'#07110b',surface:'#0b1a10',primary:'#22c55e',accent:'#facc15',header:'#020a05'},
+  {id:'default',name:'Original ATS',desc:'Clean original portal design',bg:'#cbd5e1',surface:'#ffffff',surface2:'#f8fafc',text:'#0f172a',muted:'#64748b',primary:'#4f46e5',accent:'#f59e0b',border:'#cbd5e1',header:'#020617'},
+  {id:'midnight',name:'Midnight',desc:'Dark executive operations look',bg:'#0b1120',surface:'#111827',surface2:'#172033',text:'#f8fafc',muted:'#94a3b8',primary:'#38bdf8',accent:'#fbbf24',border:'#334155',header:'#020617'},
+  {id:'ocean',name:'Ocean',desc:'Cool blue enterprise layout',bg:'#dff6ff',surface:'#ffffff',surface2:'#effbff',text:'#083344',muted:'#477384',primary:'#0284c7',accent:'#0d9488',border:'#a5d8e8',header:'#073b4c'},
+  {id:'emerald',name:'Emerald',desc:'Fresh green operations theme',bg:'#e7f7ef',surface:'#ffffff',surface2:'#f0fdf4',text:'#12372a',muted:'#5b766a',primary:'#059669',accent:'#d97706',border:'#b7e4cd',header:'#064e3b'},
+  {id:'violet',name:'Violet',desc:'Modern premium purple style',bg:'#f2edff',surface:'#ffffff',surface2:'#faf7ff',text:'#2e1065',muted:'#75658f',primary:'#7c3aed',accent:'#db2777',border:'#d8c8f5',header:'#2e1065'},
+  {id:'sunset',name:'Sunset',desc:'Warm orange command-center style',bg:'#fff1e8',surface:'#fffdfb',surface2:'#fff7ed',text:'#431407',muted:'#8a6254',primary:'#ea580c',accent:'#eab308',border:'#fed7aa',header:'#431407'},
+  {id:'graphite',name:'Graphite',desc:'Minimal monochrome workspace',bg:'#e5e7eb',surface:'#f9fafb',surface2:'#f3f4f6',text:'#111827',muted:'#6b7280',primary:'#374151',accent:'#0891b2',border:'#d1d5db',header:'#111827'},
+  {id:'royal',name:'Royal Blue',desc:'Strong blue corporate style',bg:'#e9edff',surface:'#ffffff',surface2:'#f5f7ff',text:'#172554',muted:'#64748b',primary:'#1d4ed8',accent:'#f59e0b',border:'#c7d2fe',header:'#172554'},
+  {id:'mint',name:'Mint',desc:'Soft teal modern interface',bg:'#e8faf7',surface:'#ffffff',surface2:'#f0fdfa',text:'#134e4a',muted:'#5f7f7b',primary:'#0f766e',accent:'#f97316',border:'#b7ebe4',header:'#134e4a'},
+  {id:'rose',name:'Rose',desc:'Elegant rose enterprise theme',bg:'#fff0f4',surface:'#ffffff',surface2:'#fff7f9',text:'#4a1023',muted:'#8b6070',primary:'#be185d',accent:'#f59e0b',border:'#f3bfd2',header:'#4a1023'},
+  {id:'terminal',name:'Terminal',desc:'High-contrast operations console',bg:'#07110b',surface:'#0b1a10',surface2:'#102217',text:'#dcfce7',muted:'#86efac',primary:'#22c55e',accent:'#facc15',border:'#166534',header:'#020a05'},
+  {id:'cinematic-cyber',name:'Cyber Armor',desc:'Transformers-inspired cyber motion',bg:'#050b18',surface:'#0b1224',surface2:'#101a32',text:'#e0f2fe',muted:'#7dd3fc',primary:'#22d3ee',accent:'#f97316',border:'#164e63',header:'#020617',cinematic:true,only:'316092'},
+  {id:'cinematic-arc',name:'Arc Reactor',desc:'Iron Man-inspired reactor glow',bg:'#071018',surface:'#0b1720',surface2:'#102330',text:'#e0f2fe',muted:'#7dd3fc',primary:'#22d3ee',accent:'#ef4444',border:'#155e75',header:'#020617',cinematic:true,only:'316092'},
+  {id:'cinematic-web',name:'Web Pulse',desc:'Spider-inspired neon web motion',bg:'#090b18',surface:'#111426',surface2:'#191c36',text:'#f8fafc',muted:'#c4b5fd',primary:'#a855f7',accent:'#ef4444',border:'#4c1d95',header:'#050505',cinematic:true,only:'316092'},
+  {id:'cinematic-nexus',name:'Hero Nexus',desc:'Avengers-inspired hero energy',bg:'#090b15',surface:'#12162a',surface2:'#1a2038',text:'#f8fafc',muted:'#94a3b8',primary:'#60a5fa',accent:'#ef4444',border:'#1e40af',header:'#020617',cinematic:true,only:'316092'},
+  {id:'cinematic-doomsday',name:'Doomsday Core',desc:'Dark catastrophic energy core',bg:'#100603',surface:'#1b0a06',surface2:'#29100a',text:'#fff7ed',muted:'#fdba74',primary:'#f97316',accent:'#ef4444',border:'#9a3412',header:'#090909',cinematic:true,only:'316092'},
+  {id:'cinematic-interstellar',name:'Interstellar Warp',desc:'Deep-space wormhole motion',bg:'#020617',surface:'#081126',surface2:'#0c1833',text:'#e0e7ff',muted:'#93c5fd',primary:'#818cf8',accent:'#22d3ee',border:'#3730a3',header:'#01030a',cinematic:true,only:'316092'},
+  {id:'cinematic-galaxy',name:'Galaxy Hyperdrive',desc:'Starfield and hyperspace energy',bg:'#070316',surface:'#10072b',surface2:'#180b3b',text:'#f5f3ff',muted:'#c4b5fd',primary:'#c084fc',accent:'#38bdf8',border:'#6b21a8',header:'#03000a',cinematic:true,only:'316092'},
+  {id:'cinematic-neon',name:'Neon Grid',desc:'Futuristic 3D neon city',bg:'#020617',surface:'#071426',surface2:'#0b1d34',text:'#ecfeff',muted:'#67e8f9',primary:'#06b6d4',accent:'#f472b6',border:'#155e75',header:'#020617',cinematic:true,only:'316092'},
+  {id:'cinematic-noir',name:'Neon Noir',desc:'Cinematic red-blue night motion',bg:'#070711',surface:'#11111e',surface2:'#181829',text:'#f8fafc',muted:'#a5b4fc',primary:'#6366f1',accent:'#fb7185',border:'#3730a3',header:'#030305',cinematic:true,only:'316092'},
+  {id:'cinematic-dimension',name:'Dimension Rift',desc:'Reality-bending dimensional portal',bg:'#05020c',surface:'#0e0618',surface2:'#170a28',text:'#f5f3ff',muted:'#d8b4fe',primary:'#d946ef',accent:'#8b5cf6',border:'#86198f',header:'#020006',cinematic:true,only:'316092'}
  ];
- let selected='default', applied=localStorage.getItem('atsPortalTheme')||'default';
- function getTheme(id){return themes.find(t=>t.id===id)||themes[0]}
- if(!themes.some(t=>t.id===applied)){ applied='default'; localStorage.setItem('atsPortalTheme','default'); }
- function setThemePreview(t){
-   const p=document.getElementById('themeLivePreview'), n=document.getElementById('themePreviewName'), d=document.getElementById('themePreviewDesc'); if(!p)return;
-   p.style.background=t.bg; p.style.color=t.id==='terminal'||t.id==='midnight'?'#f8fafc':'#0f172a';
-   const h=p.querySelector('.tp-head'), cards=p.querySelectorAll('.tp-card'), table=p.querySelector('.tp-table');
-   h.style.background=t.header; h.style.color='#fff'; cards.forEach(c=>{c.style.background=t.surface;c.style.borderColor=t.primary+'55'}); table.style.background=t.surface; table.style.borderColor=t.primary+'55';
-   n.textContent=t.name; d.textContent=t.desc;
-   document.querySelectorAll('#themeOptionsGrid .theme-option').forEach(el=>el.classList.toggle('selected',el.dataset.theme===t.id));
- }
- function renderOptions(){
-   const grid=document.getElementById('themeOptionsGrid'); if(!grid)return; grid.innerHTML=themes.map(t=>`<button type="button" class="theme-option rounded-xl p-2 text-left ${t.id===selected?'selected':''}" data-theme="${t.id}" onclick="previewTheme('${t.id}')"><div class="theme-swatch" style="background:${t.bg}"><div class="theme-preview-header" style="background:${t.header}"></div><div class="theme-preview-body"><div class="theme-preview-card" style="background:${t.surface};border-color:${t.primary}"></div><div class="theme-preview-card" style="background:${t.surface};border-color:${t.accent}"></div></div></div><div class="mt-1.5 text-[10px] font-black text-slate-800">${t.name}</div><div class="text-[8px] leading-3 text-slate-500 font-semibold">${t.desc}</div></button>`).join('');
- }
- window.previewTheme=function(id){selected=id;setThemePreview(getTheme(id))};
- window.openThemeChooser=function(){document.getElementById('userProfileDropdown')?.classList.add('hidden'); selected=applied; renderOptions(); setThemePreview(getTheme(selected)); document.getElementById('themeChooserModal').classList.remove('hidden'); lucide.createIcons();};
- window.closeThemeChooser=function(){document.getElementById('themeChooserModal').classList.add('hidden');};
- window.applySelectedTheme=function(){applied=selected;localStorage.setItem('atsPortalTheme',applied);applyTheme(applied);closeThemeChooser();};
- function applyTheme(id){document.body.dataset.theme=id;document.body.classList.toggle('ats-theme-active',id!=='default');}
- window.addEventListener('DOMContentLoaded',()=>{applyTheme(applied)});
+ const CINEMATIC_WALLPAPERS={
+   'cinematic-cyber':'https://media.easy-peasy.ai/46c60c18-404d-4abe-ba92-928afeb27a40/5de7f496-f511-40bc-8d7c-a9065b099b66_thumb.webp',
+   'cinematic-arc':'https://storage.googleapis.com/moviemaps/img/zz5.f5dmpi.940.jpg',
+   'cinematic-web':'https://disney.images.edge.bamgrid.com/ripcut-delivery/v2/variant/disney/cc323ffc-ee33-4cdb-b3a4-bb304b0a5ddb/compose?format=webp&width=2560',
+   'cinematic-nexus':'https://a.ltrbxd.com/resized/sm/upload/8w/a1/14/qk/the-avengers-2012-1200-1200-675-675-crop-000000.jpg?v=a46491df32',
+   'cinematic-doomsday':'https://cdn.mos.cms.futurecdn.net/DfZDC8ViwnU57ppgMNFDFH.jpg',
+   'cinematic-interstellar':'https://4kwallpapers.com/images/wallpapers/gargantua-black-3840x2160-9611.jpg',
+   'cinematic-galaxy':'https://cdn.wallpapersafari.com/87/35/7xe329v.jpg',
+   'cinematic-neon':'https://image-0.uhdpaper.com/wallpaper/the-matrix-neo-stopping-bullets-kenau-reeves-hd-wallpaper-uhdpaper.com-814@0@i.jpg',
+   'cinematic-noir':'https://images7.alphacoders.com/105/thumb-1920-1053224.jpg',
+   'cinematic-dimension':'https://d1uzk9o9cg136f.cloudfront.net/f/16782943/rc/2021/10/05/cccef9c9281a3c7ba8b0800272f9e6adfcd01fdd.jpg'
+ };
+ themes.forEach(t=>{if(CINEMATIC_WALLPAPERS[t.id])t.wallpaper=CINEMATIC_WALLPAPERS[t.id]});
+ const CINEMATIC_IDS=new Set(themes.filter(t=>t.cinematic).map(t=>t.id));
+ let selected='default';
+ function currentSg(){try{return String(window.activeUserSessionForTheme?.sg_id||window.currentThemeSgId||window.activeUserSession?.sg_id||window.currentUser?.sg_id||'')}catch(_){return ''}}
+ function allowed(t){return !t.only||currentSg()===t.only}
+ function getTheme(id){const t=themes.find(x=>x.id===id);return t&&allowed(t)?t:themes[0]}
+ function ensureFx(){let fx=document.getElementById('cinematicThemeFx');if(fx)return fx;fx=document.createElement('div');fx.id='cinematicThemeFx';fx.innerHTML='<div class="cin-wallpaper"></div><div class="cin-action"></div><div class="cin-particles"></div><div class="cin-grid"></div><div class="cin-core"></div><div class="cin-ring"></div><div class="cin-ring r2"></div><div class="cin-beam"></div><div class="cin-beam b2"></div><div class="cin-scan"></div><div class="cin-poster"><div class="cin-poster-title"></div><div class="cin-poster-sub">CINEMATIC ATS // 316092</div></div><div class="cin-vignette"></div>';document.body.prepend(fx);return fx}
+ function setVars(t){const r=document.documentElement.style;r.setProperty('--theme-bg',t.bg);r.setProperty('--theme-surface',t.surface);r.setProperty('--theme-surface2',t.surface2||t.surface);r.setProperty('--theme-text',t.text||'#0f172a');r.setProperty('--theme-muted',t.muted||'#64748b');r.setProperty('--theme-primary',t.primary);r.setProperty('--theme-accent',t.accent);r.setProperty('--theme-border',t.border||t.primary);r.setProperty('--theme-header',t.header);}
+ function applyTheme(id,save){let t=getTheme(id);if(id!==t.id)t=themes[0];setVars(t);document.documentElement.setAttribute('data-ats-theme',t.id);document.body.dataset.theme=t.id;document.body.classList.toggle('ats-theme-active',t.id!=='default');document.body.classList.toggle('ats-cinematic-active',!!t.cinematic);const fx=ensureFx();if(t.cinematic){fx.style.display='block';fx.style.setProperty('--cin-primary',t.primary);fx.style.setProperty('--cin-accent',t.accent);fx.style.setProperty('--cin-wallpaper',`url("${t.wallpaper||''}")`);const title=fx.querySelector('.cin-poster-title');if(title)title.textContent=t.name}else{fx.style.display='none';fx.style.removeProperty('--cin-wallpaper')}if(save!==false){try{localStorage.setItem('atsPortalTheme',t.id)}catch(_){}}applied=t.id;return t.id}
+ let applied='default';try{applied=localStorage.getItem('atsPortalTheme')||'default'}catch(_){};
+ function setThemePreview(t){const p=document.getElementById('themeLivePreview'),n=document.getElementById('themePreviewName'),d=document.getElementById('themePreviewDesc');if(!p)return;p.style.background=t.bg;p.style.color=t.text||'#0f172a';const h=p.querySelector('.tp-head'),cards=p.querySelectorAll('.tp-card'),table=p.querySelector('.tp-table');if(h){h.style.background=t.header;h.style.color='#fff'}cards.forEach(c=>{c.style.background=t.surface;c.style.borderColor=(t.primary||'#4f46e5')+'55'});if(table){table.style.background=t.surface;table.style.borderColor=(t.primary||'#4f46e5')+'55'}if(n)n.textContent=t.name;if(d)d.textContent=t.desc;document.querySelectorAll('#themeOptionsGrid .theme-option').forEach(el=>el.classList.toggle('selected',el.dataset.theme===t.id))}
+ function renderOptions(){const grid=document.getElementById('themeOptionsGrid');if(!grid)return;const visible=themes.filter(allowed);grid.innerHTML=visible.map(t=>`<button type="button" class="theme-option rounded-xl p-2 text-left ${t.id===selected?'selected':''}" data-theme="${t.id}" onclick="previewTheme('${t.id}')"><div class="theme-swatch" style="background:${t.cinematic&&t.wallpaper?`linear-gradient(135deg,rgba(0,0,0,.25),rgba(0,0,0,.58)),url(\"${t.wallpaper}\")`:t.bg};background-size:cover;background-position:center"><div class="theme-preview-header" style="background:${t.header}"></div><div class="theme-preview-body"><div class="theme-preview-card" style="background:${t.surface};border-color:${t.primary}"></div><div class="theme-preview-card" style="background:${t.surface};border-color:${t.accent}"></div></div></div><div class="mt-1.5 text-[10px] font-black text-slate-800">${t.name}</div><div class="text-[8px] leading-3 text-slate-500 font-semibold">${t.desc}</div></button>`).join('')}
+ window.previewTheme=function(id){const t=getTheme(id);selected=t.id;setThemePreview(t)};
+ window.openThemeChooser=function(){document.getElementById('userProfileDropdown')?.classList.add('hidden');const stored=localStorage.getItem('atsPortalTheme')||'default';selected=getTheme(stored).id;renderOptions();setThemePreview(getTheme(selected));document.getElementById('themeChooserModal')?.classList.remove('hidden');if(window.lucide)lucide.createIcons()};
+ window.closeThemeChooser=function(){document.getElementById('themeChooserModal')?.classList.add('hidden')};
+ window.applySelectedTheme=function(e){if(e)e.preventDefault();const id=String(selected||'default');const t=themes.find(x=>x.id===id);if(!t||!allowed(t))return false;applied=id;setVars(t);document.documentElement.setAttribute('data-ats-theme',id);document.body.dataset.theme=id;document.body.classList.add('ats-theme-active');document.body.classList.toggle('ats-cinematic-active',!!t.cinematic);const fx=ensureFx();if(t.cinematic){fx.style.display='block';fx.style.setProperty('--cin-primary',t.primary);fx.style.setProperty('--cin-accent',t.accent);fx.style.setProperty('--cin-wallpaper',t.wallpaper?`url(\"${t.wallpaper}\")`: 'none');const title=fx.querySelector('.cin-poster-title');if(title)title.textContent=t.name}else{fx.style.display='none';fx.style.removeProperty('--cin-wallpaper')}try{localStorage.setItem('atsPortalTheme',id)}catch(_){}window.closeThemeChooser();return false};
+ window.applyTheme=applyTheme;
+ window.refreshThemeForUser=function(session){window.activeUserSessionForTheme=session||window.activeUserSession||null;window.currentThemeSgId=String((session||window.activeUserSession)?.sg_id||'');const stored=localStorage.getItem('atsPortalTheme')||'default';const t=getTheme(stored);applyTheme(t.id,true);if(window.renderThemeOptionsForUser)window.renderThemeOptionsForUser()};
+ window.addEventListener('DOMContentLoaded',()=>{ensureFx();applyTheme(applied,true)});
 })();
 </script>
 <style id="ats-theme-visibility-overrides">
@@ -9291,5 +9103,246 @@ body[data-theme]:has(#mandatoryLoginModal:not(.hidden)) #mandatoryLoginModal .lo
   border-color: transparent !important;
   box-shadow: none !important;
   filter: none !important;
+}
+</style>
+<style id="ats-316092-cinematic-layout-skins">
+/* ============================================================
+   316092 CINEMATIC LAYOUT SKINS — STATIC / EMBEDDED INTO PORTAL
+   No running lights, beams, particles, rotating rings or motion.
+   The movie artwork is used directly inside the portal surfaces.
+   ============================================================ */
+body.ats-cinematic-active #cinematicThemeFx{display:none!important;visibility:hidden!important}
+body.ats-cinematic-active{
+  background-color:#05070d!important;
+  background-image:var(--cin-wallpaper),linear-gradient(135deg,rgba(0,0,0,.80),rgba(0,0,0,.52))!important;
+  background-size:cover,cover!important;
+  background-position:center,center!important;
+  background-attachment:fixed!important;
+  background-blend-mode:soft-light,normal!important;
+  color:var(--theme-text)!important;
+}
+body.ats-cinematic-active::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:linear-gradient(180deg,rgba(0,0,0,.56) 0%,rgba(0,0,0,.20) 32%,rgba(0,0,0,.62) 100%);
+}
+body.ats-cinematic-active > *{position:relative;z-index:1}
+body.ats-cinematic-active header{
+  background-image:linear-gradient(90deg,rgba(0,0,0,.92),rgba(0,0,0,.54)),var(--cin-wallpaper)!important;
+  background-size:cover!important;background-position:center 18%!important;
+  border-bottom:2px solid var(--cin-accent)!important;
+  box-shadow:0 12px 40px rgba(0,0,0,.48)!important;
+}
+body.ats-cinematic-active main{background:transparent!important}
+
+/* The portal's own content becomes the movie set. */
+body.ats-cinematic-active #mainDisplayArea{
+  position:relative!important;
+  background:rgba(2,5,12,.34)!important;
+  border:1px solid color-mix(in srgb,var(--cin-primary) 38%,transparent)!important;
+  border-radius:22px!important;
+  padding:12px!important;
+  box-shadow:0 24px 70px rgba(0,0,0,.42)!important;
+  overflow:hidden!important;
+}
+body.ats-cinematic-active #mainDisplayArea::before{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+  background-image:linear-gradient(180deg,rgba(0,0,0,.24),rgba(0,0,0,.52)),var(--cin-wallpaper);
+  background-size:cover;background-position:center;
+  opacity:.14;
+}
+body.ats-cinematic-active #mainDisplayArea > *{position:relative;z-index:1}
+
+/* Shared cinematic table construction */
+body.ats-cinematic-active #mainDisplayArea table,
+body.ats-cinematic-active #mainDisplayArea .table-3d,
+body.ats-cinematic-active #mainDisplayArea .roster-table{
+  position:relative!important;
+  background:linear-gradient(180deg,rgba(7,11,22,.94),rgba(5,8,16,.88))!important;
+  border:1px solid color-mix(in srgb,var(--cin-primary) 62%,white 8%)!important;
+  border-radius:18px!important;
+  overflow:hidden!important;
+  box-shadow:0 20px 50px rgba(0,0,0,.38),inset 0 1px 0 rgba(255,255,255,.10)!important;
+}
+body.ats-cinematic-active #mainDisplayArea table::before,
+body.ats-cinematic-active #mainDisplayArea .table-3d::before,
+body.ats-cinematic-active #mainDisplayArea .roster-table::before{
+  content:"";position:absolute;left:0;right:0;top:0;height:7px;z-index:3;
+  background:linear-gradient(90deg,var(--cin-primary),var(--cin-accent),var(--cin-primary));
+  opacity:.9;
+}
+body.ats-cinematic-active #mainDisplayArea table thead th,
+body.ats-cinematic-active #mainDisplayArea .roster-table thead th{
+  position:relative!important;
+  background-image:linear-gradient(90deg,rgba(0,0,0,.88),rgba(0,0,0,.48)),var(--cin-wallpaper)!important;
+  background-size:cover!important;background-position:center 25%!important;
+  color:#fff!important;
+  border-color:rgba(255,255,255,.12)!important;
+  text-shadow:0 2px 12px rgba(0,0,0,.9)!important;
+  font-weight:900!important;
+  letter-spacing:.045em!important;
+  min-height:48px!important;
+}
+body.ats-cinematic-active #mainDisplayArea table tbody tr,
+body.ats-cinematic-active #mainDisplayArea .roster-table tbody tr{
+  background:rgba(4,8,17,.76)!important;
+  border-bottom:1px solid rgba(255,255,255,.07)!important;
+}
+body.ats-cinematic-active #mainDisplayArea table tbody tr:hover,
+body.ats-cinematic-active #mainDisplayArea .roster-table tbody tr:hover{
+  background:rgba(20,27,45,.92)!important;
+  box-shadow:inset 5px 0 0 var(--cin-accent)!important;
+  transform:none!important;
+}
+body.ats-cinematic-active #mainDisplayArea table td,
+body.ats-cinematic-active #mainDisplayArea .roster-table td{
+  color:#f8fafc!important;
+  border-color:rgba(255,255,255,.08)!important;
+}
+body.ats-cinematic-active #mainDisplayArea table td:first-child,
+body.ats-cinematic-active #mainDisplayArea .roster-table td:first-child{
+  background:linear-gradient(90deg,rgba(0,0,0,.62),rgba(0,0,0,.18))!important;
+  font-weight:900!important;
+  color:#fff!important;
+}
+
+/* Cards, profile blocks and controls become part of the same movie surface. */
+body.ats-cinematic-active .card-3d,
+body.ats-cinematic-active #mainDisplayArea .bg-white,
+body.ats-cinematic-active #mainDisplayArea .bg-slate-50,
+body.ats-cinematic-active #mainDisplayArea .bg-slate-100,
+body.ats-cinematic-active #mainDisplayArea .rounded-xl,
+body.ats-cinematic-active #mainDisplayArea .rounded-2xl{
+  background:linear-gradient(145deg,rgba(7,11,22,.92),rgba(14,19,34,.80))!important;
+  border-color:color-mix(in srgb,var(--cin-primary) 48%,transparent)!important;
+  box-shadow:0 14px 35px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.08)!important;
+}
+body.ats-cinematic-active #mainDisplayArea .tab-btn,
+body.ats-cinematic-active #mainDisplayArea .tab-3d{
+  background:rgba(3,7,15,.86)!important;
+  color:#f8fafc!important;
+  border:1px solid color-mix(in srgb,var(--cin-primary) 48%,transparent)!important;
+  box-shadow:0 8px 20px rgba(0,0,0,.28)!important;
+}
+body.ats-cinematic-active #mainDisplayArea .tab-btn.active,
+body.ats-cinematic-active #mainDisplayArea .tab-3d.active{
+  background:linear-gradient(135deg,var(--cin-primary),var(--cin-accent))!important;
+  color:#fff!important;
+  border-color:rgba(255,255,255,.28)!important;
+}
+body.ats-cinematic-active #mainDisplayArea .btn-3d,
+body.ats-cinematic-active #mainDisplayArea button.bg-indigo-600{
+  background:linear-gradient(135deg,var(--cin-primary),var(--cin-accent))!important;
+  color:#fff!important;border-color:rgba(255,255,255,.18)!important;
+}
+
+/* ================= THEME-SPECIFIC GRAPHIC LANGUAGES ================= */
+/* TRANSFORMERS — angular armor / mechanical panels */
+body[data-theme="cinematic-cyber"] #mainDisplayArea,
+body[data-theme="cinematic-cyber"] #mainDisplayArea table{
+  border-radius:4px!important;clip-path:polygon(0 0,99% 0,100% 94%,96% 100%,0 100%)!important;
+}
+body[data-theme="cinematic-cyber"] #mainDisplayArea table thead th{
+  background-position:left center!important;
+  box-shadow:inset 0 -4px 0 #f97316,inset 0 4px 0 #22d3ee!important;
+}
+body[data-theme="cinematic-cyber"] #mainDisplayArea .card-3d{
+  border-left:5px solid #f97316!important;
+  background-image:linear-gradient(135deg,rgba(34,211,238,.12),transparent 35%),var(--cin-wallpaper)!important;
+  background-size:auto,cover!important;background-blend-mode:screen!important;
+}
+
+/* IRON MAN — reactor circles / armored HUD framing */
+body[data-theme="cinematic-arc"] #mainDisplayArea::after{
+  content:"";position:absolute;right:-100px;top:40px;width:360px;height:360px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(255,255,255,.9) 0 2%,rgba(34,211,238,.65) 3% 7%,transparent 8% 34%,rgba(34,211,238,.28) 35% 36%,transparent 37% 52%,rgba(239,68,68,.18) 53% 54%,transparent 55%);
+  opacity:.20;z-index:1;
+}
+body[data-theme="cinematic-arc"] #mainDisplayArea table{border-radius:12px!important;border-width:2px!important}
+body[data-theme="cinematic-arc"] #mainDisplayArea table thead th{box-shadow:inset 0 -3px 0 #ef4444!important}
+body[data-theme="cinematic-arc"] #mainDisplayArea .card-3d{border-radius:20px!important;border-top:3px solid #22d3ee!important}
+
+/* SPIDER-MAN — web geometry / comic action framing */
+body[data-theme="cinematic-web"] #mainDisplayArea,
+body[data-theme="cinematic-web"] #mainDisplayArea table{
+  background-image:radial-gradient(circle at 15% 15%,rgba(168,85,247,.18) 0 2px,transparent 3px),repeating-radial-gradient(circle at 100% 0,transparent 0 28px,rgba(168,85,247,.10) 29px 30px),linear-gradient(180deg,rgba(7,8,18,.96),rgba(13,10,28,.92))!important;
+}
+body[data-theme="cinematic-web"] #mainDisplayArea table thead th{box-shadow:inset 0 -4px 0 #ef4444,inset 4px 0 0 #a855f7!important}
+body[data-theme="cinematic-web"] #mainDisplayArea .card-3d{transform:skewX(-1deg)!important;border-left:4px solid #ef4444!important}
+
+/* AVENGERS — heroic command deck / hex-panel graphics */
+body[data-theme="cinematic-nexus"] #mainDisplayArea,
+body[data-theme="cinematic-nexus"] #mainDisplayArea table{
+  background-image:linear-gradient(30deg,rgba(96,165,250,.06) 12%,transparent 12.5%,transparent 87%,rgba(96,165,250,.06) 87.5%),linear-gradient(150deg,rgba(239,68,68,.05) 12%,transparent 12.5%,transparent 87%,rgba(239,68,68,.05) 87.5%),linear-gradient(180deg,rgba(5,8,18,.96),rgba(12,17,35,.92))!important;
+  background-size:34px 58px,34px 58px,auto!important;
+}
+body[data-theme="cinematic-nexus"] #mainDisplayArea table thead th{box-shadow:inset 0 -4px 0 #ef4444,inset 0 3px 0 #60a5fa!important}
+body[data-theme="cinematic-nexus"] #mainDisplayArea .card-3d{border-top:4px solid #60a5fa!important;border-bottom:2px solid #ef4444!important}
+
+/* DOOMSDAY — damaged armor / cracked battlefield panels */
+body[data-theme="cinematic-doomsday"] #mainDisplayArea,
+body[data-theme="cinematic-doomsday"] #mainDisplayArea table{
+  background-image:linear-gradient(112deg,transparent 0 46%,rgba(249,115,22,.12) 46.2% 46.7%,transparent 47% 100%),linear-gradient(72deg,transparent 0 61%,rgba(239,68,68,.10) 61.2% 61.7%,transparent 62%),linear-gradient(180deg,rgba(18,7,3,.96),rgba(9,5,3,.94))!important;
+}
+body[data-theme="cinematic-doomsday"] #mainDisplayArea table thead th{box-shadow:inset 0 -5px 0 #ef4444!important}
+body[data-theme="cinematic-doomsday"] #mainDisplayArea .card-3d{border-left:5px solid #f97316!important;border-radius:5px!important}
+
+/* INTERSTELLAR — spacecraft console / wormhole frame */
+body[data-theme="cinematic-interstellar"] #mainDisplayArea,
+body[data-theme="cinematic-interstellar"] #mainDisplayArea table{
+  background-image:radial-gradient(circle at 22% 30%,#fff 0 1px,transparent 1.8px),radial-gradient(circle at 78% 68%,#93c5fd 0 1px,transparent 1.8px),linear-gradient(180deg,rgba(2,7,22,.94),rgba(3,8,25,.92))!important;
+  background-size:91px 83px,137px 119px,auto!important;
+}
+body[data-theme="cinematic-interstellar"] #mainDisplayArea table thead th{box-shadow:inset 0 -3px 0 #22d3ee!important}
+body[data-theme="cinematic-interstellar"] #mainDisplayArea .card-3d{border:1px solid rgba(129,140,248,.55)!important;border-radius:2px!important}
+
+/* STAR WARS — command bridge / hyperspace streak geometry, static */
+body[data-theme="cinematic-galaxy"] #mainDisplayArea,
+body[data-theme="cinematic-galaxy"] #mainDisplayArea table{
+  background-image:radial-gradient(circle,#fff 0 1px,transparent 1.7px),linear-gradient(180deg,rgba(8,3,24,.95),rgba(14,5,39,.92))!important;
+  background-size:53px 47px,auto!important;
+}
+body[data-theme="cinematic-galaxy"] #mainDisplayArea table thead th{box-shadow:inset 0 -4px 0 #38bdf8!important}
+body[data-theme="cinematic-galaxy"] #mainDisplayArea .card-3d{border-left:3px solid #c084fc!important;border-right:3px solid #38bdf8!important}
+
+/* MATRIX — terminal city / perspective grid */
+body[data-theme="cinematic-neon"] #mainDisplayArea,
+body[data-theme="cinematic-neon"] #mainDisplayArea table{
+  background-image:linear-gradient(rgba(6,182,212,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(6,182,212,.08) 1px,transparent 1px),linear-gradient(180deg,rgba(1,8,18,.96),rgba(2,13,25,.94))!important;
+  background-size:42px 42px,42px 42px,auto!important;
+}
+body[data-theme="cinematic-neon"] #mainDisplayArea table thead th{box-shadow:inset 0 -3px 0 #f472b6!important}
+body[data-theme="cinematic-neon"] #mainDisplayArea .card-3d{border-radius:3px!important;border:1px solid #06b6d4!important}
+
+/* NEON NOIR — detective city / split red-blue poster framing */
+body[data-theme="cinematic-noir"] #mainDisplayArea,
+body[data-theme="cinematic-noir"] #mainDisplayArea table{
+  background-image:linear-gradient(90deg,rgba(99,102,241,.12),transparent 34%,transparent 66%,rgba(251,113,133,.12)),linear-gradient(180deg,rgba(6,6,14,.96),rgba(13,8,18,.94))!important;
+}
+body[data-theme="cinematic-noir"] #mainDisplayArea table thead th{box-shadow:inset 0 -3px 0 #fb7185,inset 0 3px 0 #6366f1!important}
+body[data-theme="cinematic-noir"] #mainDisplayArea .card-3d{border-radius:0!important;border-top:2px solid #6366f1!important;border-right:2px solid #fb7185!important}
+
+/* DUNE / DIMENSION — desert portal / monumental sci-fi slabs */
+body[data-theme="cinematic-dimension"] #mainDisplayArea,
+body[data-theme="cinematic-dimension"] #mainDisplayArea table{
+  background-image:linear-gradient(135deg,rgba(217,70,239,.12),transparent 30%,rgba(139,92,246,.10) 70%,transparent),linear-gradient(180deg,rgba(10,3,18,.96),rgba(20,6,28,.94))!important;
+}
+body[data-theme="cinematic-dimension"] #mainDisplayArea table thead th{box-shadow:inset 0 -5px 0 #d946ef!important}
+body[data-theme="cinematic-dimension"] #mainDisplayArea .card-3d{border-radius:2px!important;border-left:7px solid #8b5cf6!important}
+
+/* Keep text and roster data readable over artwork. */
+body.ats-cinematic-active #mainDisplayArea .text-slate-900,
+body.ats-cinematic-active #mainDisplayArea .text-slate-800,
+body.ats-cinematic-active #mainDisplayArea .text-slate-700,
+body.ats-cinematic-active #mainDisplayArea .text-slate-600,
+body.ats-cinematic-active #mainDisplayArea .text-slate-500{color:#f8fafc!important}
+body.ats-cinematic-active #mainDisplayArea input,
+body.ats-cinematic-active #mainDisplayArea select,
+body.ats-cinematic-active #mainDisplayArea textarea{background:rgba(2,6,14,.84)!important;color:#fff!important;border-color:color-mix(in srgb,var(--cin-primary) 55%,transparent)!important}
+
+@media(max-width:768px){
+  body.ats-cinematic-active{background-attachment:scroll!important}
+  body.ats-cinematic-active #mainDisplayArea{border-radius:14px!important;padding:7px!important}
+  body.ats-cinematic-active #mainDisplayArea table{border-radius:10px!important}
+  body.ats-cinematic-active #mainDisplayArea table thead th{font-size:.72rem!important}
 }
 </style>
