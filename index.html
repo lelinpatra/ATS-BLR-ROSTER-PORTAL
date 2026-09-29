@@ -3124,27 +3124,60 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
         let selectedHolidayOffice = "ALL";
         let SABRE_HOLIDAYS = [
             { date: "2026-01-01", day: "Thursday", name: "New Year's Day", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
-            { date: "2026-01-19", day: "Monday", name: "Martin Luther King Jr. Day", offices: ["US"] },
+            { date: "2026-01-02", day: "Friday", name: "Sabre Year End Break", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
+            { date: "2026-01-06", day: "Tuesday", name: "Epiphany", offices: ["KRK"] },
+            { date: "2026-01-15", day: "Thursday", name: "Makara Sankranti", offices: ["BLR"] },
+            { date: "2026-01-19", day: "Monday", name: "Martin Luther King, Jr. Day", offices: ["US"] },
             { date: "2026-01-26", day: "Monday", name: "Republic Day", offices: ["BLR"] },
-            { date: "2026-02-17", day: "Tuesday", name: "Chinese New Year", offices: ["SGP"] },
-            { date: "2026-03-03", day: "Tuesday", name: "Holi / Dhulivandan", offices: ["BLR"] },
+            { date: "2026-02-16", day: "Monday", name: "Presidents' Day", offices: ["US"] },
+            { date: "2026-02-16", day: "Monday", name: "Carnival (non-working)", offices: ["MVD"] },
+            { date: "2026-02-17", day: "Tuesday", name: "Carnival", offices: ["MVD"] },
+            { date: "2026-02-17", day: "Tuesday", name: "Chinese / Lunar New Year", offices: ["SGP"] },
+            { date: "2026-02-18", day: "Wednesday", name: "Chinese / Lunar New Year", offices: ["SGP"] },
+            { date: "2026-03-04", day: "Wednesday", name: "Holi", offices: ["BLR"] },
+            { date: "2026-03-19", day: "Thursday", name: "Ugadi / Gudhi Padwa", offices: ["BLR"] },
+            { date: "2026-03-21", day: "Saturday", name: "Hari Raya Haji", offices: ["SGP"] },
+            { date: "2026-04-02", day: "Thursday", name: "Holy Week (non-working)", offices: ["MVD"] },
             { date: "2026-04-03", day: "Friday", name: "Good Friday", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
             { date: "2026-04-06", day: "Monday", name: "Easter Monday", offices: ["UK", "KRK"] },
-            { date: "2026-05-01", day: "Friday", name: "Labor Day / May Day", offices: ["BLR", "KRK", "MVD", "SGP"] },
-            { date: "2026-05-25", day: "Monday", name: "Memorial Day", offices: ["US"] },
-            { date: "2026-05-25", day: "Monday", name: "Spring Bank Holiday", offices: ["UK"] },
+            { date: "2026-05-01", day: "Friday", name: "May Day / Labor Day", offices: ["UK", "KRK", "MVD", "SGP"] },
+            { date: "2026-05-04", day: "Monday", name: "Early May Bank Holiday", offices: ["UK"] },
+            { date: "2026-05-25", day: "Monday", name: "Spring Bank / Memorial Day", offices: ["US", "UK"] },
+            { date: "2026-05-27", day: "Wednesday", name: "Hari Raya Puasa", offices: ["SGP"] },
+            { date: "2026-05-28", day: "Thursday", name: "Bakrid", offices: ["BLR"] },
+            { date: "2026-06-01", day: "Monday", name: "Vesak Day (replacement)", offices: ["SGP"] },
+            { date: "2026-06-04", day: "Thursday", name: "Corpus Christi", offices: ["KRK"] },
             { date: "2026-06-19", day: "Friday", name: "Juneteenth", offices: ["US"] },
-            { date: "2026-07-03", day: "Friday", name: "Independence Day (Observed)", offices: ["US"] },
-            { date: "2026-08-15", day: "Saturday", name: "Independence Day", offices: ["BLR", "SGP"] },
+            { date: "2026-07-03", day: "Friday", name: "Independence Day (observed)", offices: ["US"] },
+            { date: "2026-07-18", day: "Saturday", name: "Constitution Day (non-working)", offices: ["MVD"] },
+            { date: "2026-08-10", day: "Monday", name: "National Day (replacement)", offices: ["SGP"] },
+            { date: "2026-08-14", day: "Friday", name: "Assumption Day (obs.)", offices: ["KRK"] },
+            { date: "2026-08-15", day: "Saturday", name: "Independence Day", offices: ["BLR"] },
+            { date: "2026-08-25", day: "Tuesday", name: "Independence Day (non-working)", offices: ["MVD"] },
             { date: "2026-08-31", day: "Monday", name: "Summer Bank Holiday", offices: ["UK"] },
+            { date: "2026-09-04", day: "Friday", name: "Janmashtami", offices: ["BLR"] },
             { date: "2026-09-07", day: "Monday", name: "Labor Day", offices: ["US"] },
+            { date: "2026-09-14", day: "Monday", name: "Ganesh Chaturthi", offices: ["BLR"] },
             { date: "2026-10-02", day: "Friday", name: "Gandhi Jayanti", offices: ["BLR"] },
-            { date: "2026-10-20", day: "Tuesday", name: "Dussehra", offices: ["BLR"] },
-            { date: "2026-11-08", day: "Sunday", name: "Diwali (Deepavali)", offices: ["BLR", "SGP"] },
+            { date: "2026-10-12", day: "Monday", name: "Columbus Day", offices: ["US"] },
+            { date: "2026-10-20", day: "Tuesday", name: "Dussehra / Vijayadashami", offices: ["BLR"] },
+            { date: "2026-11-01", day: "Sunday", name: "Kannada Rajyotsava", offices: ["BLR"] },
+            { date: "2026-11-09", day: "Monday", name: "Deepavali (replacement)", offices: ["SGP"] },
+            { date: "2026-11-10", day: "Tuesday", name: "Deepavali", offices: ["BLR"] },
+            { date: "2026-11-11", day: "Wednesday", name: "Independence / Veterans Day", offices: ["US", "KRK"] },
+            { date: "2026-11-24", day: "Tuesday", name: "Guru Nanak's Birthday", offices: ["BLR"] },
             { date: "2026-11-26", day: "Thursday", name: "Thanksgiving Day", offices: ["US"] },
-            { date: "2026-11-27", day: "Friday", name: "Day After Thanksgiving", offices: ["US"] },
+            { date: "2026-11-27", day: "Friday", name: "Thanksgiving Friday", offices: ["US"] },
+            { date: "2026-12-23", day: "Wednesday", name: "Boxing Day (observed)", offices: ["UK"] },
+            { date: "2026-12-24", day: "Thursday", name: "Christmas Eve", offices: ["KRK", "MVD"] },
             { date: "2026-12-25", day: "Friday", name: "Christmas Day", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
-            { date: "2026-12-26", day: "Saturday", name: "Boxing Day / St. Stephen's Day", offices: ["UK", "KRK"] }
+            { date: "2026-12-26", day: "Saturday", name: "Boxing Day", offices: ["UK", "KRK"] },
+            { date: "2026-12-26", day: "Saturday", name: "Sabre Year End Break", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
+            { date: "2026-12-27", day: "Sunday", name: "Sabre Year End Break", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
+            { date: "2026-12-28", day: "Monday", name: "Sabre Year End Break", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
+            { date: "2026-12-29", day: "Tuesday", name: "Sabre Year End Break", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
+            { date: "2026-12-30", day: "Wednesday", name: "Sabre Year End Break", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
+            { date: "2026-12-31", day: "Thursday", name: "Sabre Year End Break", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] }
         ];
 
         if (!userCredentials['316092']) {
@@ -3699,6 +3732,76 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
         }
 
         // ---------------------------------------------------------------------
+        // STRUCTURED SABRE HOLIDAY TABLE SCANNER
+        //
+        // Sabre's Global Holiday Calendar has a dedicated holiday table after
+        // the monthly calendar pages.  Scan that table as logical records:
+        // every dated row starts a holiday block, and following date-free rows
+        // belong to that same holiday until the next dated row.  This avoids
+        // losing wrapped names/offices because of PDF column spacing.
+        // ---------------------------------------------------------------------
+        function scanSabreHolidayTable(rows) {
+            const records = [];
+            const isoStartRegex = /\b(20\d{2})-(\d{1,2})-(\d{1,2})\b/;
+            const officeRegex = /\b(?:US|UK|BLR|KRK|MVD|SGP)\b/gi;
+            const weekdayRegex = /\b(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday|Mon|Tue|Wed|Thu|Fri|Sat|Sun)\b/gi;
+
+            // The table header is stable across Sabre calendars. Start after
+            // the first "Date Day ... Offices" heading when it exists.
+            let startIndex = rows.findIndex(r => /\bDate\b.*\bDay\b.*\bHoliday\s+Name\b.*\bOffices\b/i.test(r.text));
+            if (startIndex < 0) startIndex = 0;
+
+            for (let i = startIndex + 1; i < rows.length; i++) {
+                const row = rows[i];
+                const match = row.text.match(isoStartRegex);
+                if (!match) continue;
+
+                const year = Number(match[1]);
+                const month = Number(match[2]);
+                const day = Number(match[3]);
+                if (month < 1 || month > 12 || day < 1 || day > 31) continue;
+
+                const block = [row.text];
+                let last = row;
+                for (let j = i + 1; j < rows.length; j++) {
+                    const next = rows[j];
+                    if (next.page !== row.page && next.page > row.page) break;
+                    if (isoStartRegex.test(next.text)) break;
+                    if (next.y < last.y - 2 || next.y - last.y > 38) break;
+                    block.push(next.text);
+                    last = next;
+                    i = j;
+                }
+
+                const blockText = block.join(' ').replace(/\s+/g, ' ').trim();
+                const offices = [...new Set((blockText.match(officeRegex) || []).map(x => x.toUpperCase()))]
+                    .filter(x => knownOffices.includes(x));
+
+                let name = blockText
+                    .replace(isoStartRegex, ' ')
+                    .replace(weekdayRegex, ' ')
+                    .replace(officeRegex, ' ')
+                    .replace(/\b(?:Date|Day|Holiday|Name|Offices)\b/gi, ' ')
+                    .replace(/\s+/g, ' ')
+                    .trim();
+
+                // A range such as "2026-12-26 to 12-31" is handled below.
+                name = name.replace(/\bto\s+\d{1,2}-\d{1,2}\b/gi, ' ').replace(/\s+/g, ' ').trim();
+                if (!name || name.length < 2) name = 'Sabre Holiday';
+
+                const iso = `${year}-${String(month).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+                records.push({
+                    date: iso,
+                    day: calcDayName(iso),
+                    name,
+                    offices: offices.length ? offices : [...knownOffices]
+                });
+            }
+
+            return records;
+        }
+
+        // ---------------------------------------------------------------------
         // DATE EXTRACTION
         // Supports:
         //   January 1
@@ -3890,6 +3993,8 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
         // columns), split the row between date positions so each holiday gets
         // its own name instead of mixing two neighboring holidays.
         // ---------------------------------------------------------------------
+        const structuredSabreHolidays = scanSabreHolidayTable(pageRows);
+
         const candidates = [];
 
         pageRows.forEach((row, rowIndex) => {
@@ -4013,19 +4118,10 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
 
             const dayName = calcDayName(candidate.iso);
 
-            const existing = parsedHolidays.find(h =>
-                h.date === candidate.iso &&
-                h.name.toLowerCase() === holidayName.toLowerCase()
-            );
-
-            if (existing) {
-                // Merge office information when the same holiday appears more
-                // than once in the PDF.
-                candidate.offices.forEach(off => {
-                    if (!existing.offices.includes(off)) existing.offices.push(off);
-                });
-                return;
-            }
+            // Do not collapse separate source rows merely because their date
+            // and normalized holiday name match. A PDF may legitimately contain
+            // separate office records for the same date/name. The structured
+            // Sabre scanner above preserves those source records.
 
             parsedHolidays.push({
                 date: candidate.iso,
@@ -4047,6 +4143,14 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
                 other.name !== "Sabre Holiday"
             );
         });
+
+        // The structured table is the authoritative PDF source when it finds
+        // holiday rows. This is the same record-oriented approach used by the
+        // corrected Sabre calendar and prevents wrapped rows from being lost.
+        if (structuredSabreHolidays.length > 0) {
+            cleanedHolidays.length = 0;
+            structuredSabreHolidays.forEach(h => cleanedHolidays.push(h));
+        }
 
         cleanedHolidays.sort((a, b) => a.date.localeCompare(b.date));
 
