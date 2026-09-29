@@ -3557,12 +3557,19 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
         // ---------------------------------------------------------------------
         const pageRows = [];
         const rawPdfTextParts = [];
+        const rawPdfCompactTextParts = [];
         const knownOffices = ["US", "UK", "BLR", "KRK", "MVD", "SGP"];
 
         for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
             const page = await pdf.getPage(pageNum);
             const textContent = await page.getTextContent();
-            rawPdfTextParts.push(textContent.items.map(item => item.str || "").join(" "));
+            // Keep BOTH spaced and compact text streams. PDF.js can split an ISO
+            // date across adjacent text items (for example "2026-12-" + "26").
+            // The spaced stream is best for names/offices; the compact stream is
+            // authoritative for finding every date boundary.
+            const pdfItemStrings = textContent.items.map(item => item.str || "");
+            rawPdfTextParts.push(pdfItemStrings.join(" "));
+            rawPdfCompactTextParts.push(pdfItemStrings.join(""));
             const viewport = page.getViewport({ scale: 1.0 });
 
             const items = textContent.items
@@ -4008,6 +4015,8 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
         // its own name instead of mixing two neighboring holidays.
         // ---------------------------------------------------------------------
         const rawPdfText = rawPdfTextParts.join(" ");
+        // Compact stream recovers dates that PDF.js split across text items.
+        const rawPdfCompactText = rawPdfCompactTextParts.join(" ");
         const structuredSabreHolidays = scanSabreHolidayTable(pageRows, rawPdfText);
 
         const candidates = [];
@@ -4395,29 +4404,51 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
 
         // Use the unclustered PDF.js text stream. It contains all 50 explicit
         // ISO-dated Sabre holiday rows in the supplied 2026 calendar.
-        const authoritativeSabreRecords = buildAuthoritativeSabreRecords(rawPdfText);
+        const hybridSabreText = rawPdfText
+            .replace(/(20\d{2})\s*-\s*(\d{1,2})\s*-\s*(\d{1,2})/g, '$1-$2-$3');
+        const compactDateMatches = rawPdfCompactText.match(/20\d{2}-\d{2}-\d{2}/g) || [];
+        const authoritativeSabreRecords = buildAuthoritativeSabreRecords(hybridSabreText);
+
+        // If PDF.js split an ISO date across separate text items, recover the
+        // corresponding record from the compact stream before saving. We use
+        // date occurrences (not unique dates), so two holidays on one date are
+        // retained as two separate records.
+        if (authoritativeSabreRecords.length < compactDateMatches.length) {
+            const recovered = buildAuthoritativeSabreRecords(rawPdfCompactText);
+            if (recovered.length > authoritativeSabreRecords.length) {
+                authoritativeSabreRecords.length = 0;
+                recovered.forEach(h => authoritativeSabreRecords.push(h));
+            }
+        }
         if (authoritativeSabreRecords.length > 0) {
             cleanedHolidays.length = 0;
             authoritativeSabreRecords.forEach(h => cleanedHolidays.push(h));
         }
 
-        // The Sabre Year End Break is 12/26 through 12/31.  The PDF already
-        // has a separate 12/26 Boxing Day record, so add only 12/27-12/31.
+        // SABRE YEAR END BREAK: 12/26 THROUGH 12/31.
+        // IMPORTANT: 12/26 may ALSO appear as a separate Boxing Day record.
+        // They are two distinct source records and must NOT be merged.  The
+        // holiday calendar therefore keeps all six Year End Break dates,
+        // including its own 12/26 record.
         if (/year\s+end\s+break/i.test(rawPdfText)) {
             const year = Number(detectedYear) || new Date().getFullYear();
             const offices = [...knownOffices];
-            for (let day = 27; day <= 31; day++) {
+            for (let day = 26; day <= 31; day++) {
                 const iso = `${year}-12-${String(day).padStart(2,'0')}`;
-                if (!cleanedHolidays.some(h => h.date === iso && /year\s+end\s+break/i.test(h.name))) {
-                    cleanedHolidays.push({
-                        date: iso,
-                        day: calcDayName(iso),
-                        name: 'Sabre Year End Break',
-                        offices: [...offices]
-                    });
-                }
+                cleanedHolidays.push({
+                    date: iso,
+                    day: calcDayName(iso),
+                    name: 'Sabre Year End Break',
+                    offices: [...offices]
+                });
             }
         }
+
+        // FINAL COUNT RECONCILIATION.
+        // The PDF's holiday table contains every explicit ISO date, while a
+        // Year End Break range contributes one additional record for EACH
+        // calendar day in the range. Do not deduplicate these records merely
+        // because their dates overlap another holiday.
 
         cleanedHolidays.sort((a,b) => a.date.localeCompare(b.date));
 
@@ -4429,7 +4460,10 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
         // If the row parser ever loses a record, the raw structured scanner
         // remains authoritative and the upload is not allowed to silently save
         // a smaller calendar.  Range entries are expanded separately below.
-        const sourceIsoRecordCount = (rawPdfText.match(/\b20\d{2}-\d{2}-\d{2}\b/g) || []).length;
+        const sourceIsoRecordCount = Math.max(
+            (rawPdfText.match(/\b20\d{2}-\d{2}-\d{2}\b/g) || []).length,
+            compactDateMatches.length
+        );
         if (structuredSabreHolidays.length < sourceIsoRecordCount) {
             console.warn(`Sabre PDF parser recovered ${structuredSabreHolidays.length} of ${sourceIsoRecordCount} dated source records.`);
         }
