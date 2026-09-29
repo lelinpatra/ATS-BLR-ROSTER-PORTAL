@@ -122,7 +122,7 @@
         "default_end": "07:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
         "shifts": {
-          "Monday": "HD SL",
+          "Monday": "06:00 AM (2nd Half Off)",
           "Tuesday": "SL",
           "Wednesday": "10:00 AM - 07:00 PM",
           "Thursday": "10:00 AM - 07:00 PM",
@@ -236,7 +236,7 @@
       "Sunday": "Sanjay Kumar"
     },
     "total_headcount_6am": [
-      5,
+      6,
       5,
       6,
       5,
@@ -263,6 +263,16 @@
       1
     ],
     "_portal_notifications": [
+      {
+        "id": "n_1790709871948_0_2fh826",
+        "createdAt": "2026-09-29T19:24:31.948Z",
+        "title": "Prathvi Shetty roster changed",
+        "message": "Prathvi Shetty shift/status changed on 09/07/26 from HD SL to 06:00 AM (2nd Half Off).",
+        "type": "employee",
+        "month": "September",
+        "week": 1,
+        "employee": "Prathvi Shetty"
+      },
       {
         "id": "n_1790709768541_83_2qa9kx",
         "createdAt": "2026-09-29T19:22:48.541Z",
@@ -1248,16 +1258,6 @@
         "createdAt": "2026-09-29T19:14:34.489Z",
         "title": "Nidhi Taku roster changed",
         "message": "Nidhi Taku shift/status changed on 20/09/26 from WO to Yes.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Nidhi Taku"
-      },
-      {
-        "id": "n_1790709274489_71_z02dqh",
-        "createdAt": "2026-09-29T19:14:34.489Z",
-        "title": "Nidhi Taku roster changed",
-        "message": "Nidhi Taku shift/status changed on 19/09/26 from WO to Tue/Wed/Thu/Fri.",
         "type": "employee",
         "month": "September",
         "week": 2,
