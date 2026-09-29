@@ -32,7 +32,7 @@
       {
         "sg_id": 223255,
         "name": "Deepak K",
-        "skilling": "ATS",
+        "skilling": "ATS 2L",
         "default_start": "10:00 AM",
         "default_end": "07:00 PM",
         "days_office": "Wed/Thu/Fri",
@@ -196,6 +196,86 @@
     ],
     "_portal_notifications": [
       {
+        "id": "n_1790682915132_7_wf27jh",
+        "createdAt": "2026-09-29T11:55:15.132Z",
+        "title": "Deepak K roster changed",
+        "message": "Deepak K shift/status changed on 10/01/26 from 07:00 AM -04:00 PM to 10:00 AM - 07:00 PM.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Deepak K"
+      },
+      {
+        "id": "n_1790682915132_6_a25mp1",
+        "createdAt": "2026-09-29T11:55:15.132Z",
+        "title": "Deepak K roster changed",
+        "message": "Deepak K shift/status changed on 28/09/26 from WO to 08:00 AM - 05:00 PM.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Deepak K"
+      },
+      {
+        "id": "n_1790682915132_5_0bq9x3",
+        "createdAt": "2026-09-29T11:55:15.132Z",
+        "title": "Rupesh C P roster changed",
+        "message": "Rupesh C P shift/status changed on 10/03/26 from WO to 10:00 AM - 07:00 PM.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Rupesh C P"
+      },
+      {
+        "id": "n_1790682915132_4_55inwc",
+        "createdAt": "2026-09-29T11:55:15.132Z",
+        "title": "Rupesh C P roster changed",
+        "message": "Rupesh C P shift/status changed on 28/09/26 from 06:00 AM - 03:00 PM to WO.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Rupesh C P"
+      },
+      {
+        "id": "n_1790682915132_3_43q3am",
+        "createdAt": "2026-09-29T11:55:15.132Z",
+        "title": "Md. Shahbaz roster changed",
+        "message": "Md. Shahbaz shift/status changed on 10/03/26 from 06:00 AM - 03:00 PM to 06:30 AM - 03:30 PM.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Md. Shahbaz"
+      },
+      {
+        "id": "n_1790682915132_2_34rmt8",
+        "createdAt": "2026-09-29T11:55:15.132Z",
+        "title": "Srinivas Reddy roster changed",
+        "message": "Srinivas Reddy shift/status changed on 10/03/26 from 10:00 AM - 07:00 PM to WO.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Srinivas Reddy"
+      },
+      {
+        "id": "n_1790682915132_1_6bfu8m",
+        "createdAt": "2026-09-29T11:55:15.132Z",
+        "title": "Srinivas Reddy roster changed",
+        "message": "Srinivas Reddy shift/status changed on 10/01/26 from PTO to 10:00 AM - 07:00 PM.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Srinivas Reddy"
+      },
+      {
+        "id": "n_1790682915132_0_lpyj3w",
+        "createdAt": "2026-09-29T11:55:15.132Z",
+        "title": "Prathvi Shetty roster changed",
+        "message": "Prathvi Shetty shift/status changed on 09/07/26 from HD SL to 2nd Half Off.",
+        "type": "employee",
+        "month": "September",
+        "week": 1,
+        "employee": "Prathvi Shetty"
+      },
+      {
         "id": "n_1790680265070_2_vvrzb2",
         "createdAt": "2026-09-29T11:11:05.070Z",
         "title": "Lelin Patra roster changed",
@@ -251,10 +331,28 @@
         "lastChanged": 1790346182108,
         "status": "ACTIVE"
       },
+      "223267": {
+        "password": "PASS1234",
+        "isTemporary": true,
+        "lastChanged": 1790682585508,
+        "status": "ACTIVE"
+      },
       "227186": {
         "password": "PASS1234",
         "isTemporary": true,
         "lastChanged": 1790346182108,
+        "status": "ACTIVE"
+      },
+      "313253": {
+        "password": "PASS1234",
+        "isTemporary": true,
+        "lastChanged": 1790682585508,
+        "status": "ACTIVE"
+      },
+      "316090": {
+        "password": "PASS1234",
+        "isTemporary": true,
+        "lastChanged": 1790682585508,
         "status": "ACTIVE"
       },
       "316092": {
@@ -553,7 +651,7 @@
       {
         "sg_id": 223255,
         "name": "Deepak K",
-        "skilling": "ATS",
+        "skilling": "ATS 2L",
         "default_start": "10:00 AM",
         "default_end": "07:00 PM",
         "days_office": "Wed/Thu/Fri",
@@ -749,7 +847,7 @@
       {
         "sg_id": 223255,
         "name": "Deepak K",
-        "skilling": "ATS",
+        "skilling": "ATS 2L",
         "default_start": "10:00 AM",
         "default_end": "07:00 PM",
         "days_office": "Wed/Thu/Fri",
@@ -945,7 +1043,7 @@
       {
         "sg_id": 223255,
         "name": "Deepak K",
-        "skilling": "ATS",
+        "skilling": "ATS 2L",
         "default_start": "10:00 AM",
         "default_end": "07:00 PM",
         "days_office": "Wed/Thu/Fri",
@@ -1192,7 +1290,7 @@
       {
         "sg_id": 223255,
         "name": "Deepak K",
-        "skilling": "ATS",
+        "skilling": "ATS 2L",
         "default_start": "10:00 AM",
         "default_end": "07:00 PM",
         "days_office": "Wed/Thu/Fri",
@@ -1231,7 +1329,7 @@
         "default_end": "07:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
         "shifts": {
-          "Monday": "HD SL",
+          "Monday": "2nd Half Off",
           "Tuesday": "SL",
           "Wednesday": "10:00 AM - 07:00 PM",
           "Thursday": "10:00 AM - 07:00 PM",
@@ -1363,7 +1461,7 @@
       0
     ],
     "total_headcount_10am": [
-      2,
+      3,
       1,
       4,
       3,
@@ -1456,7 +1554,7 @@
       {
         "sg_id": 223255,
         "name": "Deepak K",
-        "skilling": "ATS",
+        "skilling": "ATS 2L",
         "default_start": "10:00 AM",
         "default_end": "07:00 PM",
         "days_office": "Tue/Wed/Thu/Fri",
@@ -1720,7 +1818,7 @@
       {
         "sg_id": 223255,
         "name": "Deepak K",
-        "skilling": "ATS",
+        "skilling": "ATS 2L",
         "default_start": "10:00 AM",
         "default_end": "07:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
@@ -1941,9 +2039,9 @@
           "Monday": "WO",
           "Tuesday": "PTO",
           "Wednesday": "PTO",
-          "Thursday": "PTO",
+          "Thursday": "10:00 AM - 07:00 PM",
           "Friday": "10:00 AM - 07:00 PM",
-          "Saturday": "10:00 AM - 07:00 PM",
+          "Saturday": "WO",
           "Sunday": "WO"
         }
       },
@@ -1960,7 +2058,7 @@
           "Wednesday": "06:00 AM - 03:00 PM",
           "Thursday": "WO",
           "Friday": "WO",
-          "Saturday": "06:00 AM - 03:00 PM",
+          "Saturday": "06:30 AM - 03:30 PM",
           "Sunday": "06:30 AM - 03:30 PM"
         }
       },
@@ -1972,27 +2070,27 @@
         "default_end": "03:00 PM",
         "days_office": "Mon/Tue/Wed/Thu",
         "shifts": {
-          "Monday": "06:00 AM - 03:00 PM",
+          "Monday": "WO",
           "Tuesday": "06:00 AM - 03:00 PM",
           "Wednesday": "06:00 AM - 03:00 PM",
           "Thursday": "06:00 AM - 03:00 PM",
           "Friday": "06:00 AM - 03:00 PM",
-          "Saturday": "WO",
+          "Saturday": "10:00 AM - 07:00 PM",
           "Sunday": "WO"
         }
       },
       {
         "sg_id": 223255,
         "name": "Deepak K",
-        "skilling": "ATS",
+        "skilling": "ATS 2L",
         "default_start": "10:00 AM",
         "default_end": "07:00 PM",
         "days_office": "Mon/Tue/Wed/Thu",
         "shifts": {
-          "Monday": "WO",
+          "Monday": "08:00 AM - 05:00 PM",
           "Tuesday": "10:00 AM - 07:00 PM",
           "Wednesday": "10:00 AM - 07:00 PM",
-          "Thursday": "07:00 AM -04:00 PM",
+          "Thursday": "10:00 AM - 07:00 PM",
           "Friday": "07:00 AM -04:00 PM",
           "Saturday": "WO",
           "Sunday": "10:00 AM - 07:00 PM"
@@ -2137,16 +2235,16 @@
       "Sunday": "Unassigned"
     },
     "total_headcount_6am": [
-      4,
+      3,
       4,
       5,
-      5,
+      4,
       5,
       1,
       1
     ],
     "total_headcount_8am": [
-      3,
+      4,
       2,
       2,
       2,
@@ -2158,7 +2256,7 @@
       3,
       4,
       4,
-      3,
+      5,
       2,
       1,
       1
@@ -2214,7 +2312,7 @@
       {
         "sg_id": 223255,
         "name": "Deepak K",
-        "skilling": "ATS",
+        "skilling": "ATS 2L",
         "default_start": "08:00 AM",
         "default_end": "05:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
