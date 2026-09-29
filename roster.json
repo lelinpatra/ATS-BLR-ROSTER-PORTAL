@@ -264,6 +264,16 @@
     ],
     "_portal_notifications": [
       {
+        "id": "n_1790683718384_0_ccp142",
+        "createdAt": "2026-09-29T12:08:38.384Z",
+        "title": "Md. Shahbaz roster changed",
+        "message": "Md. Shahbaz shift/status changed on 10/03/26 from 06:30 AM - 03:30 PM to 06:00 AM - 03:00 PM.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Md. Shahbaz"
+      },
+      {
         "id": "n_1790682927814_1_96q9um",
         "createdAt": "2026-09-29T11:55:27.814Z",
         "title": "Lelin Patra roster changed",
@@ -1214,7 +1224,7 @@
           "Wednesday": "06:00 AM - 03:00 PM",
           "Thursday": "WO",
           "Friday": "WO",
-          "Saturday": "06:30 AM - 03:30 PM",
+          "Saturday": "06:00 AM - 03:00 PM",
           "Sunday": "06:30 AM - 03:30 PM"
         }
       },
