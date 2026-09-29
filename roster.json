@@ -122,7 +122,7 @@
         "default_end": "07:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
         "shifts": {
-          "Monday": "2nd Half Off",
+          "Monday": "HD SL",
           "Tuesday": "SL",
           "Wednesday": "10:00 AM - 07:00 PM",
           "Thursday": "10:00 AM - 07:00 PM",
@@ -254,7 +254,7 @@
       0
     ],
     "total_headcount_10am": [
-      3,
+      2,
       1,
       4,
       3,
@@ -263,6 +263,856 @@
       1
     ],
     "_portal_notifications": [
+      {
+        "id": "n_1790709087790_84_qz8t5l",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Manisha Kumari roster changed",
+        "message": "Manisha Kumari shift/status changed on 10/04/26 from WO to 6:00 AM - 03:00 PM.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Manisha Kumari"
+      },
+      {
+        "id": "n_1790709087790_83_8npgu2",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Manisha Kumari roster changed",
+        "message": "Manisha Kumari shift/status changed on 10/03/26 from WO to Yes.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Manisha Kumari"
+      },
+      {
+        "id": "n_1790709087790_82_6hrcgf",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Manisha Kumari roster changed",
+        "message": "Manisha Kumari shift/status changed on 10/02/26 from 06:00 AM - 03:00 PM to Mon/Tue/Wed/Thu/Fri.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Manisha Kumari"
+      },
+      {
+        "id": "n_1790709087790_81_vv2yxi",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Manisha Kumari roster changed",
+        "message": "Manisha Kumari shift/status changed on 10/01/26 from 06:00 AM - 03:00 PM to 0.7083333333333334.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Manisha Kumari"
+      },
+      {
+        "id": "n_1790709087790_80_7cm4w7",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Manisha Kumari roster changed",
+        "message": "Manisha Kumari shift/status changed on 30/09/26 from 06:00 AM - 03:00 PM to 0.3333333333333333.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Manisha Kumari"
+      },
+      {
+        "id": "n_1790709087790_79_vvgu95",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Manisha Kumari roster changed",
+        "message": "Manisha Kumari shift/status changed on 29/09/26 from 06:00 AM - 03:00 PM to ATS.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Manisha Kumari"
+      },
+      {
+        "id": "n_1790709087790_78_7pxus2",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Manisha Kumari roster changed",
+        "message": "Manisha Kumari shift/status changed on 28/09/26 from 06:00 AM - 03:00 PM to Manisha Kumari.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Manisha Kumari"
+      },
+      {
+        "id": "n_1790709087790_77_1iyohg",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Gokul Krishna Lokesh roster changed",
+        "message": "Gokul Krishna Lokesh shift/status changed on 10/04/26 from WO to 08:00 AM - 05:00 PM.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Gokul Krishna Lokesh"
+      },
+      {
+        "id": "n_1790709087790_76_luwwie",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Gokul Krishna Lokesh roster changed",
+        "message": "Gokul Krishna Lokesh shift/status changed on 10/03/26 from WO to Yes.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Gokul Krishna Lokesh"
+      },
+      {
+        "id": "n_1790709087790_75_iz5bsh",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Gokul Krishna Lokesh roster changed",
+        "message": "Gokul Krishna Lokesh shift/status changed on 10/02/26 from 08:00 AM - 05:00 PM to Mon/Tue/Wed/Thu/Fri.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Gokul Krishna Lokesh"
+      },
+      {
+        "id": "n_1790709087790_74_svj4ql",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Gokul Krishna Lokesh roster changed",
+        "message": "Gokul Krishna Lokesh shift/status changed on 10/01/26 from 08:00 AM - 05:00 PM to 0.7083333333333334.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Gokul Krishna Lokesh"
+      },
+      {
+        "id": "n_1790709087790_73_yjveny",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Gokul Krishna Lokesh roster changed",
+        "message": "Gokul Krishna Lokesh shift/status changed on 30/09/26 from 08:00 AM - 05:00 PM to 0.3333333333333333.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Gokul Krishna Lokesh"
+      },
+      {
+        "id": "n_1790709087790_72_0v71rl",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Gokul Krishna Lokesh roster changed",
+        "message": "Gokul Krishna Lokesh shift/status changed on 29/09/26 from 08:00 AM - 05:00 PM to ATS.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Gokul Krishna Lokesh"
+      },
+      {
+        "id": "n_1790709087790_71_k04kqc",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Gokul Krishna Lokesh roster changed",
+        "message": "Gokul Krishna Lokesh shift/status changed on 28/09/26 from 08:00 AM - 05:00 PM to Gokul Krishna Lokesh.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Gokul Krishna Lokesh"
+      },
+      {
+        "id": "n_1790709087790_70_yi0ue0",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Nidhi Taku roster changed",
+        "message": "Nidhi Taku shift/status changed on 10/04/26 from WO to 08:00 AM - 05:00 PM.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Nidhi Taku"
+      },
+      {
+        "id": "n_1790709087790_69_qk85a1",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Nidhi Taku roster changed",
+        "message": "Nidhi Taku shift/status changed on 10/03/26 from WO to Yes.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Nidhi Taku"
+      },
+      {
+        "id": "n_1790709087790_68_12w43l",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Nidhi Taku roster changed",
+        "message": "Nidhi Taku shift/status changed on 10/02/26 from 08:00 AM - 05:00 PM to Mon/Tue/Wed/Thu/Fri.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Nidhi Taku"
+      },
+      {
+        "id": "n_1790709087790_67_f7y4xe",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Nidhi Taku roster changed",
+        "message": "Nidhi Taku shift/status changed on 10/01/26 from 08:00 AM - 05:00 PM to 0.7083333333333334.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Nidhi Taku"
+      },
+      {
+        "id": "n_1790709087790_66_34vqk9",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Nidhi Taku roster changed",
+        "message": "Nidhi Taku shift/status changed on 30/09/26 from 08:00 AM - 05:00 PM to 0.3333333333333333.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Nidhi Taku"
+      },
+      {
+        "id": "n_1790709087790_65_d8h87s",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Nidhi Taku roster changed",
+        "message": "Nidhi Taku shift/status changed on 29/09/26 from 08:00 AM - 05:00 PM to ATS.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Nidhi Taku"
+      },
+      {
+        "id": "n_1790709087790_64_i77isi",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Nidhi Taku roster changed",
+        "message": "Nidhi Taku shift/status changed on 28/09/26 from 08:00 AM - 05:00 PM to Nidhi Taku.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Nidhi Taku"
+      },
+      {
+        "id": "n_1790709087790_63_d5dkw9",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Bhargav R roster changed",
+        "message": "Bhargav R shift/status changed on 10/04/26 from WO to 6:00 AM - 03:00 PM.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Bhargav R"
+      },
+      {
+        "id": "n_1790709087790_62_bdvqua",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Bhargav R roster changed",
+        "message": "Bhargav R shift/status changed on 10/03/26 from WO to Yes.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Bhargav R"
+      },
+      {
+        "id": "n_1790709087790_61_og7t3y",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Bhargav R roster changed",
+        "message": "Bhargav R shift/status changed on 10/02/26 from 06:00 AM - 03:00 PM to Mon/Tue/Wed/Thu/Fri.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Bhargav R"
+      },
+      {
+        "id": "n_1790709087790_60_uc2mf1",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Bhargav R roster changed",
+        "message": "Bhargav R shift/status changed on 10/01/26 from 06:00 AM - 03:00 PM to 0.7083333333333334.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Bhargav R"
+      },
+      {
+        "id": "n_1790709087790_59_8t88bn",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Bhargav R roster changed",
+        "message": "Bhargav R shift/status changed on 30/09/26 from 06:00 AM - 03:00 PM to 0.3333333333333333.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Bhargav R"
+      },
+      {
+        "id": "n_1790709087790_58_jn05mc",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Bhargav R roster changed",
+        "message": "Bhargav R shift/status changed on 29/09/26 from 06:00 AM - 03:00 PM to ATS.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Bhargav R"
+      },
+      {
+        "id": "n_1790709087790_57_dyoj5a",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Bhargav R roster changed",
+        "message": "Bhargav R shift/status changed on 28/09/26 from 06:00 AM - 03:00 PM to Bhargav R.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Bhargav R"
+      },
+      {
+        "id": "n_1790709087790_56_2wmgz9",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Preethi P roster changed",
+        "message": "Preethi P shift/status changed on 10/04/26 from WO to 10:00 AM - 07:00 PM.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Preethi P"
+      },
+      {
+        "id": "n_1790709087790_55_c2rc88",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Preethi P roster changed",
+        "message": "Preethi P shift/status changed on 10/03/26 from WO to Yes.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Preethi P"
+      },
+      {
+        "id": "n_1790709087790_54_min3f1",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Preethi P roster changed",
+        "message": "Preethi P shift/status changed on 10/02/26 from PH to Mon/Tue/Wed/Thu/Fri.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Preethi P"
+      },
+      {
+        "id": "n_1790709087790_53_81disv",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Preethi P roster changed",
+        "message": "Preethi P shift/status changed on 10/01/26 from 10:00 AM - 07:00 PM to 0.7916666666666666.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Preethi P"
+      },
+      {
+        "id": "n_1790709087790_52_7vrro5",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Preethi P roster changed",
+        "message": "Preethi P shift/status changed on 30/09/26 from 10:00 AM - 07:00 PM to 0.4166666666666667.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Preethi P"
+      },
+      {
+        "id": "n_1790709087790_51_rnmmvd",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Preethi P roster changed",
+        "message": "Preethi P shift/status changed on 29/09/26 from 10:00 AM - 07:00 PM to ATS.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Preethi P"
+      },
+      {
+        "id": "n_1790709087790_50_4wr4j6",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Preethi P roster changed",
+        "message": "Preethi P shift/status changed on 28/09/26 from 10:00 AM - 07:00 PM to Preethi P.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Preethi P"
+      },
+      {
+        "id": "n_1790709087790_49_6uankz",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Prathvi Shetty roster changed",
+        "message": "Prathvi Shetty shift/status changed on 10/04/26 from WO to 10:00 AM - 07:00 PM.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Prathvi Shetty"
+      },
+      {
+        "id": "n_1790709087790_48_t6fosw",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Prathvi Shetty roster changed",
+        "message": "Prathvi Shetty shift/status changed on 10/03/26 from WO to Yes.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Prathvi Shetty"
+      },
+      {
+        "id": "n_1790709087790_47_gnny4m",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Prathvi Shetty roster changed",
+        "message": "Prathvi Shetty shift/status changed on 10/02/26 from 10:00 AM - 07:00 PM to Mon/Tue/Wed/Thu/Fri.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Prathvi Shetty"
+      },
+      {
+        "id": "n_1790709087790_46_t38jpx",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Prathvi Shetty roster changed",
+        "message": "Prathvi Shetty shift/status changed on 10/01/26 from 10:00 AM - 07:00 PM to 0.7916666666666666.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Prathvi Shetty"
+      },
+      {
+        "id": "n_1790709087790_45_i0k91x",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Prathvi Shetty roster changed",
+        "message": "Prathvi Shetty shift/status changed on 30/09/26 from 10:00 AM - 07:00 PM to 0.4166666666666667.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Prathvi Shetty"
+      },
+      {
+        "id": "n_1790709087790_44_p2hnlf",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Prathvi Shetty roster changed",
+        "message": "Prathvi Shetty shift/status changed on 29/09/26 from 10:00 AM - 07:00 PM to ATS.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Prathvi Shetty"
+      },
+      {
+        "id": "n_1790709087790_43_1p8qw2",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Prathvi Shetty roster changed",
+        "message": "Prathvi Shetty shift/status changed on 28/09/26 from 10:00 AM - 07:00 PM to Prathvi Shetty.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Prathvi Shetty"
+      },
+      {
+        "id": "n_1790709087790_42_jqg9gs",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Sanjay Kumar roster changed",
+        "message": "Sanjay Kumar shift/status changed on 10/04/26 from WO to 10:00 AM - 07:00 PM.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Sanjay Kumar"
+      },
+      {
+        "id": "n_1790709087790_41_wt2wjd",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Sanjay Kumar roster changed",
+        "message": "Sanjay Kumar shift/status changed on 10/03/26 from WO to Yes.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Sanjay Kumar"
+      },
+      {
+        "id": "n_1790709087790_40_eiidju",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Sanjay Kumar roster changed",
+        "message": "Sanjay Kumar shift/status changed on 10/02/26 from PH to Mon/Tue/Wed/Thu/Fri.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Sanjay Kumar"
+      },
+      {
+        "id": "n_1790709087790_39_yz1g9r",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Sanjay Kumar roster changed",
+        "message": "Sanjay Kumar shift/status changed on 10/01/26 from 10:00 AM - 07:00 PM to 0.7916666666666666.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Sanjay Kumar"
+      },
+      {
+        "id": "n_1790709087790_38_alsj56",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Sanjay Kumar roster changed",
+        "message": "Sanjay Kumar shift/status changed on 30/09/26 from 10:00 AM - 07:00 PM to 0.4166666666666667.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Sanjay Kumar"
+      },
+      {
+        "id": "n_1790709087790_37_t61w01",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Sanjay Kumar roster changed",
+        "message": "Sanjay Kumar shift/status changed on 29/09/26 from 10:00 AM - 07:00 PM to ATS.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Sanjay Kumar"
+      },
+      {
+        "id": "n_1790709087790_36_n3q3vq",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Sanjay Kumar roster changed",
+        "message": "Sanjay Kumar shift/status changed on 28/09/26 from 10:00 AM - 07:00 PM to Sanjay Kumar.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Sanjay Kumar"
+      },
+      {
+        "id": "n_1790709087790_35_r36j25",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Deepak K roster changed",
+        "message": "Deepak K shift/status changed on 10/04/26 from WO to 10:00 AM - 07:00 PM.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Deepak K"
+      },
+      {
+        "id": "n_1790709087790_34_gsit6b",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Deepak K roster changed",
+        "message": "Deepak K shift/status changed on 10/03/26 from WO to Yes.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Deepak K"
+      },
+      {
+        "id": "n_1790709087790_33_8jvbpu",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Deepak K roster changed",
+        "message": "Deepak K shift/status changed on 10/02/26 from 07:00 AM - 04:00 PM to Mon/Tue/Wed/Thu/Fri.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Deepak K"
+      },
+      {
+        "id": "n_1790709087790_32_nlz28d",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Deepak K roster changed",
+        "message": "Deepak K shift/status changed on 10/01/26 from 10:00 AM - 07:00 PM to 0.7916666666666666.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Deepak K"
+      },
+      {
+        "id": "n_1790709087790_31_69ugo9",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Deepak K roster changed",
+        "message": "Deepak K shift/status changed on 30/09/26 from 10:00 AM - 07:00 PM to 0.4166666666666667.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Deepak K"
+      },
+      {
+        "id": "n_1790709087790_30_z7w67d",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Deepak K roster changed",
+        "message": "Deepak K shift/status changed on 29/09/26 from 10:00 AM - 07:00 PM to ATS.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Deepak K"
+      },
+      {
+        "id": "n_1790709087790_29_lv8wr3",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Deepak K roster changed",
+        "message": "Deepak K shift/status changed on 28/09/26 from 08:00 AM - 05:00 PM to Deepak K.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Deepak K"
+      },
+      {
+        "id": "n_1790709087790_28_qt81ii",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Rupesh C P roster changed",
+        "message": "Rupesh C P shift/status changed on 10/04/26 from 10:00 AM - 07:00 PM to 06:00 AM - 03:00 PM.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Rupesh C P"
+      },
+      {
+        "id": "n_1790709087790_27_y4hxrn",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Rupesh C P roster changed",
+        "message": "Rupesh C P shift/status changed on 10/03/26 from WO to Yes.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Rupesh C P"
+      },
+      {
+        "id": "n_1790709087790_26_5k96qf",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Rupesh C P roster changed",
+        "message": "Rupesh C P shift/status changed on 10/02/26 from 06:00 AM - 03:00 PM to Mon/Tue/Wed/Thu/Fri.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Rupesh C P"
+      },
+      {
+        "id": "n_1790709087790_25_bwutug",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Rupesh C P roster changed",
+        "message": "Rupesh C P shift/status changed on 10/01/26 from 06:00 AM - 03:00 PM to 0.625.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Rupesh C P"
+      },
+      {
+        "id": "n_1790709087790_24_1ybndv",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Rupesh C P roster changed",
+        "message": "Rupesh C P shift/status changed on 30/09/26 from 06:00 AM - 03:00 PM to 0.25.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Rupesh C P"
+      },
+      {
+        "id": "n_1790709087790_23_m97wfp",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Rupesh C P roster changed",
+        "message": "Rupesh C P shift/status changed on 29/09/26 from 06:00 AM - 03:00 PM to ATS.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Rupesh C P"
+      },
+      {
+        "id": "n_1790709087790_22_olxsfa",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Rupesh C P roster changed",
+        "message": "Rupesh C P shift/status changed on 28/09/26 from WO to Rupesh C P.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Rupesh C P"
+      },
+      {
+        "id": "n_1790709087790_21_74535k",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Md. Shahbaz roster changed",
+        "message": "Md. Shahbaz shift/status changed on 10/04/26 from 06:30 AM - 03:30 PM to 06:00 AM - 03:00 PM.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Md. Shahbaz"
+      },
+      {
+        "id": "n_1790709087790_20_93d5zp",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Md. Shahbaz roster changed",
+        "message": "Md. Shahbaz shift/status changed on 10/03/26 from 06:00 AM - 03:00 PM to Yes.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Md. Shahbaz"
+      },
+      {
+        "id": "n_1790709087790_19_iij1e3",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Md. Shahbaz roster changed",
+        "message": "Md. Shahbaz shift/status changed on 10/02/26 from WO to Tue/Wed/Thu.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Md. Shahbaz"
+      },
+      {
+        "id": "n_1790709087790_18_lvztd4",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Md. Shahbaz roster changed",
+        "message": "Md. Shahbaz shift/status changed on 10/01/26 from WO to 0.625.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Md. Shahbaz"
+      },
+      {
+        "id": "n_1790709087790_17_dntirg",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Md. Shahbaz roster changed",
+        "message": "Md. Shahbaz shift/status changed on 30/09/26 from 06:00 AM - 03:00 PM to 0.25.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Md. Shahbaz"
+      },
+      {
+        "id": "n_1790709087790_16_v0f1mo",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Md. Shahbaz roster changed",
+        "message": "Md. Shahbaz shift/status changed on 29/09/26 from 06:00 AM - 03:00 PM to ATS.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Md. Shahbaz"
+      },
+      {
+        "id": "n_1790709087790_15_to8pyk",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Md. Shahbaz roster changed",
+        "message": "Md. Shahbaz shift/status changed on 28/09/26 from 06:00 AM - 03:00 PM to Md. Shahbaz.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Md. Shahbaz"
+      },
+      {
+        "id": "n_1790709087790_14_46lph2",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Srinivas Reddy roster changed",
+        "message": "Srinivas Reddy shift/status changed on 10/04/26 from WO to 06:00 AM - 03:00 PM.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Srinivas Reddy"
+      },
+      {
+        "id": "n_1790709087790_13_j1izb5",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Srinivas Reddy roster changed",
+        "message": "Srinivas Reddy shift/status changed on 10/03/26 from 10:00 AM - 07:00 PM to Yes.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Srinivas Reddy"
+      },
+      {
+        "id": "n_1790709087790_12_wnjvmz",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Srinivas Reddy roster changed",
+        "message": "Srinivas Reddy shift/status changed on 10/02/26 from 10:00 AM - 07:00 PM to Mon/Tue/.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Srinivas Reddy"
+      },
+      {
+        "id": "n_1790709087790_11_qnz42b",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Srinivas Reddy roster changed",
+        "message": "Srinivas Reddy shift/status changed on 10/01/26 from PTO to 0.625.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Srinivas Reddy"
+      },
+      {
+        "id": "n_1790709087790_10_i1x08j",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Srinivas Reddy roster changed",
+        "message": "Srinivas Reddy shift/status changed on 30/09/26 from PTO to 0.25.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Srinivas Reddy"
+      },
+      {
+        "id": "n_1790709087790_9_jht4ap",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Srinivas Reddy roster changed",
+        "message": "Srinivas Reddy shift/status changed on 29/09/26 from PTO to ATS.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Srinivas Reddy"
+      },
+      {
+        "id": "n_1790709087790_8_kflq5m",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Srinivas Reddy roster changed",
+        "message": "Srinivas Reddy shift/status changed on 28/09/26 from WO to Srinivas Reddy.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Srinivas Reddy"
+      },
+      {
+        "id": "n_1790709087790_7_md4aea",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Lelin Patra roster changed",
+        "message": "Lelin Patra shift/status changed on 10/04/26 from WO to 06:00 AM - 03:00 PM.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Lelin Patra"
+      },
+      {
+        "id": "n_1790709087790_6_j4qh8m",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Lelin Patra roster changed",
+        "message": "Lelin Patra shift/status changed on 10/03/26 from WO to Yes.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Lelin Patra"
+      },
+      {
+        "id": "n_1790709087790_5_0dxibw",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Lelin Patra roster changed",
+        "message": "Lelin Patra shift/status changed on 10/02/26 from 06:00 AM - 03:00 PM to Mon/Tue/Wed/Thu/Fri.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Lelin Patra"
+      },
+      {
+        "id": "n_1790709087790_4_mci5y1",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Lelin Patra roster changed",
+        "message": "Lelin Patra shift/status changed on 10/01/26 from 06:00 AM - 03:00 PM to 0.625.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Lelin Patra"
+      },
+      {
+        "id": "n_1790709087790_3_z929wg",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Lelin Patra roster changed",
+        "message": "Lelin Patra shift/status changed on 30/09/26 from 06:00 AM - 03:00 PM to 0.25.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Lelin Patra"
+      },
+      {
+        "id": "n_1790709087790_2_0n8sgk",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Lelin Patra roster changed",
+        "message": "Lelin Patra shift/status changed on 29/09/26 from 06:00 AM - 03:00 PM to ATS 2L.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Lelin Patra"
+      },
+      {
+        "id": "n_1790709087790_1_qkthvj",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Lelin Patra roster changed",
+        "message": "Lelin Patra shift/status changed on 28/09/26 from 06:00 AM - 03:00 PM to Lelin Patra.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Lelin Patra"
+      },
+      {
+        "id": "n_1790709087790_0_jid67g",
+        "createdAt": "2026-09-29T19:11:27.790Z",
+        "title": "Prathvi Shetty roster changed",
+        "message": "Prathvi Shetty shift/status changed on 09/07/26 from 2nd Half Off to HD SL.",
+        "type": "employee",
+        "month": "September",
+        "week": 1,
+        "employee": "Prathvi Shetty"
+      },
       {
         "id": "n_1790707861619_83_dq53kp",
         "createdAt": "2026-09-29T18:51:01.619Z",
@@ -412,856 +1262,6 @@
         "month": "September",
         "week": 2,
         "employee": "Nidhi Taku"
-      },
-      {
-        "id": "n_1790707861619_68_lalqrg",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Nidhi Taku roster changed",
-        "message": "Nidhi Taku shift/status changed on 19/09/26 from Tue/Wed/Thu/Fri to WO.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Nidhi Taku"
-      },
-      {
-        "id": "n_1790707861619_67_j1b4rl",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Nidhi Taku roster changed",
-        "message": "Nidhi Taku shift/status changed on 18/09/26 from 0.7083333333333334 to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Nidhi Taku"
-      },
-      {
-        "id": "n_1790707861619_66_rzgkoc",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Nidhi Taku roster changed",
-        "message": "Nidhi Taku shift/status changed on 17/09/26 from 0.3333333333333333 to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Nidhi Taku"
-      },
-      {
-        "id": "n_1790707861619_65_w3g0q8",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Nidhi Taku roster changed",
-        "message": "Nidhi Taku shift/status changed on 16/09/26 from ATS to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Nidhi Taku"
-      },
-      {
-        "id": "n_1790707861619_64_o1dfok",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Nidhi Taku roster changed",
-        "message": "Nidhi Taku shift/status changed on 15/09/26 from Nidhi Taku to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Nidhi Taku"
-      },
-      {
-        "id": "n_1790707861619_63_pwhywi",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Nidhi Taku roster changed",
-        "message": "Nidhi Taku shift/status changed on 14/09/26 from 709283 to 08:00 AM - 05:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Nidhi Taku"
-      },
-      {
-        "id": "n_1790707861619_62_j5qnbe",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Bhargav R roster changed",
-        "message": "Bhargav R shift/status changed on 20/09/26 from Yes to WO.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Bhargav R"
-      },
-      {
-        "id": "n_1790707861619_61_x923jv",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Bhargav R roster changed",
-        "message": "Bhargav R shift/status changed on 19/09/26 from Tue/Wed/Thu/Fri to WO.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Bhargav R"
-      },
-      {
-        "id": "n_1790707861619_60_3c7yo5",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Bhargav R roster changed",
-        "message": "Bhargav R shift/status changed on 18/09/26 from 0.7083333333333334 to 08:00 AM - 05:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Bhargav R"
-      },
-      {
-        "id": "n_1790707861619_59_k0jvsb",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Bhargav R roster changed",
-        "message": "Bhargav R shift/status changed on 17/09/26 from 0.3333333333333333 to 08:00 AM - 05:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Bhargav R"
-      },
-      {
-        "id": "n_1790707861619_58_rmfpyk",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Bhargav R roster changed",
-        "message": "Bhargav R shift/status changed on 16/09/26 from ATS to 08:00 AM - 05:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Bhargav R"
-      },
-      {
-        "id": "n_1790707861619_57_hq59up",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Bhargav R roster changed",
-        "message": "Bhargav R shift/status changed on 15/09/26 from Bhargav R to 08:00 AM - 05:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Bhargav R"
-      },
-      {
-        "id": "n_1790707861619_56_ptho27",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Bhargav R roster changed",
-        "message": "Bhargav R shift/status changed on 14/09/26 from 709424 to PH.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Bhargav R"
-      },
-      {
-        "id": "n_1790707861619_55_d8unwm",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Preethi P roster changed",
-        "message": "Preethi P shift/status changed on 20/09/26 from Yes to WO.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Preethi P"
-      },
-      {
-        "id": "n_1790707861619_54_y9g3yd",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Preethi P roster changed",
-        "message": "Preethi P shift/status changed on 19/09/26 from Tue/Wed/Thu/Fri to WO.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Preethi P"
-      },
-      {
-        "id": "n_1790707861619_53_qgsxbm",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Preethi P roster changed",
-        "message": "Preethi P shift/status changed on 18/09/26 from 0.7916666666666666 to 10:00 AM - 07:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Preethi P"
-      },
-      {
-        "id": "n_1790707861619_52_xfuss3",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Preethi P roster changed",
-        "message": "Preethi P shift/status changed on 17/09/26 from 0.4166666666666667 to 10:00 AM - 07:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Preethi P"
-      },
-      {
-        "id": "n_1790707861619_51_7ygfcf",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Preethi P roster changed",
-        "message": "Preethi P shift/status changed on 16/09/26 from ATS to 10:00 AM - 07:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Preethi P"
-      },
-      {
-        "id": "n_1790707861619_50_m9ugq9",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Preethi P roster changed",
-        "message": "Preethi P shift/status changed on 15/09/26 from Preethi P to 10:00 AM - 07:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Preethi P"
-      },
-      {
-        "id": "n_1790707861619_49_mxhnlb",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Preethi P roster changed",
-        "message": "Preethi P shift/status changed on 14/09/26 from 709282 to 10:00 AM - 07:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Preethi P"
-      },
-      {
-        "id": "n_1790707861619_48_r8ojxr",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Prathvi Shetty roster changed",
-        "message": "Prathvi Shetty shift/status changed on 20/09/26 from Yes to WO.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Prathvi Shetty"
-      },
-      {
-        "id": "n_1790707861619_47_dpxcn1",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Prathvi Shetty roster changed",
-        "message": "Prathvi Shetty shift/status changed on 19/09/26 from Tue/Wed/Thu/Fri to WO.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Prathvi Shetty"
-      },
-      {
-        "id": "n_1790707861619_46_iz27xk",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Prathvi Shetty roster changed",
-        "message": "Prathvi Shetty shift/status changed on 18/09/26 from 0.7916666666666666 to PTO.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Prathvi Shetty"
-      },
-      {
-        "id": "n_1790707861619_45_rxiiv4",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Prathvi Shetty roster changed",
-        "message": "Prathvi Shetty shift/status changed on 17/09/26 from 0.4166666666666667 to PTO.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Prathvi Shetty"
-      },
-      {
-        "id": "n_1790707861619_44_yzpiap",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Prathvi Shetty roster changed",
-        "message": "Prathvi Shetty shift/status changed on 16/09/26 from ATS to PTO.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Prathvi Shetty"
-      },
-      {
-        "id": "n_1790707861619_43_8npbfg",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Prathvi Shetty roster changed",
-        "message": "Prathvi Shetty shift/status changed on 15/09/26 from Prathvi Shetty to PTO.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Prathvi Shetty"
-      },
-      {
-        "id": "n_1790707861619_42_p8q6fg",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Prathvi Shetty roster changed",
-        "message": "Prathvi Shetty shift/status changed on 14/09/26 from 709454 to PH.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Prathvi Shetty"
-      },
-      {
-        "id": "n_1790707861619_41_zpmz67",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Sanjay Kumar roster changed",
-        "message": "Sanjay Kumar shift/status changed on 20/09/26 from Yes to WO.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Sanjay Kumar"
-      },
-      {
-        "id": "n_1790707861619_40_3qq8z3",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Sanjay Kumar roster changed",
-        "message": "Sanjay Kumar shift/status changed on 19/09/26 from Tue/Wed/Thu to WO.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Sanjay Kumar"
-      },
-      {
-        "id": "n_1790707861619_39_5inmm4",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Sanjay Kumar roster changed",
-        "message": "Sanjay Kumar shift/status changed on 18/09/26 from 0.7916666666666666 to 10:00 AM - 07:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Sanjay Kumar"
-      },
-      {
-        "id": "n_1790707861619_38_oheurg",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Sanjay Kumar roster changed",
-        "message": "Sanjay Kumar shift/status changed on 17/09/26 from 0.4166666666666667 to 08:00 AM - 05:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Sanjay Kumar"
-      },
-      {
-        "id": "n_1790707861619_37_89h9sd",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Sanjay Kumar roster changed",
-        "message": "Sanjay Kumar shift/status changed on 16/09/26 from ATS to 10:00 AM - 07:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Sanjay Kumar"
-      },
-      {
-        "id": "n_1790707861619_36_cigako",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Sanjay Kumar roster changed",
-        "message": "Sanjay Kumar shift/status changed on 15/09/26 from Sanjay Kumar to 08:00 AM - 05:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Sanjay Kumar"
-      },
-      {
-        "id": "n_1790707861619_35_luiqrz",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Sanjay Kumar roster changed",
-        "message": "Sanjay Kumar shift/status changed on 14/09/26 from 227186 to PH.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Sanjay Kumar"
-      },
-      {
-        "id": "n_1790707861619_34_6zb4en",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Deepak K roster changed",
-        "message": "Deepak K shift/status changed on 20/09/26 from Yes to WO.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Deepak K"
-      },
-      {
-        "id": "n_1790707861619_33_4btwh5",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Deepak K roster changed",
-        "message": "Deepak K shift/status changed on 19/09/26 from Tue/Wed/Thu/Fri to WO.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Deepak K"
-      },
-      {
-        "id": "n_1790707861619_32_ozhhgg",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Deepak K roster changed",
-        "message": "Deepak K shift/status changed on 18/09/26 from 0.7916666666666666 to 10:00 AM - 07:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Deepak K"
-      },
-      {
-        "id": "n_1790707861619_31_9s0ivv",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Deepak K roster changed",
-        "message": "Deepak K shift/status changed on 17/09/26 from 0.4166666666666667 to 10:00 AM - 07:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Deepak K"
-      },
-      {
-        "id": "n_1790707861619_30_td06r2",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Deepak K roster changed",
-        "message": "Deepak K shift/status changed on 16/09/26 from ATS to 10:00 AM - 07:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Deepak K"
-      },
-      {
-        "id": "n_1790707861619_29_p0dteu",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Deepak K roster changed",
-        "message": "Deepak K shift/status changed on 15/09/26 from Deepak K to 10:00 AM - 07:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Deepak K"
-      },
-      {
-        "id": "n_1790707861619_28_j3hqo5",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Deepak K roster changed",
-        "message": "Deepak K shift/status changed on 14/09/26 from 223255 to PH.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Deepak K"
-      },
-      {
-        "id": "n_1790707861619_27_ffg98k",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Rupesh C P roster changed",
-        "message": "Rupesh C P shift/status changed on 20/09/26 from Yes to WO.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Rupesh C P"
-      },
-      {
-        "id": "n_1790707861619_26_uy31oz",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Rupesh C P roster changed",
-        "message": "Rupesh C P shift/status changed on 19/09/26 from Tue/Wed/Thu/Fri to WO.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Rupesh C P"
-      },
-      {
-        "id": "n_1790707861619_25_q6uqtx",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Rupesh C P roster changed",
-        "message": "Rupesh C P shift/status changed on 18/09/26 from 0.625 to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Rupesh C P"
-      },
-      {
-        "id": "n_1790707861619_24_izvsq0",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Rupesh C P roster changed",
-        "message": "Rupesh C P shift/status changed on 17/09/26 from 0.25 to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Rupesh C P"
-      },
-      {
-        "id": "n_1790707861619_23_1rhr5r",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Rupesh C P roster changed",
-        "message": "Rupesh C P shift/status changed on 16/09/26 from ATS to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Rupesh C P"
-      },
-      {
-        "id": "n_1790707861619_22_pwign7",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Rupesh C P roster changed",
-        "message": "Rupesh C P shift/status changed on 15/09/26 from Rupesh C P to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Rupesh C P"
-      },
-      {
-        "id": "n_1790707861619_21_rea6wa",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Rupesh C P roster changed",
-        "message": "Rupesh C P shift/status changed on 14/09/26 from 709139 to PH.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Rupesh C P"
-      },
-      {
-        "id": "n_1790707861619_20_rs78ld",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Md. Shahbaz roster changed",
-        "message": "Md. Shahbaz shift/status changed on 20/09/26 from Yes to 06:30 AM - 03:30 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Md. Shahbaz"
-      },
-      {
-        "id": "n_1790707861619_19_e7ukil",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Md. Shahbaz roster changed",
-        "message": "Md. Shahbaz shift/status changed on 19/09/26 from Tue/Wed to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Md. Shahbaz"
-      },
-      {
-        "id": "n_1790707861619_18_mwdf0n",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Md. Shahbaz roster changed",
-        "message": "Md. Shahbaz shift/status changed on 18/09/26 from 0.625 to WO.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Md. Shahbaz"
-      },
-      {
-        "id": "n_1790707861619_17_bgpngp",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Md. Shahbaz roster changed",
-        "message": "Md. Shahbaz shift/status changed on 17/09/26 from 0.25 to WO.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Md. Shahbaz"
-      },
-      {
-        "id": "n_1790707861619_16_mxy2ak",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Md. Shahbaz roster changed",
-        "message": "Md. Shahbaz shift/status changed on 16/09/26 from ATS to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Md. Shahbaz"
-      },
-      {
-        "id": "n_1790707861619_15_yiz5wz",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Md. Shahbaz roster changed",
-        "message": "Md. Shahbaz shift/status changed on 15/09/26 from Md. Shahbaz to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Md. Shahbaz"
-      },
-      {
-        "id": "n_1790707861619_14_txdjxi",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Md. Shahbaz roster changed",
-        "message": "Md. Shahbaz shift/status changed on 14/09/26 from 223258 to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Md. Shahbaz"
-      },
-      {
-        "id": "n_1790707861619_13_2nisd3",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Srinivas Reddy roster changed",
-        "message": "Srinivas Reddy shift/status changed on 20/09/26 from Yes to WO.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Srinivas Reddy"
-      },
-      {
-        "id": "n_1790707861619_12_klmn4a",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Srinivas Reddy roster changed",
-        "message": "Srinivas Reddy shift/status changed on 19/09/26 from Tue/Wed/Thu to 10:00 AM - 07:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Srinivas Reddy"
-      },
-      {
-        "id": "n_1790707861619_11_ntl8zf",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Srinivas Reddy roster changed",
-        "message": "Srinivas Reddy shift/status changed on 18/09/26 from 0.625 to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Srinivas Reddy"
-      },
-      {
-        "id": "n_1790707861619_10_7w48xg",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Srinivas Reddy roster changed",
-        "message": "Srinivas Reddy shift/status changed on 17/09/26 from 0.25 to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Srinivas Reddy"
-      },
-      {
-        "id": "n_1790707861619_9_2rbaof",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Srinivas Reddy roster changed",
-        "message": "Srinivas Reddy shift/status changed on 16/09/26 from ATS to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Srinivas Reddy"
-      },
-      {
-        "id": "n_1790707861619_8_8nmlfs",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Srinivas Reddy roster changed",
-        "message": "Srinivas Reddy shift/status changed on 15/09/26 from Srinivas Reddy to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Srinivas Reddy"
-      },
-      {
-        "id": "n_1790707861619_7_q0efg6",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Srinivas Reddy roster changed",
-        "message": "Srinivas Reddy shift/status changed on 14/09/26 from 223254 to WO.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Srinivas Reddy"
-      },
-      {
-        "id": "n_1790707861619_6_s4w3es",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Lelin Patra roster changed",
-        "message": "Lelin Patra shift/status changed on 20/09/26 from Yes to WO.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Lelin Patra"
-      },
-      {
-        "id": "n_1790707861619_5_uo197b",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Lelin Patra roster changed",
-        "message": "Lelin Patra shift/status changed on 19/09/26 from Tue/Wed/Thu/Fri to WO.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Lelin Patra"
-      },
-      {
-        "id": "n_1790707861619_4_4fmsbq",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Lelin Patra roster changed",
-        "message": "Lelin Patra shift/status changed on 18/09/26 from 0.625 to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Lelin Patra"
-      },
-      {
-        "id": "n_1790707861619_3_nbnfm6",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Lelin Patra roster changed",
-        "message": "Lelin Patra shift/status changed on 17/09/26 from 0.25 to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Lelin Patra"
-      },
-      {
-        "id": "n_1790707861619_2_nunv5n",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Lelin Patra roster changed",
-        "message": "Lelin Patra shift/status changed on 16/09/26 from ATS 2L to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Lelin Patra"
-      },
-      {
-        "id": "n_1790707861619_1_iootll",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Lelin Patra roster changed",
-        "message": "Lelin Patra shift/status changed on 15/09/26 from Lelin Patra to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Lelin Patra"
-      },
-      {
-        "id": "n_1790707861619_0_7nmf8g",
-        "createdAt": "2026-09-29T18:51:01.619Z",
-        "title": "Lelin Patra roster changed",
-        "message": "Lelin Patra shift/status changed on 14/09/26 from 316092 to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Lelin Patra"
-      },
-      {
-        "id": "n_1790707183665_137_w2qg8w",
-        "createdAt": "2026-09-29T18:39:43.665Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 10/02/26 from 6:00 AM - 03:00 PM to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 4,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790707183665_136_uq9ucf",
-        "createdAt": "2026-09-29T18:39:43.665Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 10/01/26 from 6:00 AM - 03:00 PM to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 4,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790707183665_135_rb2xpg",
-        "createdAt": "2026-09-29T18:39:43.665Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 30/09/26 from 6:00 AM - 03:00 PM to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 4,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790707183665_134_hwvepj",
-        "createdAt": "2026-09-29T18:39:43.665Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 29/09/26 from 6:00 AM - 03:00 PM to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 4,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790707183665_133_vd80l8",
-        "createdAt": "2026-09-29T18:39:43.665Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 28/09/26 from 6:00 AM - 03:00 PM to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 4,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790707183665_132_yqcztj",
-        "createdAt": "2026-09-29T18:39:43.665Z",
-        "title": "Bhargav R roster changed",
-        "message": "Bhargav R shift/status changed on 10/02/26 from 6:00 AM - 03:00 PM to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 4,
-        "employee": "Bhargav R"
-      },
-      {
-        "id": "n_1790707183665_131_699499",
-        "createdAt": "2026-09-29T18:39:43.665Z",
-        "title": "Bhargav R roster changed",
-        "message": "Bhargav R shift/status changed on 10/01/26 from 6:00 AM - 03:00 PM to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 4,
-        "employee": "Bhargav R"
-      },
-      {
-        "id": "n_1790707183665_130_8ycqwz",
-        "createdAt": "2026-09-29T18:39:43.665Z",
-        "title": "Bhargav R roster changed",
-        "message": "Bhargav R shift/status changed on 30/09/26 from 6:00 AM - 03:00 PM to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 4,
-        "employee": "Bhargav R"
-      },
-      {
-        "id": "n_1790707183665_129_gm0wdf",
-        "createdAt": "2026-09-29T18:39:43.665Z",
-        "title": "Bhargav R roster changed",
-        "message": "Bhargav R shift/status changed on 29/09/26 from 6:00 AM - 03:00 PM to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 4,
-        "employee": "Bhargav R"
-      },
-      {
-        "id": "n_1790707183665_128_gbkbm4",
-        "createdAt": "2026-09-29T18:39:43.665Z",
-        "title": "Bhargav R roster changed",
-        "message": "Bhargav R shift/status changed on 28/09/26 from 6:00 AM - 03:00 PM to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 4,
-        "employee": "Bhargav R"
-      },
-      {
-        "id": "n_1790707183665_127_lbyp10",
-        "createdAt": "2026-09-29T18:39:43.665Z",
-        "title": "Deepak K roster changed",
-        "message": "Deepak K shift/status changed on 10/04/26 from 10:00 AM - 07:00 PM to WO.",
-        "type": "employee",
-        "month": "September",
-        "week": 4,
-        "employee": "Deepak K"
-      },
-      {
-        "id": "n_1790707183665_126_019c7v",
-        "createdAt": "2026-09-29T18:39:43.665Z",
-        "title": "Deepak K roster changed",
-        "message": "Deepak K shift/status changed on 10/02/26 from 07:00 AM -04:00 PM to 07:00 AM - 04:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 4,
-        "employee": "Deepak K"
-      },
-      {
-        "id": "n_1790707183665_125_1mcek1",
-        "createdAt": "2026-09-29T18:39:43.665Z",
-        "title": "Deepak K roster changed",
-        "message": "Deepak K shift/status changed on 10/01/26 from 07:00 AM -04:00 PM to 10:00 AM - 07:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 4,
-        "employee": "Deepak K"
-      },
-      {
-        "id": "n_1790707183665_124_hvebdr",
-        "createdAt": "2026-09-29T18:39:43.665Z",
-        "title": "Deepak K roster changed",
-        "message": "Deepak K shift/status changed on 28/09/26 from WO to 08:00 AM - 05:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 4,
-        "employee": "Deepak K"
-      },
-      {
-        "id": "n_1790707183665_123_32i31t",
-        "createdAt": "2026-09-29T18:39:43.665Z",
-        "title": "Rupesh C P roster changed",
-        "message": "Rupesh C P shift/status changed on 10/04/26 from WO to 10:00 AM - 07:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 4,
-        "employee": "Rupesh C P"
-      },
-      {
-        "id": "n_1790707183665_122_j4xy31",
-        "createdAt": "2026-09-29T18:39:43.665Z",
-        "title": "Rupesh C P roster changed",
-        "message": "Rupesh C P shift/status changed on 28/09/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "September",
-        "week": 4,
-        "employee": "Rupesh C P"
       }
     ],
     "_user_credentials": {
@@ -2438,13 +2438,13 @@
         "default_end": "03:00 PM",
         "days_office": "Mon/Tue/Wed/Thu",
         "shifts": {
-          "Monday": "06:00 AM - 03:00 PM",
-          "Tuesday": "06:00 AM - 03:00 PM",
-          "Wednesday": "06:00 AM - 03:00 PM",
-          "Thursday": "06:00 AM - 03:00 PM",
-          "Friday": "06:00 AM - 03:00 PM",
-          "Saturday": "WO",
-          "Sunday": "WO"
+          "Monday": "Lelin Patra",
+          "Tuesday": "ATS 2L",
+          "Wednesday": "0.25",
+          "Thursday": "0.625",
+          "Friday": "Mon/Tue/Wed/Thu/Fri",
+          "Saturday": "Yes",
+          "Sunday": "06:00 AM - 03:00 PM"
         }
       },
       {
@@ -2455,13 +2455,13 @@
         "default_end": "03:00 PM",
         "days_office": "No",
         "shifts": {
-          "Monday": "WO",
-          "Tuesday": "PTO",
-          "Wednesday": "PTO",
-          "Thursday": "PTO",
-          "Friday": "10:00 AM - 07:00 PM",
-          "Saturday": "10:00 AM - 07:00 PM",
-          "Sunday": "WO"
+          "Monday": "Srinivas Reddy",
+          "Tuesday": "ATS",
+          "Wednesday": "0.25",
+          "Thursday": "0.625",
+          "Friday": "Mon/Tue/",
+          "Saturday": "Yes",
+          "Sunday": "06:00 AM - 03:00 PM"
         }
       },
       {
@@ -2472,13 +2472,13 @@
         "default_end": "03:00 PM",
         "days_office": "Mon/Tue/Wed",
         "shifts": {
-          "Monday": "06:00 AM - 03:00 PM",
-          "Tuesday": "06:00 AM - 03:00 PM",
-          "Wednesday": "06:00 AM - 03:00 PM",
-          "Thursday": "WO",
-          "Friday": "WO",
-          "Saturday": "06:00 AM - 03:00 PM",
-          "Sunday": "06:30 AM - 03:30 PM"
+          "Monday": "Md. Shahbaz",
+          "Tuesday": "ATS",
+          "Wednesday": "0.25",
+          "Thursday": "0.625",
+          "Friday": "Tue/Wed/Thu",
+          "Saturday": "Yes",
+          "Sunday": "06:00 AM - 03:00 PM"
         }
       },
       {
@@ -2489,13 +2489,13 @@
         "default_end": "03:00 PM",
         "days_office": "Mon/Tue/Wed/Thu",
         "shifts": {
-          "Monday": "WO",
-          "Tuesday": "06:00 AM - 03:00 PM",
-          "Wednesday": "06:00 AM - 03:00 PM",
-          "Thursday": "06:00 AM - 03:00 PM",
-          "Friday": "06:00 AM - 03:00 PM",
-          "Saturday": "WO",
-          "Sunday": "10:00 AM - 07:00 PM"
+          "Monday": "Rupesh C P",
+          "Tuesday": "ATS",
+          "Wednesday": "0.25",
+          "Thursday": "0.625",
+          "Friday": "Mon/Tue/Wed/Thu/Fri",
+          "Saturday": "Yes",
+          "Sunday": "06:00 AM - 03:00 PM"
         }
       },
       {
@@ -2506,13 +2506,13 @@
         "default_end": "07:00 PM",
         "days_office": "Mon/Tue/Wed/Thu",
         "shifts": {
-          "Monday": "08:00 AM - 05:00 PM",
-          "Tuesday": "10:00 AM - 07:00 PM",
-          "Wednesday": "10:00 AM - 07:00 PM",
-          "Thursday": "10:00 AM - 07:00 PM",
-          "Friday": "07:00 AM - 04:00 PM",
-          "Saturday": "WO",
-          "Sunday": "WO"
+          "Monday": "Deepak K",
+          "Tuesday": "ATS",
+          "Wednesday": "0.4166666666666667",
+          "Thursday": "0.7916666666666666",
+          "Friday": "Mon/Tue/Wed/Thu/Fri",
+          "Saturday": "Yes",
+          "Sunday": "10:00 AM - 07:00 PM"
         }
       },
       {
@@ -2523,13 +2523,13 @@
         "default_end": "07:00 PM",
         "days_office": "Mon/Tue/Wed/Thu",
         "shifts": {
-          "Monday": "10:00 AM - 07:00 PM",
-          "Tuesday": "10:00 AM - 07:00 PM",
-          "Wednesday": "10:00 AM - 07:00 PM",
-          "Thursday": "10:00 AM - 07:00 PM",
-          "Friday": "PH",
-          "Saturday": "WO",
-          "Sunday": "WO"
+          "Monday": "Sanjay Kumar",
+          "Tuesday": "ATS",
+          "Wednesday": "0.4166666666666667",
+          "Thursday": "0.7916666666666666",
+          "Friday": "Mon/Tue/Wed/Thu/Fri",
+          "Saturday": "Yes",
+          "Sunday": "10:00 AM - 07:00 PM"
         }
       },
       {
@@ -2540,13 +2540,13 @@
         "default_end": "07:00 PM",
         "days_office": "Mon/Tue/Wed/Thu",
         "shifts": {
-          "Monday": "10:00 AM - 07:00 PM",
-          "Tuesday": "10:00 AM - 07:00 PM",
-          "Wednesday": "10:00 AM - 07:00 PM",
-          "Thursday": "10:00 AM - 07:00 PM",
-          "Friday": "10:00 AM - 07:00 PM",
-          "Saturday": "WO",
-          "Sunday": "WO"
+          "Monday": "Prathvi Shetty",
+          "Tuesday": "ATS",
+          "Wednesday": "0.4166666666666667",
+          "Thursday": "0.7916666666666666",
+          "Friday": "Mon/Tue/Wed/Thu/Fri",
+          "Saturday": "Yes",
+          "Sunday": "10:00 AM - 07:00 PM"
         }
       },
       {
@@ -2557,13 +2557,13 @@
         "default_end": "07:00 PM",
         "days_office": "Mon/Tue/Wed/Thu",
         "shifts": {
-          "Monday": "10:00 AM - 07:00 PM",
-          "Tuesday": "10:00 AM - 07:00 PM",
-          "Wednesday": "10:00 AM - 07:00 PM",
-          "Thursday": "10:00 AM - 07:00 PM",
-          "Friday": "PH",
-          "Saturday": "WO",
-          "Sunday": "WO"
+          "Monday": "Preethi P",
+          "Tuesday": "ATS",
+          "Wednesday": "0.4166666666666667",
+          "Thursday": "0.7916666666666666",
+          "Friday": "Mon/Tue/Wed/Thu/Fri",
+          "Saturday": "Yes",
+          "Sunday": "10:00 AM - 07:00 PM"
         }
       },
       {
@@ -2574,13 +2574,13 @@
         "default_end": "05:00 PM",
         "days_office": "Mon/Tue/Wed/Thu",
         "shifts": {
-          "Monday": "06:00 AM - 03:00 PM",
-          "Tuesday": "06:00 AM - 03:00 PM",
-          "Wednesday": "06:00 AM - 03:00 PM",
-          "Thursday": "06:00 AM - 03:00 PM",
-          "Friday": "06:00 AM - 03:00 PM",
-          "Saturday": "WO",
-          "Sunday": "WO"
+          "Monday": "Bhargav R",
+          "Tuesday": "ATS",
+          "Wednesday": "0.3333333333333333",
+          "Thursday": "0.7083333333333334",
+          "Friday": "Mon/Tue/Wed/Thu/Fri",
+          "Saturday": "Yes",
+          "Sunday": "6:00 AM - 03:00 PM"
         }
       },
       {
@@ -2591,13 +2591,13 @@
         "default_end": "05:00 PM",
         "days_office": "Mon/Tue/Wed/Thu",
         "shifts": {
-          "Monday": "08:00 AM - 05:00 PM",
-          "Tuesday": "08:00 AM - 05:00 PM",
-          "Wednesday": "08:00 AM - 05:00 PM",
-          "Thursday": "08:00 AM - 05:00 PM",
-          "Friday": "08:00 AM - 05:00 PM",
-          "Saturday": "WO",
-          "Sunday": "WO"
+          "Monday": "Nidhi Taku",
+          "Tuesday": "ATS",
+          "Wednesday": "0.3333333333333333",
+          "Thursday": "0.7083333333333334",
+          "Friday": "Mon/Tue/Wed/Thu/Fri",
+          "Saturday": "Yes",
+          "Sunday": "08:00 AM - 05:00 PM"
         }
       },
       {
@@ -2608,13 +2608,13 @@
         "default_end": "05:00 PM",
         "days_office": "Mon/Tue/Wed/Thu",
         "shifts": {
-          "Monday": "08:00 AM - 05:00 PM",
-          "Tuesday": "08:00 AM - 05:00 PM",
-          "Wednesday": "08:00 AM - 05:00 PM",
-          "Thursday": "08:00 AM - 05:00 PM",
-          "Friday": "08:00 AM - 05:00 PM",
-          "Saturday": "WO",
-          "Sunday": "WO"
+          "Monday": "Gokul Krishna Lokesh",
+          "Tuesday": "ATS",
+          "Wednesday": "0.3333333333333333",
+          "Thursday": "0.7083333333333334",
+          "Friday": "Mon/Tue/Wed/Thu/Fri",
+          "Saturday": "Yes",
+          "Sunday": "08:00 AM - 05:00 PM"
         }
       },
       {
@@ -2625,13 +2625,13 @@
         "default_end": "05:00 PM",
         "days_office": "Mon/Tue/Wed/Thu",
         "shifts": {
-          "Monday": "06:00 AM - 03:00 PM",
-          "Tuesday": "06:00 AM - 03:00 PM",
-          "Wednesday": "06:00 AM - 03:00 PM",
-          "Thursday": "06:00 AM - 03:00 PM",
-          "Friday": "06:00 AM - 03:00 PM",
-          "Saturday": "WO",
-          "Sunday": "WO"
+          "Monday": "Manisha Kumari",
+          "Tuesday": "ATS",
+          "Wednesday": "0.3333333333333333",
+          "Thursday": "0.7083333333333334",
+          "Friday": "Mon/Tue/Wed/Thu/Fri",
+          "Saturday": "Yes",
+          "Sunday": "6:00 AM - 03:00 PM"
         }
       }
     ],
@@ -2654,31 +2654,31 @@
       "Sunday": "Rupesh C P"
     },
     "total_headcount_6am": [
-      4,
-      5,
-      5,
-      4,
-      5,
-      1,
-      1
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      6
     ],
     "total_headcount_8am": [
-      3,
-      2,
-      2,
-      2,
-      2,
       0,
-      0
+      0,
+      0,
+      0,
+      0,
+      0,
+      2
     ],
     "total_headcount_10am": [
-      3,
-      4,
-      4,
-      4,
-      2,
-      1,
-      1
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      4
     ]
   }
 ]
