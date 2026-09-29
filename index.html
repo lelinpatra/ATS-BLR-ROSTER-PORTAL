@@ -2797,7 +2797,7 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
                     <div class="flex items-start gap-2">
                         <i data-lucide="info" class="w-4 h-4 text-indigo-600 mt-0.5 shrink-0"></i>
                         <p class="text-[11px] sm:text-xs text-indigo-900 leading-relaxed">
-                            <strong>Save Draft</strong> keeps this uploaded roster available to Admin mode only on this browser. Normal employee view will continue using the last published roster. <strong>Publish</strong> replaces the public roster after the GitHub commit succeeds.
+                            <strong>Save Draft</strong> stores this uploaded roster for Admin mode only on this browser and sends <strong>no employee notifications</strong>. Normal employee view continues using the last published roster. <strong>Publish</strong> makes the roster public and generates employee notifications only after the GitHub commit succeeds.
                         </p>
                     </div>
                 </div>
@@ -5455,6 +5455,8 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             "07:00 AM - 04:00 PM",
             "08:00 AM - 05:00 PM",
             "10:00 AM - 07:00 PM",
+            "11:00 AM - 08:00 PM",
+            "12:00 PM - 09:00 PM",
             "WO",
             "1st Half Off",
             "2nd Half Off",
@@ -6274,6 +6276,10 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-orange-100 text-orange-950 border border-orange-400 shadow-sm" title="1st Half Off">1st Half Off</span>`;
             } else if (shift === '2nd Half Off') {
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-amber-200 text-amber-950 border border-amber-500 shadow-sm" title="2nd Half Off">2nd Half Off</span>`;
+            } else if (shift.includes("12:00 PM") || shift.includes("12:00")) {
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-violet-100 text-violet-900 border border-violet-400 shadow-sm" title="${shift}">12:00 PM</span>`;
+            } else if (shift.includes("11:00 AM") || shift.includes("11:00")) {
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-indigo-100 text-indigo-900 border border-indigo-400 shadow-sm" title="${shift}">11:00 AM</span>`;
             } else if (shift.includes("10:00")) {
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-amber-100 text-amber-950 border border-amber-400 shadow-sm" title="${shift}">10:00 AM</span>`;
             } else if (shift.includes("06:30") || shift.includes("6:30")) {
@@ -7720,6 +7726,17 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                     importedWeeks: cloneRosterWeeks(stagedExcelRosterData)
                 };
                 localStorage.setItem(ADMIN_DRAFT_STORAGE_KEY, JSON.stringify(payload));
+
+                // IMPORTANT: Save Draft is an Admin-only staging operation.
+                // It must never change the immutable published snapshot or create/update
+                // employee notifications. Notifications are generated only when the
+                // staged roster is actually published through commitDataToGitHubRepository().
+                // Keep the published snapshot and its notification state untouched.
+                const publishedSnapshotBeforeDraft = publishedRosterData
+                    ? JSON.stringify(publishedRosterData)
+                    : null;
+                const notificationSnapshotBeforeDraft = JSON.stringify(portalNotifications);
+
                 rawRosterData = cloneRosterWeeks(mergedRoster);
                 // Excel is allowed to add/update Month + Week navigation entries, but the
                 // SHIFT TIMING selectors must remain exactly the portal's existing controls.
@@ -7732,11 +7749,19 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 else if (activeCategory === 'qm') renderQMView();
                 else if (activeCategory === 'holidays') renderHolidaysView();
                 lucide.createIcons();
+                // A draft may be visible inside Admin mode, but it is not published.
+                // Restore the last public snapshot and notification list so Save Draft
+                // cannot accidentally notify employees or mark the draft as public.
+                if (publishedSnapshotBeforeDraft) {
+                    publishedRosterData = JSON.parse(publishedSnapshotBeforeDraft);
+                }
+                portalNotifications = JSON.parse(notificationSnapshotBeforeDraft);
+
                 pendingChangesExist = false;
                 clearPendingChangesState();
                 closeExcelImportReview();
                 updateSavedDraftButton();
-                alert('Draft saved successfully. The Excel shifts were applied only to matching existing roster weeks and employees. Your Month/Week dropdown and employee Skilling were left unchanged. Normal employee view still uses the published roster.');
+                alert('Draft saved successfully. No employee notifications were sent. Employees will be notified only after you choose Publish and the GitHub publish succeeds.');
             } catch (err) {
                 console.error('Draft save failed:', err);
                 alert('The draft could not be saved in this browser.');
