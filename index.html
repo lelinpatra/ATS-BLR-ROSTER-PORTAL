@@ -6498,6 +6498,15 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 const empA = empMap[nameA];
                 const empB = empMap[nameB];
 
+                // Keep the currently authenticated roster employee at the very top
+                // of Individual Profiles. The existing 2L-first ordering and
+                // alphabetical ordering are preserved for everyone else.
+                const activeSgId = activeUserSession ? cleanSgId(activeUserSession.sg_id) : '';
+                const isAActive = activeSgId && cleanSgId(empA.sg_id) === activeSgId ? 1 : 0;
+                const isBActive = activeSgId && cleanSgId(empB.sg_id) === activeSgId ? 1 : 0;
+
+                if (isAActive !== isBActive) return isBActive - isAActive;
+
                 const isA2L = (empA.skilling && empA.skilling.toUpperCase().includes("2L")) ? 1 : 0;
                 const isB2L = (empB.skilling && empB.skilling.toUpperCase().includes("2L")) ? 1 : 0;
 
