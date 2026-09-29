@@ -442,12 +442,20 @@
       {
         "date": "2026-05-01",
         "day": "Friday",
-        "name": "May / Labor , , , confidential confidential - - Early May Bank",
+        "name": "May / Labor , , , confidential confidential",
         "offices": [
           "UK",
           "KRK",
           "MVD",
           "SGP"
+        ]
+      },
+      {
+        "date": "2026-05-04",
+        "day": "Monday",
+        "name": "Early May Bank",
+        "offices": [
+          "UK"
         ]
       },
       {
@@ -647,7 +655,15 @@
       {
         "date": "2026-11-26",
         "day": "Thursday",
-        "name": "Thanksgiving confidential confidential - - Thanksgiving",
+        "name": "Thanksgiving confidential confidential",
+        "offices": [
+          "US"
+        ]
+      },
+      {
+        "date": "2026-11-27",
+        "day": "Friday",
+        "name": "Thanksgiving",
         "offices": [
           "US"
         ]
@@ -786,8 +802,8 @@
     "_dynamic_holiday_year": "2026",
     "_portal_notifications": [
       {
-        "id": "n_1790705903222_0_menc47",
-        "createdAt": "2026-09-29T18:18:23.222Z",
+        "id": "n_1790706141684_0_0cz79c",
+        "createdAt": "2026-09-29T18:22:21.684Z",
         "title": "January roster uploaded",
         "message": "January month roster is uploaded and ready to view.",
         "type": "month",
