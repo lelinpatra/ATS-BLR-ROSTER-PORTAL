@@ -196,6 +196,56 @@
     ],
     "_portal_notifications": [
       {
+        "id": "n_1790683046780_4_phz57o",
+        "createdAt": "2026-09-29T11:57:26.780Z",
+        "title": "Deepak K roster changed",
+        "message": "Deepak K shift/status changed on 10/04/26 from 10:00 AM - 07:00 PM to WO.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Deepak K"
+      },
+      {
+        "id": "n_1790683046780_3_i2hcqr",
+        "createdAt": "2026-09-29T11:57:26.780Z",
+        "title": "Rupesh C P roster changed",
+        "message": "Rupesh C P shift/status changed on 10/04/26 from WO to 10:00 AM - 07:00 PM.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Rupesh C P"
+      },
+      {
+        "id": "n_1790683046780_2_aeqyhc",
+        "createdAt": "2026-09-29T11:57:26.780Z",
+        "title": "Rupesh C P roster changed",
+        "message": "Rupesh C P shift/status changed on 10/03/26 from 10:00 AM - 07:00 PM to WO.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Rupesh C P"
+      },
+      {
+        "id": "n_1790683046780_1_j9f5xz",
+        "createdAt": "2026-09-29T11:57:26.780Z",
+        "title": "Srinivas Reddy roster changed",
+        "message": "Srinivas Reddy shift/status changed on 10/03/26 from WO to 10:00 AM - 07:00 PM.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Srinivas Reddy"
+      },
+      {
+        "id": "n_1790683046780_0_8btdup",
+        "createdAt": "2026-09-29T11:57:26.780Z",
+        "title": "Srinivas Reddy roster changed",
+        "message": "Srinivas Reddy shift/status changed on 10/01/26 from 10:00 AM - 07:00 PM to PTO.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Srinivas Reddy"
+      },
+      {
         "id": "n_1790682927814_1_96q9um",
         "createdAt": "2026-09-29T11:55:27.814Z",
         "title": "Lelin Patra roster changed",
@@ -1979,9 +2029,9 @@
           "Monday": "WO",
           "Tuesday": "PTO",
           "Wednesday": "PTO",
-          "Thursday": "10:00 AM - 07:00 PM",
+          "Thursday": "PTO",
           "Friday": "10:00 AM - 07:00 PM",
-          "Saturday": "WO",
+          "Saturday": "10:00 AM - 07:00 PM",
           "Sunday": "WO"
         }
       },
@@ -2015,8 +2065,8 @@
           "Wednesday": "06:00 AM - 03:00 PM",
           "Thursday": "06:00 AM - 03:00 PM",
           "Friday": "06:00 AM - 03:00 PM",
-          "Saturday": "10:00 AM - 07:00 PM",
-          "Sunday": "WO"
+          "Saturday": "WO",
+          "Sunday": "10:00 AM - 07:00 PM"
         }
       },
       {
@@ -2033,7 +2083,7 @@
           "Thursday": "10:00 AM - 07:00 PM",
           "Friday": "07:00 AM -04:00 PM",
           "Saturday": "WO",
-          "Sunday": "10:00 AM - 07:00 PM"
+          "Sunday": "WO"
         }
       },
       {
@@ -2196,7 +2246,7 @@
       3,
       4,
       4,
-      5,
+      4,
       2,
       1,
       1
