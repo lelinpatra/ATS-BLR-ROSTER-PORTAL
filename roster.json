@@ -196,84 +196,24 @@
     ],
     "_portal_notifications": [
       {
-        "id": "n_1790682915132_7_wf27jh",
-        "createdAt": "2026-09-29T11:55:15.132Z",
-        "title": "Deepak K roster changed",
-        "message": "Deepak K shift/status changed on 10/01/26 from 07:00 AM -04:00 PM to 10:00 AM - 07:00 PM.",
+        "id": "n_1790682927814_1_96q9um",
+        "createdAt": "2026-09-29T11:55:27.814Z",
+        "title": "Lelin Patra roster changed",
+        "message": "Lelin Patra shift/status changed on 29/09/26 from 12:00 PM - 09:00 PM to 06:00 AM - 03:00 PM.",
         "type": "employee",
         "month": "September",
         "week": 4,
-        "employee": "Deepak K"
+        "employee": "Lelin Patra"
       },
       {
-        "id": "n_1790682915132_6_a25mp1",
-        "createdAt": "2026-09-29T11:55:15.132Z",
-        "title": "Deepak K roster changed",
-        "message": "Deepak K shift/status changed on 28/09/26 from WO to 08:00 AM - 05:00 PM.",
+        "id": "n_1790682927814_0_c3e1sd",
+        "createdAt": "2026-09-29T11:55:27.814Z",
+        "title": "Lelin Patra roster changed",
+        "message": "Lelin Patra shift/status changed on 28/09/26 from 11:00 AM - 08:00 PM to 06:00 AM - 03:00 PM.",
         "type": "employee",
         "month": "September",
         "week": 4,
-        "employee": "Deepak K"
-      },
-      {
-        "id": "n_1790682915132_5_0bq9x3",
-        "createdAt": "2026-09-29T11:55:15.132Z",
-        "title": "Rupesh C P roster changed",
-        "message": "Rupesh C P shift/status changed on 10/03/26 from WO to 10:00 AM - 07:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 4,
-        "employee": "Rupesh C P"
-      },
-      {
-        "id": "n_1790682915132_4_55inwc",
-        "createdAt": "2026-09-29T11:55:15.132Z",
-        "title": "Rupesh C P roster changed",
-        "message": "Rupesh C P shift/status changed on 28/09/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "September",
-        "week": 4,
-        "employee": "Rupesh C P"
-      },
-      {
-        "id": "n_1790682915132_3_43q3am",
-        "createdAt": "2026-09-29T11:55:15.132Z",
-        "title": "Md. Shahbaz roster changed",
-        "message": "Md. Shahbaz shift/status changed on 10/03/26 from 06:00 AM - 03:00 PM to 06:30 AM - 03:30 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 4,
-        "employee": "Md. Shahbaz"
-      },
-      {
-        "id": "n_1790682915132_2_34rmt8",
-        "createdAt": "2026-09-29T11:55:15.132Z",
-        "title": "Srinivas Reddy roster changed",
-        "message": "Srinivas Reddy shift/status changed on 10/03/26 from 10:00 AM - 07:00 PM to WO.",
-        "type": "employee",
-        "month": "September",
-        "week": 4,
-        "employee": "Srinivas Reddy"
-      },
-      {
-        "id": "n_1790682915132_1_6bfu8m",
-        "createdAt": "2026-09-29T11:55:15.132Z",
-        "title": "Srinivas Reddy roster changed",
-        "message": "Srinivas Reddy shift/status changed on 10/01/26 from PTO to 10:00 AM - 07:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 4,
-        "employee": "Srinivas Reddy"
-      },
-      {
-        "id": "n_1790682915132_0_lpyj3w",
-        "createdAt": "2026-09-29T11:55:15.132Z",
-        "title": "Prathvi Shetty roster changed",
-        "message": "Prathvi Shetty shift/status changed on 09/07/26 from HD SL to 2nd Half Off.",
-        "type": "employee",
-        "month": "September",
-        "week": 1,
-        "employee": "Prathvi Shetty"
+        "employee": "Lelin Patra"
       },
       {
         "id": "n_1790680265070_2_vvrzb2",
@@ -2019,8 +1959,8 @@
         "default_end": "03:00 PM",
         "days_office": "Mon/Tue/Wed/Thu",
         "shifts": {
-          "Monday": "11:00 AM - 08:00 PM",
-          "Tuesday": "12:00 PM - 09:00 PM",
+          "Monday": "06:00 AM - 03:00 PM",
+          "Tuesday": "06:00 AM - 03:00 PM",
           "Wednesday": "06:00 AM - 03:00 PM",
           "Thursday": "06:00 AM - 03:00 PM",
           "Friday": "06:00 AM - 03:00 PM",
@@ -2235,8 +2175,8 @@
       "Sunday": "Unassigned"
     },
     "total_headcount_6am": [
-      3,
       4,
+      5,
       5,
       4,
       5,
@@ -2244,7 +2184,7 @@
       1
     ],
     "total_headcount_8am": [
-      4,
+      3,
       2,
       2,
       2,
