@@ -4341,6 +4341,87 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
         cleanedHolidays.sort((a, b) => a.date.localeCompare(b.date));
 
         // ---------------------------------------------------------------------
+        // AUTHORITATIVE SABRE RECORD RECONCILIATION
+        //
+        // For Sabre Global Holiday Calendar PDFs, the ISO date rows in the
+        // holiday table are the authoritative record boundaries. Do not use
+        // the visual-row parser as the final source because PDF.js can split
+        // one table row into several text rows or combine neighboring cells.
+        // ---------------------------------------------------------------------
+        function buildAuthoritativeSabreRecords(rawText) {
+            const text = String(rawText || '').replace(/\s+/g, ' ').trim();
+            const headerMatch = text.match(/\bDate\b.*?\bHoliday\s+Name\b.*?\bOffices\b/i);
+            const table = headerMatch ? text.slice(headerMatch.index) : text;
+            const re = /\b(20\d{2})-(\d{1,2})-(\d{1,2})\b/g;
+            const matches = [...table.matchAll(re)];
+            const out = [];
+            const officesRe = /\b(?:US|UK|BLR|KRK|MVD|SGP)\b/gi;
+            const weekdayRe = /\b(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday|Mon|Tue|Wed|Thu|Fri|Sat|Sun)\b/gi;
+
+            matches.forEach((m, i) => {
+                const start = m.index;
+                const end = i + 1 < matches.length ? matches[i + 1].index : table.length;
+                let block = table.slice(start, end)
+                    .replace(/\b\d+\s+confidential\s+confidential\b.*?(?=20\d{2}-\d{1,2}-\d{1,2}|$)/gi, ' ')
+                    .replace(/\|\s*©?20\d{2}.*?reserved\.?/gi, ' ')
+                    .replace(/\s+/g, ' ')
+                    .trim();
+
+                const offices = [...new Set((block.match(officesRe) || [])
+                    .map(x => x.toUpperCase()))].filter(x => knownOffices.includes(x));
+
+                let name = block
+                    .replace(/^20\d{2}-\d{1,2}-\d{1,2}\s*/, ' ')
+                    .replace(weekdayRe, ' ')
+                    .replace(officesRe, ' ')
+                    .replace(/\b(?:Date|Day|Holiday|Name|Offices)\b/gi, ' ')
+                    .replace(/\bto\s+\d{1,2}-\d{1,2}\b/gi, ' ')
+                    .replace(/\s+/g, ' ')
+                    .trim();
+
+                name = sanitizeName(name);
+                if (!name || name.length < 2) name = 'Sabre Holiday';
+
+                const iso = `${m[1]}-${String(Number(m[2])).padStart(2,'0')}-${String(Number(m[3])).padStart(2,'0')}`;
+                out.push({
+                    date: iso,
+                    day: calcDayName(iso),
+                    name,
+                    offices: offices.length ? offices : [...knownOffices]
+                });
+            });
+            return out;
+        }
+
+        // Use the unclustered PDF.js text stream. It contains all 50 explicit
+        // ISO-dated Sabre holiday rows in the supplied 2026 calendar.
+        const authoritativeSabreRecords = buildAuthoritativeSabreRecords(rawPdfText);
+        if (authoritativeSabreRecords.length > 0) {
+            cleanedHolidays.length = 0;
+            authoritativeSabreRecords.forEach(h => cleanedHolidays.push(h));
+        }
+
+        // The Sabre Year End Break is 12/26 through 12/31.  The PDF already
+        // has a separate 12/26 Boxing Day record, so add only 12/27-12/31.
+        if (/year\s+end\s+break/i.test(rawPdfText)) {
+            const year = Number(detectedYear) || new Date().getFullYear();
+            const offices = [...knownOffices];
+            for (let day = 27; day <= 31; day++) {
+                const iso = `${year}-12-${String(day).padStart(2,'0')}`;
+                if (!cleanedHolidays.some(h => h.date === iso && /year\s+end\s+break/i.test(h.name))) {
+                    cleanedHolidays.push({
+                        date: iso,
+                        day: calcDayName(iso),
+                        name: 'Sabre Year End Break',
+                        offices: [...offices]
+                    });
+                }
+            }
+        }
+
+        cleanedHolidays.sort((a,b) => a.date.localeCompare(b.date));
+
+        // ---------------------------------------------------------------------
         // SAVE + RENDER
         // ---------------------------------------------------------------------
         // FINAL SOURCE-COUNT VALIDATION
