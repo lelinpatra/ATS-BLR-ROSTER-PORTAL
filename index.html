@@ -6872,10 +6872,38 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             let dailyWO = 0;
             let dailyLeave = 0;
 
+            // Keep the employee lists used by the pie-chart tooltip in exactly the
+            // same categories as recalculateHeadcount(). This lets each coloured
+            // slice reveal the people represented by that slice when hovered.
+            const dailyShiftEmployees = {
+                '06:00/06:30/07:00 Shift': [],
+                '08:00 AM Shift': [],
+                '10:00 AM Shift': [],
+                'Off Days': [],
+                'PTO / Leave / Half Off': []
+            };
+
             (weekData.employees || []).forEach(e => {
-                const s = e.shifts ? e.shifts[activeDayName] : 'WO';
-                if (!s || s === 'WO') dailyWO++;
-                else if (s === 'PTO' || s === 'PH' || s === 'SL' || s === 'HD SL' || s.includes('Half Off')) dailyLeave++;
+                const name = String(e.name || '').trim() || String(e.sg_id || '').trim() || 'Unnamed Employee';
+                const s = e.shifts ? String(e.shifts[activeDayName] || '').trim() : 'WO';
+
+                if (!s || s === 'WO') {
+                    dailyWO++;
+                    dailyShiftEmployees['Off Days'].push(name);
+                } else if (s === 'PTO' || s === 'PH' || s === 'SL' || s === 'HD SL' || s.includes('Half Off')) {
+                    dailyLeave++;
+                    dailyShiftEmployees['PTO / Leave / Half Off'].push(name);
+                } else if (s.includes('10:00')) {
+                    dailyShiftEmployees['10:00 AM Shift'].push(name);
+                } else if (s.includes('08:00') || s.includes('8:00')) {
+                    dailyShiftEmployees['08:00 AM Shift'].push(name);
+                } else if (s.includes('06:00') || s.includes('6:00') || s.includes('06:30') || s.includes('6:30') || s.includes('07:00') || s.includes('7:00')) {
+                    dailyShiftEmployees['06:00/06:30/07:00 Shift'].push(name);
+                }
+            });
+
+            Object.keys(dailyShiftEmployees).forEach(key => {
+                dailyShiftEmployees[key].sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
             });
 
             const ctx1 = document.getElementById('coverageChart').getContext('2d');
@@ -6973,15 +7001,33 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: { 
-                        legend: { 
+                    plugins: {
+                        tooltip: {
+                            displayColors: true,
+                            callbacks: {
+                                // Keep the tooltip tied to the slice colour/label.
+                                title: (tooltipItems) => tooltipItems.length ? tooltipItems[0].label : '',
+                                label: (context) => ` ${context.raw} employee${context.raw === 1 ? '' : 's'}`,
+                                afterBody: (tooltipItems) => {
+                                    if (!tooltipItems.length) return [];
+                                    const label = tooltipItems[0].label;
+                                    const names = dailyShiftEmployees[label] || [];
+                                    if (!names.length) return ['No employees in this category'];
+                                    return ['Employees:', ...names.map((name, index) => `${index + 1}. ${name}`)];
+                                }
+                            },
+                            bodySpacing: 4,
+                            padding: 10,
+                            titleMarginBottom: 6
+                        },
+                        legend: {
                             position: 'bottom',
                             labels: {
                                 boxWidth: 12,
                                 padding: 8,
                                 font: { size: window.innerWidth < 640 ? 10 : 12 }
                             }
-                        } 
+                        }
                     }
                 }
             });
