@@ -6269,29 +6269,31 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             } else if (shift === 'PTO') {
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-rose-600 text-white border border-rose-700 shadow-md roster-status-badge">PTO</span>`;
             } else if (shift === 'PH') {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-purple-100 text-purple-900 border border-purple-400 shadow-sm">PH</span>`;
-            } else if (shift === 'SL' || shift === 'HD SL') {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-rose-100 text-rose-800 border border-rose-300 shadow-sm roster-status-badge">${shift}</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-rose-50 text-rose-700 border border-rose-500 shadow-sm">PH</span>`;
+            } else if (shift === 'SL') {
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-orange-100 text-orange-950 border border-orange-500 shadow-sm">SL</span>`;
+            } else if (shift === 'HD SL') {
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-fuchsia-100 text-fuchsia-900 border border-fuchsia-500 shadow-sm">HD SL</span>`;
             } else if (shift === '1st Half Off') {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-orange-100 text-orange-950 border border-orange-400 shadow-sm" title="1st Half Off">1st Half Off</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-orange-200 text-orange-950 border border-orange-600 shadow-sm" title="1st Half Off">1st Half Off</span>`;
             } else if (shift === '2nd Half Off') {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-amber-200 text-amber-950 border border-amber-500 shadow-sm" title="2nd Half Off">2nd Half Off</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-cyan-100 text-cyan-900 border border-cyan-500 shadow-sm" title="2nd Half Off">2nd Half Off</span>`;
             } else if (shift.includes("12:00 PM") || shift.includes("12:00")) {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-violet-100 text-violet-900 border border-violet-400 shadow-sm" title="${shift}">12:00 PM</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-violet-100 text-violet-900 border border-violet-500 shadow-sm" title="${shift}">12:00 PM</span>`;
             } else if (shift.includes("11:00 AM") || shift.includes("11:00")) {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-indigo-100 text-indigo-900 border border-indigo-400 shadow-sm" title="${shift}">11:00 AM</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-indigo-100 text-indigo-900 border border-indigo-500 shadow-sm" title="${shift}">11:00 AM</span>`;
             } else if (shift.includes("10:00")) {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-amber-100 text-amber-950 border border-amber-400 shadow-sm" title="${shift}">10:00 AM</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-yellow-100 text-yellow-950 border border-yellow-500 shadow-sm" title="${shift}">10:00 AM</span>`;
             } else if (shift.includes("06:30") || shift.includes("6:30")) {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-emerald-200 text-emerald-950 border border-emerald-500 shadow-sm" title="${shift}">06:30 AM</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-lime-100 text-lime-950 border border-lime-500 shadow-sm" title="${shift}">06:30 AM</span>`;
             } else if (shift.includes("06:00") || shift.includes("6:00")) {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-emerald-100 text-emerald-900 border border-emerald-400 shadow-sm" title="${shift}">06:00 AM</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-emerald-100 text-emerald-900 border border-emerald-500 shadow-sm" title="${shift}">06:00 AM</span>`;
             } else if (shift.includes("07:00") || shift.includes("7:00")) {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-teal-100 text-teal-900 border border-teal-400 shadow-sm" title="${shift}">07:00 AM</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-teal-100 text-teal-900 border border-teal-500 shadow-sm" title="${shift}">07:00 AM</span>`;
             } else if (shift.includes("08:00") || shift.includes("8:00")) {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-blue-100 text-blue-900 border border-blue-400 shadow-sm" title="${shift}">08:00 AM</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-blue-100 text-blue-900 border border-blue-500 shadow-sm" title="${shift}">08:00 AM</span>`;
             } else {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-indigo-100 text-indigo-900 border border-indigo-400 shadow-sm">${shift}</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-sky-100 text-sky-900 border border-sky-500 shadow-sm">${shift}</span>`;
             }
         }
 
