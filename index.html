@@ -3742,61 +3742,65 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
         // ---------------------------------------------------------------------
         function scanSabreHolidayTable(rows) {
             const records = [];
-            const isoStartRegex = /\b(20\d{2})-(\d{1,2})-(\d{1,2})\b/;
+            const isoRegex = /\b(20\d{2})-(\d{1,2})-(\d{1,2})\b/g;
             const officeRegex = /\b(?:US|UK|BLR|KRK|MVD|SGP)\b/gi;
             const weekdayRegex = /\b(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday|Mon|Tue|Wed|Thu|Fri|Sat|Sun)\b/gi;
 
-            // The table header is stable across Sabre calendars. Start after
-            // the first "Date Day ... Offices" heading when it exists.
-            let startIndex = rows.findIndex(r => /\bDate\b.*\bDay\b.*\bHoliday\s+Name\b.*\bOffices\b/i.test(r.text));
-            if (startIndex < 0) startIndex = 0;
+            // The Sabre holiday table is the authoritative source. Build a
+            // continuous text stream and split on EVERY ISO date. This avoids
+            // losing records when PDF.js places two table cells on one visual
+            // row or when a holiday name wraps across several PDF text rows.
+            const tableStart = rows.findIndex(r =>
+                /\bDate\b.*\bDay\b.*\bHoliday\s+Name\b.*\bOffices\b/i.test(r.text)
+            );
+            const tableRows = tableStart >= 0 ? rows.slice(tableStart + 1) : rows;
+            const tableText = tableRows.map(r => r.text || '').join(' ')
+                .replace(/\s+/g, ' ')
+                .trim();
 
-            for (let i = startIndex + 1; i < rows.length; i++) {
-                const row = rows[i];
-                const match = row.text.match(isoStartRegex);
-                if (!match) continue;
-
+            const matches = [...tableText.matchAll(isoRegex)];
+            matches.forEach((match, index) => {
                 const year = Number(match[1]);
                 const month = Number(match[2]);
                 const day = Number(match[3]);
-                if (month < 1 || month > 12 || day < 1 || day > 31) continue;
+                if (month < 1 || month > 12 || day < 1 || day > 31) return;
 
-                const block = [row.text];
-                let last = row;
-                for (let j = i + 1; j < rows.length; j++) {
-                    const next = rows[j];
-                    if (next.page !== row.page && next.page > row.page) break;
-                    if (isoStartRegex.test(next.text)) break;
-                    if (next.y < last.y - 2 || next.y - last.y > 38) break;
-                    block.push(next.text);
-                    last = next;
-                    i = j;
-                }
+                const blockStart = match.index;
+                const blockEnd = index + 1 < matches.length ? matches[index + 1].index : tableText.length;
+                let blockText = tableText.slice(blockStart, blockEnd).trim();
 
-                const blockText = block.join(' ').replace(/\s+/g, ' ').trim();
-                const offices = [...new Set((blockText.match(officeRegex) || []).map(x => x.toUpperCase()))]
+                const offices = [...new Set((blockText.match(officeRegex) || [])
+                    .map(x => x.toUpperCase()))]
                     .filter(x => knownOffices.includes(x));
 
                 let name = blockText
-                    .replace(isoStartRegex, ' ')
+                    .replace(/^20\d{2}-\d{1,2}-\d{1,2}\s*/, '')
                     .replace(weekdayRegex, ' ')
                     .replace(officeRegex, ' ')
                     .replace(/\b(?:Date|Day|Holiday|Name|Offices)\b/gi, ' ')
+                    .replace(/\bto\s+\d{1,2}-\d{1,2}\b/gi, ' ')
                     .replace(/\s+/g, ' ')
                     .trim();
 
-                // A range such as "2026-12-26 to 12-31" is handled below.
-                name = name.replace(/\bto\s+\d{1,2}-\d{1,2}\b/gi, ' ').replace(/\s+/g, ' ').trim();
+                // Remove page numbers/copyright/footer text that can sit
+                // between the last record on one page and the next date.
+                name = name
+                    .replace(/\b\d+\s+confidential\s+confidential\b/gi, ' ')
+                    .replace(/\|\s*©?20\d{2}.*?reserved\.?/gi, ' ')
+                    .replace(/\s+/g, ' ')
+                    .trim();
+
+                name = sanitizeName(name);
                 if (!name || name.length < 2) name = 'Sabre Holiday';
 
-                const iso = `${year}-${String(month).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+                const iso = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
                 records.push({
                     date: iso,
                     day: calcDayName(iso),
                     name,
                     offices: offices.length ? offices : [...knownOffices]
                 });
-            }
+            });
 
             return records;
         }
