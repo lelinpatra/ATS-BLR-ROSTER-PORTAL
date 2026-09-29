@@ -1,5 +1,1114 @@
 [
   {
+    "month": "January",
+    "week_num": 1,
+    "dates": [
+      "05/01/26",
+      "06/01/26",
+      "07/01/26",
+      "08/01/26",
+      "09/01/26",
+      "10/01/26",
+      "11/01/26"
+    ],
+    "employees": [
+      {
+        "sg_id": 223254,
+        "name": "Srinivas Reddy",
+        "skilling": "ATS",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
+        "days_office": "Tue/Wed/Thu",
+        "shifts": {
+          "Monday": "WO",
+          "Tuesday": "06:00 AM - 03:00 PM",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "06:00 AM - 03:00 PM",
+          "Friday": "06:00 AM - 03:00 PM",
+          "Saturday": "06:00 AM - 03:00 PM",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 223255,
+        "name": "Deepak K",
+        "skilling": "ATS",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "10:00 AM - 07:00 PM",
+          "Tuesday": "10:00 AM - 07:00 PM",
+          "Wednesday": "10:00 AM - 07:00 PM",
+          "Thursday": "PTO",
+          "Friday": "PTO",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 223258,
+        "name": "Md. Shahbaz",
+        "skilling": "ATS",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
+        "days_office": "Mon/Tue/Wed",
+        "shifts": {
+          "Monday": "06:00 AM - 03:00 PM",
+          "Tuesday": "06:00 AM - 03:00 PM",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "06:00 AM - 03:00 PM",
+          "Friday": "06:00 AM - 03:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": "223267",
+        "name": "Vaibhav Kalyankar",
+        "skilling": "ATS",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "No",
+        "shifts": {
+          "Monday": "10:00 AM - 07:00 PM",
+          "Tuesday": "10:00 AM - 07:00 PM",
+          "Wednesday": "10:00 AM - 07:00 PM",
+          "Thursday": "10:00 AM - 07:00 PM",
+          "Friday": "WO",
+          "Saturday": "WO",
+          "Sunday": "10:00 AM - 07:00 PM"
+        }
+      },
+      {
+        "sg_id": 227186,
+        "name": "Sanjay Kumar",
+        "skilling": "ATS",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "Tue/Wed/Thu",
+        "shifts": {
+          "Monday": "06:00 AM - 03:00 PM",
+          "Tuesday": "06:00 AM - 03:00 PM",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "06:00 AM - 03:00 PM",
+          "Friday": "WO",
+          "Saturday": "WO",
+          "Sunday": "06:00 AM - 03:00 PM"
+        }
+      },
+      {
+        "sg_id": "313253",
+        "name": "Pramod.K",
+        "skilling": "ATS",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "No",
+        "shifts": {
+          "Monday": "WO",
+          "Tuesday": "PTO",
+          "Wednesday": "PTO",
+          "Thursday": "10:00 AM - 07:00 PM",
+          "Friday": "10:00 AM - 07:00 PM",
+          "Saturday": "10:00 AM - 07:00 PM",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": "316090",
+        "name": "Sunil M",
+        "skilling": "ATS",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "No",
+        "shifts": {
+          "Monday": "10:00 AM - 07:00 PM",
+          "Tuesday": "10:00 AM - 07:00 PM",
+          "Wednesday": "10:00 AM - 07:00 PM",
+          "Thursday": "10:00 AM - 07:00 PM",
+          "Friday": "10:00 AM - 07:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 316092,
+        "name": "Lelin Patra",
+        "skilling": "ATS 2L",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "06:00 AM - 03:00 PM",
+          "Tuesday": "06:00 AM - 03:00 PM",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "06:00 AM - 03:00 PM",
+          "Friday": "06:00 AM - 03:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      }
+    ],
+    "qm_staff_6am": {
+      "Monday": "Unassigned",
+      "Tuesday": "Unassigned",
+      "Wednesday": "Unassigned",
+      "Thursday": "Unassigned",
+      "Friday": "Unassigned",
+      "Saturday": "Unassigned",
+      "Sunday": "Unassigned"
+    },
+    "qm_staff_10am": {
+      "Monday": "Unassigned",
+      "Tuesday": "Unassigned",
+      "Wednesday": "Unassigned",
+      "Thursday": "Unassigned",
+      "Friday": "Unassigned",
+      "Saturday": "Unassigned",
+      "Sunday": "Unassigned"
+    },
+    "total_headcount_6am": [
+      3,
+      4,
+      4,
+      4,
+      3,
+      1,
+      1
+    ],
+    "total_headcount_8am": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "total_headcount_10am": [
+      3,
+      3,
+      3,
+      3,
+      2,
+      1,
+      1
+    ],
+    "_portal_notifications": [
+      {
+        "id": "n_1790678878733_2_5cr1jv",
+        "createdAt": "2026-09-29T10:47:58.733Z",
+        "title": "Lelin Patra roster changed",
+        "message": "Lelin Patra shift/status changed on 29/09/26 from 06:00 AM - 03:00 PM to 12:00 PM - 09:00 PM.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Lelin Patra"
+      },
+      {
+        "id": "n_1790678878733_1_htfdss",
+        "createdAt": "2026-09-29T10:47:58.733Z",
+        "title": "Lelin Patra roster changed",
+        "message": "Lelin Patra shift/status changed on 28/09/26 from 06:00 AM - 03:00 PM to 11:00 AM - 08:00 PM.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Lelin Patra"
+      },
+      {
+        "id": "n_1790678878733_0_vz0cjo",
+        "createdAt": "2026-09-29T10:47:58.733Z",
+        "title": "January roster uploaded",
+        "message": "January month roster is uploaded and ready to view.",
+        "type": "month",
+        "month": "January",
+        "week": null,
+        "employee": ""
+      }
+    ],
+    "_user_credentials": {
+      "123456": {
+        "password": "TN78NSO5",
+        "isTemporary": true,
+        "lastChanged": 1790354675740,
+        "status": "ACTIVE"
+      },
+      "223254": {
+        "password": "PASS1234",
+        "isTemporary": true,
+        "lastChanged": 1790346182108,
+        "status": "ACTIVE"
+      },
+      "223255": {
+        "password": "PASS1234",
+        "isTemporary": true,
+        "lastChanged": 1790346182108,
+        "status": "ACTIVE"
+      },
+      "223258": {
+        "password": "PASS1234",
+        "isTemporary": true,
+        "lastChanged": 1790346182108,
+        "status": "ACTIVE"
+      },
+      "227186": {
+        "password": "PASS1234",
+        "isTemporary": true,
+        "lastChanged": 1790346182108,
+        "status": "ACTIVE"
+      },
+      "316092": {
+        "password": "1Q2W3E4R",
+        "isTemporary": false,
+        "lastChanged": 1790346182000,
+        "status": "ACTIVE"
+      },
+      "709115": {
+        "password": "PASS1234",
+        "isTemporary": true,
+        "lastChanged": 1790346182108,
+        "status": "ACTIVE"
+      },
+      "709139": {
+        "password": "PASS1234",
+        "isTemporary": true,
+        "lastChanged": 1790346182108,
+        "status": "ACTIVE"
+      },
+      "709282": {
+        "password": "PASS1234",
+        "isTemporary": true,
+        "lastChanged": 1790346182108,
+        "status": "ACTIVE"
+      },
+      "709283": {
+        "password": "PASS1234",
+        "isTemporary": true,
+        "lastChanged": 1790346182108,
+        "status": "ACTIVE"
+      },
+      "709312": {
+        "password": "PASS1234",
+        "isTemporary": true,
+        "lastChanged": 1790346182108,
+        "status": "ACTIVE"
+      },
+      "709424": {
+        "password": "PASS1234",
+        "isTemporary": true,
+        "lastChanged": 1790346182108,
+        "status": "ACTIVE"
+      },
+      "709454": {
+        "password": "PASS1234",
+        "isTemporary": true,
+        "lastChanged": 1790346182108,
+        "status": "ACTIVE"
+      }
+    },
+    "_admin_reset_requests": [],
+    "_exclusion_employees": [
+      {
+        "sg_id": "123456",
+        "name": "Jaan Jaan"
+      },
+      {
+        "sg_id": "223174",
+        "name": "Rajesh Warvadkar",
+        "email": "rajesh.warvadkar@sabre.com"
+      }
+    ],
+    "_sabre_holidays": [
+      {
+        "date": "2026-01-01",
+        "day": "Thursday",
+        "name": "New Year's Day",
+        "offices": [
+          "US",
+          "UK",
+          "BLR",
+          "KRK",
+          "MVD",
+          "SGP"
+        ]
+      },
+      {
+        "date": "2026-01-19",
+        "day": "Monday",
+        "name": "Martin Luther King Jr. Day",
+        "offices": [
+          "US"
+        ]
+      },
+      {
+        "date": "2026-01-26",
+        "day": "Monday",
+        "name": "Republic Day",
+        "offices": [
+          "BLR"
+        ]
+      },
+      {
+        "date": "2026-02-17",
+        "day": "Tuesday",
+        "name": "Chinese New Year",
+        "offices": [
+          "SGP"
+        ]
+      },
+      {
+        "date": "2026-03-03",
+        "day": "Tuesday",
+        "name": "Holi / Dhulivandan",
+        "offices": [
+          "BLR"
+        ]
+      },
+      {
+        "date": "2026-04-03",
+        "day": "Friday",
+        "name": "Good Friday",
+        "offices": [
+          "US",
+          "UK",
+          "BLR",
+          "KRK",
+          "MVD",
+          "SGP"
+        ]
+      },
+      {
+        "date": "2026-04-06",
+        "day": "Monday",
+        "name": "Easter Monday",
+        "offices": [
+          "UK",
+          "KRK"
+        ]
+      },
+      {
+        "date": "2026-05-01",
+        "day": "Friday",
+        "name": "Labor Day / May Day",
+        "offices": [
+          "BLR",
+          "KRK",
+          "MVD",
+          "SGP"
+        ]
+      },
+      {
+        "date": "2026-05-25",
+        "day": "Monday",
+        "name": "Memorial Day",
+        "offices": [
+          "US"
+        ]
+      },
+      {
+        "date": "2026-05-25",
+        "day": "Monday",
+        "name": "Spring Bank Holiday",
+        "offices": [
+          "UK"
+        ]
+      },
+      {
+        "date": "2026-06-19",
+        "day": "Friday",
+        "name": "Juneteenth",
+        "offices": [
+          "US"
+        ]
+      },
+      {
+        "date": "2026-07-03",
+        "day": "Friday",
+        "name": "Independence Day (Observed)",
+        "offices": [
+          "US"
+        ]
+      },
+      {
+        "date": "2026-08-15",
+        "day": "Saturday",
+        "name": "Independence Day",
+        "offices": [
+          "BLR",
+          "SGP"
+        ]
+      },
+      {
+        "date": "2026-08-31",
+        "day": "Monday",
+        "name": "Summer Bank Holiday",
+        "offices": [
+          "UK"
+        ]
+      },
+      {
+        "date": "2026-09-07",
+        "day": "Monday",
+        "name": "Labor Day",
+        "offices": [
+          "US"
+        ]
+      },
+      {
+        "date": "2026-10-02",
+        "day": "Friday",
+        "name": "Gandhi Jayanti",
+        "offices": [
+          "BLR"
+        ]
+      },
+      {
+        "date": "2026-10-20",
+        "day": "Tuesday",
+        "name": "Dussehra",
+        "offices": [
+          "BLR"
+        ]
+      },
+      {
+        "date": "2026-11-08",
+        "day": "Sunday",
+        "name": "Diwali (Deepavali)",
+        "offices": [
+          "BLR",
+          "SGP"
+        ]
+      },
+      {
+        "date": "2026-11-26",
+        "day": "Thursday",
+        "name": "Thanksgiving Day",
+        "offices": [
+          "US"
+        ]
+      },
+      {
+        "date": "2026-11-27",
+        "day": "Friday",
+        "name": "Day After Thanksgiving",
+        "offices": [
+          "US"
+        ]
+      },
+      {
+        "date": "2026-12-25",
+        "day": "Friday",
+        "name": "Christmas Day",
+        "offices": [
+          "US",
+          "UK",
+          "BLR",
+          "KRK",
+          "MVD",
+          "SGP"
+        ]
+      },
+      {
+        "date": "2026-12-26",
+        "day": "Saturday",
+        "name": "Boxing Day / St. Stephen's Day",
+        "offices": [
+          "UK",
+          "KRK"
+        ]
+      }
+    ],
+    "_dynamic_holiday_year": "2026"
+  },
+  {
+    "month": "January",
+    "week_num": 2,
+    "dates": [
+      "12/01/26",
+      "13/01/26",
+      "14/01/26",
+      "15/01/26",
+      "16/01/26",
+      "17/01/26",
+      "18/01/26"
+    ],
+    "employees": [
+      {
+        "sg_id": 223254,
+        "name": "Srinivas Reddy",
+        "skilling": "ATS",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
+        "days_office": "Tue/Wed/Thu",
+        "shifts": {
+          "Monday": "WO",
+          "Tuesday": "PTO",
+          "Wednesday": "PH",
+          "Thursday": "PTO",
+          "Friday": "PTO",
+          "Saturday": "06:00 AM - 03:00 PM",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 223255,
+        "name": "Deepak K",
+        "skilling": "ATS",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "10:00 AM - 07:00 PM",
+          "Tuesday": "10:00 AM - 07:00 PM",
+          "Wednesday": "PH",
+          "Thursday": "PTO",
+          "Friday": "PTO",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 223258,
+        "name": "Md. Shahbaz",
+        "skilling": "ATS",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
+        "days_office": "Mon/Tue/Wed",
+        "shifts": {
+          "Monday": "06:00 AM - 03:00 PM",
+          "Tuesday": "06:00 AM - 03:00 PM",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "06:00 AM - 03:00 PM",
+          "Friday": "06:00 AM - 03:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": "223267",
+        "name": "Vaibhav Kalyankar",
+        "skilling": "ATS",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "No",
+        "shifts": {
+          "Monday": "10:00 AM - 07:00 PM",
+          "Tuesday": "10:00 AM - 07:00 PM",
+          "Wednesday": "10:00 AM - 07:00 PM",
+          "Thursday": "10:00 AM - 07:00 PM",
+          "Friday": "WO",
+          "Saturday": "WO",
+          "Sunday": "10:00 AM - 07:00 PM"
+        }
+      },
+      {
+        "sg_id": 227186,
+        "name": "Sanjay Kumar",
+        "skilling": "ATS",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "Tue/Wed/Thu",
+        "shifts": {
+          "Monday": "06:00 AM - 03:00 PM",
+          "Tuesday": "06:00 AM - 03:00 PM",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "06:00 AM - 03:00 PM",
+          "Friday": "WO",
+          "Saturday": "WO",
+          "Sunday": "06:00 AM - 03:00 PM"
+        }
+      },
+      {
+        "sg_id": "313253",
+        "name": "Pramod.K",
+        "skilling": "ATS",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "No",
+        "shifts": {
+          "Monday": "WO",
+          "Tuesday": "10:00 AM - 07:00 PM",
+          "Wednesday": "10:00 AM - 07:00 PM",
+          "Thursday": "10:00 AM - 07:00 PM",
+          "Friday": "10:00 AM - 07:00 PM",
+          "Saturday": "10:00 AM - 07:00 PM",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": "316090",
+        "name": "Sunil M",
+        "skilling": "ATS",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "No",
+        "shifts": {
+          "Monday": "10:00 AM - 07:00 PM",
+          "Tuesday": "10:00 AM - 07:00 PM",
+          "Wednesday": "PH",
+          "Thursday": "10:00 AM - 07:00 PM",
+          "Friday": "10:00 AM - 07:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 316092,
+        "name": "Lelin Patra",
+        "skilling": "ATS 2L",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "06:00 AM - 03:00 PM",
+          "Tuesday": "06:00 AM - 03:00 PM",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "06:00 AM - 03:00 PM",
+          "Friday": "06:00 AM - 03:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      }
+    ],
+    "qm_staff_6am": {
+      "Monday": "Unassigned",
+      "Tuesday": "Unassigned",
+      "Wednesday": "Unassigned",
+      "Thursday": "Unassigned",
+      "Friday": "Unassigned",
+      "Saturday": "Unassigned",
+      "Sunday": "Unassigned"
+    },
+    "qm_staff_10am": {
+      "Monday": "Unassigned",
+      "Tuesday": "Unassigned",
+      "Wednesday": "Unassigned",
+      "Thursday": "Unassigned",
+      "Friday": "Unassigned",
+      "Saturday": "Unassigned",
+      "Sunday": "Unassigned"
+    },
+    "total_headcount_6am": [
+      3,
+      3,
+      3,
+      3,
+      2,
+      1,
+      1
+    ],
+    "total_headcount_8am": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "total_headcount_10am": [
+      3,
+      4,
+      2,
+      3,
+      2,
+      1,
+      1
+    ]
+  },
+  {
+    "month": "January",
+    "week_num": 3,
+    "dates": [
+      "19/01/26",
+      "20/01/26",
+      "21/01/26",
+      "22/01/26",
+      "23/01/26",
+      "24/01/26",
+      "25/01/26"
+    ],
+    "employees": [
+      {
+        "sg_id": 223254,
+        "name": "Srinivas Reddy",
+        "skilling": "ATS",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
+        "days_office": "Tue/Wed/Thu",
+        "shifts": {
+          "Monday": "WO",
+          "Tuesday": "06:00 AM - 03:00 PM",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "06:00 AM - 03:00 PM",
+          "Friday": "06:00 AM - 03:00 PM",
+          "Saturday": "06:00 AM - 03:00 PM",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 223255,
+        "name": "Deepak K",
+        "skilling": "ATS",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "10:00 AM - 07:00 PM",
+          "Tuesday": "10:00 AM - 07:00 PM",
+          "Wednesday": "10:00 AM - 07:00 PM",
+          "Thursday": "PTO",
+          "Friday": "PTO",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 223258,
+        "name": "Md. Shahbaz",
+        "skilling": "ATS",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
+        "days_office": "Mon/Tue/Wed",
+        "shifts": {
+          "Monday": "06:00 AM - 03:00 PM",
+          "Tuesday": "06:00 AM - 03:00 PM",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "06:00 AM - 03:00 PM",
+          "Friday": "06:00 AM - 03:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": "223267",
+        "name": "Vaibhav Kalyankar",
+        "skilling": "ATS",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "No",
+        "shifts": {
+          "Monday": "10:00 AM - 07:00 PM",
+          "Tuesday": "10:00 AM - 07:00 PM",
+          "Wednesday": "10:00 AM - 07:00 PM",
+          "Thursday": "10:00 AM - 07:00 PM",
+          "Friday": "WO",
+          "Saturday": "WO",
+          "Sunday": "10:00 AM - 07:00 PM"
+        }
+      },
+      {
+        "sg_id": 227186,
+        "name": "Sanjay Kumar",
+        "skilling": "ATS",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "Tue/Wed/Thu",
+        "shifts": {
+          "Monday": "06:00 AM - 03:00 PM",
+          "Tuesday": "06:00 AM - 03:00 PM",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "06:00 AM - 03:00 PM",
+          "Friday": "WO",
+          "Saturday": "WO",
+          "Sunday": "06:00 AM - 03:00 PM"
+        }
+      },
+      {
+        "sg_id": "313253",
+        "name": "Pramod.K",
+        "skilling": "ATS",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "No",
+        "shifts": {
+          "Monday": "WO",
+          "Tuesday": "10:00 AM - 07:00 PM",
+          "Wednesday": "10:00 AM - 07:00 PM",
+          "Thursday": "10:00 AM - 07:00 PM",
+          "Friday": "10:00 AM - 07:00 PM",
+          "Saturday": "10:00 AM - 07:00 PM",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": "316090",
+        "name": "Sunil M",
+        "skilling": "ATS",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "No",
+        "shifts": {
+          "Monday": "10:00 AM - 07:00 PM",
+          "Tuesday": "10:00 AM - 07:00 PM",
+          "Wednesday": "10:00 AM - 07:00 PM",
+          "Thursday": "10:00 AM - 07:00 PM",
+          "Friday": "10:00 AM - 07:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 316092,
+        "name": "Lelin Patra",
+        "skilling": "ATS 2L",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "06:00 AM - 03:00 PM",
+          "Tuesday": "06:00 AM - 03:00 PM",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "06:00 AM - 03:00 PM",
+          "Friday": "06:00 AM - 03:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      }
+    ],
+    "qm_staff_6am": {
+      "Monday": "Unassigned",
+      "Tuesday": "Unassigned",
+      "Wednesday": "Unassigned",
+      "Thursday": "Unassigned",
+      "Friday": "Unassigned",
+      "Saturday": "Unassigned",
+      "Sunday": "Unassigned"
+    },
+    "qm_staff_10am": {
+      "Monday": "Unassigned",
+      "Tuesday": "Unassigned",
+      "Wednesday": "Unassigned",
+      "Thursday": "Unassigned",
+      "Friday": "Unassigned",
+      "Saturday": "Unassigned",
+      "Sunday": "Unassigned"
+    },
+    "total_headcount_6am": [
+      3,
+      4,
+      4,
+      4,
+      3,
+      1,
+      1
+    ],
+    "total_headcount_8am": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "total_headcount_10am": [
+      3,
+      4,
+      4,
+      3,
+      2,
+      1,
+      1
+    ]
+  },
+  {
+    "month": "January",
+    "week_num": 4,
+    "dates": [
+      "26/01/26",
+      "27/01/26",
+      "28/01/26",
+      "29/01/26",
+      "30/01/26",
+      "31/01/26",
+      "01/02/26"
+    ],
+    "employees": [
+      {
+        "sg_id": 223254,
+        "name": "Srinivas Reddy",
+        "skilling": "ATS",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
+        "days_office": "Tue/Wed/Thu",
+        "shifts": {
+          "Monday": "WO",
+          "Tuesday": "06:00 AM - 03:00 PM",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "06:00 AM - 03:00 PM",
+          "Friday": "06:00 AM - 03:00 PM",
+          "Saturday": "06:00 AM - 03:00 PM",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 223255,
+        "name": "Deepak K",
+        "skilling": "ATS",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "10:00 AM - 07:00 PM",
+          "Tuesday": "10:00 AM - 07:00 PM",
+          "Wednesday": "10:00 AM - 07:00 PM",
+          "Thursday": "10:00 AM - 07:00 PM",
+          "Friday": "10:00 AM - 07:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 223258,
+        "name": "Md. Shahbaz",
+        "skilling": "ATS",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
+        "days_office": "Mon/Tue/Wed",
+        "shifts": {
+          "Monday": "06:00 AM - 03:00 PM",
+          "Tuesday": "06:00 AM - 03:00 PM",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "06:00 AM - 03:00 PM",
+          "Friday": "06:00 AM - 03:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": "223267",
+        "name": "Vaibhav Kalyankar",
+        "skilling": "ATS",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "No",
+        "shifts": {
+          "Monday": "PH",
+          "Tuesday": "10:00 AM - 07:00 PM",
+          "Wednesday": "10:00 AM - 07:00 PM",
+          "Thursday": "10:00 AM - 07:00 PM",
+          "Friday": "WO",
+          "Saturday": "WO",
+          "Sunday": "10:00 AM - 07:00 PM"
+        }
+      },
+      {
+        "sg_id": 227186,
+        "name": "Sanjay Kumar",
+        "skilling": "ATS",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "Tue/Wed/Thu",
+        "shifts": {
+          "Monday": "06:00 AM - 03:00 PM",
+          "Tuesday": "06:00 AM - 03:00 PM",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "06:00 AM - 03:00 PM",
+          "Friday": "WO",
+          "Saturday": "WO",
+          "Sunday": "06:00 AM - 03:00 PM"
+        }
+      },
+      {
+        "sg_id": "313253",
+        "name": "Pramod.K",
+        "skilling": "ATS",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "No",
+        "shifts": {
+          "Monday": "WO",
+          "Tuesday": "10:00 AM - 07:00 PM",
+          "Wednesday": "PTO",
+          "Thursday": "10:00 AM - 07:00 PM",
+          "Friday": "10:00 AM - 07:00 PM",
+          "Saturday": "10:00 AM - 07:00 PM",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": "316090",
+        "name": "Sunil M",
+        "skilling": "ATS",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "No",
+        "shifts": {
+          "Monday": "10:00 AM - 07:00 PM",
+          "Tuesday": "10:00 AM - 07:00 PM",
+          "Wednesday": "10:00 AM - 07:00 PM",
+          "Thursday": "10:00 AM - 07:00 PM",
+          "Friday": "10:00 AM - 07:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 316092,
+        "name": "Lelin Patra",
+        "skilling": "ATS 2L",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "PH",
+          "Tuesday": "06:00 AM - 03:00 PM",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "06:00 AM - 03:00 PM",
+          "Friday": "06:00 AM - 03:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      }
+    ],
+    "qm_staff_6am": {
+      "Monday": "Unassigned",
+      "Tuesday": "Unassigned",
+      "Wednesday": "Unassigned",
+      "Thursday": "Unassigned",
+      "Friday": "Unassigned",
+      "Saturday": "Unassigned",
+      "Sunday": "Unassigned"
+    },
+    "qm_staff_10am": {
+      "Monday": "Unassigned",
+      "Tuesday": "Unassigned",
+      "Wednesday": "Unassigned",
+      "Thursday": "Unassigned",
+      "Friday": "Unassigned",
+      "Saturday": "Unassigned",
+      "Sunday": "Unassigned"
+    },
+    "total_headcount_6am": [
+      2,
+      4,
+      4,
+      4,
+      3,
+      1,
+      1
+    ],
+    "total_headcount_8am": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "total_headcount_10am": [
+      2,
+      4,
+      3,
+      4,
+      3,
+      1,
+      1
+    ]
+  },
+  {
     "month": "September",
     "week_num": 1,
     "dates": [
@@ -83,7 +1192,7 @@
       {
         "sg_id": 223255,
         "name": "Deepak K",
-        "skilling": "ATS 2L",
+        "skilling": "ATS",
         "default_start": "10:00 AM",
         "default_end": "07:00 PM",
         "days_office": "Wed/Thu/Fri",
@@ -122,7 +1231,7 @@
         "default_end": "07:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
         "shifts": {
-          "Monday": "2nd Half Off",
+          "Monday": "HD SL",
           "Tuesday": "SL",
           "Wednesday": "10:00 AM - 07:00 PM",
           "Thursday": "10:00 AM - 07:00 PM",
@@ -254,601 +1363,14 @@
       0
     ],
     "total_headcount_10am": [
-      3,
+      2,
       1,
       4,
       3,
       2,
       1,
       1
-    ],
-    "_user_credentials": {
-      "123456": {
-        "password": "TN78NSO5",
-        "isTemporary": true,
-        "lastChanged": 1790354675740,
-        "status": "ACTIVE"
-      },
-      "223254": {
-        "password": "PASS1234",
-        "isTemporary": true,
-        "lastChanged": 1790346182108,
-        "status": "ACTIVE"
-      },
-      "223255": {
-        "password": "PASS1234",
-        "isTemporary": true,
-        "lastChanged": 1790346182108,
-        "status": "ACTIVE"
-      },
-      "223258": {
-        "password": "PASS1234",
-        "isTemporary": true,
-        "lastChanged": 1790346182108,
-        "status": "ACTIVE"
-      },
-      "227186": {
-        "password": "PASS1234",
-        "isTemporary": true,
-        "lastChanged": 1790346182108,
-        "status": "ACTIVE"
-      },
-      "316092": {
-        "password": "1Q2W3E4R",
-        "isTemporary": false,
-        "lastChanged": 1790346182000,
-        "status": "ACTIVE"
-      },
-      "709115": {
-        "password": "PASS1234",
-        "isTemporary": true,
-        "lastChanged": 1790346182108,
-        "status": "ACTIVE"
-      },
-      "709139": {
-        "password": "PASS1234",
-        "isTemporary": true,
-        "lastChanged": 1790346182108,
-        "status": "ACTIVE"
-      },
-      "709282": {
-        "password": "PASS1234",
-        "isTemporary": true,
-        "lastChanged": 1790346182108,
-        "status": "ACTIVE"
-      },
-      "709283": {
-        "password": "PASS1234",
-        "isTemporary": true,
-        "lastChanged": 1790346182108,
-        "status": "ACTIVE"
-      },
-      "709312": {
-        "password": "PASS1234",
-        "isTemporary": true,
-        "lastChanged": 1790346182108,
-        "status": "ACTIVE"
-      },
-      "709424": {
-        "password": "PASS1234",
-        "isTemporary": true,
-        "lastChanged": 1790346182108,
-        "status": "ACTIVE"
-      },
-      "709454": {
-        "password": "PASS1234",
-        "isTemporary": true,
-        "lastChanged": 1790346182108,
-        "status": "ACTIVE"
-      }
-    },
-    "_admin_reset_requests": [],
-    "_exclusion_employees": [
-      {
-        "sg_id": "223174",
-        "name": "Rajesh Warvadkar",
-        "email": "rajesh.warvadkar@sabre.com"
-      }
-    ],
-    "_sabre_holidays": [
-      {
-        "date": "2026-01-01",
-        "day": "Thursday",
-        "name": "New Year's Day",
-        "offices": [
-          "US",
-          "UK",
-          "BLR",
-          "KRK",
-          "MVD",
-          "SGP"
-        ]
-      },
-      {
-        "date": "2026-01-02",
-        "day": "Friday",
-        "name": "Year End Break",
-        "offices": [
-          "US",
-          "UK",
-          "BLR",
-          "KRK",
-          "MVD",
-          "SGP"
-        ]
-      },
-      {
-        "date": "2026-01-06",
-        "day": "Tuesday",
-        "name": "Epiphany",
-        "offices": [
-          "KRK"
-        ]
-      },
-      {
-        "date": "2026-01-15",
-        "day": "Thursday",
-        "name": "Makara Sankranti",
-        "offices": [
-          "BLR"
-        ]
-      },
-      {
-        "date": "2026-01-19",
-        "day": "Monday",
-        "name": "Martin Luther King, Jr. Day",
-        "offices": [
-          "US"
-        ]
-      },
-      {
-        "date": "2026-01-26",
-        "day": "Monday",
-        "name": "Republic Day",
-        "offices": [
-          "BLR"
-        ]
-      },
-      {
-        "date": "2026-02-16",
-        "day": "Monday",
-        "name": "Presidents' Day",
-        "offices": [
-          "US"
-        ]
-      },
-      {
-        "date": "2026-02-16",
-        "day": "Monday",
-        "name": "Carnival (non-working)",
-        "offices": [
-          "MVD"
-        ]
-      },
-      {
-        "date": "2026-02-17",
-        "day": "Tuesday",
-        "name": "Carnival",
-        "offices": [
-          "MVD"
-        ]
-      },
-      {
-        "date": "2026-02-17",
-        "day": "Tuesday",
-        "name": "Chinese / Lunar New Year",
-        "offices": [
-          "SGP"
-        ]
-      },
-      {
-        "date": "2026-02-18",
-        "day": "Wednesday",
-        "name": "Chinese / Lunar New Year",
-        "offices": [
-          "SGP"
-        ]
-      },
-      {
-        "date": "2026-03-04",
-        "day": "Wednesday",
-        "name": "Holi",
-        "offices": [
-          "BLR"
-        ]
-      },
-      {
-        "date": "2026-03-19",
-        "day": "Thursday",
-        "name": "Ugadi / Gudhi Padwa",
-        "offices": [
-          "BLR"
-        ]
-      },
-      {
-        "date": "2026-03-21",
-        "day": "Saturday",
-        "name": "Hari Raya Haji",
-        "offices": [
-          "SGP"
-        ]
-      },
-      {
-        "date": "2026-04-02",
-        "day": "Thursday",
-        "name": "Holy Week (non-working)",
-        "offices": [
-          "MVD"
-        ]
-      },
-      {
-        "date": "2026-04-03",
-        "day": "Friday",
-        "name": "Good",
-        "offices": [
-          "US",
-          "UK",
-          "BLR",
-          "KRK",
-          "MVD"
-        ]
-      },
-      {
-        "date": "2026-04-06",
-        "day": "Monday",
-        "name": "Easter",
-        "offices": [
-          "UK",
-          "KRK"
-        ]
-      },
-      {
-        "date": "2026-05-01",
-        "day": "Friday",
-        "name": "May Day / Labor Day",
-        "offices": [
-          "UK",
-          "KRK",
-          "MVD",
-          "SGP"
-        ]
-      },
-      {
-        "date": "2026-05-04",
-        "day": "Monday",
-        "name": "Early May Bank",
-        "offices": [
-          "UK"
-        ]
-      },
-      {
-        "date": "2026-05-05",
-        "day": "Tuesday",
-        "name": "Early May Bank",
-        "offices": [
-          "UK"
-        ]
-      },
-      {
-        "date": "2026-05-25",
-        "day": "Monday",
-        "name": "Spring Bank / Memorial , Day",
-        "offices": [
-          "US",
-          "UK"
-        ]
-      },
-      {
-        "date": "2026-05-27",
-        "day": "Wednesday",
-        "name": "Hari Raya Puasa",
-        "offices": [
-          "SGP"
-        ]
-      },
-      {
-        "date": "2026-05-28",
-        "day": "Thursday",
-        "name": "Bakrid",
-        "offices": [
-          "BLR"
-        ]
-      },
-      {
-        "date": "2026-06-01",
-        "day": "Monday",
-        "name": "Vesak Day (replacement)",
-        "offices": [
-          "SGP"
-        ]
-      },
-      {
-        "date": "2026-06-04",
-        "day": "Thursday",
-        "name": "Corpus Christi",
-        "offices": [
-          "KRK"
-        ]
-      },
-      {
-        "date": "2026-06-19",
-        "day": "Friday",
-        "name": "Juneteenth",
-        "offices": [
-          "US"
-        ]
-      },
-      {
-        "date": "2026-07-03",
-        "day": "Friday",
-        "name": "Independence Day (observed)",
-        "offices": [
-          "US"
-        ]
-      },
-      {
-        "date": "2026-07-18",
-        "day": "Saturday",
-        "name": "Constitution Day (non- working)",
-        "offices": [
-          "MVD"
-        ]
-      },
-      {
-        "date": "2026-08-10",
-        "day": "Monday",
-        "name": "National Day (replacement)",
-        "offices": [
-          "SGP"
-        ]
-      },
-      {
-        "date": "2026-08-14",
-        "day": "Friday",
-        "name": "Assumption Day (obs.)",
-        "offices": [
-          "KRK"
-        ]
-      },
-      {
-        "date": "2026-08-15",
-        "day": "Saturday",
-        "name": "Independence Day",
-        "offices": [
-          "BLR"
-        ]
-      },
-      {
-        "date": "2026-08-25",
-        "day": "Tuesday",
-        "name": "Independence Day (non- working)",
-        "offices": [
-          "MVD"
-        ]
-      },
-      {
-        "date": "2026-08-31",
-        "day": "Monday",
-        "name": "Summer Bank",
-        "offices": [
-          "UK"
-        ]
-      },
-      {
-        "date": "2026-09-04",
-        "day": "Friday",
-        "name": "Janmashtami",
-        "offices": [
-          "BLR"
-        ]
-      },
-      {
-        "date": "2026-09-07",
-        "day": "Monday",
-        "name": "Labor Day",
-        "offices": [
-          "US"
-        ]
-      },
-      {
-        "date": "2026-09-14",
-        "day": "Monday",
-        "name": "Ganesh Chaturthi",
-        "offices": [
-          "BLR"
-        ]
-      },
-      {
-        "date": "2026-10-02",
-        "day": "Friday",
-        "name": "Gandhi Jayanti",
-        "offices": [
-          "BLR"
-        ]
-      },
-      {
-        "date": "2026-10-12",
-        "day": "Monday",
-        "name": "Columbus Day",
-        "offices": [
-          "US"
-        ]
-      },
-      {
-        "date": "2026-10-20",
-        "day": "Tuesday",
-        "name": "Dussehra / Vijayadashami",
-        "offices": [
-          "BLR"
-        ]
-      },
-      {
-        "date": "2026-11-01",
-        "day": "Sunday",
-        "name": "Kannada Rajyotsava",
-        "offices": [
-          "BLR"
-        ]
-      },
-      {
-        "date": "2026-11-09",
-        "day": "Monday",
-        "name": "Deepavali (replacement)",
-        "offices": [
-          "SGP"
-        ]
-      },
-      {
-        "date": "2026-11-10",
-        "day": "Tuesday",
-        "name": "Deepavali",
-        "offices": [
-          "BLR"
-        ]
-      },
-      {
-        "date": "2026-11-11",
-        "day": "Wednesday",
-        "name": "Independence / Veterans , Day",
-        "offices": [
-          "US",
-          "KRK"
-        ]
-      },
-      {
-        "date": "2026-11-24",
-        "day": "Tuesday",
-        "name": "Guru Nanak's Birthday",
-        "offices": [
-          "BLR"
-        ]
-      },
-      {
-        "date": "2026-11-26",
-        "day": "Thursday",
-        "name": "Thanksgiving Day",
-        "offices": [
-          "US"
-        ]
-      },
-      {
-        "date": "2026-12-23",
-        "day": "Wednesday",
-        "name": "Boxing Day (observed)",
-        "offices": [
-          "UK"
-        ]
-      },
-      {
-        "date": "2026-12-24",
-        "day": "Thursday",
-        "name": "Christmas Eve",
-        "offices": [
-          "KRK",
-          "MVD"
-        ]
-      },
-      {
-        "date": "2026-12-25",
-        "day": "Friday",
-        "name": "Christmas Day",
-        "offices": [
-          "US",
-          "UK",
-          "BLR",
-          "KRK",
-          "MVD"
-        ]
-      },
-      {
-        "date": "2026-12-26",
-        "day": "Saturday",
-        "name": "Boxing Day",
-        "offices": [
-          "UK",
-          "KRK"
-        ]
-      },
-      {
-        "date": "2026-12-26",
-        "day": "Saturday",
-        "name": "Sabre Year End Break",
-        "offices": [
-          "US",
-          "UK",
-          "BLR",
-          "KRK",
-          "MVD",
-          "SGP"
-        ]
-      },
-      {
-        "date": "2026-12-27",
-        "day": "Sunday",
-        "name": "Sabre Year End Break",
-        "offices": [
-          "US",
-          "UK",
-          "BLR",
-          "KRK",
-          "MVD",
-          "SGP"
-        ]
-      },
-      {
-        "date": "2026-12-28",
-        "day": "Monday",
-        "name": "Sabre Year End Break",
-        "offices": [
-          "US",
-          "UK",
-          "BLR",
-          "KRK",
-          "MVD",
-          "SGP"
-        ]
-      },
-      {
-        "date": "2026-12-29",
-        "day": "Tuesday",
-        "name": "Sabre Year End Break",
-        "offices": [
-          "US",
-          "UK",
-          "BLR",
-          "KRK",
-          "MVD",
-          "SGP"
-        ]
-      },
-      {
-        "date": "2026-12-30",
-        "day": "Wednesday",
-        "name": "Sabre Year End Break",
-        "offices": [
-          "US",
-          "UK",
-          "BLR",
-          "KRK",
-          "MVD",
-          "SGP"
-        ]
-      },
-      {
-        "date": "2026-12-31",
-        "day": "Thursday",
-        "name": "Sabre Year End Break",
-        "offices": [
-          "US",
-          "UK",
-          "BLR",
-          "KRK",
-          "MVD",
-          "SGP"
-        ]
-      }
-    ],
-    "_dynamic_holiday_year": "2026"
+    ]
   },
   {
     "month": "September",
@@ -934,7 +1456,7 @@
       {
         "sg_id": 223255,
         "name": "Deepak K",
-        "skilling": "ATS 2L",
+        "skilling": "ATS",
         "default_start": "10:00 AM",
         "default_end": "07:00 PM",
         "days_office": "Tue/Wed/Thu/Fri",
@@ -1198,7 +1720,7 @@
       {
         "sg_id": 223255,
         "name": "Deepak K",
-        "skilling": "ATS 2L",
+        "skilling": "ATS",
         "default_start": "10:00 AM",
         "default_end": "07:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
@@ -1333,22 +1855,22 @@
       }
     ],
     "qm_staff_6am": {
-      "Monday": "Md. Shahbaz",
-      "Tuesday": "Md. Shahbaz",
-      "Wednesday": "Md. Shahbaz",
-      "Thursday": "Srinivas Reddy",
-      "Friday": "Srinivas Reddy",
-      "Saturday": "Md. Shahbaz",
-      "Sunday": "Md. Shahbaz"
+      "Monday": "Unassigned",
+      "Tuesday": "Unassigned",
+      "Wednesday": "Unassigned",
+      "Thursday": "Unassigned",
+      "Friday": "Unassigned",
+      "Saturday": "Unassigned",
+      "Sunday": "Unassigned"
     },
     "qm_staff_10am": {
-      "Monday": "Deepak K",
-      "Tuesday": "Deepak K",
-      "Wednesday": "Deepak K",
-      "Thursday": "Deepak K",
-      "Friday": "Deepak K",
-      "Saturday": "Sanjay Kumar",
-      "Sunday": "Sanjay Kumar"
+      "Monday": "Unassigned",
+      "Tuesday": "Unassigned",
+      "Wednesday": "Unassigned",
+      "Thursday": "Unassigned",
+      "Friday": "Unassigned",
+      "Saturday": "Unassigned",
+      "Sunday": "Unassigned"
     },
     "total_headcount_6am": [
       6,
@@ -1399,8 +1921,8 @@
         "default_end": "03:00 PM",
         "days_office": "Mon/Tue/Wed/Thu",
         "shifts": {
-          "Monday": "06:00 AM - 03:00 PM",
-          "Tuesday": "06:00 AM - 03:00 PM",
+          "Monday": "11:00 AM - 08:00 PM",
+          "Tuesday": "12:00 PM - 09:00 PM",
           "Wednesday": "06:00 AM - 03:00 PM",
           "Thursday": "06:00 AM - 03:00 PM",
           "Friday": "06:00 AM - 03:00 PM",
@@ -1450,30 +1972,30 @@
         "default_end": "03:00 PM",
         "days_office": "Mon/Tue/Wed/Thu",
         "shifts": {
-          "Monday": "WO",
+          "Monday": "06:00 AM - 03:00 PM",
           "Tuesday": "06:00 AM - 03:00 PM",
           "Wednesday": "06:00 AM - 03:00 PM",
           "Thursday": "06:00 AM - 03:00 PM",
           "Friday": "06:00 AM - 03:00 PM",
           "Saturday": "WO",
-          "Sunday": "10:00 AM - 07:00 PM"
+          "Sunday": "WO"
         }
       },
       {
         "sg_id": 223255,
         "name": "Deepak K",
-        "skilling": "ATS 2L",
+        "skilling": "ATS",
         "default_start": "10:00 AM",
         "default_end": "07:00 PM",
         "days_office": "Mon/Tue/Wed/Thu",
         "shifts": {
-          "Monday": "08:00 AM - 05:00 PM",
+          "Monday": "WO",
           "Tuesday": "10:00 AM - 07:00 PM",
           "Wednesday": "10:00 AM - 07:00 PM",
           "Thursday": "07:00 AM -04:00 PM",
           "Friday": "07:00 AM -04:00 PM",
           "Saturday": "WO",
-          "Sunday": "WO"
+          "Sunday": "10:00 AM - 07:00 PM"
         }
       },
       {
@@ -1597,26 +2119,26 @@
       }
     ],
     "qm_staff_6am": {
-      "Monday": "Md. Shahbaz",
-      "Tuesday": "Md. Shahbaz",
-      "Wednesday": "Md. Shahbaz",
-      "Thursday": "Rupesh C P",
-      "Friday": "Rupesh C P",
-      "Saturday": "Md. Shahbaz",
-      "Sunday": "Md. Shahbaz"
+      "Monday": "Unassigned",
+      "Tuesday": "Unassigned",
+      "Wednesday": "Unassigned",
+      "Thursday": "Unassigned",
+      "Friday": "Unassigned",
+      "Saturday": "Unassigned",
+      "Sunday": "Unassigned"
     },
     "qm_staff_10am": {
-      "Monday": "Deepak K",
-      "Tuesday": "Deepak K",
-      "Wednesday": "Deepak K",
-      "Thursday": "Deepak K",
-      "Friday": "Deepak K",
-      "Saturday": "Srinivas Reddy",
-      "Sunday": "Rupesh C P"
+      "Monday": "Unassigned",
+      "Tuesday": "Unassigned",
+      "Wednesday": "Unassigned",
+      "Thursday": "Unassigned",
+      "Friday": "Unassigned",
+      "Saturday": "Unassigned",
+      "Sunday": "Unassigned"
     },
     "total_headcount_6am": [
       4,
-      5,
+      4,
       5,
       5,
       5,
@@ -1640,6 +2162,270 @@
       2,
       1,
       1
+    ]
+  },
+  {
+    "month": "October",
+    "week_num": 1,
+    "dates": [
+      "05/10/26",
+      "06/10/26",
+      "07/10/26",
+      "08/10/26",
+      "09/10/26",
+      "10/10/26",
+      "11/10/26"
+    ],
+    "employees": [
+      {
+        "sg_id": 316092,
+        "name": "Lelin Patra",
+        "skilling": "ATS 2L",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "06:00 AM - 03:00 PM",
+          "Tuesday": "06:00 AM - 03:00 PM",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "06:00 AM - 03:00 PM",
+          "Friday": "06:00 AM - 03:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 227186,
+        "name": "Sanjay Kumar",
+        "skilling": "ATS",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
+        "days_office": "Tue/Wed/Thu",
+        "shifts": {
+          "Monday": "06:00 AM - 03:00 PM",
+          "Tuesday": "06:00 AM - 03:00 PM",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "06:00 AM - 03:00 PM",
+          "Friday": "06:00 AM - 03:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 223255,
+        "name": "Deepak K",
+        "skilling": "ATS",
+        "default_start": "08:00 AM",
+        "default_end": "05:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "08:00 AM - 05:00 PM",
+          "Tuesday": "08:00 AM - 05:00 PM",
+          "Wednesday": "08:00 AM - 05:00 PM",
+          "Thursday": "08:00 AM - 05:00 PM",
+          "Friday": "08:00 AM - 05:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 223254,
+        "name": "Srinivas Reddy",
+        "skilling": "ATS",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "Tue/Wed/Thu",
+        "shifts": {
+          "Monday": "10:00 AM - 07:00 PM",
+          "Tuesday": "10:00 AM - 07:00 PM",
+          "Wednesday": "10:00 AM - 07:00 PM",
+          "Thursday": "10:00 AM - 07:00 PM",
+          "Friday": "10:00 AM - 07:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 709454,
+        "name": "Prathavi",
+        "skilling": "ATS",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "10:00 AM - 07:00 PM",
+          "Tuesday": "10:00 AM - 07:00 PM",
+          "Wednesday": "10:00 AM - 07:00 PM",
+          "Thursday": "10:00 AM - 07:00 PM",
+          "Friday": "10:00 AM - 07:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 709282,
+        "name": "Preethi P",
+        "skilling": "ATS",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "10:00 AM - 07:00 PM",
+          "Tuesday": "10:00 AM - 07:00 PM",
+          "Wednesday": "10:00 AM - 07:00 PM",
+          "Thursday": "10:00 AM - 07:00 PM",
+          "Friday": "10:00 AM - 07:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 709139,
+        "name": "Rupesh C P",
+        "skilling": "ATS",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "10:00 AM - 07:00 PM",
+          "Tuesday": "10:00 AM - 07:00 PM",
+          "Wednesday": "10:00 AM - 07:00 PM",
+          "Thursday": "10:00 AM - 07:00 PM",
+          "Friday": "10:00 AM - 07:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 709115,
+        "name": "Gokul Krishna Lokesh",
+        "skilling": "ATS",
+        "default_start": "08:00 AM",
+        "default_end": "05:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "08:00 AM - 05:00 PM",
+          "Tuesday": "08:00 AM - 05:00 PM",
+          "Wednesday": "08:00 AM - 05:00 PM",
+          "Thursday": "08:00 AM - 05:00 PM",
+          "Friday": "08:00 AM - 05:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 709312,
+        "name": "Manisha Kumari",
+        "skilling": "ATS",
+        "default_start": "08:00 AM",
+        "default_end": "05:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "08:00 AM - 05:00 PM",
+          "Tuesday": "08:00 AM - 05:00 PM",
+          "Wednesday": "08:00 AM - 05:00 PM",
+          "Thursday": "08:00 AM - 05:00 PM",
+          "Friday": "08:00 AM - 05:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 709424,
+        "name": "Bhargav R",
+        "skilling": "ATS",
+        "default_start": "08:00 AM",
+        "default_end": "05:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "6:00 AM - 03:00 PM",
+          "Tuesday": "6:00 AM - 03:00 PM",
+          "Wednesday": "6:00 AM - 03:00 PM",
+          "Thursday": "6:00 AM - 03:00 PM",
+          "Friday": "6:00 AM - 03:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 709283,
+        "name": "Nidhi Taku",
+        "skilling": "ATS",
+        "default_start": "08:00 AM",
+        "default_end": "05:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "6:00 AM - 03:00 PM",
+          "Tuesday": "6:00 AM - 03:00 PM",
+          "Wednesday": "6:00 AM - 03:00 PM",
+          "Thursday": "6:00 AM - 03:00 PM",
+          "Friday": "6:00 AM - 03:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 223258,
+        "name": "Md. Shahbaz",
+        "skilling": "ATS",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
+        "days_office": "Mon/Tue/Wed",
+        "shifts": {
+          "Monday": "06:00 AM - 03:00 PM",
+          "Tuesday": "06:00 AM - 03:00 PM",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "WO",
+          "Friday": "WO",
+          "Saturday": "06:00 AM - 03:00 PM",
+          "Sunday": "06:30 AM - 03:30 PM"
+        }
+      }
+    ],
+    "qm_staff_6am": {
+      "Monday": "Unassigned",
+      "Tuesday": "Unassigned",
+      "Wednesday": "Unassigned",
+      "Thursday": "Unassigned",
+      "Friday": "Unassigned",
+      "Saturday": "Unassigned",
+      "Sunday": "Unassigned"
+    },
+    "qm_staff_10am": {
+      "Monday": "Unassigned",
+      "Tuesday": "Unassigned",
+      "Wednesday": "Unassigned",
+      "Thursday": "Unassigned",
+      "Friday": "Unassigned",
+      "Saturday": "Unassigned",
+      "Sunday": "Unassigned"
+    },
+    "total_headcount_6am": [
+      5,
+      5,
+      5,
+      4,
+      4,
+      1,
+      1
+    ],
+    "total_headcount_8am": [
+      3,
+      3,
+      3,
+      3,
+      3,
+      0,
+      0
+    ],
+    "total_headcount_10am": [
+      4,
+      4,
+      4,
+      4,
+      4,
+      0,
+      0
     ]
   }
 ]
