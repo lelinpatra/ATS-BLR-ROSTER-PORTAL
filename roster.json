@@ -219,28 +219,10 @@
         "lastChanged": 1790346182108,
         "status": "ACTIVE"
       },
-      "223267": {
-        "password": "PASS1234",
-        "isTemporary": true,
-        "lastChanged": 1790682585508,
-        "status": "ACTIVE"
-      },
       "227186": {
         "password": "PASS1234",
         "isTemporary": true,
         "lastChanged": 1790346182108,
-        "status": "ACTIVE"
-      },
-      "313253": {
-        "password": "PASS1234",
-        "isTemporary": true,
-        "lastChanged": 1790682585508,
-        "status": "ACTIVE"
-      },
-      "316090": {
-        "password": "PASS1234",
-        "isTemporary": true,
-        "lastChanged": 1790682585508,
         "status": "ACTIVE"
       },
       "316092": {
@@ -712,6 +694,19 @@
       {
         "date": "2026-12-26",
         "day": "Saturday",
+        "name": "to - - Year End Break",
+        "offices": [
+          "US",
+          "UK",
+          "BLR",
+          "KRK",
+          "MVD",
+          "SGP"
+        ]
+      },
+      {
+        "date": "2026-12-26",
+        "day": "Saturday",
         "name": "Sabre Year End Break",
         "offices": [
           "US",
@@ -791,8 +786,8 @@
     "_dynamic_holiday_year": "2026",
     "_portal_notifications": [
       {
-        "id": "n_1790705187172_0_kk6nho",
-        "createdAt": "2026-09-29T18:06:27.172Z",
+        "id": "n_1790705903222_0_menc47",
+        "createdAt": "2026-09-29T18:18:23.222Z",
         "title": "January roster uploaded",
         "message": "January month roster is uploaded and ready to view.",
         "type": "month",
