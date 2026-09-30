@@ -5778,7 +5778,15 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                     rawRosterData[0]._dynamic_holiday_year = dynamicHolidayYear;
                 }
 
-                const jsonContent = JSON.stringify(rawRosterData, null, 2);
+                // Final serialization guard: canonicalize every saved shift.
+            rawRosterData.forEach(week => (week.employees || []).forEach(emp => {
+                emp.shifts = emp.shifts || {};
+                Object.keys(emp.shifts).forEach(day => {
+                    emp.shifts[day] = normalizeRosterShiftValue(emp.shifts[day]);
+                });
+            }));
+
+            const jsonContent = JSON.stringify(rawRosterData, null, 2);
                 const encodedContent = btoa(unescape(encodeURIComponent(jsonContent)));
 
                 const putRes = await fetch(url, {
@@ -6411,6 +6419,23 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             }
         }
 
+        function normalizeRosterShiftValue(value) {
+            const v = String(value ?? '').trim().replace(/\s+/g, ' ');
+            if (/^11:00 AM\s*-\s*08:00 PM$/i.test(v)) return '11:00 AM - 08:00 PM';
+            if (/^12:00 PM\s*-\s*09:00 PM$/i.test(v)) return '12:00 PM - 09:00 PM';
+            if (/^08:00 AM\s*-\s*05:00 PM$/i.test(v)) return '08:00 AM - 05:00 PM';
+            if (/^10:00 AM\s*-\s*07:00 PM$/i.test(v)) return '10:00 AM - 07:00 PM';
+            if (/^06:00 AM\s*-\s*03:00 PM$/i.test(v)) return '06:00 AM - 03:00 PM';
+            if (/^07:00 AM\s*-\s*04:00 PM$/i.test(v)) return '07:00 AM - 04:00 PM';
+            if (/^06:30 AM\s*-\s*03:30 PM$/i.test(v)) return '06:30 AM - 03:30 PM';
+            if (/^comp\.?\s*off$/i.test(v) || /^compoff$/i.test(v)) return 'Comp Off';
+            if (/^pto$/i.test(v)) return 'PTO';
+            if (/^sl$/i.test(v)) return 'SL';
+            if (/^ph$/i.test(v)) return 'PH';
+            if (/^wo$/i.test(v)) return 'WO';
+            return v;
+        }
+
         function normalizeHalfDayShiftValue(value) {
             const v = String(value || '').trim().replace(/\s+/g, ' ');
             // Preserve the actual base shift when a half-day option is selected.
@@ -6425,7 +6450,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
 
         function updateShiftInteractive(sgId, day, selectElem) {
             if (!canEditRosterShifts()) return;
-            const newShift = normalizeHalfDayShiftValue(selectElem.value);
+            const newShift = normalizeRosterShiftValue(normalizeHalfDayShiftValue(selectElem.value));
             const weekData = getActiveWeekData();
             const emp = weekData.employees.find(e => String(e.sg_id) === String(sgId));
 
@@ -7287,7 +7312,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             if (status === 'wo') return 'WO';
             // Correct the common Excel typo without changing other custom text.
             if (/^06:30 AM\\s*-\\s*03300 PM$/i.test(raw)) return '06:30 AM - 03:30 PM';
-            return raw;
+            return normalizeRosterShiftValue(raw);
         }
 
         function inferWeekFromMondayDate(date) {
@@ -7587,7 +7612,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 if(!emp.default_end && row.default_end) emp.default_end=row.default_end;
                 if(!emp.days_office || emp.days_office === 'No') { if(row.days_office) emp.days_office=row.days_office; }
                 Object.keys(row.shifts||{}).forEach(day => {
-                    if(row.shifts[day]!==undefined && String(row.shifts[day]).trim()!=='') emp.shifts[day]=String(row.shifts[day]).trim();
+                    if(row.shifts[day]!==undefined && String(row.shifts[day]).trim()!=='') emp.shifts[day]=normalizeRosterShiftValue(row.shifts[day]);
                 });
             };
 
@@ -7801,7 +7826,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                             const value = String(srcEmp.shifts[day] ?? '').trim();
                             // Never allow a month name to become a shift value.
                             if (/^(January|February|March|April|May|June|July|August|September|October|November|December)$/i.test(value)) return;
-                            if (value !== '') emp.shifts[day] = value;
+                            if (value !== '') emp.shifts[day] = normalizeRosterShiftValue(value);
                         }
                     });
                 });
@@ -7909,6 +7934,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 };
                 localStorage.setItem(ADMIN_DRAFT_STORAGE_KEY, JSON.stringify(payload));
                 rawRosterData = cloneRosterWeeks(mergedRoster);
+                stagedExcelRosterData = cloneRosterWeeks(mergedRoster);
                 // Excel is allowed to add/update Month + Week navigation entries, but the
                 // SHIFT TIMING selectors must remain exactly the portal's existing controls.
                 // renderView() rebuilds only the Month/Week navigation and the roster cells;
