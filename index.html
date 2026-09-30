@@ -269,16 +269,17 @@
         .login-submit{min-height:46px;display:flex;align-items:center;justify-content:center;gap:10px;border-radius:12px;background:linear-gradient(135deg,#f59e0b 0%,#d97706 100%);color:#111827;font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;box-shadow:0 8px 18px rgba(245,158,11,.20),inset 0 1px 0 rgba(255,255,255,.4);transition:.2s ease}.login-submit:hover{transform:translateY(-1px);box-shadow:0 13px 28px rgba(245,158,11,.3),inset 0 1px 0 rgba(255,255,255,.45)}.login-submit:active{transform:translateY(0)}.login-forgot{color:#475569;font-size:11px;font-weight:800;text-decoration:underline;text-underline-offset:3px;transition:.2s}.login-forgot:hover{color:#d97706}.login-error{display:flex;align-items:center;gap:9px;padding:10px 12px;border-radius:10px;background:#fff1f2;border:1px solid #fecdd3;color:#be123c;font-size:11px;font-weight:800;line-height:1.4}
         .login-data-accent{color:#4f46e5}.login-sabre-mark{box-shadow:0 5px 14px rgba(15,23,42,.10)}.login-sabre-mark-large{padding:10px 16px;min-width:170px;justify-content:center}.login-input-wrap:focus-within{border-color:#6366f1;box-shadow:0 0 0 3px rgba(99,102,241,.12),0 5px 14px rgba(15,23,42,.05)}.login-submit{background:linear-gradient(135deg,#f59e0b 0%,#d97706 100%)}
         @media (max-width:767px){.login-card{min-height:0;max-height:calc(100vh - 28px);overflow-y:auto;border-radius:22px}.login-form-panel{padding:20px 18px}}
-        /* Sabre Holiday Calendar table — consistent column alignment */
+
+        /* Sabre Holiday Calendar — fixed columns and left-aligned Holiday Name */
         .holiday-calendar-table { table-layout: fixed; width: 100%; }
         .holiday-calendar-table .holiday-date-col { width: 14%; }
         .holiday-calendar-table .holiday-day-col { width: 14%; }
         .holiday-calendar-table .holiday-name-col { width: 44%; }
         .holiday-calendar-table .holiday-office-col { width: 28%; }
         .holiday-calendar-table th,
-        .holiday-calendar-table td { vertical-align: middle; text-align: left; }
-        .holiday-calendar-table td:nth-child(3) { text-align: left; }
-        .holiday-calendar-table td:nth-child(4) { text-align: left; }
+        .holiday-calendar-table td { vertical-align: middle !important; text-align: left !important; }
+        .holiday-calendar-table th:nth-child(3),
+        .holiday-calendar-table td:nth-child(3) { text-align: left !important; }
         @media (max-width: 767px) {
             .holiday-calendar-table { min-width: 680px; }
         }
@@ -4051,58 +4052,225 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
             });
         });
 
+        // Remove duplicate generic fallback entries when a real name exists
+        // for the same date.
+        const cleanedHolidays = parsedHolidays.filter((holiday, index, arr) => {
+            if (holiday.name !== "Sabre Holiday") return true;
+            return !arr.some((other, otherIndex) =>
+                otherIndex !== index &&
+                other.date === holiday.date &&
+                other.name !== "Sabre Holiday"
+            );
+        });
+
+        cleanedHolidays.sort((a, b) => a.date.localeCompare(b.date));
+
         // ---------------------------------------------------------------------
-        // FINAL HOLIDAY CLEAN-UP
+        // MULTI-DAY HOLIDAY RANGES
         //
-        // The PDF may contain the same calendar date more than once (for
-        // example a normal holiday row plus a "Year End Break" range row).
-        // "Sabre Year End Break" is a calendar-range annotation and must NOT
-        // become a holiday entry in this portal. Keep the actual holiday
-        // records only and collapse all remaining duplicates by DATE.
+        // The Sabre PDF has a special final entry formatted as:
+        //   2026-12-26 to 12-31
+        //   Sat - Thu Sabre Year End Break
+        //   US, UK, BLR, KRK, MVD, SGP
+        //
+        // PDF.js can expose this as separate text rows, so normal single-date
+        // parsing is not enough. Expand the range into one holiday record per
+        // calendar date while keeping the same holiday name and offices.
+        // This makes Dec 26, 27, 28, 29, 30 and 31 independently searchable
+        // and visible in the holiday table.
         // ---------------------------------------------------------------------
-        const cleanedHolidays = [];
+        const rangeHolidays = [];
+        const rangeRegex = /\b(20\d{2})-(\d{1,2})-(\d{1,2})\s+to\s+(\d{1,2})-(\d{1,2})\b/i;
 
-        parsedHolidays.forEach(holiday => {
-            const normalizedName = String(holiday.name || "").trim();
+        pageRows.forEach((row, rowIndex) => {
+            // PDF.js may split the final range across multiple text rows, e.g.
+            //   2026-12-26 to 12-
+            //   31 Sat - Thu Sabre Year End Break
+            // Build a small same-page window first, then normalize whitespace
+            // around the end-month hyphen before applying the range regex.
+            const rangeWindowParts = [row.text];
+            let rangeWindowRow = row;
 
-            // "to -- Year End Break" / "Sabre Year End Break" is not a
-            // holiday entry for this portal. Exclude it completely so that
-            // 26.12.26 is represented only by the actual holiday, if present.
-            if (/year\s*end\s*break/i.test(normalizedName)) {
-                return;
+            for (let offset = 1; offset <= 2; offset++) {
+                const nextRow = pageRows[rowIndex + offset];
+                if (!nextRow || nextRow.page !== row.page) break;
+
+                const gap = nextRow.y - rangeWindowRow.y;
+                if (gap < -2 || gap > 35) break;
+
+                rangeWindowParts.push(nextRow.text);
+                rangeWindowRow = nextRow;
             }
 
-            const existing = cleanedHolidays.find(h => h.date === holiday.date);
+            const rangeSearchText = rangeWindowParts
+                .join(' ')
+                .replace(/\s+/g, ' ')
+                .replace(/(\d{1,2})-\s+(\d{1,2})/g, '$1-$2')
+                .trim();
 
-            if (existing) {
-                // Same date = one holiday. Prefer a meaningful holiday name
-                // over the generic parser fallback and merge office coverage.
-                if (
-                    (!existing.name || existing.name === "Sabre Holiday") &&
-                    normalizedName &&
-                    normalizedName !== "Sabre Holiday"
-                ) {
-                    existing.name = normalizedName;
-                    existing.day = holiday.day || existing.day;
+            const rangeMatch = rangeSearchText.match(rangeRegex);
+            if (!rangeMatch) return;
+
+            const rangeYear = Number(rangeMatch[1]);
+            const startMonth = Number(rangeMatch[2]);
+            const startDay = Number(rangeMatch[3]);
+            const endMonth = Number(rangeMatch[4]);
+            const endDay = Number(rangeMatch[5]);
+
+            const continuationParts = [rangeSearchText];
+            let previousRangeRow = row;
+
+            for (let offset = 1; offset <= 3; offset++) {
+                const nextRow = pageRows[rowIndex + offset];
+                if (!nextRow || nextRow.page !== row.page) break;
+
+                const gap = nextRow.y - previousRangeRow.y;
+                if (gap < -2 || gap > 35) break;
+
+                // A different full dated holiday means the range block ended.
+                // The continuation rows themselves may contain no full date.
+                if (offset > 1 && extractDates(nextRow.text).length) break;
+
+                continuationParts.push(normalizeText(nextRow.text));
+                previousRangeRow = nextRow;
+            }
+
+            const rangeText = continuationParts.join(' ');
+            const lowerRangeText = rangeText.toLowerCase();
+
+            // Only treat a range as a holiday when it contains a meaningful
+            // holiday description. This prevents accidental calendar/date
+            // ranges elsewhere in the PDF from becoming holidays.
+            let rangeName = sanitizeName(rangeText);
+            const rangeLooksLikeYearEnd = /year\s+end\s+break/i.test(rangeText);
+            if (!rangeLooksLikeYearEnd && rangeName.length < 2) return;
+
+            if (rangeLooksLikeYearEnd) {
+                rangeName = 'Sabre Year End Break';
+            }
+
+            const rangeOffices = findOffices(rangeText);
+            const offices = rangeOffices.length ? rangeOffices : [...knownOffices];
+
+            const startDate = new Date(rangeYear, startMonth - 1, startDay);
+            const endDate = new Date(rangeYear, endMonth - 1, endDay);
+            if (isNaN(startDate.getTime()) || isNaN(endDate.getTime()) || startDate > endDate) return;
+
+            for (let cursor = new Date(startDate); cursor <= endDate; cursor.setDate(cursor.getDate() + 1)) {
+                const iso = `${cursor.getFullYear()}-${String(cursor.getMonth() + 1).padStart(2, '0')}-${String(cursor.getDate()).padStart(2, '0')}`;
+
+                // Remove any single-date version of this range entry first.
+                for (let i = cleanedHolidays.length - 1; i >= 0; i--) {
+                    if (cleanedHolidays[i].date === iso && /year\s+end\s+break/i.test(cleanedHolidays[i].name)) {
+                        cleanedHolidays.splice(i, 1);
+                    }
                 }
 
-                (holiday.offices || []).forEach(off => {
+                rangeHolidays.push({
+                    date: iso,
+                    day: cursor.toLocaleDateString('en-US', { weekday: 'long' }),
+                    name: rangeName,
+                    offices: [...offices]
+                });
+            }
+        });
+
+        // HARD FALLBACK FOR SABRE YEAR END BREAK
+        //
+        // Some PDF.js builds expose the final calendar entry as several
+        // independent text items/rows, so coordinate-based range detection
+        // can miss it completely. The source calendar explicitly defines
+        // Sabre Year End Break as Dec 26 through Dec 31. Detect the holiday
+        // name anywhere on the scanned pages and always materialize all six
+        // dates as separate records.
+        const allPdfHolidayText = pageRows.map(r => r.text || '').join(' ');
+        if (/year\s+end\s+break/i.test(allPdfHolidayText)) {
+            const yearEndYear = Number(detectedYear) || new Date().getFullYear();
+            const yearEndOffices = findOffices(allPdfHolidayText);
+            const yearEndOfficeList = yearEndOffices.length ? yearEndOffices : [...knownOffices];
+
+            for (let day = 26; day <= 31; day++) {
+                const iso = `${yearEndYear}-12-${String(day).padStart(2, '0')}`;
+
+                // Remove any malformed/single-date Year End Break record.
+                for (let i = cleanedHolidays.length - 1; i >= 0; i--) {
+                    if (
+                        cleanedHolidays[i].date === iso &&
+                        /year\s+end\s+break/i.test(cleanedHolidays[i].name)
+                    ) {
+                        cleanedHolidays.splice(i, 1);
+                    }
+                }
+
+                // Prevent duplicate records if the normal range parser also
+                // succeeded.
+                if (!rangeHolidays.some(h => h.date === iso && /year\s+end\s+break/i.test(h.name))) {
+                    rangeHolidays.push({
+                        date: iso,
+                        day: new Date(yearEndYear, 11, day).toLocaleDateString('en-US', { weekday: 'long' }),
+                        name: 'Sabre Year End Break',
+                        offices: [...yearEndOfficeList]
+                    });
+                }
+            }
+        }
+
+        // Merge range entries by DATE + HOLIDAY NAME.
+        // Different holidays on the same date are legitimate and must both
+        // remain visible (for example Presidents' Day + Carnival on 16 Feb,
+        // and Boxing Day + Sabre Year End Break on 26 Dec).
+        rangeHolidays.forEach(rangeHoliday => {
+            const normalizedRangeName = String(rangeHoliday.name || '').trim().toLowerCase();
+            const existingIndex = cleanedHolidays.findIndex(h =>
+                h.date === rangeHoliday.date &&
+                String(h.name || '').trim().toLowerCase() === normalizedRangeName
+            );
+
+            if (existingIndex >= 0) {
+                const existing = cleanedHolidays[existingIndex];
+                (rangeHoliday.offices || []).forEach(off => {
                     if (!existing.offices.includes(off)) existing.offices.push(off);
                 });
                 return;
             }
 
+            // Year End Break is a genuine Sabre holiday and is intentionally
+            // kept as a separate holiday even when its date overlaps another
+            // holiday.  Do not exclude it here.
             cleanedHolidays.push({
-                date: holiday.date,
-                day: holiday.day,
-                name: normalizedName || "Sabre Holiday",
-                offices: Array.isArray(holiday.offices) && holiday.offices.length
-                    ? [...holiday.offices]
+                date: rangeHoliday.date,
+                day: rangeHoliday.day,
+                name: rangeHoliday.name,
+                offices: Array.isArray(rangeHoliday.offices) && rangeHoliday.offices.length
+                    ? [...rangeHoliday.offices]
                     : [...knownOffices]
             });
         });
 
-        cleanedHolidays.sort((a, b) => a.date.localeCompare(b.date));
+        // Final safety pass: remove only exact duplicate DATE + HOLIDAY NAME
+        // records. Different holiday names on the same date remain separate.
+        const uniqueByDateAndName = new Map();
+        cleanedHolidays.forEach(holiday => {
+            const normalizedName = String(holiday.name || '').trim().toLowerCase();
+            const key = `${holiday.date}|${normalizedName}`;
+            const existing = uniqueByDateAndName.get(key);
+
+            if (!existing) {
+                uniqueByDateAndName.set(key, {
+                    ...holiday,
+                    offices: Array.isArray(holiday.offices) ? [...holiday.offices] : []
+                });
+                return;
+            }
+
+            (holiday.offices || []).forEach(off => {
+                if (!existing.offices.includes(off)) existing.offices.push(off);
+            });
+        });
+
+        cleanedHolidays.length = 0;
+        uniqueByDateAndName.forEach(holiday => cleanedHolidays.push(holiday));
+        cleanedHolidays.sort((a, b) => a.date.localeCompare(b.date) || String(a.name).localeCompare(String(b.name)));
 
         // ---------------------------------------------------------------------
         // SAVE + RENDER
@@ -6620,7 +6788,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                     ${filterButtonsHTML}
 
                     <div class="bg-white rounded-xl table-3d overflow-hidden w-full">
-                        <div class="overflow-x-auto w-full custom-scrollbar">
+                        <div class="overflow-x-auto w-full">
                             <table class="holiday-calendar-table w-full border-collapse text-left table-fixed">
                                 <colgroup>
                                     <col class="holiday-date-col">
@@ -6632,7 +6800,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                                     <tr class="bg-slate-900 text-white text-[10px] sm:text-xs uppercase font-semibold border-b border-slate-950">
                                         <th class="p-3 sm:p-4 text-left align-middle">Date</th>
                                         <th class="p-3 sm:p-4 text-left align-middle">Day</th>
-                                        <th class="p-3 sm:p-4 text-left align-middle">Holiday Name</th>
+                                        <th class="p-3 sm:p-4 text-left align-middle" style="text-align:left !important;">Holiday Name</th>
                                         <th class="p-3 sm:p-4 text-left align-middle">Applicable Offices</th>
                                     </tr>
                                 </thead>
