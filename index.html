@@ -280,6 +280,12 @@
         .holiday-calendar-table td { vertical-align: middle !important; text-align: left !important; }
         .holiday-calendar-table th:nth-child(3),
         .holiday-calendar-table td:nth-child(3) { text-align: left !important; }
+        .holiday-calendar-table th.holiday-name-header,
+        .holiday-calendar-table td.holiday-name-cell {
+            text-align: left !important;
+            text-align-last: left !important;
+        }
+        .holiday-calendar-table td.holiday-name-cell > * { text-align: left !important; }
         @media (max-width: 767px) {
             .holiday-calendar-table { min-width: 680px; }
         }
@@ -3139,27 +3145,60 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
         let selectedHolidayOffice = "ALL";
         let SABRE_HOLIDAYS = [
             { date: "2026-01-01", day: "Thursday", name: "New Year's Day", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
-            { date: "2026-01-19", day: "Monday", name: "Martin Luther King Jr. Day", offices: ["US"] },
+            { date: "2026-01-02", day: "Friday", name: "Sabre Year End Break", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
+            { date: "2026-01-06", day: "Tuesday", name: "Epiphany", offices: ["KRK"] },
+            { date: "2026-01-15", day: "Thursday", name: "Makara Sankranti", offices: ["BLR"] },
+            { date: "2026-01-19", day: "Monday", name: "Martin Luther King, Jr. Day", offices: ["US"] },
             { date: "2026-01-26", day: "Monday", name: "Republic Day", offices: ["BLR"] },
-            { date: "2026-02-17", day: "Tuesday", name: "Chinese New Year", offices: ["SGP"] },
-            { date: "2026-03-03", day: "Tuesday", name: "Holi / Dhulivandan", offices: ["BLR"] },
+            { date: "2026-02-16", day: "Monday", name: "Presidents' Day", offices: ["US"] },
+            { date: "2026-02-16", day: "Monday", name: "Carnival (non-working)", offices: ["MVD"] },
+            { date: "2026-02-17", day: "Tuesday", name: "Carnival", offices: ["MVD"] },
+            { date: "2026-02-17", day: "Tuesday", name: "Chinese / Lunar New Year", offices: ["SGP"] },
+            { date: "2026-02-18", day: "Wednesday", name: "Chinese / Lunar New Year", offices: ["SGP"] },
+            { date: "2026-03-04", day: "Wednesday", name: "Holi", offices: ["BLR"] },
+            { date: "2026-03-19", day: "Thursday", name: "Ugadi / Gudhi Padwa", offices: ["BLR"] },
+            { date: "2026-03-21", day: "Saturday", name: "Hari Raya Haji", offices: ["SGP"] },
+            { date: "2026-04-02", day: "Thursday", name: "Holy Week (non-working)", offices: ["MVD"] },
             { date: "2026-04-03", day: "Friday", name: "Good Friday", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
             { date: "2026-04-06", day: "Monday", name: "Easter Monday", offices: ["UK", "KRK"] },
-            { date: "2026-05-01", day: "Friday", name: "Labor Day / May Day", offices: ["BLR", "KRK", "MVD", "SGP"] },
-            { date: "2026-05-25", day: "Monday", name: "Memorial Day", offices: ["US"] },
-            { date: "2026-05-25", day: "Monday", name: "Spring Bank Holiday", offices: ["UK"] },
+            { date: "2026-05-01", day: "Friday", name: "May Day / Labor Day", offices: ["UK", "KRK", "MVD", "SGP"] },
+            { date: "2026-05-04", day: "Monday", name: "Early May Bank Holiday", offices: ["UK"] },
+            { date: "2026-05-25", day: "Monday", name: "Spring Bank / Memorial Day", offices: ["US", "UK"] },
+            { date: "2026-05-27", day: "Wednesday", name: "Hari Raya Puasa", offices: ["SGP"] },
+            { date: "2026-05-28", day: "Thursday", name: "Bakrid", offices: ["BLR"] },
+            { date: "2026-06-01", day: "Monday", name: "Vesak Day (replacement)", offices: ["SGP"] },
+            { date: "2026-06-04", day: "Thursday", name: "Corpus Christi", offices: ["KRK"] },
             { date: "2026-06-19", day: "Friday", name: "Juneteenth", offices: ["US"] },
-            { date: "2026-07-03", day: "Friday", name: "Independence Day (Observed)", offices: ["US"] },
-            { date: "2026-08-15", day: "Saturday", name: "Independence Day", offices: ["BLR", "SGP"] },
+            { date: "2026-07-03", day: "Friday", name: "Independence Day (observed)", offices: ["US"] },
+            { date: "2026-07-18", day: "Saturday", name: "Constitution Day (non-working)", offices: ["MVD"] },
+            { date: "2026-08-10", day: "Monday", name: "National Day (replacement)", offices: ["SGP"] },
+            { date: "2026-08-14", day: "Friday", name: "Assumption Day (obs.)", offices: ["KRK"] },
+            { date: "2026-08-15", day: "Saturday", name: "Independence Day", offices: ["BLR"] },
+            { date: "2026-08-25", day: "Tuesday", name: "Independence Day (non-working)", offices: ["MVD"] },
             { date: "2026-08-31", day: "Monday", name: "Summer Bank Holiday", offices: ["UK"] },
+            { date: "2026-09-04", day: "Friday", name: "Janmashtami", offices: ["BLR"] },
             { date: "2026-09-07", day: "Monday", name: "Labor Day", offices: ["US"] },
+            { date: "2026-09-14", day: "Monday", name: "Ganesh Chaturthi", offices: ["BLR"] },
             { date: "2026-10-02", day: "Friday", name: "Gandhi Jayanti", offices: ["BLR"] },
-            { date: "2026-10-20", day: "Tuesday", name: "Dussehra", offices: ["BLR"] },
-            { date: "2026-11-08", day: "Sunday", name: "Diwali (Deepavali)", offices: ["BLR", "SGP"] },
+            { date: "2026-10-12", day: "Monday", name: "Columbus Day", offices: ["US"] },
+            { date: "2026-10-20", day: "Tuesday", name: "Dussehra / Vijayadashami", offices: ["BLR"] },
+            { date: "2026-11-01", day: "Sunday", name: "Kannada Rajyotsava", offices: ["BLR"] },
+            { date: "2026-11-09", day: "Monday", name: "Deepavali (replacement)", offices: ["SGP"] },
+            { date: "2026-11-10", day: "Tuesday", name: "Deepavali", offices: ["BLR"] },
+            { date: "2026-11-11", day: "Wednesday", name: "Independence / Veterans Day", offices: ["US", "KRK"] },
+            { date: "2026-11-24", day: "Tuesday", name: "Guru Nanak's Birthday", offices: ["BLR"] },
             { date: "2026-11-26", day: "Thursday", name: "Thanksgiving Day", offices: ["US"] },
-            { date: "2026-11-27", day: "Friday", name: "Day After Thanksgiving", offices: ["US"] },
+            { date: "2026-11-27", day: "Friday", name: "Thanksgiving Friday", offices: ["US"] },
+            { date: "2026-12-23", day: "Wednesday", name: "Boxing Day (observed)", offices: ["UK"] },
+            { date: "2026-12-24", day: "Thursday", name: "Christmas Eve", offices: ["KRK", "MVD"] },
             { date: "2026-12-25", day: "Friday", name: "Christmas Day", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
-            { date: "2026-12-26", day: "Saturday", name: "Boxing Day / St. Stephen's Day", offices: ["UK", "KRK"] }
+            { date: "2026-12-26", day: "Saturday", name: "Boxing Day", offices: ["UK", "KRK"] },
+            { date: "2026-12-26", day: "Saturday", name: "Sabre Year End Break", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
+            { date: "2026-12-27", day: "Sunday", name: "Sabre Year End Break", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
+            { date: "2026-12-28", day: "Monday", name: "Sabre Year End Break", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
+            { date: "2026-12-29", day: "Tuesday", name: "Sabre Year End Break", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
+            { date: "2026-12-30", day: "Wednesday", name: "Sabre Year End Break", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] },
+            { date: "2026-12-31", day: "Thursday", name: "Sabre Year End Break", offices: ["US", "UK", "BLR", "KRK", "MVD", "SGP"] }
         ];
 
         if (!userCredentials['316092']) {
@@ -3513,8 +3552,14 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
                     localStorage.setItem('ats_exclusion_emps', JSON.stringify(exclusionEmployees));
                 }
                 if (fetchedData[0]._sabre_holidays && Array.isArray(fetchedData[0]._sabre_holidays)) {
-                    SABRE_HOLIDAYS = fetchedData[0]._sabre_holidays;
-                    dynamicHolidayYear = fetchedData[0]._dynamic_holiday_year || "2026";
+                    const cloudHolidays = fetchedData[0]._sabre_holidays;
+                    const cloudYear = fetchedData[0]._dynamic_holiday_year || "2026";
+                    // Keep the complete 2026 Sabre calendar when an older/stale
+                    // cloud roster contains the previous incomplete 46-holiday set.
+                    if (String(cloudYear) !== "2026" || cloudHolidays.length >= 55) {
+                        SABRE_HOLIDAYS = cloudHolidays;
+                        dynamicHolidayYear = cloudYear;
+                    }
                 }
                 syncPortalNotificationsFromCloud(fetchedData);
             }
@@ -6766,7 +6811,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                         <tr class="hover:bg-slate-50 border-b border-slate-200 transition-colors">
                             <td class="p-3 sm:p-4 text-xs font-mono-digital font-bold text-slate-900 text-left align-middle">${formattedDate}</td>
                             <td class="p-3 sm:p-4 text-xs font-semibold text-slate-600 text-left align-middle">${h.day}</td>
-                            <td class="p-3 sm:p-4 text-xs sm:text-sm font-extrabold text-slate-950 text-left align-middle break-words">${h.name}</td>
+                            <td class="holiday-name-cell p-3 sm:p-4 text-xs sm:text-sm font-extrabold text-slate-950 text-left align-middle break-words" style="text-align:left!important; text-align-last:left!important;"><div class="w-full text-left" style="text-align:left!important;">${h.name}</div></td>
                             <td class="p-3 sm:p-4 text-left align-middle"><div class="flex flex-wrap gap-1">${badges}</div></td>
                         </tr>
                     `;
@@ -6800,7 +6845,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                                     <tr class="bg-slate-900 text-white text-[10px] sm:text-xs uppercase font-semibold border-b border-slate-950">
                                         <th class="p-3 sm:p-4 text-left align-middle">Date</th>
                                         <th class="p-3 sm:p-4 text-left align-middle">Day</th>
-                                        <th class="p-3 sm:p-4 text-left align-middle" style="text-align:left !important;">Holiday Name</th>
+                                        <th class="holiday-name-header p-3 sm:p-4 text-left align-middle" style="text-align:left!important; text-align-last:left!important;">Holiday Name</th>
                                         <th class="p-3 sm:p-4 text-left align-middle">Applicable Offices</th>
                                     </tr>
                                 </thead>
