@@ -6795,8 +6795,12 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                             const isToday = (dateLabel === TODAY_DATE_STR);
                             const cellBg = isToday ? 'bg-sky-50 rounded' : '';
 
+                            const shortDateLabel = dateLabel && dateLabel !== 'N/A'
+                                ? String(dateLabel).split('/').slice(0, 2).join('/')
+                                : '';
                             html += `<div class="${cellBg} p-0.5">
-                                <div class="text-[8px] sm:text-[9px] text-slate-500 uppercase font-bold">${d.substring(0,1)}</div>
+                                <div class="text-[8px] sm:text-[9px] text-slate-500 uppercase font-bold whitespace-nowrap">${d.substring(0,1)}</div>
+                                <div class="text-[7px] sm:text-[8px] text-slate-400 font-extrabold leading-none mt-0.5 whitespace-nowrap">${shortDateLabel}</div>
                                 <div class="mt-0.5 sm:mt-1">${getShiftBadge(w.shifts ? w.shifts[d] : 'WO')}</div>
                             </div>`;
                         });
@@ -7266,13 +7270,81 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                     maintainAspectRatio: false,
                     plugins: {
                         tooltip: {
-                            callbacks: {
-                                label: (context) => {
-                                    const groups = [shiftEmployeeNames.early, shiftEmployeeNames.eight, shiftEmployeeNames.late, shiftEmployeeNames.off, shiftEmployeeNames.leave];
-                                    const names = groups[context.dataIndex] || [];
-                                    const count = context.raw || 0;
-                                    return names.length ? `${context.label}: ${count} — ${names.join(', ')}` : `${context.label}: ${count}`;
+                            enabled: false,
+                            external: function(context) {
+                                const chart = context.chart;
+                                const tooltipModel = context.tooltip;
+                                let tooltipEl = document.getElementById('distributionEmployeeHoverTable');
+
+                                if (!tooltipEl) {
+                                    tooltipEl = document.createElement('div');
+                                    tooltipEl.id = 'distributionEmployeeHoverTable';
+                                    tooltipEl.style.position = 'absolute';
+                                    tooltipEl.style.pointerEvents = 'none';
+                                    tooltipEl.style.zIndex = '99999';
+                                    tooltipEl.style.background = 'rgba(255,255,255,0.98)';
+                                    tooltipEl.style.border = '1px solid #cbd5e1';
+                                    tooltipEl.style.borderRadius = '10px';
+                                    tooltipEl.style.padding = '6px';
+                                    tooltipEl.style.boxShadow = '0 10px 25px -3px rgba(15,23,42,0.18), 0 4px 8px -2px rgba(0,0,0,0.08)';
+                                    tooltipEl.style.maxWidth = 'calc(100vw - 16px)';
+                                    tooltipEl.style.width = 'max-content';
+                                    tooltipEl.style.minWidth = '0';
+                                    tooltipEl.style.boxSizing = 'border-box';
+                                    tooltipEl.style.maxHeight = window.innerWidth < 640 ? '55vh' : '380px';
+                                    tooltipEl.style.overflowY = 'auto';
+                                    tooltipEl.style.fontFamily = 'Inter, sans-serif';
+            tooltipEl.style.wordBreak = 'break-word';
+                                    document.body.appendChild(tooltipEl);
                                 }
+
+                                if (tooltipModel.opacity === 0 || !tooltipModel.dataPoints || !tooltipModel.dataPoints.length) {
+                                    tooltipEl.style.opacity = '0';
+                                    return;
+                                }
+
+                                // Show ONLY the employee group belonging to the pie-chart colour being hovered.
+                                const point = tooltipModel.dataPoints[0];
+                                const groups = [
+                                    { label: '06:00 / 06:30 / 07:00 AM', names: shiftEmployeeNames.early, cls: 'text-emerald-700 bg-emerald-50 border-emerald-200' },
+                                    { label: '08:00 AM', names: shiftEmployeeNames.eight, cls: 'text-blue-700 bg-blue-50 border-blue-200' },
+                                    { label: '10:00 / 11:00 / 12:00 PM', names: shiftEmployeeNames.late, cls: 'text-amber-700 bg-amber-50 border-amber-200' },
+                                    { label: 'Off Days', names: shiftEmployeeNames.off, cls: 'text-slate-600 bg-slate-50 border-slate-200' },
+                                    { label: 'PTO / Leave / Half Off', names: shiftEmployeeNames.leave, cls: 'text-rose-700 bg-rose-50 border-rose-200' }
+                                ];
+                                const group = groups[point.dataIndex] || groups[0];
+                                const names = group.names || [];
+                                const escapeTooltipText = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+                                const tableHtml = `<div class=\"rounded-lg border ${group.cls} p-2\" style=\"display:inline-block;width:max-content;max-width:100%;box-sizing:border-box;\">
+                                    <div class=\"font-extrabold mb-1\">${escapeTooltipText(group.label)} (${names.length})</div>
+                                    <div class=\"space-y-0.5\">
+                                        ${names.length
+                                            ? names.map(name => `<div class=\"font-semibold leading-tight\" style=\"white-space:nowrap;\">• ${escapeTooltipText(name)}</div>`).join('')
+                                            : `<div class=\"opacity-60 font-medium\">None</div>`}
+                                    </div>
+                                </div>`;
+
+                                const count = point.raw || 0;
+                                tooltipEl.innerHTML = `
+                                    <div style=\"font-size:11px;font-weight:800;color:#0f172a;margin:0 2px 6px 2px;\">${escapeTooltipText(point.label)} (${count})</div>
+                                    <div style=\"display:inline-block;font-size:10px;max-width:100%;\">${tableHtml}</div>`;
+
+                                const rect = chart.canvas.getBoundingClientRect();
+                                const left = rect.left + window.pageXOffset + tooltipModel.caretX;
+                                const top = rect.top + window.pageYOffset + tooltipModel.caretY;
+                                tooltipEl.style.opacity = '1';
+
+                                const tooltipWidth = tooltipEl.offsetWidth || 120;
+                                const tooltipHeight = tooltipEl.offsetHeight || 220;
+                                const viewportLeft = window.pageXOffset + 8;
+                                const viewportRight = window.pageXOffset + window.innerWidth - 8;
+                                let finalLeft = left - (tooltipWidth / 2);
+                                finalLeft = Math.max(viewportLeft, Math.min(finalLeft, viewportRight - tooltipWidth));
+                                let finalTop = top - tooltipHeight - 12;
+                                if (finalTop < window.pageYOffset + 8) finalTop = top + 12;
+
+                                tooltipEl.style.left = `${finalLeft}px`;
+                                tooltipEl.style.top = `${finalTop}px`;
                             }
                         },
                         legend: {
