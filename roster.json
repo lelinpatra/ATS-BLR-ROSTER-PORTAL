@@ -264,6 +264,16 @@
     ],
     "_portal_notifications": [
       {
+        "id": "n_1790744658106_0_xznq3n",
+        "createdAt": "2026-09-30T05:04:18.106Z",
+        "title": "October roster uploaded",
+        "message": "October month roster is uploaded and ready to view.",
+        "type": "month",
+        "month": "October",
+        "week": null,
+        "employee": ""
+      },
+      {
         "id": "n_1790710329654_83_tb5mz6",
         "createdAt": "2026-09-29T19:32:09.654Z",
         "title": "Manisha Kumari roster changed",
@@ -1252,19 +1262,15 @@
         "month": "September",
         "week": 2,
         "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790709768541_69_x2xd9u",
-        "createdAt": "2026-09-29T19:22:48.541Z",
-        "title": "Nidhi Taku roster changed",
-        "message": "Nidhi Taku shift/status changed on 20/09/26 from Yes to WO.",
-        "type": "employee",
-        "month": "September",
-        "week": 2,
-        "employee": "Nidhi Taku"
       }
     ],
     "_user_credentials": {
+      "123456": {
+        "password": "TN78NSO5",
+        "isTemporary": true,
+        "lastChanged": 1790354675740,
+        "status": "ACTIVE"
+      },
       "223254": {
         "password": "PASS1234",
         "isTemporary": true,
@@ -2654,6 +2660,1062 @@
       4,
       4,
       2,
+      1,
+      1
+    ]
+  },
+  {
+    "month": "October",
+    "week_num": 1,
+    "dates": [
+      "05/10/26",
+      "06/10/26",
+      "07/10/26",
+      "08/10/26",
+      "09/10/26",
+      "10/10/26",
+      "11/10/26"
+    ],
+    "employees": [
+      {
+        "sg_id": 223254,
+        "name": "Srinivas Reddy",
+        "skilling": "ATS",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
+        "days_office": "Tue/Wed/Thu",
+        "shifts": {
+          "Monday": "WO",
+          "Tuesday": "10:00 AM - 07:00 PM",
+          "Wednesday": "10:00 AM - 07:00 PM",
+          "Thursday": "10:00 AM - 07:00 PM",
+          "Friday": "10:00 AM - 07:00 PM",
+          "Saturday": "10:00 AM - 07:00 PM",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 223255,
+        "name": "Deepak K",
+        "skilling": "ATS 2L",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "06:00 AM - 03:00 PM",
+          "Tuesday": "06:00 AM - 03:00 PM",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "06:00 AM - 03:00 PM",
+          "Friday": "06:00 AM - 03:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 223258,
+        "name": "Md. Shahbaz",
+        "skilling": "ATS",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
+        "days_office": "Mon/Tue/Wed",
+        "shifts": {
+          "Monday": "10:00 AM - 07:00 PM",
+          "Tuesday": "10:00 AM - 07:00 PM",
+          "Wednesday": "10:00 AM - 07:00 PM",
+          "Thursday": "11:00 AM - 08:00 PM",
+          "Friday": "11:00 AM - 08:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 227186,
+        "name": "Sanjay Kumar",
+        "skilling": "ATS",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "Tue/Wed/Thu",
+        "shifts": {
+          "Monday": "WO",
+          "Tuesday": "WO",
+          "Wednesday": "11:00 AM - 08:00 PM",
+          "Thursday": "10:00 AM - 07:00 PM",
+          "Friday": "10:00 AM - 07:00 PM",
+          "Saturday": "06:00 AM - 03:00 PM",
+          "Sunday": "06:30 AM - 03:30 PM"
+        }
+      },
+      {
+        "sg_id": 316092,
+        "name": "Lelin Patra",
+        "skilling": "ATS 2L",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "PTO",
+          "Tuesday": "PTO",
+          "Wednesday": "PTO",
+          "Thursday": "PTO",
+          "Friday": "PTO",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 709115,
+        "name": "Gokul Krishna Lokesh",
+        "skilling": "ATS",
+        "default_start": "08:00 AM",
+        "default_end": "05:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "06:00 AM - 03:00 PM",
+          "Tuesday": "06:00 AM - 03:00 PM",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "06:00 AM - 03:00 PM",
+          "Friday": "06:00 AM - 03:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 709139,
+        "name": "Rupesh C P",
+        "skilling": "ATS",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "10:00 AM - 07:00 PM",
+          "Tuesday": "10:00 AM - 07:00 PM",
+          "Wednesday": "10:00 AM - 07:00 PM",
+          "Thursday": "10:00 AM - 07:00 PM",
+          "Friday": "WO",
+          "Saturday": "WO",
+          "Sunday": "10:00 AM - 07:00 PM"
+        }
+      },
+      {
+        "sg_id": 709282,
+        "name": "Preethi P",
+        "skilling": "ATS",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "06:00 AM - 03:00 PM",
+          "Tuesday": "06:00 AM - 03:00 PM",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "06:00 AM - 03:00 PM",
+          "Friday": "06:00 AM - 03:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 709283,
+        "name": "Nidhi Taku",
+        "skilling": "ATS",
+        "default_start": "08:00 AM",
+        "default_end": "05:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "08:00 AM - 05:00 PM",
+          "Tuesday": "08:00 AM - 05:00 PM",
+          "Wednesday": "08:00 AM - 05:00 PM",
+          "Thursday": "08:00 AM - 05:00 PM",
+          "Friday": "08:00 AM - 05:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 709312,
+        "name": "Manisha Kumari",
+        "skilling": "ATS",
+        "default_start": "08:00 AM",
+        "default_end": "05:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "06:00 AM - 03:00 PM",
+          "Tuesday": "06:00 AM - 03:00 PM",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "06:00 AM - 03:00 PM",
+          "Friday": "06:00 AM - 03:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 709424,
+        "name": "Bhargav R",
+        "skilling": "ATS",
+        "default_start": "08:00 AM",
+        "default_end": "05:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "08:00 AM - 05:00 PM",
+          "Tuesday": "08:00 AM - 05:00 PM",
+          "Wednesday": "08:00 AM - 05:00 PM",
+          "Thursday": "08:00 AM - 05:00 PM",
+          "Friday": "08:00 AM - 05:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 709454,
+        "name": "Prathvi Shetty",
+        "skilling": "ATS",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "06:00 AM - 03:00 PM",
+          "Tuesday": "06:00 AM - 03:00 PM",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "06:00 AM - 03:00 PM",
+          "Friday": "06:00 AM - 03:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      }
+    ],
+    "qm_staff_6am": {
+      "Monday": "Unassigned",
+      "Tuesday": "Unassigned",
+      "Wednesday": "Unassigned",
+      "Thursday": "Unassigned",
+      "Friday": "Unassigned",
+      "Saturday": "Unassigned",
+      "Sunday": "Unassigned"
+    },
+    "qm_staff_10am": {
+      "Monday": "Unassigned",
+      "Tuesday": "Unassigned",
+      "Wednesday": "Unassigned",
+      "Thursday": "Unassigned",
+      "Friday": "Unassigned",
+      "Saturday": "Unassigned",
+      "Sunday": "Unassigned"
+    },
+    "total_headcount_6am": [
+      5,
+      5,
+      5,
+      5,
+      5,
+      1,
+      1
+    ],
+    "total_headcount_8am": [
+      2,
+      2,
+      3,
+      3,
+      3,
+      0,
+      0
+    ],
+    "total_headcount_10am": [
+      2,
+      3,
+      3,
+      3,
+      2,
+      1,
+      1
+    ]
+  },
+  {
+    "month": "October",
+    "week_num": 2,
+    "dates": [
+      "12/10/26",
+      "13/10/26",
+      "14/10/26",
+      "15/10/26",
+      "16/10/26",
+      "17/10/26",
+      "18/10/26"
+    ],
+    "employees": [
+      {
+        "sg_id": 223254,
+        "name": "Srinivas Reddy",
+        "skilling": "ATS",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
+        "days_office": "Tue/Wed/Thu",
+        "shifts": {
+          "Monday": "WO",
+          "Tuesday": "10:00 AM - 07:00 PM",
+          "Wednesday": "10:00 AM - 07:00 PM",
+          "Thursday": "10:00 AM - 07:00 PM",
+          "Friday": "10:00 AM - 07:00 PM",
+          "Saturday": "10:00 AM - 07:00 PM",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 223255,
+        "name": "Deepak K",
+        "skilling": "ATS 2L",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "06:00 AM - 03:00 PM",
+          "Tuesday": "06:00 AM - 03:00 PM",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "06:00 AM - 03:00 PM",
+          "Friday": "06:00 AM - 03:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 223258,
+        "name": "Md. Shahbaz",
+        "skilling": "ATS",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
+        "days_office": "Mon/Tue/Wed",
+        "shifts": {
+          "Monday": "11:00 AM - 08:00 PM",
+          "Tuesday": "PTO",
+          "Wednesday": "PTO",
+          "Thursday": "11:00 AM - 08:00 PM",
+          "Friday": "11:00 AM - 08:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 227186,
+        "name": "Sanjay Kumar",
+        "skilling": "ATS",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "Tue/Wed/Thu",
+        "shifts": {
+          "Monday": "WO",
+          "Tuesday": "WO",
+          "Wednesday": "10:00 AM - 07:00 PM",
+          "Thursday": "10:00 AM - 07:00 PM",
+          "Friday": "10:00 AM - 07:00 PM",
+          "Saturday": "06:00 AM - 03:00 PM",
+          "Sunday": "06:30 AM - 03:30 PM"
+        }
+      },
+      {
+        "sg_id": 316092,
+        "name": "Lelin Patra",
+        "skilling": "ATS 2L",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "10:00 AM - 07:00 PM",
+          "Tuesday": "11:00 AM - 08:00 PM",
+          "Wednesday": "11:00 AM - 08:00 PM",
+          "Thursday": "10:00 AM - 07:00 PM",
+          "Friday": "10:00 AM - 07:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 709115,
+        "name": "Gokul Krishna Lokesh",
+        "skilling": "ATS",
+        "default_start": "08:00 AM",
+        "default_end": "05:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "06:00 AM - 03:00 PM",
+          "Tuesday": "06:00 AM - 03:00 PM",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "06:00 AM - 03:00 PM",
+          "Friday": "06:00 AM - 03:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 709139,
+        "name": "Rupesh C P",
+        "skilling": "ATS",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "10:00 AM - 07:00 PM",
+          "Tuesday": "10:00 AM - 07:00 PM",
+          "Wednesday": "10:00 AM - 07:00 PM",
+          "Thursday": "10:00 AM - 07:00 PM",
+          "Friday": "WO",
+          "Saturday": "WO",
+          "Sunday": "10:00 AM - 07:00 PM"
+        }
+      },
+      {
+        "sg_id": 709282,
+        "name": "Preethi P",
+        "skilling": "ATS",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "06:00 AM - 03:00 PM",
+          "Tuesday": "06:00 AM - 03:00 PM",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "PTO",
+          "Friday": "06:00 AM - 03:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 709283,
+        "name": "Nidhi Taku",
+        "skilling": "ATS",
+        "default_start": "08:00 AM",
+        "default_end": "05:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "08:00 AM - 05:00 PM",
+          "Tuesday": "08:00 AM - 05:00 PM",
+          "Wednesday": "08:00 AM - 05:00 PM",
+          "Thursday": "08:00 AM - 05:00 PM",
+          "Friday": "08:00 AM - 05:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 709312,
+        "name": "Manisha Kumari",
+        "skilling": "ATS",
+        "default_start": "08:00 AM",
+        "default_end": "05:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "06:00 AM - 03:00 PM",
+          "Tuesday": "06:00 AM - 03:00 PM",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "06:00 AM - 03:00 PM",
+          "Friday": "06:00 AM - 03:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 709424,
+        "name": "Bhargav R",
+        "skilling": "ATS",
+        "default_start": "08:00 AM",
+        "default_end": "05:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "08:00 AM - 05:00 PM",
+          "Tuesday": "08:00 AM - 05:00 PM",
+          "Wednesday": "08:00 AM - 05:00 PM",
+          "Thursday": "08:00 AM - 05:00 PM",
+          "Friday": "08:00 AM - 05:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 709454,
+        "name": "Prathvi Shetty",
+        "skilling": "ATS",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "06:00 AM - 03:00 PM",
+          "Tuesday": "06:00 AM - 03:00 PM",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "06:00 AM - 03:00 PM",
+          "Friday": "06:00 AM - 03:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      }
+    ],
+    "qm_staff_6am": {
+      "Monday": "Unassigned",
+      "Tuesday": "Unassigned",
+      "Wednesday": "Unassigned",
+      "Thursday": "Unassigned",
+      "Friday": "Unassigned",
+      "Saturday": "Unassigned",
+      "Sunday": "Unassigned"
+    },
+    "qm_staff_10am": {
+      "Monday": "Unassigned",
+      "Tuesday": "Unassigned",
+      "Wednesday": "Unassigned",
+      "Thursday": "Unassigned",
+      "Friday": "Unassigned",
+      "Saturday": "Unassigned",
+      "Sunday": "Unassigned"
+    },
+    "total_headcount_6am": [
+      5,
+      5,
+      5,
+      4,
+      5,
+      1,
+      1
+    ],
+    "total_headcount_8am": [
+      3,
+      3,
+      3,
+      3,
+      3,
+      0,
+      0
+    ],
+    "total_headcount_10am": [
+      2,
+      2,
+      3,
+      4,
+      3,
+      1,
+      1
+    ]
+  },
+  {
+    "month": "October",
+    "week_num": 3,
+    "dates": [
+      "19/10/26",
+      "20/10/26",
+      "21/10/26",
+      "22/10/26",
+      "23/10/26",
+      "24/10/26",
+      "25/10/26"
+    ],
+    "employees": [
+      {
+        "sg_id": 223254,
+        "name": "Srinivas Reddy",
+        "skilling": "ATS",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
+        "days_office": "Tue/Wed/Thu",
+        "shifts": {
+          "Monday": "10:00 AM - 07:00 PM",
+          "Tuesday": "10:00 AM - 07:00 PM",
+          "Wednesday": "10:00 AM - 07:00 PM",
+          "Thursday": "10:00 AM - 07:00 PM",
+          "Friday": "WO",
+          "Saturday": "10:00 AM - 07:00 PM",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 223255,
+        "name": "Deepak K",
+        "skilling": "ATS 2L",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "Comp Off",
+          "Tuesday": "06:00 AM - 03:00 PM",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "06:00 AM - 03:00 PM",
+          "Friday": "06:00 AM - 03:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 223258,
+        "name": "Md. Shahbaz",
+        "skilling": "ATS",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
+        "days_office": "Mon/Tue/Wed",
+        "shifts": {
+          "Monday": "11:00 AM - 08:00 PM",
+          "Tuesday": "11:00 AM - 08:00 PM",
+          "Wednesday": "11:00 AM - 08:00 PM",
+          "Thursday": "11:00 AM - 08:00 PM",
+          "Friday": "11:00 AM - 08:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 227186,
+        "name": "Sanjay Kumar",
+        "skilling": "ATS",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "Tue/Wed/Thu",
+        "shifts": {
+          "Monday": "WO",
+          "Tuesday": "WO",
+          "Wednesday": "10:00 AM - 07:00 PM",
+          "Thursday": "10:00 AM - 07:00 PM",
+          "Friday": "10:00 AM - 07:00 PM",
+          "Saturday": "06:00 AM - 03:00 PM",
+          "Sunday": "06:30 AM - 03:30 PM"
+        }
+      },
+      {
+        "sg_id": 316092,
+        "name": "Lelin Patra",
+        "skilling": "ATS 2L",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "06:00 AM - 03:00 PM",
+          "Tuesday": "10:00 AM - 07:00 PM",
+          "Wednesday": "10:00 AM - 07:00 PM",
+          "Thursday": "10:00 AM - 07:00 PM",
+          "Friday": "10:00 AM - 07:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 709115,
+        "name": "Gokul Krishna Lokesh",
+        "skilling": "ATS",
+        "default_start": "08:00 AM",
+        "default_end": "05:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "06:00 AM - 03:00 PM",
+          "Tuesday": "06:00 AM - 03:00 PM",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "06:00 AM - 03:00 PM",
+          "Friday": "06:00 AM - 03:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 709139,
+        "name": "Rupesh C P",
+        "skilling": "ATS",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "PTO",
+          "Tuesday": "PH",
+          "Wednesday": "10:00 AM - 07:00 PM",
+          "Thursday": "10:00 AM - 07:00 PM",
+          "Friday": "WO",
+          "Saturday": "WO",
+          "Sunday": "10:00 AM - 07:00 PM"
+        }
+      },
+      {
+        "sg_id": 709282,
+        "name": "Preethi P",
+        "skilling": "ATS",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "06:00 AM - 03:00 PM",
+          "Tuesday": "06:00 AM - 03:00 PM",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "06:00 AM - 03:00 PM",
+          "Friday": "06:00 AM - 03:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 709283,
+        "name": "Nidhi Taku",
+        "skilling": "ATS",
+        "default_start": "08:00 AM",
+        "default_end": "05:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "08:00 AM - 05:00 PM",
+          "Tuesday": "08:00 AM - 05:00 PM",
+          "Wednesday": "08:00 AM - 05:00 PM",
+          "Thursday": "08:00 AM - 05:00 PM",
+          "Friday": "08:00 AM - 05:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 709312,
+        "name": "Manisha Kumari",
+        "skilling": "ATS",
+        "default_start": "08:00 AM",
+        "default_end": "05:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "06:00 AM - 03:00 PM",
+          "Tuesday": "PH",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "06:00 AM - 03:00 PM",
+          "Friday": "06:00 AM - 03:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 709424,
+        "name": "Bhargav R",
+        "skilling": "ATS",
+        "default_start": "08:00 AM",
+        "default_end": "05:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "PTO",
+          "Tuesday": "PH",
+          "Wednesday": "08:00 AM - 05:00 PM",
+          "Thursday": "08:00 AM - 05:00 PM",
+          "Friday": "08:00 AM - 05:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 709454,
+        "name": "Prathvi Shetty",
+        "skilling": "ATS",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "06:00 AM - 03:00 PM",
+          "Tuesday": "06:00 AM - 03:00 PM",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "06:00 AM - 03:00 PM",
+          "Friday": "06:00 AM - 03:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      }
+    ],
+    "qm_staff_6am": {
+      "Monday": "Unassigned",
+      "Tuesday": "Unassigned",
+      "Wednesday": "Unassigned",
+      "Thursday": "Unassigned",
+      "Friday": "Unassigned",
+      "Saturday": "Unassigned",
+      "Sunday": "Unassigned"
+    },
+    "qm_staff_10am": {
+      "Monday": "Unassigned",
+      "Tuesday": "Unassigned",
+      "Wednesday": "Unassigned",
+      "Thursday": "Unassigned",
+      "Friday": "Unassigned",
+      "Saturday": "Unassigned",
+      "Sunday": "Unassigned"
+    },
+    "total_headcount_6am": [
+      5,
+      4,
+      5,
+      5,
+      5,
+      1,
+      1
+    ],
+    "total_headcount_8am": [
+      2,
+      2,
+      3,
+      3,
+      3,
+      0,
+      0
+    ],
+    "total_headcount_10am": [
+      1,
+      2,
+      4,
+      4,
+      2,
+      1,
+      1
+    ]
+  },
+  {
+    "month": "October",
+    "week_num": 4,
+    "dates": [
+      "26/10/26",
+      "27/10/26",
+      "28/10/26",
+      "29/10/26",
+      "30/10/26",
+      "31/10/26",
+      "01/11/26"
+    ],
+    "employees": [
+      {
+        "sg_id": 223254,
+        "name": "Srinivas Reddy",
+        "skilling": "ATS",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
+        "days_office": "Tue/Wed/Thu",
+        "shifts": {
+          "Monday": "WO",
+          "Tuesday": "10:00 AM - 07:00 PM",
+          "Wednesday": "10:00 AM - 07:00 PM",
+          "Thursday": "10:00 AM - 07:00 PM",
+          "Friday": "10:00 AM - 07:00 PM",
+          "Saturday": "10:00 AM - 07:00 PM",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 223255,
+        "name": "Deepak K",
+        "skilling": "ATS 2L",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "06:00 AM - 03:00 PM",
+          "Tuesday": "06:00 AM - 03:00 PM",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "06:00 AM - 03:00 PM",
+          "Friday": "06:00 AM - 03:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 223258,
+        "name": "Md. Shahbaz",
+        "skilling": "ATS",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
+        "days_office": "Mon/Tue/Wed",
+        "shifts": {
+          "Monday": "11:00 AM - 08:00 PM",
+          "Tuesday": "11:00 AM - 08:00 PM",
+          "Wednesday": "11:00 AM - 08:00 PM",
+          "Thursday": "11:00 AM - 08:00 PM",
+          "Friday": "11:00 AM - 08:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 227186,
+        "name": "Sanjay Kumar",
+        "skilling": "ATS",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "Tue/Wed/Thu",
+        "shifts": {
+          "Monday": "WO",
+          "Tuesday": "WO",
+          "Wednesday": "10:00 AM - 07:00 PM",
+          "Thursday": "10:00 AM - 07:00 PM",
+          "Friday": "10:00 AM - 07:00 PM",
+          "Saturday": "06:00 AM - 03:00 PM",
+          "Sunday": "06:30 AM - 03:30 PM"
+        }
+      },
+      {
+        "sg_id": 316092,
+        "name": "Lelin Patra",
+        "skilling": "ATS 2L",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "10:00 AM - 07:00 PM",
+          "Tuesday": "10:00 AM - 07:00 PM",
+          "Wednesday": "10:00 AM - 07:00 PM",
+          "Thursday": "10:00 AM - 07:00 PM",
+          "Friday": "10:00 AM - 07:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 709115,
+        "name": "Gokul Krishna Lokesh",
+        "skilling": "ATS",
+        "default_start": "08:00 AM",
+        "default_end": "05:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "06:00 AM - 03:00 PM",
+          "Tuesday": "06:00 AM - 03:00 PM",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "06:00 AM - 03:00 PM",
+          "Friday": "06:00 AM - 03:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 709139,
+        "name": "Rupesh C P",
+        "skilling": "ATS",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "10:00 AM - 07:00 PM",
+          "Tuesday": "10:00 AM - 07:00 PM",
+          "Wednesday": "10:00 AM - 07:00 PM",
+          "Thursday": "10:00 AM - 07:00 PM",
+          "Friday": "WO",
+          "Saturday": "WO",
+          "Sunday": "10:00 AM - 07:00 PM"
+        }
+      },
+      {
+        "sg_id": 709282,
+        "name": "Preethi P",
+        "skilling": "ATS",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "06:00 AM - 03:00 PM",
+          "Tuesday": "06:00 AM - 03:00 PM",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "06:00 AM - 03:00 PM",
+          "Friday": "06:00 AM - 03:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 709283,
+        "name": "Nidhi Taku",
+        "skilling": "ATS",
+        "default_start": "08:00 AM",
+        "default_end": "05:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "08:00 AM - 05:00 PM",
+          "Tuesday": "08:00 AM - 05:00 PM",
+          "Wednesday": "08:00 AM - 05:00 PM",
+          "Thursday": "08:00 AM - 05:00 PM",
+          "Friday": "08:00 AM - 05:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 709312,
+        "name": "Manisha Kumari",
+        "skilling": "ATS",
+        "default_start": "08:00 AM",
+        "default_end": "05:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "06:00 AM - 03:00 PM",
+          "Tuesday": "06:00 AM - 03:00 PM",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "06:00 AM - 03:00 PM",
+          "Friday": "06:00 AM - 03:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 709424,
+        "name": "Bhargav R",
+        "skilling": "ATS",
+        "default_start": "08:00 AM",
+        "default_end": "05:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "08:00 AM - 05:00 PM",
+          "Tuesday": "08:00 AM - 05:00 PM",
+          "Wednesday": "08:00 AM - 05:00 PM",
+          "Thursday": "08:00 AM - 05:00 PM",
+          "Friday": "08:00 AM - 05:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
+        "sg_id": 709454,
+        "name": "Prathvi Shetty",
+        "skilling": "ATS",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "06:00 AM - 03:00 PM",
+          "Tuesday": "06:00 AM - 03:00 PM",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "06:00 AM - 03:00 PM",
+          "Friday": "06:00 AM - 03:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      }
+    ],
+    "qm_staff_6am": {
+      "Monday": "Unassigned",
+      "Tuesday": "Unassigned",
+      "Wednesday": "Unassigned",
+      "Thursday": "Unassigned",
+      "Friday": "Unassigned",
+      "Saturday": "Unassigned",
+      "Sunday": "Unassigned"
+    },
+    "qm_staff_10am": {
+      "Monday": "Unassigned",
+      "Tuesday": "Unassigned",
+      "Wednesday": "Unassigned",
+      "Thursday": "Unassigned",
+      "Friday": "Unassigned",
+      "Saturday": "Unassigned",
+      "Sunday": "Unassigned"
+    },
+    "total_headcount_6am": [
+      5,
+      5,
+      5,
+      5,
+      5,
+      1,
+      1
+    ],
+    "total_headcount_8am": [
+      3,
+      3,
+      3,
+      3,
+      3,
+      0,
+      0
+    ],
+    "total_headcount_10am": [
+      2,
+      3,
+      4,
+      4,
+      3,
       1,
       1
     ]
