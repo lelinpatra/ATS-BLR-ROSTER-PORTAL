@@ -271,11 +271,11 @@
         @media (max-width:767px){.login-card{min-height:0;max-height:calc(100vh - 28px);overflow-y:auto;border-radius:22px}.login-form-panel{padding:20px 18px}}
 
         /* Sabre Holiday Calendar — fixed columns and left-aligned Holiday Name */
-        .holiday-calendar-table { table-layout: fixed; width: 100%; }
-        .holiday-calendar-table .holiday-date-col { width: 14%; }
-        .holiday-calendar-table .holiday-day-col { width: 14%; }
-        .holiday-calendar-table .holiday-name-col { width: 44%; }
-        .holiday-calendar-table .holiday-office-col { width: 28%; }
+        .holiday-calendar-table { table-layout: auto; width: 100%; }
+        .holiday-calendar-table .holiday-date-col { width: 12%; }
+        .holiday-calendar-table .holiday-day-col { width: 12%; }
+        .holiday-calendar-table .holiday-name-col { width: 43%; }
+        .holiday-calendar-table .holiday-office-col { width: 33%; }
         .holiday-calendar-table th,
         .holiday-calendar-table td { vertical-align: middle !important; text-align: left !important; }
         .holiday-calendar-table th:nth-child(3),
@@ -6809,10 +6809,10 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
 
                     tableRowsHTML += `
                         <tr class="hover:bg-slate-50 border-b border-slate-200 transition-colors">
-                            <td class="p-3 sm:p-4 text-xs font-mono-digital font-bold text-slate-900 text-left align-middle">${formattedDate}</td>
-                            <td class="p-3 sm:p-4 text-xs font-semibold text-slate-600 text-left align-middle">${h.day}</td>
-                            <td class="holiday-name-cell p-3 sm:p-4 text-xs sm:text-sm font-extrabold text-slate-950 text-left align-middle break-words" style="text-align:left!important; text-align-last:left!important;"><div class="w-full text-left" style="text-align:left!important;">${h.name}</div></td>
-                            <td class="p-3 sm:p-4 text-left align-middle"><div class="flex flex-wrap gap-1">${badges}</div></td>
+                            <td class="px-2.5 py-2 sm:px-3 sm:py-2.5 text-xs font-mono-digital font-bold text-slate-900 text-left align-middle">${formattedDate}</td>
+                            <td class="px-2.5 py-2 sm:px-3 sm:py-2.5 text-xs font-semibold text-slate-600 text-left align-middle">${h.day}</td>
+                            <td class="holiday-name-cell px-2.5 py-2 sm:px-3 sm:py-2.5 text-xs sm:text-sm font-extrabold text-slate-950 text-left align-middle break-words" style="text-align:left!important; text-align-last:left!important;"><div class="w-full text-left" style="text-align:left!important;">${h.name}</div></td>
+                            <td class="px-2.5 py-2 sm:px-3 sm:py-2.5 text-left align-middle"><div class="flex flex-wrap gap-1">${badges}</div></td>
                         </tr>
                     `;
                 });
@@ -6834,7 +6834,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
 
                     <div class="bg-white rounded-xl table-3d overflow-hidden w-full">
                         <div class="overflow-x-auto w-full">
-                            <table class="holiday-calendar-table w-full border-collapse text-left table-fixed">
+                            <table class="holiday-calendar-table w-full border-collapse text-left">
                                 <colgroup>
                                     <col class="holiday-date-col">
                                     <col class="holiday-day-col">
@@ -6843,10 +6843,10 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                                 </colgroup>
                                 <thead>
                                     <tr class="bg-slate-900 text-white text-[10px] sm:text-xs uppercase font-semibold border-b border-slate-950">
-                                        <th class="p-3 sm:p-4 text-left align-middle">Date</th>
-                                        <th class="p-3 sm:p-4 text-left align-middle">Day</th>
-                                        <th class="holiday-name-header p-3 sm:p-4 text-left align-middle" style="text-align:left!important; text-align-last:left!important;">Holiday Name</th>
-                                        <th class="p-3 sm:p-4 text-left align-middle">Applicable Offices</th>
+                                        <th class="px-2.5 py-2 sm:px-3 sm:py-2.5 text-left align-middle">Date</th>
+                                        <th class="px-2.5 py-2 sm:px-3 sm:py-2.5 text-left align-middle">Day</th>
+                                        <th class="holiday-name-header px-2.5 py-2 sm:px-3 sm:py-2.5 text-left align-middle" style="text-align:left!important; text-align-last:left!important;">Holiday Name</th>
+                                        <th class="px-2.5 py-2 sm:px-3 sm:py-2.5 text-left align-middle">Applicable Offices</th>
                                     </tr>
                                 </thead>
                                 <tbody>
