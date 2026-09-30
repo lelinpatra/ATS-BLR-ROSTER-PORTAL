@@ -5512,12 +5512,50 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                     } catch (_) {}
                 }
                 if (authoritativeData && Array.isArray(authoritativeData) && authoritativeData.length > 0) {
-                    rawRosterData = JSON.parse(JSON.stringify(authoritativeData));
-                    publishedRosterData = JSON.parse(JSON.stringify(authoritativeData));
-                    backupRosterData = JSON.parse(JSON.stringify(authoritativeData));
+                    // IMPORTANT: The embedded roster is the corrected roster shipped with
+                    // this HTML.  GitHub/raw roster.json can temporarily be an older copy.
+                    // Never allow an older 08:00 AM value to replace a corrected 11:00 AM
+                    // or 12:00 PM shift that is already present in the HTML payload.
+                    // This keeps Normal Mode identical to the roster shown in Admin Mode.
+                    const embeddedRoster = Array.isArray(defaultHardcodedRosterData)
+                        ? defaultHardcodedRosterData
+                        : [];
+                    const liveRoster = authoritativeData;
+                    const protectedLateShiftData = JSON.parse(JSON.stringify(liveRoster));
+                    const protectedLateShiftMap = new Map();
+
+                    embeddedRoster.forEach(embeddedWeek => {
+                        (embeddedWeek.employees || []).forEach(embeddedEmp => {
+                            const empId = String(embeddedEmp.sg_id ?? embeddedEmp.name ?? '');
+                            Object.entries(embeddedEmp.shifts || {}).forEach(([day, embeddedShift]) => {
+                                const normalizedEmbedded = normalizeRosterShiftValue(embeddedShift);
+                                if (normalizedEmbedded === '11:00 AM - 08:00 PM' ||
+                                    normalizedEmbedded === '12:00 PM - 09:00 PM') {
+                                    protectedLateShiftMap.set(`${embeddedWeek.month}|${embeddedWeek.week_num}|${empId}|${day}`, normalizedEmbedded);
+                                }
+                            });
+                        });
+                    });
+
+                    protectedLateShiftData.forEach(liveWeek => {
+                        (liveWeek.employees || []).forEach(liveEmp => {
+                            const empId = String(liveEmp.sg_id ?? liveEmp.name ?? '');
+                            Object.keys(liveEmp.shifts || {}).forEach(day => {
+                                const key = `${liveWeek.month}|${liveWeek.week_num}|${empId}|${day}`;
+                                const protectedShift = protectedLateShiftMap.get(key);
+                                if (protectedShift) {
+                                    liveEmp.shifts[day] = protectedShift;
+                                }
+                            });
+                        });
+                    });
+
+                    rawRosterData = JSON.parse(JSON.stringify(protectedLateShiftData));
+                    publishedRosterData = JSON.parse(JSON.stringify(protectedLateShiftData));
+                    backupRosterData = JSON.parse(JSON.stringify(protectedLateShiftData));
                     sessionRosterLock = false;
-                    syncCloudCredentialsToLocal(authoritativeData);
-                    syncPortalNotificationsFromCloud(authoritativeData);
+                    syncCloudCredentialsToLocal(protectedLateShiftData);
+                    syncPortalNotificationsFromCloud(protectedLateShiftData);
                 }
             } catch (err) {
                 console.log("Using default fallback roster data:", err);
