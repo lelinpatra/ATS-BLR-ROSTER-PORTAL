@@ -1265,12 +1265,6 @@
       }
     ],
     "_user_credentials": {
-      "123456": {
-        "password": "TN78NSO5",
-        "isTemporary": true,
-        "lastChanged": 1790354675740,
-        "status": "ACTIVE"
-      },
       "223254": {
         "password": "PASS1234",
         "isTemporary": true,
@@ -1365,10 +1359,6 @@
     "_admin_reset_requests": [],
     "_exclusion_employees": [
       {
-        "sg_id": "123456",
-        "name": "Jaan Jaan"
-      },
-      {
         "sg_id": "223174",
         "name": "Rajesh Warvadkar",
         "email": "rajesh.warvadkar@sabre.com"
@@ -1379,6 +1369,19 @@
         "date": "2026-01-01",
         "day": "Thursday",
         "name": "New Year's Day",
+        "offices": [
+          "US",
+          "UK",
+          "BLR",
+          "KRK",
+          "MVD",
+          "SGP"
+        ]
+      },
+      {
+        "date": "2026-01-02",
+        "day": "Friday",
+        "name": "Sabre Year End Break",
         "offices": [
           "US",
           "UK",
@@ -1425,7 +1428,14 @@
         "day": "Monday",
         "name": "Presidents' Day",
         "offices": [
-          "US",
+          "US"
+        ]
+      },
+      {
+        "date": "2026-02-16",
+        "day": "Monday",
+        "name": "Carnival (non-working)",
+        "offices": [
           "MVD"
         ]
       },
@@ -1434,7 +1444,14 @@
         "day": "Tuesday",
         "name": "Carnival",
         "offices": [
-          "MVD",
+          "MVD"
+        ]
+      },
+      {
+        "date": "2026-02-17",
+        "day": "Tuesday",
+        "name": "Chinese / Lunar New Year",
+        "offices": [
           "SGP"
         ]
       },
@@ -1481,19 +1498,20 @@
       {
         "date": "2026-04-03",
         "day": "Friday",
-        "name": "Good",
+        "name": "Good Friday",
         "offices": [
           "US",
           "UK",
           "BLR",
           "KRK",
-          "MVD"
+          "MVD",
+          "SGP"
         ]
       },
       {
         "date": "2026-04-06",
         "day": "Monday",
-        "name": "Easter",
+        "name": "Easter Monday",
         "offices": [
           "UK",
           "KRK"
@@ -1513,15 +1531,7 @@
       {
         "date": "2026-05-04",
         "day": "Monday",
-        "name": "Early May Bank",
-        "offices": [
-          "UK"
-        ]
-      },
-      {
-        "date": "2026-05-05",
-        "day": "Tuesday",
-        "name": "Early May Bank",
+        "name": "Early May Bank Holiday",
         "offices": [
           "UK"
         ]
@@ -1529,7 +1539,7 @@
       {
         "date": "2026-05-25",
         "day": "Monday",
-        "name": "Spring Bank / Memorial , Day",
+        "name": "Spring Bank / Memorial Day",
         "offices": [
           "US",
           "UK"
@@ -1586,7 +1596,7 @@
       {
         "date": "2026-07-18",
         "day": "Saturday",
-        "name": "Constitution Day (non- working)",
+        "name": "Constitution Day (non-working)",
         "offices": [
           "MVD"
         ]
@@ -1618,7 +1628,7 @@
       {
         "date": "2026-08-25",
         "day": "Tuesday",
-        "name": "Independence Day (non- working)",
+        "name": "Independence Day (non-working)",
         "offices": [
           "MVD"
         ]
@@ -1626,7 +1636,7 @@
       {
         "date": "2026-08-31",
         "day": "Monday",
-        "name": "Summer Bank",
+        "name": "Summer Bank Holiday",
         "offices": [
           "UK"
         ]
@@ -1706,7 +1716,7 @@
       {
         "date": "2026-11-11",
         "day": "Wednesday",
-        "name": "Independence / Veterans , Day",
+        "name": "Independence / Veterans Day",
         "offices": [
           "US",
           "KRK"
@@ -1724,6 +1734,14 @@
         "date": "2026-11-26",
         "day": "Thursday",
         "name": "Thanksgiving Day",
+        "offices": [
+          "US"
+        ]
+      },
+      {
+        "date": "2026-11-27",
+        "day": "Friday",
+        "name": "Thanksgiving Friday",
         "offices": [
           "US"
         ]
@@ -1754,7 +1772,8 @@
           "UK",
           "BLR",
           "KRK",
-          "MVD"
+          "MVD",
+          "SGP"
         ]
       },
       {
@@ -1764,6 +1783,84 @@
         "offices": [
           "UK",
           "KRK"
+        ]
+      },
+      {
+        "date": "2026-12-26",
+        "day": "Saturday",
+        "name": "Sabre Year End Break",
+        "offices": [
+          "US",
+          "UK",
+          "BLR",
+          "KRK",
+          "MVD",
+          "SGP"
+        ]
+      },
+      {
+        "date": "2026-12-27",
+        "day": "Sunday",
+        "name": "Sabre Year End Break",
+        "offices": [
+          "US",
+          "UK",
+          "BLR",
+          "KRK",
+          "MVD",
+          "SGP"
+        ]
+      },
+      {
+        "date": "2026-12-28",
+        "day": "Monday",
+        "name": "Sabre Year End Break",
+        "offices": [
+          "US",
+          "UK",
+          "BLR",
+          "KRK",
+          "MVD",
+          "SGP"
+        ]
+      },
+      {
+        "date": "2026-12-29",
+        "day": "Tuesday",
+        "name": "Sabre Year End Break",
+        "offices": [
+          "US",
+          "UK",
+          "BLR",
+          "KRK",
+          "MVD",
+          "SGP"
+        ]
+      },
+      {
+        "date": "2026-12-30",
+        "day": "Wednesday",
+        "name": "Sabre Year End Break",
+        "offices": [
+          "US",
+          "UK",
+          "BLR",
+          "KRK",
+          "MVD",
+          "SGP"
+        ]
+      },
+      {
+        "date": "2026-12-31",
+        "day": "Thursday",
+        "name": "Sabre Year End Break",
+        "offices": [
+          "US",
+          "UK",
+          "BLR",
+          "KRK",
+          "MVD",
+          "SGP"
         ]
       }
     ],
