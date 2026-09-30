@@ -6625,9 +6625,21 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
 
             let empNames = Object.keys(empMap);
 
+            // Always show the currently logged-in employee first in Individual Profiles.
+            // Everyone else keeps the existing 2L-priority + alphabetical ordering.
+            const loggedInSgId = cleanSgId(activeUserSession?.sg_id);
+            const loggedInName = String(activeUserSession?.empName || '').trim().toUpperCase();
+
             empNames.sort((nameA, nameB) => {
                 const empA = empMap[nameA];
                 const empB = empMap[nameB];
+
+                const isALoggedIn = (loggedInSgId && cleanSgId(empA?.sg_id) === loggedInSgId) ||
+                    (!loggedInSgId && loggedInName && nameA.trim().toUpperCase() === loggedInName);
+                const isBLoggedIn = (loggedInSgId && cleanSgId(empB?.sg_id) === loggedInSgId) ||
+                    (!loggedInSgId && loggedInName && nameB.trim().toUpperCase() === loggedInName);
+
+                if (isALoggedIn !== isBLoggedIn) return isALoggedIn ? -1 : 1;
 
                 const isA2L = (empA.skilling && empA.skilling.toUpperCase().includes("2L")) ? 1 : 0;
                 const isB2L = (empB.skilling && empB.skilling.toUpperCase().includes("2L")) ? 1 : 0;
