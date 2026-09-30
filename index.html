@@ -8144,28 +8144,8 @@ body.ats-cinematic-active #mainDisplayArea .rounded-2xl:hover{transform:translat
   {id:'mint',name:'Mint',desc:'Soft teal modern interface',bg:'#e8faf7',surface:'#ffffff',surface2:'#f0fdfa',text:'#134e4a',muted:'#5f7f7b',primary:'#0f766e',accent:'#f97316',border:'#b7ebe4',header:'#134e4a'},
   {id:'rose',name:'Rose',desc:'Elegant rose enterprise theme',bg:'#fff0f4',surface:'#ffffff',surface2:'#fff7f9',text:'#4a1023',muted:'#8b6070',primary:'#be185d',accent:'#f59e0b',border:'#f3bfd2',header:'#4a1023'},
   {id:'terminal',name:'Terminal',desc:'High-contrast operations console',bg:'#07110b',surface:'#0b1a10',surface2:'#102217',text:'#dcfce7',muted:'#86efac',primary:'#22c55e',accent:'#facc15',border:'#166534',header:'#020a05'},
-  {id:'cinematic-cyber',name:'Cyber Armor',desc:'Transformers-inspired cyber motion',bg:'#050b18',surface:'#0b1224',surface2:'#101a32',text:'#e0f2fe',muted:'#7dd3fc',primary:'#22d3ee',accent:'#f97316',border:'#164e63',header:'#020617',cinematic:true,only:'316092'},
-  {id:'cinematic-arc',name:'Arc Reactor',desc:'Iron Man-inspired reactor glow',bg:'#071018',surface:'#0b1720',surface2:'#102330',text:'#e0f2fe',muted:'#7dd3fc',primary:'#22d3ee',accent:'#ef4444',border:'#155e75',header:'#020617',cinematic:true,only:'316092'},
-  {id:'cinematic-web',name:'Web Pulse',desc:'Spider-inspired neon web motion',bg:'#090b18',surface:'#111426',surface2:'#191c36',text:'#f8fafc',muted:'#c4b5fd',primary:'#a855f7',accent:'#ef4444',border:'#4c1d95',header:'#050505',cinematic:true,only:'316092'},
-  {id:'cinematic-nexus',name:'Hero Nexus',desc:'Avengers-inspired hero energy',bg:'#090b15',surface:'#12162a',surface2:'#1a2038',text:'#f8fafc',muted:'#94a3b8',primary:'#60a5fa',accent:'#ef4444',border:'#1e40af',header:'#020617',cinematic:true,only:'316092'},
-  {id:'cinematic-doomsday',name:'Doomsday Core',desc:'Dark catastrophic energy core',bg:'#100603',surface:'#1b0a06',surface2:'#29100a',text:'#fff7ed',muted:'#fdba74',primary:'#f97316',accent:'#ef4444',border:'#9a3412',header:'#090909',cinematic:true,only:'316092'},
-  {id:'cinematic-interstellar',name:'Interstellar Warp',desc:'Deep-space wormhole motion',bg:'#020617',surface:'#081126',surface2:'#0c1833',text:'#e0e7ff',muted:'#93c5fd',primary:'#818cf8',accent:'#22d3ee',border:'#3730a3',header:'#01030a',cinematic:true,only:'316092'},
-  {id:'cinematic-galaxy',name:'Galaxy Hyperdrive',desc:'Starfield and hyperspace energy',bg:'#070316',surface:'#10072b',surface2:'#180b3b',text:'#f5f3ff',muted:'#c4b5fd',primary:'#c084fc',accent:'#38bdf8',border:'#6b21a8',header:'#03000a',cinematic:true,only:'316092'},
-  {id:'cinematic-neon',name:'Neon Grid',desc:'Futuristic 3D neon city',bg:'#020617',surface:'#071426',surface2:'#0b1d34',text:'#ecfeff',muted:'#67e8f9',primary:'#06b6d4',accent:'#f472b6',border:'#155e75',header:'#020617',cinematic:true,only:'316092'},
-  {id:'cinematic-noir',name:'Neon Noir',desc:'Cinematic red-blue night motion',bg:'#070711',surface:'#11111e',surface2:'#181829',text:'#f8fafc',muted:'#a5b4fc',primary:'#6366f1',accent:'#fb7185',border:'#3730a3',header:'#030305',cinematic:true,only:'316092'},
-  {id:'cinematic-dimension',name:'Dimension Rift',desc:'Reality-bending dimensional portal',bg:'#05020c',surface:'#0e0618',surface2:'#170a28',text:'#f5f3ff',muted:'#d8b4fe',primary:'#d946ef',accent:'#8b5cf6',border:'#86198f',header:'#020006',cinematic:true,only:'316092'}
  ];
  const CINEMATIC_WALLPAPERS={
-   'cinematic-cyber':'https://media.easy-peasy.ai/46c60c18-404d-4abe-ba92-928afeb27a40/5de7f496-f511-40bc-8d7c-a9065b099b66_thumb.webp',
-   'cinematic-arc':'https://storage.googleapis.com/moviemaps/img/zz5.f5dmpi.940.jpg',
-   'cinematic-web':'https://disney.images.edge.bamgrid.com/ripcut-delivery/v2/variant/disney/cc323ffc-ee33-4cdb-b3a4-bb304b0a5ddb/compose?format=webp&width=2560',
-   'cinematic-nexus':'https://a.ltrbxd.com/resized/sm/upload/8w/a1/14/qk/the-avengers-2012-1200-1200-675-675-crop-000000.jpg?v=a46491df32',
-   'cinematic-doomsday':'https://cdn.mos.cms.futurecdn.net/DfZDC8ViwnU57ppgMNFDFH.jpg',
-   'cinematic-interstellar':'https://4kwallpapers.com/images/wallpapers/gargantua-black-3840x2160-9611.jpg',
-   'cinematic-galaxy':'https://cdn.wallpapersafari.com/87/35/7xe329v.jpg',
-   'cinematic-neon':'https://image-0.uhdpaper.com/wallpaper/the-matrix-neo-stopping-bullets-kenau-reeves-hd-wallpaper-uhdpaper.com-814@0@i.jpg',
-   'cinematic-noir':'https://images7.alphacoders.com/105/thumb-1920-1053224.jpg',
-   'cinematic-dimension':'https://d1uzk9o9cg136f.cloudfront.net/f/16782943/rc/2021/10/05/cccef9c9281a3c7ba8b0800272f9e6adfcd01fdd.jpg'
  };
  themes.forEach(t=>{if(CINEMATIC_WALLPAPERS[t.id])t.wallpaper=CINEMATIC_WALLPAPERS[t.id]});
  const CINEMATIC_IDS=new Set(themes.filter(t=>t.cinematic).map(t=>t.id));
