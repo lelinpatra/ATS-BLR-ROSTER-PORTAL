@@ -5051,22 +5051,28 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                     const userConfirmed = confirm("You have unsaved Admin changes. Switching to Normal Mode will discard those unpublished changes. Continue?");
                     if (!userConfirmed) return;
                 }
+                // IMPORTANT: Keep the exact roster currently displayed in Admin Mode when
+                // switching to Normal Mode in the same browser session. Previously this block
+                // replaced rawRosterData with backupRosterData/publishedRosterData, which could
+                // contain an older 08:00 AM value and silently revert a newly selected
+                // 11:00 AM - 08:00 PM shift. Unpublished changes still remain unpublished
+                // to other users and notifications are not generated until Publish.
+                const sessionRoster = (rawRosterData && Array.isArray(rawRosterData) && rawRosterData.length)
+                    ? JSON.parse(JSON.stringify(rawRosterData))
+                    : null;
                 isAdminMode = false;
-                pendingChangesExist = false;
-                // Normal mode MUST render only the immutable published snapshot.
-                // Never use rawRosterData here because it may contain an Admin-only draft.
-                const publicRoster = (publishedRosterData && Array.isArray(publishedRosterData))
-                    ? publishedRosterData
-                    : backupRosterData;
-                if (publicRoster && Array.isArray(publicRoster)) {
-                    rawRosterData = JSON.parse(JSON.stringify(publicRoster));
+                if (sessionRoster) {
+                    rawRosterData = sessionRoster;
                 }
                 document.getElementById('adminActionDock').classList.add('hidden');
                 updateSavedDraftButton();
-                alert("Switched to Normal Roster Mode. Only the published roster is visible. Your saved Admin draft remains available when you return to Admin Mode.");
+                alert("Switched to Normal Roster Mode. The current roster is preserved exactly as shown in Admin Mode. Publish it when you want the changes available to all users.");
                 updateTopRightUserHeader();
-                // Refresh Normal Mode from the live published roster so it cannot display
-                // an older 08:00 AM value after an 11:00 AM shift has been published.
+                // Do not fetch roster.json here. A live/public copy can lag behind the
+                // current session and would overwrite a newly selected 11:00 AM shift.
+                // The current session roster remains authoritative until refresh/re-login.
+                renderView();
+                return;
                 (async function refreshNormalModeFromPublishedRoster() {
                     try {
                         const liveRosterUrls = [
