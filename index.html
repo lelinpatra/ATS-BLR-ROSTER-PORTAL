@@ -4928,7 +4928,15 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 return;
             }
 
-            const matchedEmp = findEmployeeBySgId(cleanId);
+            // Authentication must never depend on roster.json being available or
+            // successfully rendered. The email + SG ID mapping above is the authoritative
+            // login credential map; roster data is only used to enrich the display name.
+            let matchedEmp = null;
+            try {
+                matchedEmp = findEmployeeBySgId(cleanId);
+            } catch (rosterLookupError) {
+                console.warn('Roster lookup failed during login; continuing with credential map.', rosterLookupError);
+            }
             const loginEmployeeName = getPortalLoginEmployeeName(cleanId, matchedEmp);
             const portalRole = getPortalRole(inputEmail, cleanId);
             const isAdmin = portalRole === 'admin';
@@ -5610,8 +5618,12 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                     rawRosterData = JSON.parse(JSON.stringify(authoritativeData));
                     publishedRosterData = JSON.parse(JSON.stringify(authoritativeData));
                     backupRosterData = JSON.parse(JSON.stringify(authoritativeData));
-                    syncCloudCredentialsToLocal(authoritativeData);
-                    syncPortalNotificationsFromCloud(authoritativeData);
+                    try { syncCloudCredentialsToLocal(authoritativeData); } catch (e) {
+                        console.warn('Cloud credential sync skipped:', e);
+                    }
+                    try { syncPortalNotificationsFromCloud(authoritativeData); } catch (e) {
+                        console.warn('Notification sync skipped:', e);
+                    }
                 }
             } catch (err) {
                 console.log("Using default fallback roster data:", err);
@@ -5620,7 +5632,13 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 backupRosterData = JSON.parse(JSON.stringify(rawRosterData));
                 initializeDefaultEmpCredentials();
             }
-            initializePortal();
+            // A roster/rendering error must never prevent the authentication UI from
+            // functioning. Login is based on the explicit email + SG ID map.
+            try {
+                initializePortal();
+            } catch (portalInitError) {
+                console.error('Portal initialization error after roster load:', portalInitError);
+            }
         }
 
         const BASE_SHIFT_OPTIONS = [
