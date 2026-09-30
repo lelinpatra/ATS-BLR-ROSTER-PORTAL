@@ -264,6 +264,16 @@
     ],
     "_portal_notifications": [
       {
+        "id": "n_1790750433839_0_hmsvvh",
+        "createdAt": "2026-09-30T06:40:33.839Z",
+        "title": "Sanjay Kumar roster changed",
+        "message": "Sanjay Kumar shift/status changed on 10/07/26 from 11:00 AM - 08:00 PM to 12:00 PM - 09:00 PM.",
+        "type": "employee",
+        "month": "October",
+        "week": 1,
+        "employee": "Sanjay Kumar"
+      },
+      {
         "id": "n_1790745745885_43_mfizrc",
         "createdAt": "2026-09-30T05:22:25.885Z",
         "title": "Manisha Kumari roster changed",
@@ -1248,16 +1258,6 @@
         "createdAt": "2026-09-29T19:32:09.654Z",
         "title": "Gokul Krishna Lokesh roster changed",
         "message": "Gokul Krishna Lokesh shift/status changed on 10/02/26 from Mon/Tue/Wed/Thu/Fri to 08:00 AM - 05:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 4,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790710329654_73_8p6vzx",
-        "createdAt": "2026-09-29T19:32:09.654Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 10/01/26 from 0.7083333333333334 to 08:00 AM - 05:00 PM.",
         "type": "employee",
         "month": "September",
         "week": 4,
@@ -2738,7 +2738,7 @@
         "shifts": {
           "Monday": "WO",
           "Tuesday": "WO",
-          "Wednesday": "11:00 AM - 08:00 PM",
+          "Wednesday": "12:00 PM - 09:00 PM",
           "Thursday": "10:00 AM - 07:00 PM",
           "Friday": "10:00 AM - 07:00 PM",
           "Saturday": "06:00 AM - 03:00 PM",
@@ -2901,18 +2901,18 @@
       "Sunday": "Unassigned"
     },
     "total_headcount_6am": [
-      3,
-      3,
-      3,
-      3,
-      3,
+      5,
+      5,
+      5,
+      5,
+      5,
       1,
       1
     ],
     "total_headcount_8am": [
       2,
       2,
-      3,
+      2,
       3,
       3,
       0,
@@ -3165,11 +3165,11 @@
       "Sunday": "Unassigned"
     },
     "total_headcount_6am": [
-      3,
-      3,
-      3,
-      2,
-      3,
+      5,
+      5,
+      5,
+      4,
+      5,
       1,
       1
     ],
@@ -3429,11 +3429,11 @@
       "Sunday": "Unassigned"
     },
     "total_headcount_6am": [
-      3,
-      3,
-      3,
-      3,
-      3,
+      5,
+      4,
+      5,
+      5,
+      5,
       1,
       1
     ],
@@ -3693,11 +3693,11 @@
       "Sunday": "Unassigned"
     },
     "total_headcount_6am": [
-      3,
-      3,
-      3,
-      3,
-      3,
+      5,
+      5,
+      5,
+      5,
+      5,
       1,
       1
     ],
