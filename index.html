@@ -5555,6 +5555,8 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             "10:00 AM - 07:00 PM",
             "10:00 AM (1st Half Off)",
             "10:00 AM (2nd Half Off)",
+            "11:00 AM - 08:00 PM",
+            "12:00 PM - 09:00 PM",
             "WO",
             "PTO",
             "SL",
@@ -6337,9 +6339,20 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 let matchFound = false;
 
                 const isWeekendDay = (day === 'Saturday' || day === 'Sunday');
-                const dayOptions = isWeekendDay 
-                    ? [...BASE_SHIFT_OPTIONS.slice(0, 1), WEEKEND_SHIFT_OPTION, ...BASE_SHIFT_OPTIONS.slice(1)]
-                    : BASE_SHIFT_OPTIONS;
+                // Keep every standard shift permanently available in the roster dropdown.
+                // In particular, the 11 AM and 12 PM shifts must not be removed by
+                // weekend/half-day filtering or by the current employee's shift.
+                const REQUIRED_SHIFT_OPTIONS = [
+                    "11:00 AM - 08:00 PM",
+                    "12:00 PM - 09:00 PM"
+                ];
+                const standardOptions = [...BASE_SHIFT_OPTIONS];
+                REQUIRED_SHIFT_OPTIONS.forEach(requiredShift => {
+                    if (!standardOptions.includes(requiredShift)) standardOptions.push(requiredShift);
+                });
+                const dayOptions = isWeekendDay
+                    ? [standardOptions[0], WEEKEND_SHIFT_OPTION, ...standardOptions.slice(1)]
+                    : standardOptions;
 
                 dayOptions.forEach(opt => {
                     const selected = (shift === opt) ? 'selected' : '';
@@ -6354,7 +6367,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 }
 
                 return `
-                    <select onchange="updateShiftInteractive('${sgId}', '${day}', this)" class="bg-white border border-slate-300 text-slate-800 text-xs font-bold rounded px-1.5 py-1 focus:ring-2 focus:ring-indigo-500 shadow-sm cursor-pointer w-full max-w-[130px] ${pendingChangesExist ? 'pending-change' : ''}">
+                    <select onchange="updateShiftInteractive('${sgId}', '${day}', this)" class="bg-white border border-slate-300 text-slate-800 text-xs font-bold rounded px-1.5 py-1 focus:ring-2 focus:ring-indigo-500 shadow-sm cursor-pointer w-full min-w-[170px] max-w-[210px] ${pendingChangesExist ? 'pending-change' : ''}">
                         ${optionsHtml}
                     </select>
                 `;
@@ -6365,36 +6378,45 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             } else if (shift === 'PTO') {
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-rose-600 text-white border border-rose-700 shadow-md roster-status-badge">PTO</span>`;
             } else if (shift === 'PH') {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-purple-100 text-purple-900 border border-purple-400 shadow-sm">PH</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-white text-red-600 border-2 border-red-600 shadow-sm">PH</span>`;
             } else if (shift === 'SL' || shift === 'HD SL') {
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-rose-100 text-rose-800 border border-rose-300 shadow-sm roster-status-badge">${shift}</span>`;
             } else if (shift === '06:00 AM (1st Half Off)') {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-orange-100 text-orange-950 border border-orange-400 shadow-sm" title="06:00 AM (1st Half Off)">06:00 AM (1st Half Off)</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-emerald-100 text-emerald-950 border border-emerald-500 shadow-sm" title="06:00 AM (1st Half Off)">06:00 AM (1st Half Off)</span>`;
             } else if (shift === '06:00 AM (2nd Half Off)') {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-lime-100 text-lime-950 border border-lime-500 shadow-sm" title="06:00 AM (2nd Half Off)">06:00 AM (2nd Half Off)</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-green-100 text-green-950 border border-green-500 shadow-sm" title="06:00 AM (2nd Half Off)">06:00 AM (2nd Half Off)</span>`;
             } else if (shift === '10:00 AM (1st Half Off)') {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-cyan-100 text-cyan-950 border border-cyan-500 shadow-sm" title="10:00 AM (1st Half Off)">10:00 AM (1st Half Off)</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-amber-100 text-amber-950 border border-amber-500 shadow-sm" title="10:00 AM (1st Half Off)">10:00 AM (1st Half Off)</span>`;
             } else if (shift === '10:00 AM (2nd Half Off)') {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-violet-100 text-violet-950 border border-violet-500 shadow-sm" title="10:00 AM (2nd Half Off)">10:00 AM (2nd Half Off)</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-orange-100 text-orange-950 border border-orange-500 shadow-sm" title="10:00 AM (2nd Half Off)">10:00 AM (2nd Half Off)</span>`;
             } else if (shift.includes("10:00")) {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-amber-100 text-amber-950 border border-amber-400 shadow-sm" title="${shift}">10:00 AM</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-yellow-100 text-yellow-950 border border-yellow-500 shadow-sm" title="${shift}">10:00 AM</span>`;
             } else if (shift.includes("06:30") || shift.includes("6:30")) {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-emerald-200 text-emerald-950 border border-emerald-500 shadow-sm" title="${shift}">06:30 AM</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-sky-100 text-sky-950 border border-sky-500 shadow-sm" title="${shift}">06:30 AM</span>`;
             } else if (shift.includes("06:00") || shift.includes("6:00")) {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-emerald-100 text-emerald-900 border border-emerald-400 shadow-sm" title="${shift}">06:00 AM</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-emerald-200 text-emerald-950 border border-emerald-600 shadow-sm" title="${shift}">06:00 AM</span>`;
             } else if (shift.includes("07:00") || shift.includes("7:00")) {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-teal-100 text-teal-900 border border-teal-400 shadow-sm" title="${shift}">07:00 AM</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-cyan-100 text-cyan-950 border border-cyan-500 shadow-sm" title="${shift}">07:00 AM</span>`;
             } else if (shift.includes("08:00") || shift.includes("8:00")) {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-blue-100 text-blue-900 border border-blue-400 shadow-sm" title="${shift}">08:00 AM</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-blue-100 text-blue-950 border border-blue-500 shadow-sm" title="${shift}">08:00 AM</span>`;
+            } else if (shift.includes("11:00") || shift.includes("11:00 AM")) {
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-indigo-100 text-indigo-950 border border-indigo-500 shadow-sm" title="${shift}">11:00 AM</span>`;
+            } else if (shift.includes("12:00") || shift.includes("12:00 PM")) {
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-fuchsia-100 text-fuchsia-950 border border-fuchsia-500 shadow-sm" title="${shift}">12:00 PM</span>`;
             } else {
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-indigo-100 text-indigo-900 border border-indigo-400 shadow-sm">${shift}</span>`;
             }
         }
 
         function normalizeHalfDayShiftValue(value) {
-            const v = String(value || '').trim();
-            if (v === '1st Half Off') return '06:00 AM (1st Half Off)';
-            if (v === '2nd Half Off') return '10:00 AM (2nd Half Off)';
+            const v = String(value || '').trim().replace(/\s+/g, ' ');
+            // Preserve the actual base shift when a half-day option is selected.
+            // Do NOT map a generic 2nd-half value to 10:00 AM: the four half-day
+            // choices are distinct roster values and must remain distinct everywhere.
+            if (/^06:00 AM\s*\(\s*1st Half Off\s*\)$/i.test(v) || /^06:00 AM\s+1st Half Off$/i.test(v)) return '06:00 AM (1st Half Off)';
+            if (/^06:00 AM\s*\(\s*2nd Half Off\s*\)$/i.test(v) || /^06:00 AM\s+2nd Half Off$/i.test(v)) return '06:00 AM (2nd Half Off)';
+            if (/^10:00 AM\s*\(\s*1st Half Off\s*\)$/i.test(v) || /^10:00 AM\s+1st Half Off$/i.test(v)) return '10:00 AM (1st Half Off)';
+            if (/^10:00 AM\s*\(\s*2nd Half Off\s*\)$/i.test(v) || /^10:00 AM\s+2nd Half Off$/i.test(v)) return '10:00 AM (2nd Half Off)';
             return v;
         }
 
