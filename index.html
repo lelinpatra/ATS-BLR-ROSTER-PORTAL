@@ -2869,6 +2869,8 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
         let backupRosterData = null;
         // Immutable snapshot of the last PUBLICLY PUBLISHED roster. Admin drafts must never alter this.
         let publishedRosterData = null;
+        // Locks the current browser-session roster so late background fetches cannot overwrite it.
+        let sessionRosterLock = false;
         let stagedExcelRosterData = null;
         let stagedExcelFileName = '';
         const ADMIN_DRAFT_STORAGE_KEY = 'ats_roster_admin_excel_draft_v1';
@@ -5015,6 +5017,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 githubConfig.path = SUB_ADMIN_GITHUB_PATH;
 
                 isAdminMode = true;
+                sessionRosterLock = true;
                 pendingChangesExist = false;
                 publishedRosterData = JSON.parse(JSON.stringify(rawRosterData));
                 backupRosterData = JSON.parse(JSON.stringify(publishedRosterData));
@@ -5060,6 +5063,9 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 const sessionRoster = (rawRosterData && Array.isArray(rawRosterData) && rawRosterData.length)
                     ? JSON.parse(JSON.stringify(rawRosterData))
                     : null;
+                // Freeze this exact roster for the current tab. Any background fetch
+                // already in progress is stale and must not restore an older 08:00 AM value.
+                sessionRosterLock = true;
                 isAdminMode = false;
                 if (sessionRoster) {
                     rawRosterData = sessionRoster;
@@ -5492,6 +5498,9 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 }
                 // The uploaded roster.json is authoritative when it is available.
                 // A local publish cache is only a fallback when the network copy cannot be read.
+                // Never apply this background result after Admin/session mode has locked
+                // the roster; doing so can revert 11:00 AM to an older 08:00 AM snapshot.
+                if (sessionRosterLock) return;
                 let authoritativeData = liveData;
                 if (!authoritativeData) {
                     try {
@@ -5506,6 +5515,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                     rawRosterData = JSON.parse(JSON.stringify(authoritativeData));
                     publishedRosterData = JSON.parse(JSON.stringify(authoritativeData));
                     backupRosterData = JSON.parse(JSON.stringify(authoritativeData));
+                    sessionRosterLock = false;
                     syncCloudCredentialsToLocal(authoritativeData);
                     syncPortalNotificationsFromCloud(authoritativeData);
                 }
@@ -5633,6 +5643,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                     return;
                 }
                 isAdminMode = true;
+                sessionRosterLock = true;
                 document.getElementById('adminLoginModal').classList.add('hidden');
                 
                 publishedRosterData = JSON.parse(JSON.stringify(rawRosterData));
@@ -5799,6 +5810,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                     const publishedPayload = JSON.parse(JSON.stringify(rawRosterData));
                     publishedRosterData = publishedPayload;
                     backupRosterData = JSON.parse(JSON.stringify(publishedPayload));
+                    sessionRosterLock = true;
                     try {
                         localStorage.setItem(PUBLISHED_ROSTER_CACHE_KEY, JSON.stringify({
                             savedAt: Date.now(),
