@@ -522,7 +522,7 @@
         .world-time-compare-card{position:relative;overflow:hidden;min-height:108px;display:flex;flex-direction:column;justify-content:space-between;padding:13px 14px;border:1px solid rgba(125,211,252,.2);border-radius:16px;background:linear-gradient(145deg,rgba(255,255,255,.94),rgba(239,248,255,.92));box-shadow:0 12px 24px rgba(71,85,105,.16),inset 0 1px 0 rgba(255,255,255,.9);transform:perspective(700px) rotateX(1deg);transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
         .world-time-compare-card:hover{transform:perspective(700px) translateY(-2px) rotateX(2deg);border-color:rgba(56,189,248,.45);box-shadow:0 16px 30px rgba(0,0,0,.34),0 0 22px rgba(34,211,238,.08),inset 0 1px 0 rgba(255,255,255,.1)}
         .world-time-compare-card:before{content:"";position:absolute;inset:auto -20% -55% 25%;height:90px;background:radial-gradient(circle,rgba(34,211,238,.18),transparent 65%);pointer-events:none}
-        .world-time-city{font-size:11px;font-weight:900;color:#1e3a5f;letter-spacing:.03em;position:relative;z-index:1}.world-time-zone{font-size:8px;color:#2563a8;margin-top:3px;position:relative;z-index:1}.world-time-value{font-family:'JetBrains Mono',monospace;font-size:23px;font-weight:900;color:#0f2742;letter-spacing:-.04em;white-space:nowrap;text-shadow:0 1px 0 rgba(255,255,255,.75);position:relative;z-index:1}.world-time-date{font-size:9px;color:#334155;white-space:nowrap;position:relative;z-index:1}.world-time-diff{font-size:8px;color:#475569;margin-top:3px;font-weight:800;position:relative;z-index:1}
+        .world-time-city{font-size:11px;font-weight:900;color:#1e3a5f;letter-spacing:.03em;position:relative;z-index:1}.world-time-zone{font-size:8px;color:#2563a8;margin-top:3px;position:relative;z-index:1}.world-time-value{font-family:'JetBrains Mono',monospace;font-size:23px;font-weight:900;color:#0f2742;letter-spacing:-.04em;white-space:nowrap;text-shadow:0 1px 0 rgba(255,255,255,.75);position:relative;z-index:1}.world-time-date{font-size:9px;color:#334155;white-space:nowrap;position:relative;z-index:1} .individual-profile-mobile-month{font-weight:800;color:#334155}.world-time-diff{font-size:8px;color:#475569;margin-top:3px;font-weight:800;position:relative;z-index:1}
         .world-time-compare-card:nth-child(3n+1){border-top-color:rgba(45,212,191,.55)}.world-time-compare-card:nth-child(3n+2){border-top-color:rgba(96,165,250,.55)}.world-time-compare-card:nth-child(3n){border-top-color:rgba(250,204,21,.55)}
         .world-time-foot{padding:9px 16px 11px;border-top:1px solid rgba(125,211,252,.12);font-size:8px;color:#64748b;text-align:center;position:relative;z-index:2}
         .clock-futuristic-3d{cursor:pointer}.clock-futuristic-3d:focus-visible{outline:2px solid #38bdf8;outline-offset:2px}
@@ -6364,7 +6364,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                         return;
                     }
 
-                    if (shift.includes("10:00") || shift === "2nd Half Off" || shift === "10:00 AM (1st Half Off)" || shift === "10:00 AM (2nd Half Off)") {
+                    if (shift.includes("10:00") || shift.includes("11:00") || shift.includes("12:00") || shift === "2nd Half Off" || shift === "10:00 AM (1st Half Off)" || shift === "10:00 AM (2nd Half Off)") {
                         hc10am[idx]++;
                     } else if (shift.includes("08:00") || shift.includes("8:00")) {
                         hc8am[idx]++;
@@ -6752,9 +6752,8 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                         const dates = w.dates || ["N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A"];
                         html += `
                             <div class="bg-slate-50 p-2.5 sm:p-3.5 rounded-lg border border-slate-300 card-3d">
-                                <div class="text-[10px] sm:text-xs font-bold text-slate-700 mb-2 border-b border-slate-200 pb-1 flex justify-between">
-                                    <span>${w.month} - Week ${w.week_num}</span>
-                                    <span class="text-slate-500 font-semibold">${dates[0]} to ${dates[6] || 'N/A'}</span>
+                                <div class="text-[10px] sm:text-xs font-bold text-slate-700 mb-2 border-b border-slate-200 pb-1">
+                                    <span class="individual-profile-month-label">${w.month}</span>
                                 </div>
                                 <div class="grid grid-cols-7 gap-0.5 sm:gap-1 text-center no-scrollbar">`;
                         days.forEach((d, idx) => {
@@ -7109,11 +7108,31 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             let daily10 = hc10am[dayIdx] || 0;
             let dailyWO = 0;
             let dailyLeave = 0;
+            const shiftEmployeeNames = {
+                early: [],
+                eight: [],
+                late: [],
+                off: [],
+                leave: []
+            };
 
             (weekData.employees || []).forEach(e => {
                 const s = e.shifts ? e.shifts[activeDayName] : 'WO';
-                if (!s || s === 'WO') dailyWO++;
-                else if (s === 'PTO' || s === 'PH' || s === 'SL' || s === 'HD SL' || s.includes('Half Off')) dailyLeave++;
+                const name = String(e.name || 'Unknown Employee').trim();
+                if (!s || s === 'WO') {
+                    dailyWO++;
+                    shiftEmployeeNames.off.push(name);
+                } else if (s === 'PTO' || s === 'PH' || s === 'SL' || s === 'HD SL' || s.includes('Half Off')) {
+                    // Half-off shifts remain in the leave/half-off segment, matching the existing chart.
+                    dailyLeave++;
+                    shiftEmployeeNames.leave.push(name);
+                } else if (s.includes('10:00') || s.includes('11:00') || s.includes('12:00')) {
+                    shiftEmployeeNames.late.push(name);
+                } else if (s.includes('08:00') || s.includes('8:00')) {
+                    shiftEmployeeNames.eight.push(name);
+                } else if (s.includes('06:00') || s.includes('6:00') || s.includes('06:30') || s.includes('6:30') || s.includes('07:00') || s.includes('7:00')) {
+                    shiftEmployeeNames.early.push(name);
+                }
             });
 
             const ctx1 = document.getElementById('coverageChart').getContext('2d');
@@ -7202,7 +7221,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             distChartInstance = new Chart(ctx2, {
                 type: 'doughnut',
                 data: {
-                    labels: ['06:00/06:30/07:00 Shift', '08:00 AM Shift', '10:00 AM Shift', 'Off Days', 'PTO / Leave / Half Off'],
+                    labels: ['06:00/06:30/07:00 Shift', '08:00 AM Shift', '10:00/11:00/12:00 Shift', 'Off Days', 'PTO / Leave / Half Off'],
                     datasets: [{
                         data: [daily06, daily08, daily10, dailyWO, dailyLeave],
                         backgroundColor: ['#10b981', '#3b82f6', '#f59e0b', '#cbd5e1', '#f43f5e']
@@ -7211,15 +7230,25 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: { 
-                        legend: { 
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: (context) => {
+                                    const groups = [shiftEmployeeNames.early, shiftEmployeeNames.eight, shiftEmployeeNames.late, shiftEmployeeNames.off, shiftEmployeeNames.leave];
+                                    const names = groups[context.dataIndex] || [];
+                                    const count = context.raw || 0;
+                                    return names.length ? `${context.label}: ${count} — ${names.join(', ')}` : `${context.label}: ${count}`;
+                                }
+                            }
+                        },
+                        legend: {
                             position: 'bottom',
                             labels: {
                                 boxWidth: 12,
                                 padding: 8,
                                 font: { size: window.innerWidth < 640 ? 10 : 12 }
                             }
-                        } 
+                        }
                     }
                 }
             });
