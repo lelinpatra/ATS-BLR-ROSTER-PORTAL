@@ -264,6 +264,46 @@
     ],
     "_portal_notifications": [
       {
+        "id": "n_1790754549529_3_60lcek",
+        "createdAt": "2026-09-30T07:49:09.529Z",
+        "title": "Md. Shahbaz roster changed",
+        "message": "Md. Shahbaz shift/status changed on 10/10/26 from WO to 10:00 AM - 07:00 PM.",
+        "type": "employee",
+        "month": "October",
+        "week": 1,
+        "employee": "Md. Shahbaz"
+      },
+      {
+        "id": "n_1790754549529_2_d270qp",
+        "createdAt": "2026-09-30T07:49:09.529Z",
+        "title": "Md. Shahbaz roster changed",
+        "message": "Md. Shahbaz shift/status changed on 10/05/26 from 10:00 AM - 07:00 PM to WO.",
+        "type": "employee",
+        "month": "October",
+        "week": 1,
+        "employee": "Md. Shahbaz"
+      },
+      {
+        "id": "n_1790754549529_1_i2l09f",
+        "createdAt": "2026-09-30T07:49:09.529Z",
+        "title": "Srinivas Reddy roster changed",
+        "message": "Srinivas Reddy shift/status changed on 10/10/26 from 10:00 AM - 07:00 PM to WO.",
+        "type": "employee",
+        "month": "October",
+        "week": 1,
+        "employee": "Srinivas Reddy"
+      },
+      {
+        "id": "n_1790754549529_0_xgk1kg",
+        "createdAt": "2026-09-30T07:49:09.529Z",
+        "title": "Srinivas Reddy roster changed",
+        "message": "Srinivas Reddy shift/status changed on 10/05/26 from WO to 10:00 AM - 07:00 PM.",
+        "type": "employee",
+        "month": "October",
+        "week": 1,
+        "employee": "Srinivas Reddy"
+      },
+      {
         "id": "n_1790750461307_0_nkhmu8",
         "createdAt": "2026-09-30T06:41:01.307Z",
         "title": "Sanjay Kumar roster changed",
@@ -1222,46 +1262,6 @@
         "month": "September",
         "week": 4,
         "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790710329654_77_qp9tlo",
-        "createdAt": "2026-09-29T19:32:09.654Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 28/09/26 from Manisha Kumari to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 4,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790710329654_76_mci0gq",
-        "createdAt": "2026-09-29T19:32:09.654Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 10/04/26 from 08:00 AM - 05:00 PM to WO.",
-        "type": "employee",
-        "month": "September",
-        "week": 4,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790710329654_75_8zil7t",
-        "createdAt": "2026-09-29T19:32:09.654Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 10/03/26 from Yes to WO.",
-        "type": "employee",
-        "month": "September",
-        "week": 4,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790710329654_74_i7iu7z",
-        "createdAt": "2026-09-29T19:32:09.654Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 10/02/26 from Mon/Tue/Wed/Thu/Fri to 08:00 AM - 05:00 PM.",
-        "type": "employee",
-        "month": "September",
-        "week": 4,
-        "employee": "Gokul Krishna Lokesh"
       }
     ],
     "_user_credentials": {
@@ -2685,12 +2685,12 @@
         "default_end": "07:00 PM",
         "days_office": "Tue/Wed/Thu",
         "shifts": {
-          "Monday": "WO",
+          "Monday": "10:00 AM - 07:00 PM",
           "Tuesday": "10:00 AM - 07:00 PM",
           "Wednesday": "10:00 AM - 07:00 PM",
           "Thursday": "10:00 AM - 07:00 PM",
           "Friday": "10:00 AM - 07:00 PM",
-          "Saturday": "10:00 AM - 07:00 PM",
+          "Saturday": "WO",
           "Sunday": "WO"
         }
       },
@@ -2719,12 +2719,12 @@
         "default_end": "07:00 PM",
         "days_office": "Mon/Tue/Wed",
         "shifts": {
-          "Monday": "10:00 AM - 07:00 PM",
+          "Monday": "WO",
           "Tuesday": "10:00 AM - 07:00 PM",
           "Wednesday": "10:00 AM - 07:00 PM",
           "Thursday": "11:00 AM - 08:00 PM",
           "Friday": "11:00 AM - 08:00 PM",
-          "Saturday": "WO",
+          "Saturday": "10:00 AM - 07:00 PM",
           "Sunday": "WO"
         }
       },
@@ -2912,18 +2912,18 @@
     "total_headcount_8am": [
       2,
       2,
-      3,
-      3,
-      3,
+      2,
+      2,
+      2,
       0,
       0
     ],
     "total_headcount_10am": [
       2,
       3,
+      4,
+      4,
       3,
-      3,
-      2,
       1,
       1
     ]
@@ -3174,20 +3174,20 @@
       1
     ],
     "total_headcount_8am": [
-      3,
-      3,
-      3,
-      3,
-      3,
+      2,
+      2,
+      2,
+      2,
+      2,
       0,
       0
     ],
     "total_headcount_10am": [
-      2,
-      2,
+      3,
       3,
       4,
-      3,
+      5,
+      4,
       1,
       1
     ]
@@ -3438,20 +3438,20 @@
       1
     ],
     "total_headcount_8am": [
+      1,
+      1,
       2,
       2,
-      3,
-      3,
-      3,
+      2,
       0,
       0
     ],
     "total_headcount_10am": [
-      1,
       2,
-      4,
-      4,
-      2,
+      3,
+      5,
+      5,
+      3,
       1,
       1
     ]
@@ -3702,20 +3702,20 @@
       1
     ],
     "total_headcount_8am": [
-      3,
-      3,
-      3,
-      3,
-      3,
+      2,
+      2,
+      2,
+      2,
+      2,
       0,
       0
     ],
     "total_headcount_10am": [
-      2,
       3,
       4,
+      5,
+      5,
       4,
-      3,
       1,
       1
     ]
