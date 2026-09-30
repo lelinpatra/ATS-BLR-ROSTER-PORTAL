@@ -264,6 +264,46 @@
     ],
     "_portal_notifications": [
       {
+        "id": "n_1790748572211_3_6kjo39",
+        "createdAt": "2026-09-30T06:09:32.211Z",
+        "title": "Sanjay Kumar roster changed",
+        "message": "Sanjay Kumar shift/status changed on 11/01/26 from 06:30 AM - 03300 PM to 06:30 AM - 03:30 PM.",
+        "type": "employee",
+        "month": "October",
+        "week": 4,
+        "employee": "Sanjay Kumar"
+      },
+      {
+        "id": "n_1790748572211_2_owrsol",
+        "createdAt": "2026-09-30T06:09:32.211Z",
+        "title": "Sanjay Kumar roster changed",
+        "message": "Sanjay Kumar shift/status changed on 25/10/26 from 06:30 AM - 03300 PM to 06:30 AM - 03:30 PM.",
+        "type": "employee",
+        "month": "October",
+        "week": 3,
+        "employee": "Sanjay Kumar"
+      },
+      {
+        "id": "n_1790748572211_1_xu5opb",
+        "createdAt": "2026-09-30T06:09:32.211Z",
+        "title": "Sanjay Kumar roster changed",
+        "message": "Sanjay Kumar shift/status changed on 18/10/26 from 06:30 AM - 03300 PM to 06:30 AM - 03:30 PM.",
+        "type": "employee",
+        "month": "October",
+        "week": 2,
+        "employee": "Sanjay Kumar"
+      },
+      {
+        "id": "n_1790748572211_0_xv2k6u",
+        "createdAt": "2026-09-30T06:09:32.211Z",
+        "title": "Sanjay Kumar roster changed",
+        "message": "Sanjay Kumar shift/status changed on 10/11/26 from 06:30 AM - 03300 PM to 06:30 AM - 03:30 PM.",
+        "type": "employee",
+        "month": "October",
+        "week": 1,
+        "employee": "Sanjay Kumar"
+      },
+      {
         "id": "n_1790746696074_39_uhln96",
         "createdAt": "2026-09-30T05:38:16.074Z",
         "title": "Manisha Kumari roster changed",
@@ -1218,46 +1258,6 @@
         "createdAt": "2026-09-30T05:16:33.154Z",
         "title": "Manisha Kumari roster changed",
         "message": "Manisha Kumari shift/status changed on 23/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 3,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790745393154_31_k3mfvq",
-        "createdAt": "2026-09-30T05:16:33.154Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 22/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 3,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790745393154_30_muxget",
-        "createdAt": "2026-09-30T05:16:33.154Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 21/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 3,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790745393154_29_ajf79v",
-        "createdAt": "2026-09-30T05:16:33.154Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 20/10/26 from PH to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 3,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790745393154_28_lho6ic",
-        "createdAt": "2026-09-30T05:16:33.154Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 19/10/26 from 06:00 AM - 03:00 PM to WO.",
         "type": "employee",
         "month": "October",
         "week": 3,
@@ -2742,7 +2742,7 @@
           "Thursday": "10:00 AM - 07:00 PM",
           "Friday": "10:00 AM - 07:00 PM",
           "Saturday": "06:00 AM - 03:00 PM",
-          "Sunday": "06:30 AM - 03300 PM"
+          "Sunday": "06:30 AM - 03:30 PM"
         }
       },
       {
@@ -3006,7 +3006,7 @@
           "Thursday": "10:00 AM - 07:00 PM",
           "Friday": "10:00 AM - 07:00 PM",
           "Saturday": "06:00 AM - 03:00 PM",
-          "Sunday": "06:30 AM - 03300 PM"
+          "Sunday": "06:30 AM - 03:30 PM"
         }
       },
       {
@@ -3270,7 +3270,7 @@
           "Thursday": "10:00 AM - 07:00 PM",
           "Friday": "10:00 AM - 07:00 PM",
           "Saturday": "06:00 AM - 03:00 PM",
-          "Sunday": "06:30 AM - 03300 PM"
+          "Sunday": "06:30 AM - 03:30 PM"
         }
       },
       {
@@ -3534,7 +3534,7 @@
           "Thursday": "10:00 AM - 07:00 PM",
           "Friday": "10:00 AM - 07:00 PM",
           "Saturday": "06:00 AM - 03:00 PM",
-          "Sunday": "06:30 AM - 03300 PM"
+          "Sunday": "06:30 AM - 03:30 PM"
         }
       },
       {
