@@ -6784,7 +6784,10 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                         html += `
                             <div class="bg-slate-50 p-2.5 sm:p-3.5 rounded-lg border border-slate-300 card-3d">
                                 <div class="text-[10px] sm:text-xs font-bold text-slate-700 mb-2 border-b border-slate-200 pb-1">
-                                    <span class="individual-profile-month-label">${w.month}</span>
+                                    <div class="individual-profile-month-label">${w.month} • Week ${w.week_num}</div>
+                                    <div class="individual-profile-date-range text-[9px] sm:text-[10px] font-extrabold text-slate-500 mt-0.5">
+                                        ${w.dates && w.dates.length ? `${w.dates[0] || 'N/A'} - ${w.dates[w.dates.length - 1] || 'N/A'}` : 'Date range unavailable'}
+                                    </div>
                                 </div>
                                 <div class="grid grid-cols-7 gap-0.5 sm:gap-1 text-center no-scrollbar">`;
                         days.forEach((d, idx) => {
@@ -8368,12 +8371,23 @@ body.ats-cinematic-active #mainDisplayArea .rounded-2xl:hover{transform:translat
  window.previewTheme=function(id){const t=getTheme(id);selected=t.id;setThemePreview(t)};
  window.openThemeChooser=function(){document.getElementById('userProfileDropdown')?.classList.add('hidden');const stored=localStorage.getItem('atsPortalTheme')||'default';selected=getTheme(stored).id;renderOptions();setThemePreview(getTheme(selected));document.getElementById('themeChooserModal')?.classList.remove('hidden');if(window.lucide)lucide.createIcons()};
  window.closeThemeChooser=function(){document.getElementById('themeChooserModal')?.classList.add('hidden')};
- window.applySelectedTheme=function(e){if(e)e.preventDefault();const id=String(selected||'default');const t=themes.find(x=>x.id===id);if(!t||!allowed(t))return false;applied=id;setVars(t);document.documentElement.setAttribute('data-ats-theme',id);document.body.dataset.theme=id;document.body.classList.add('ats-theme-active');document.body.classList.toggle('ats-cinematic-active',!!t.cinematic);const fx=ensureFx();if(t.cinematic){fx.style.display='block';fx.style.setProperty('--cin-primary',t.primary);fx.style.setProperty('--cin-accent',t.accent);fx.style.setProperty('--cin-wallpaper',t.wallpaper?`url(\"${t.wallpaper}\")`: 'none');const title=fx.querySelector('.cin-poster-title');if(title)title.textContent=t.name}else{fx.style.display='none';fx.style.removeProperty('--cin-wallpaper')}try{localStorage.setItem('atsPortalTheme',id)}catch(_){}window.closeThemeChooser();return false};
+ window.applySelectedTheme=function(e){if(e)e.preventDefault();const id=String(selected||'default');const t=themes.find(x=>x.id===id);if(!t||!allowed(t))return false;
+        // Always use the central theme application path. In particular, Original ATS
+        // must remove the active-theme class instead of leaving the previous theme CSS behind.
+        applyTheme(id,true);
+        void document.body.offsetHeight;
+        if(window.lucide) lucide.createIcons();
+        window.closeThemeChooser();
+        return false;};
  window.applyTheme=applyTheme;
  window.refreshThemeForUser=function(session){window.activeUserSessionForTheme=session||window.activeUserSession||null;window.currentThemeSgId=String((session||window.activeUserSession)?.sg_id||'');const stored=localStorage.getItem('atsPortalTheme')||'default';const t=getTheme(stored);applyTheme(t.id,true);if(window.renderThemeOptionsForUser)window.renderThemeOptionsForUser()};
  window.addEventListener('DOMContentLoaded',()=>{ensureFx();applyTheme(applied,true)});
 })();
 </script>
+<style id="individual-profile-date-range-theme-fix">
+.individual-profile-date-range{display:block!important;line-height:1.25!important;white-space:nowrap!important;}
+body.ats-theme-active .individual-profile-date-range{color:var(--theme-muted)!important;opacity:1!important;}
+</style>
 <style id="ats-theme-visibility-overrides">
 /* ===== Universal theme contrast + whole-page coverage =====
    Every theme uses the same semantic palette across the complete portal.
