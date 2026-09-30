@@ -264,446 +264,6 @@
     ],
     "_portal_notifications": [
       {
-        "id": "n_1790748572211_3_6kjo39",
-        "createdAt": "2026-09-30T06:09:32.211Z",
-        "title": "Sanjay Kumar roster changed",
-        "message": "Sanjay Kumar shift/status changed on 11/01/26 from 06:30 AM - 03300 PM to 06:30 AM - 03:30 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 4,
-        "employee": "Sanjay Kumar"
-      },
-      {
-        "id": "n_1790748572211_2_owrsol",
-        "createdAt": "2026-09-30T06:09:32.211Z",
-        "title": "Sanjay Kumar roster changed",
-        "message": "Sanjay Kumar shift/status changed on 25/10/26 from 06:30 AM - 03300 PM to 06:30 AM - 03:30 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 3,
-        "employee": "Sanjay Kumar"
-      },
-      {
-        "id": "n_1790748572211_1_xu5opb",
-        "createdAt": "2026-09-30T06:09:32.211Z",
-        "title": "Sanjay Kumar roster changed",
-        "message": "Sanjay Kumar shift/status changed on 18/10/26 from 06:30 AM - 03300 PM to 06:30 AM - 03:30 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 2,
-        "employee": "Sanjay Kumar"
-      },
-      {
-        "id": "n_1790748572211_0_xv2k6u",
-        "createdAt": "2026-09-30T06:09:32.211Z",
-        "title": "Sanjay Kumar roster changed",
-        "message": "Sanjay Kumar shift/status changed on 10/11/26 from 06:30 AM - 03300 PM to 06:30 AM - 03:30 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 1,
-        "employee": "Sanjay Kumar"
-      },
-      {
-        "id": "n_1790746696074_39_uhln96",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 30/10/26 from WO to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 4,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790746696074_38_b3g19v",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 29/10/26 from WO to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 4,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790746696074_37_c9otr9",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 28/10/26 from WO to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 4,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790746696074_36_yl0s82",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 27/10/26 from WO to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 4,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790746696074_35_l14ube",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 26/10/26 from WO to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 4,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790746696074_34_7844xl",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 30/10/26 from WO to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 4,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790746696074_33_1zrwsx",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 29/10/26 from WO to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 4,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790746696074_32_arjvtu",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 28/10/26 from WO to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 4,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790746696074_31_fleepa",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 27/10/26 from WO to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 4,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790746696074_30_as3qqt",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 26/10/26 from WO to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 4,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790746696074_29_f9c0ou",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 23/10/26 from WO to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 3,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790746696074_28_nu6ebt",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 22/10/26 from WO to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 3,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790746696074_27_02mch6",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 21/10/26 from WO to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 3,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790746696074_26_plu6ei",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 20/10/26 from WO to PH.",
-        "type": "employee",
-        "month": "October",
-        "week": 3,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790746696074_25_mrwp81",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 19/10/26 from WO to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 3,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790746696074_24_k4pdy4",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 23/10/26 from WO to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 3,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790746696074_23_6am87a",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 22/10/26 from WO to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 3,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790746696074_22_2yd4kl",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 21/10/26 from WO to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 3,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790746696074_21_hq4qnp",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 20/10/26 from WO to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 3,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790746696074_20_imdqw7",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 19/10/26 from WO to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 3,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790746696074_19_e6jfjl",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 16/10/26 from WO to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 2,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790746696074_18_jb0acn",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 15/10/26 from WO to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 2,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790746696074_17_cez53j",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 14/10/26 from WO to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 2,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790746696074_16_za4tmq",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 13/10/26 from WO to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 2,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790746696074_15_ot0kph",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 10/12/26 from WO to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 2,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790746696074_14_djhrg8",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 16/10/26 from WO to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 2,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790746696074_13_odpss8",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 15/10/26 from WO to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 2,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790746696074_12_jhoy8d",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 14/10/26 from WO to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 2,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790746696074_11_nfrm00",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 13/10/26 from WO to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 2,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790746696074_10_dqodps",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 10/12/26 from WO to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 2,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790746696074_9_pc6bye",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 10/09/26 from WO to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 1,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790746696074_8_o7c375",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 10/08/26 from WO to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 1,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790746696074_7_nq75zs",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 10/07/26 from WO to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 1,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790746696074_6_nr0nrq",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 10/06/26 from WO to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 1,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790746696074_5_hqwxtl",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 10/05/26 from WO to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 1,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790746696074_4_fi8sa4",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 10/09/26 from WO to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 1,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790746696074_3_0oblr6",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 10/08/26 from WO to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 1,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790746696074_2_iyiinu",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 10/07/26 from WO to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 1,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790746696074_1_cfitek",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 10/06/26 from WO to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 1,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790746696074_0_d4h2e7",
-        "createdAt": "2026-09-30T05:38:16.074Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 10/05/26 from WO to 06:00 AM - 03:00 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 1,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
         "id": "n_1790745745885_43_mfizrc",
         "createdAt": "2026-09-30T05:22:25.885Z",
         "title": "Manisha Kumari roster changed",
@@ -1262,6 +822,446 @@
         "month": "October",
         "week": 3,
         "employee": "Manisha Kumari"
+      },
+      {
+        "id": "n_1790745393154_31_k3mfvq",
+        "createdAt": "2026-09-30T05:16:33.154Z",
+        "title": "Manisha Kumari roster changed",
+        "message": "Manisha Kumari shift/status changed on 22/10/26 from 06:00 AM - 03:00 PM to WO.",
+        "type": "employee",
+        "month": "October",
+        "week": 3,
+        "employee": "Manisha Kumari"
+      },
+      {
+        "id": "n_1790745393154_30_muxget",
+        "createdAt": "2026-09-30T05:16:33.154Z",
+        "title": "Manisha Kumari roster changed",
+        "message": "Manisha Kumari shift/status changed on 21/10/26 from 06:00 AM - 03:00 PM to WO.",
+        "type": "employee",
+        "month": "October",
+        "week": 3,
+        "employee": "Manisha Kumari"
+      },
+      {
+        "id": "n_1790745393154_29_ajf79v",
+        "createdAt": "2026-09-30T05:16:33.154Z",
+        "title": "Manisha Kumari roster changed",
+        "message": "Manisha Kumari shift/status changed on 20/10/26 from PH to WO.",
+        "type": "employee",
+        "month": "October",
+        "week": 3,
+        "employee": "Manisha Kumari"
+      },
+      {
+        "id": "n_1790745393154_28_lho6ic",
+        "createdAt": "2026-09-30T05:16:33.154Z",
+        "title": "Manisha Kumari roster changed",
+        "message": "Manisha Kumari shift/status changed on 19/10/26 from 06:00 AM - 03:00 PM to WO.",
+        "type": "employee",
+        "month": "October",
+        "week": 3,
+        "employee": "Manisha Kumari"
+      },
+      {
+        "id": "n_1790745393154_27_usz9xf",
+        "createdAt": "2026-09-30T05:16:33.154Z",
+        "title": "Gokul Krishna Lokesh roster changed",
+        "message": "Gokul Krishna Lokesh shift/status changed on 23/10/26 from 06:00 AM - 03:00 PM to WO.",
+        "type": "employee",
+        "month": "October",
+        "week": 3,
+        "employee": "Gokul Krishna Lokesh"
+      },
+      {
+        "id": "n_1790745393154_26_q3k79t",
+        "createdAt": "2026-09-30T05:16:33.154Z",
+        "title": "Gokul Krishna Lokesh roster changed",
+        "message": "Gokul Krishna Lokesh shift/status changed on 22/10/26 from 06:00 AM - 03:00 PM to WO.",
+        "type": "employee",
+        "month": "October",
+        "week": 3,
+        "employee": "Gokul Krishna Lokesh"
+      },
+      {
+        "id": "n_1790745393154_25_f730r0",
+        "createdAt": "2026-09-30T05:16:33.154Z",
+        "title": "Gokul Krishna Lokesh roster changed",
+        "message": "Gokul Krishna Lokesh shift/status changed on 21/10/26 from 06:00 AM - 03:00 PM to WO.",
+        "type": "employee",
+        "month": "October",
+        "week": 3,
+        "employee": "Gokul Krishna Lokesh"
+      },
+      {
+        "id": "n_1790745393154_24_30eysw",
+        "createdAt": "2026-09-30T05:16:33.154Z",
+        "title": "Gokul Krishna Lokesh roster changed",
+        "message": "Gokul Krishna Lokesh shift/status changed on 20/10/26 from 06:00 AM - 03:00 PM to WO.",
+        "type": "employee",
+        "month": "October",
+        "week": 3,
+        "employee": "Gokul Krishna Lokesh"
+      },
+      {
+        "id": "n_1790745393154_23_k1yahe",
+        "createdAt": "2026-09-30T05:16:33.154Z",
+        "title": "Gokul Krishna Lokesh roster changed",
+        "message": "Gokul Krishna Lokesh shift/status changed on 19/10/26 from 06:00 AM - 03:00 PM to WO.",
+        "type": "employee",
+        "month": "October",
+        "week": 3,
+        "employee": "Gokul Krishna Lokesh"
+      },
+      {
+        "id": "n_1790745393154_22_hm7b05",
+        "createdAt": "2026-09-30T05:16:33.154Z",
+        "title": "Sanjay Kumar roster changed",
+        "message": "Sanjay Kumar shift/status changed on 25/10/26 from 06:30 AM - 03:30 PM to 06:30 AM - 03300 PM.",
+        "type": "employee",
+        "month": "October",
+        "week": 3,
+        "employee": "Sanjay Kumar"
+      },
+      {
+        "id": "n_1790745393154_21_c31yul",
+        "createdAt": "2026-09-30T05:16:33.154Z",
+        "title": "Manisha Kumari roster changed",
+        "message": "Manisha Kumari shift/status changed on 16/10/26 from 06:00 AM - 03:00 PM to WO.",
+        "type": "employee",
+        "month": "October",
+        "week": 2,
+        "employee": "Manisha Kumari"
+      },
+      {
+        "id": "n_1790745393154_20_iuw69m",
+        "createdAt": "2026-09-30T05:16:33.154Z",
+        "title": "Manisha Kumari roster changed",
+        "message": "Manisha Kumari shift/status changed on 15/10/26 from 06:00 AM - 03:00 PM to WO.",
+        "type": "employee",
+        "month": "October",
+        "week": 2,
+        "employee": "Manisha Kumari"
+      },
+      {
+        "id": "n_1790745393154_19_tuzayh",
+        "createdAt": "2026-09-30T05:16:33.154Z",
+        "title": "Manisha Kumari roster changed",
+        "message": "Manisha Kumari shift/status changed on 14/10/26 from 06:00 AM - 03:00 PM to WO.",
+        "type": "employee",
+        "month": "October",
+        "week": 2,
+        "employee": "Manisha Kumari"
+      },
+      {
+        "id": "n_1790745393154_18_f73vqr",
+        "createdAt": "2026-09-30T05:16:33.154Z",
+        "title": "Manisha Kumari roster changed",
+        "message": "Manisha Kumari shift/status changed on 13/10/26 from 06:00 AM - 03:00 PM to WO.",
+        "type": "employee",
+        "month": "October",
+        "week": 2,
+        "employee": "Manisha Kumari"
+      },
+      {
+        "id": "n_1790745393154_17_2in4lk",
+        "createdAt": "2026-09-30T05:16:33.154Z",
+        "title": "Manisha Kumari roster changed",
+        "message": "Manisha Kumari shift/status changed on 10/12/26 from 06:00 AM - 03:00 PM to WO.",
+        "type": "employee",
+        "month": "October",
+        "week": 2,
+        "employee": "Manisha Kumari"
+      },
+      {
+        "id": "n_1790745393154_16_ngrcj3",
+        "createdAt": "2026-09-30T05:16:33.154Z",
+        "title": "Gokul Krishna Lokesh roster changed",
+        "message": "Gokul Krishna Lokesh shift/status changed on 16/10/26 from 06:00 AM - 03:00 PM to WO.",
+        "type": "employee",
+        "month": "October",
+        "week": 2,
+        "employee": "Gokul Krishna Lokesh"
+      },
+      {
+        "id": "n_1790745393154_15_7noxnt",
+        "createdAt": "2026-09-30T05:16:33.154Z",
+        "title": "Gokul Krishna Lokesh roster changed",
+        "message": "Gokul Krishna Lokesh shift/status changed on 15/10/26 from 06:00 AM - 03:00 PM to WO.",
+        "type": "employee",
+        "month": "October",
+        "week": 2,
+        "employee": "Gokul Krishna Lokesh"
+      },
+      {
+        "id": "n_1790745393154_14_l51pmi",
+        "createdAt": "2026-09-30T05:16:33.154Z",
+        "title": "Gokul Krishna Lokesh roster changed",
+        "message": "Gokul Krishna Lokesh shift/status changed on 14/10/26 from 06:00 AM - 03:00 PM to WO.",
+        "type": "employee",
+        "month": "October",
+        "week": 2,
+        "employee": "Gokul Krishna Lokesh"
+      },
+      {
+        "id": "n_1790745393154_13_1xvb70",
+        "createdAt": "2026-09-30T05:16:33.154Z",
+        "title": "Gokul Krishna Lokesh roster changed",
+        "message": "Gokul Krishna Lokesh shift/status changed on 13/10/26 from 06:00 AM - 03:00 PM to WO.",
+        "type": "employee",
+        "month": "October",
+        "week": 2,
+        "employee": "Gokul Krishna Lokesh"
+      },
+      {
+        "id": "n_1790745393154_12_0la2tm",
+        "createdAt": "2026-09-30T05:16:33.154Z",
+        "title": "Gokul Krishna Lokesh roster changed",
+        "message": "Gokul Krishna Lokesh shift/status changed on 10/12/26 from 06:00 AM - 03:00 PM to WO.",
+        "type": "employee",
+        "month": "October",
+        "week": 2,
+        "employee": "Gokul Krishna Lokesh"
+      },
+      {
+        "id": "n_1790745393154_11_tlux7u",
+        "createdAt": "2026-09-30T05:16:33.154Z",
+        "title": "Sanjay Kumar roster changed",
+        "message": "Sanjay Kumar shift/status changed on 18/10/26 from 06:30 AM - 03:30 PM to 06:30 AM - 03300 PM.",
+        "type": "employee",
+        "month": "October",
+        "week": 2,
+        "employee": "Sanjay Kumar"
+      },
+      {
+        "id": "n_1790745393154_10_i5rj5p",
+        "createdAt": "2026-09-30T05:16:33.154Z",
+        "title": "Manisha Kumari roster changed",
+        "message": "Manisha Kumari shift/status changed on 10/09/26 from 06:00 AM - 03:00 PM to WO.",
+        "type": "employee",
+        "month": "October",
+        "week": 1,
+        "employee": "Manisha Kumari"
+      },
+      {
+        "id": "n_1790745393154_9_k4c6t6",
+        "createdAt": "2026-09-30T05:16:33.154Z",
+        "title": "Manisha Kumari roster changed",
+        "message": "Manisha Kumari shift/status changed on 10/08/26 from 06:00 AM - 03:00 PM to WO.",
+        "type": "employee",
+        "month": "October",
+        "week": 1,
+        "employee": "Manisha Kumari"
+      },
+      {
+        "id": "n_1790745393154_8_6u1xhm",
+        "createdAt": "2026-09-30T05:16:33.154Z",
+        "title": "Manisha Kumari roster changed",
+        "message": "Manisha Kumari shift/status changed on 10/07/26 from 06:00 AM - 03:00 PM to WO.",
+        "type": "employee",
+        "month": "October",
+        "week": 1,
+        "employee": "Manisha Kumari"
+      },
+      {
+        "id": "n_1790745393154_7_0fudhd",
+        "createdAt": "2026-09-30T05:16:33.154Z",
+        "title": "Manisha Kumari roster changed",
+        "message": "Manisha Kumari shift/status changed on 10/06/26 from 06:00 AM - 03:00 PM to WO.",
+        "type": "employee",
+        "month": "October",
+        "week": 1,
+        "employee": "Manisha Kumari"
+      },
+      {
+        "id": "n_1790745393154_6_jvaft2",
+        "createdAt": "2026-09-30T05:16:33.154Z",
+        "title": "Manisha Kumari roster changed",
+        "message": "Manisha Kumari shift/status changed on 10/05/26 from 06:00 AM - 03:00 PM to WO.",
+        "type": "employee",
+        "month": "October",
+        "week": 1,
+        "employee": "Manisha Kumari"
+      },
+      {
+        "id": "n_1790745393154_5_3mtion",
+        "createdAt": "2026-09-30T05:16:33.154Z",
+        "title": "Gokul Krishna Lokesh roster changed",
+        "message": "Gokul Krishna Lokesh shift/status changed on 10/09/26 from 06:00 AM - 03:00 PM to WO.",
+        "type": "employee",
+        "month": "October",
+        "week": 1,
+        "employee": "Gokul Krishna Lokesh"
+      },
+      {
+        "id": "n_1790745393154_4_gdzlkl",
+        "createdAt": "2026-09-30T05:16:33.154Z",
+        "title": "Gokul Krishna Lokesh roster changed",
+        "message": "Gokul Krishna Lokesh shift/status changed on 10/08/26 from 06:00 AM - 03:00 PM to WO.",
+        "type": "employee",
+        "month": "October",
+        "week": 1,
+        "employee": "Gokul Krishna Lokesh"
+      },
+      {
+        "id": "n_1790745393154_3_7vgnde",
+        "createdAt": "2026-09-30T05:16:33.154Z",
+        "title": "Gokul Krishna Lokesh roster changed",
+        "message": "Gokul Krishna Lokesh shift/status changed on 10/07/26 from 06:00 AM - 03:00 PM to WO.",
+        "type": "employee",
+        "month": "October",
+        "week": 1,
+        "employee": "Gokul Krishna Lokesh"
+      },
+      {
+        "id": "n_1790745393154_2_ssq0z3",
+        "createdAt": "2026-09-30T05:16:33.154Z",
+        "title": "Gokul Krishna Lokesh roster changed",
+        "message": "Gokul Krishna Lokesh shift/status changed on 10/06/26 from 06:00 AM - 03:00 PM to WO.",
+        "type": "employee",
+        "month": "October",
+        "week": 1,
+        "employee": "Gokul Krishna Lokesh"
+      },
+      {
+        "id": "n_1790745393154_1_5vs12m",
+        "createdAt": "2026-09-30T05:16:33.154Z",
+        "title": "Gokul Krishna Lokesh roster changed",
+        "message": "Gokul Krishna Lokesh shift/status changed on 10/05/26 from 06:00 AM - 03:00 PM to WO.",
+        "type": "employee",
+        "month": "October",
+        "week": 1,
+        "employee": "Gokul Krishna Lokesh"
+      },
+      {
+        "id": "n_1790745393154_0_n67n19",
+        "createdAt": "2026-09-30T05:16:33.154Z",
+        "title": "Sanjay Kumar roster changed",
+        "message": "Sanjay Kumar shift/status changed on 10/11/26 from 06:30 AM - 03:30 PM to 06:30 AM - 03300 PM.",
+        "type": "employee",
+        "month": "October",
+        "week": 1,
+        "employee": "Sanjay Kumar"
+      },
+      {
+        "id": "n_1790744658106_0_xznq3n",
+        "createdAt": "2026-09-30T05:04:18.106Z",
+        "title": "October roster uploaded",
+        "message": "October month roster is uploaded and ready to view.",
+        "type": "month",
+        "month": "October",
+        "week": null,
+        "employee": ""
+      },
+      {
+        "id": "n_1790710329654_83_tb5mz6",
+        "createdAt": "2026-09-29T19:32:09.654Z",
+        "title": "Manisha Kumari roster changed",
+        "message": "Manisha Kumari shift/status changed on 10/04/26 from 6:00 AM - 03:00 PM to WO.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Manisha Kumari"
+      },
+      {
+        "id": "n_1790710329654_82_axtp15",
+        "createdAt": "2026-09-29T19:32:09.654Z",
+        "title": "Manisha Kumari roster changed",
+        "message": "Manisha Kumari shift/status changed on 10/03/26 from Yes to WO.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Manisha Kumari"
+      },
+      {
+        "id": "n_1790710329654_81_2ubsvw",
+        "createdAt": "2026-09-29T19:32:09.654Z",
+        "title": "Manisha Kumari roster changed",
+        "message": "Manisha Kumari shift/status changed on 10/02/26 from Mon/Tue/Wed/Thu/Fri to 06:00 AM - 03:00 PM.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Manisha Kumari"
+      },
+      {
+        "id": "n_1790710329654_80_yos3yr",
+        "createdAt": "2026-09-29T19:32:09.654Z",
+        "title": "Manisha Kumari roster changed",
+        "message": "Manisha Kumari shift/status changed on 10/01/26 from 0.7083333333333334 to 06:00 AM - 03:00 PM.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Manisha Kumari"
+      },
+      {
+        "id": "n_1790710329654_79_i6akxc",
+        "createdAt": "2026-09-29T19:32:09.654Z",
+        "title": "Manisha Kumari roster changed",
+        "message": "Manisha Kumari shift/status changed on 30/09/26 from 0.3333333333333333 to 06:00 AM - 03:00 PM.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Manisha Kumari"
+      },
+      {
+        "id": "n_1790710329654_78_n8szkc",
+        "createdAt": "2026-09-29T19:32:09.654Z",
+        "title": "Manisha Kumari roster changed",
+        "message": "Manisha Kumari shift/status changed on 29/09/26 from ATS to 06:00 AM - 03:00 PM.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Manisha Kumari"
+      },
+      {
+        "id": "n_1790710329654_77_qp9tlo",
+        "createdAt": "2026-09-29T19:32:09.654Z",
+        "title": "Manisha Kumari roster changed",
+        "message": "Manisha Kumari shift/status changed on 28/09/26 from Manisha Kumari to 06:00 AM - 03:00 PM.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Manisha Kumari"
+      },
+      {
+        "id": "n_1790710329654_76_mci0gq",
+        "createdAt": "2026-09-29T19:32:09.654Z",
+        "title": "Gokul Krishna Lokesh roster changed",
+        "message": "Gokul Krishna Lokesh shift/status changed on 10/04/26 from 08:00 AM - 05:00 PM to WO.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Gokul Krishna Lokesh"
+      },
+      {
+        "id": "n_1790710329654_75_8zil7t",
+        "createdAt": "2026-09-29T19:32:09.654Z",
+        "title": "Gokul Krishna Lokesh roster changed",
+        "message": "Gokul Krishna Lokesh shift/status changed on 10/03/26 from Yes to WO.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Gokul Krishna Lokesh"
+      },
+      {
+        "id": "n_1790710329654_74_i7iu7z",
+        "createdAt": "2026-09-29T19:32:09.654Z",
+        "title": "Gokul Krishna Lokesh roster changed",
+        "message": "Gokul Krishna Lokesh shift/status changed on 10/02/26 from Mon/Tue/Wed/Thu/Fri to 08:00 AM - 05:00 PM.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Gokul Krishna Lokesh"
+      },
+      {
+        "id": "n_1790710329654_73_8p6vzx",
+        "createdAt": "2026-09-29T19:32:09.654Z",
+        "title": "Gokul Krishna Lokesh roster changed",
+        "message": "Gokul Krishna Lokesh shift/status changed on 10/01/26 from 0.7083333333333334 to 08:00 AM - 05:00 PM.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Gokul Krishna Lokesh"
       }
     ],
     "_user_credentials": {
@@ -2681,8 +2681,8 @@
         "sg_id": 223254,
         "name": "Srinivas Reddy",
         "skilling": "ATS",
-        "default_start": "06:00 AM",
-        "default_end": "03:00 PM",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
         "days_office": "Tue/Wed/Thu",
         "shifts": {
           "Monday": "WO",
@@ -2698,8 +2698,8 @@
         "sg_id": 223255,
         "name": "Deepak K",
         "skilling": "ATS 2L",
-        "default_start": "10:00 AM",
-        "default_end": "07:00 PM",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
         "days_office": "Wed/Thu/Fri",
         "shifts": {
           "Monday": "06:00 AM - 03:00 PM",
@@ -2715,8 +2715,8 @@
         "sg_id": 223258,
         "name": "Md. Shahbaz",
         "skilling": "ATS",
-        "default_start": "06:00 AM",
-        "default_end": "03:00 PM",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
         "days_office": "Mon/Tue/Wed",
         "shifts": {
           "Monday": "10:00 AM - 07:00 PM",
@@ -2749,8 +2749,8 @@
         "sg_id": 316092,
         "name": "Lelin Patra",
         "skilling": "ATS 2L",
-        "default_start": "06:00 AM",
-        "default_end": "03:00 PM",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
         "shifts": {
           "Monday": "PTO",
@@ -2766,8 +2766,8 @@
         "sg_id": 709115,
         "name": "Gokul Krishna Lokesh",
         "skilling": "ATS",
-        "default_start": "08:00 AM",
-        "default_end": "05:00 PM",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
         "shifts": {
           "Monday": "06:00 AM - 03:00 PM",
@@ -2783,8 +2783,8 @@
         "sg_id": 709139,
         "name": "Rupesh C P",
         "skilling": "ATS",
-        "default_start": "06:00 AM",
-        "default_end": "03:00 PM",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
         "shifts": {
           "Monday": "10:00 AM - 07:00 PM",
@@ -2800,8 +2800,8 @@
         "sg_id": 709282,
         "name": "Preethi P",
         "skilling": "ATS",
-        "default_start": "10:00 AM",
-        "default_end": "07:00 PM",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
         "shifts": {
           "Monday": "06:00 AM - 03:00 PM",
@@ -2831,6 +2831,23 @@
         }
       },
       {
+        "sg_id": 709312,
+        "name": "Manisha Kumari",
+        "skilling": "ATS",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
+        "days_office": "Mon/Tue/Wed/Thu/Fri",
+        "shifts": {
+          "Monday": "06:00 AM - 03:00 PM",
+          "Tuesday": "06:00 AM - 03:00 PM",
+          "Wednesday": "06:00 AM - 03:00 PM",
+          "Thursday": "06:00 AM - 03:00 PM",
+          "Friday": "06:00 AM - 03:00 PM",
+          "Saturday": "WO",
+          "Sunday": "WO"
+        }
+      },
+      {
         "sg_id": 709424,
         "name": "Bhargav R",
         "skilling": "ATS",
@@ -2851,25 +2868,8 @@
         "sg_id": 709454,
         "name": "Prathvi Shetty",
         "skilling": "ATS",
-        "default_start": "10:00 AM",
-        "default_end": "07:00 PM",
-        "days_office": "Mon/Tue/Wed/Thu/Fri",
-        "shifts": {
-          "Monday": "06:00 AM - 03:00 PM",
-          "Tuesday": "06:00 AM - 03:00 PM",
-          "Wednesday": "06:00 AM - 03:00 PM",
-          "Thursday": "06:00 AM - 03:00 PM",
-          "Friday": "06:00 AM - 03:00 PM",
-          "Saturday": "WO",
-          "Sunday": "WO"
-        }
-      },
-      {
-        "sg_id": 709312,
-        "name": "Manisha Kumari",
-        "skilling": "ATS",
-        "default_start": "08:00 AM",
-        "default_end": "05:00 PM",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
         "shifts": {
           "Monday": "06:00 AM - 03:00 PM",
@@ -2901,11 +2901,11 @@
       "Sunday": "Unassigned"
     },
     "total_headcount_6am": [
-      5,
-      5,
-      5,
-      5,
-      5,
+      3,
+      3,
+      3,
+      3,
+      3,
       1,
       1
     ],
@@ -2945,8 +2945,8 @@
         "sg_id": 223254,
         "name": "Srinivas Reddy",
         "skilling": "ATS",
-        "default_start": "06:00 AM",
-        "default_end": "03:00 PM",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
         "days_office": "Tue/Wed/Thu",
         "shifts": {
           "Monday": "WO",
@@ -2962,8 +2962,8 @@
         "sg_id": 223255,
         "name": "Deepak K",
         "skilling": "ATS 2L",
-        "default_start": "10:00 AM",
-        "default_end": "07:00 PM",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
         "days_office": "Wed/Thu/Fri",
         "shifts": {
           "Monday": "06:00 AM - 03:00 PM",
@@ -2979,8 +2979,8 @@
         "sg_id": 223258,
         "name": "Md. Shahbaz",
         "skilling": "ATS",
-        "default_start": "06:00 AM",
-        "default_end": "03:00 PM",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
         "days_office": "Mon/Tue/Wed",
         "shifts": {
           "Monday": "11:00 AM - 08:00 PM",
@@ -3013,8 +3013,8 @@
         "sg_id": 316092,
         "name": "Lelin Patra",
         "skilling": "ATS 2L",
-        "default_start": "06:00 AM",
-        "default_end": "03:00 PM",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
         "shifts": {
           "Monday": "10:00 AM - 07:00 PM",
@@ -3030,8 +3030,8 @@
         "sg_id": 709115,
         "name": "Gokul Krishna Lokesh",
         "skilling": "ATS",
-        "default_start": "08:00 AM",
-        "default_end": "05:00 PM",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
         "shifts": {
           "Monday": "06:00 AM - 03:00 PM",
@@ -3047,8 +3047,8 @@
         "sg_id": 709139,
         "name": "Rupesh C P",
         "skilling": "ATS",
-        "default_start": "06:00 AM",
-        "default_end": "03:00 PM",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
         "shifts": {
           "Monday": "10:00 AM - 07:00 PM",
@@ -3064,8 +3064,8 @@
         "sg_id": 709282,
         "name": "Preethi P",
         "skilling": "ATS",
-        "default_start": "10:00 AM",
-        "default_end": "07:00 PM",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
         "shifts": {
           "Monday": "06:00 AM - 03:00 PM",
@@ -3098,8 +3098,8 @@
         "sg_id": 709312,
         "name": "Manisha Kumari",
         "skilling": "ATS",
-        "default_start": "08:00 AM",
-        "default_end": "05:00 PM",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
         "shifts": {
           "Monday": "06:00 AM - 03:00 PM",
@@ -3132,8 +3132,8 @@
         "sg_id": 709454,
         "name": "Prathvi Shetty",
         "skilling": "ATS",
-        "default_start": "10:00 AM",
-        "default_end": "07:00 PM",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
         "shifts": {
           "Monday": "06:00 AM - 03:00 PM",
@@ -3165,11 +3165,11 @@
       "Sunday": "Unassigned"
     },
     "total_headcount_6am": [
-      5,
-      5,
-      5,
-      4,
-      5,
+      3,
+      3,
+      3,
+      2,
+      3,
       1,
       1
     ],
@@ -3209,8 +3209,8 @@
         "sg_id": 223254,
         "name": "Srinivas Reddy",
         "skilling": "ATS",
-        "default_start": "06:00 AM",
-        "default_end": "03:00 PM",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
         "days_office": "Tue/Wed/Thu",
         "shifts": {
           "Monday": "10:00 AM - 07:00 PM",
@@ -3226,8 +3226,8 @@
         "sg_id": 223255,
         "name": "Deepak K",
         "skilling": "ATS 2L",
-        "default_start": "10:00 AM",
-        "default_end": "07:00 PM",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
         "days_office": "Wed/Thu/Fri",
         "shifts": {
           "Monday": "Comp Off",
@@ -3243,8 +3243,8 @@
         "sg_id": 223258,
         "name": "Md. Shahbaz",
         "skilling": "ATS",
-        "default_start": "06:00 AM",
-        "default_end": "03:00 PM",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
         "days_office": "Mon/Tue/Wed",
         "shifts": {
           "Monday": "11:00 AM - 08:00 PM",
@@ -3277,8 +3277,8 @@
         "sg_id": 316092,
         "name": "Lelin Patra",
         "skilling": "ATS 2L",
-        "default_start": "06:00 AM",
-        "default_end": "03:00 PM",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
         "shifts": {
           "Monday": "06:00 AM - 03:00 PM",
@@ -3294,8 +3294,8 @@
         "sg_id": 709115,
         "name": "Gokul Krishna Lokesh",
         "skilling": "ATS",
-        "default_start": "08:00 AM",
-        "default_end": "05:00 PM",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
         "shifts": {
           "Monday": "06:00 AM - 03:00 PM",
@@ -3311,8 +3311,8 @@
         "sg_id": 709139,
         "name": "Rupesh C P",
         "skilling": "ATS",
-        "default_start": "06:00 AM",
-        "default_end": "03:00 PM",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
         "shifts": {
           "Monday": "PTO",
@@ -3328,8 +3328,8 @@
         "sg_id": 709282,
         "name": "Preethi P",
         "skilling": "ATS",
-        "default_start": "10:00 AM",
-        "default_end": "07:00 PM",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
         "shifts": {
           "Monday": "06:00 AM - 03:00 PM",
@@ -3362,8 +3362,8 @@
         "sg_id": 709312,
         "name": "Manisha Kumari",
         "skilling": "ATS",
-        "default_start": "08:00 AM",
-        "default_end": "05:00 PM",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
         "shifts": {
           "Monday": "06:00 AM - 03:00 PM",
@@ -3396,8 +3396,8 @@
         "sg_id": 709454,
         "name": "Prathvi Shetty",
         "skilling": "ATS",
-        "default_start": "10:00 AM",
-        "default_end": "07:00 PM",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
         "shifts": {
           "Monday": "06:00 AM - 03:00 PM",
@@ -3429,11 +3429,11 @@
       "Sunday": "Unassigned"
     },
     "total_headcount_6am": [
-      5,
-      4,
-      5,
-      5,
-      5,
+      3,
+      3,
+      3,
+      3,
+      3,
       1,
       1
     ],
@@ -3473,8 +3473,8 @@
         "sg_id": 223254,
         "name": "Srinivas Reddy",
         "skilling": "ATS",
-        "default_start": "06:00 AM",
-        "default_end": "03:00 PM",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
         "days_office": "Tue/Wed/Thu",
         "shifts": {
           "Monday": "WO",
@@ -3490,8 +3490,8 @@
         "sg_id": 223255,
         "name": "Deepak K",
         "skilling": "ATS 2L",
-        "default_start": "10:00 AM",
-        "default_end": "07:00 PM",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
         "days_office": "Wed/Thu/Fri",
         "shifts": {
           "Monday": "06:00 AM - 03:00 PM",
@@ -3507,8 +3507,8 @@
         "sg_id": 223258,
         "name": "Md. Shahbaz",
         "skilling": "ATS",
-        "default_start": "06:00 AM",
-        "default_end": "03:00 PM",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
         "days_office": "Mon/Tue/Wed",
         "shifts": {
           "Monday": "11:00 AM - 08:00 PM",
@@ -3541,8 +3541,8 @@
         "sg_id": 316092,
         "name": "Lelin Patra",
         "skilling": "ATS 2L",
-        "default_start": "06:00 AM",
-        "default_end": "03:00 PM",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
         "shifts": {
           "Monday": "10:00 AM - 07:00 PM",
@@ -3558,8 +3558,8 @@
         "sg_id": 709115,
         "name": "Gokul Krishna Lokesh",
         "skilling": "ATS",
-        "default_start": "08:00 AM",
-        "default_end": "05:00 PM",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
         "shifts": {
           "Monday": "06:00 AM - 03:00 PM",
@@ -3575,8 +3575,8 @@
         "sg_id": 709139,
         "name": "Rupesh C P",
         "skilling": "ATS",
-        "default_start": "06:00 AM",
-        "default_end": "03:00 PM",
+        "default_start": "10:00 AM",
+        "default_end": "07:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
         "shifts": {
           "Monday": "10:00 AM - 07:00 PM",
@@ -3592,8 +3592,8 @@
         "sg_id": 709282,
         "name": "Preethi P",
         "skilling": "ATS",
-        "default_start": "10:00 AM",
-        "default_end": "07:00 PM",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
         "shifts": {
           "Monday": "06:00 AM - 03:00 PM",
@@ -3626,8 +3626,8 @@
         "sg_id": 709312,
         "name": "Manisha Kumari",
         "skilling": "ATS",
-        "default_start": "08:00 AM",
-        "default_end": "05:00 PM",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
         "shifts": {
           "Monday": "06:00 AM - 03:00 PM",
@@ -3660,8 +3660,8 @@
         "sg_id": 709454,
         "name": "Prathvi Shetty",
         "skilling": "ATS",
-        "default_start": "10:00 AM",
-        "default_end": "07:00 PM",
+        "default_start": "06:00 AM",
+        "default_end": "03:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
         "shifts": {
           "Monday": "06:00 AM - 03:00 PM",
@@ -3693,11 +3693,11 @@
       "Sunday": "Unassigned"
     },
     "total_headcount_6am": [
-      5,
-      5,
-      5,
-      5,
-      5,
+      3,
+      3,
+      3,
+      3,
+      3,
       1,
       1
     ],
