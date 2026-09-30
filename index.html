@@ -5560,7 +5560,8 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             "WO",
             "PTO",
             "SL",
-            "PH"
+            "PH",
+            "Comp Off"
         ];
 
         const WEEKEND_SHIFT_OPTION = "06:30 AM - 03:30 PM";
@@ -6303,7 +6304,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             weekData.employees.forEach(emp => {
                 days.forEach((day, idx) => {
                     const shift = (emp.shifts && emp.shifts[day]) ? emp.shifts[day] : '';
-                    if (shift === 'WO' || shift === 'PTO' || shift === 'PH' || shift === 'SL' || shift === 'HD SL') {
+                    if (shift === 'WO' || shift === 'PTO' || shift === 'PH' || shift === 'SL' || shift === 'HD SL' || shift === 'Comp Off') {
                         return;
                     }
 
@@ -6373,7 +6374,9 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 `;
             }
 
-            if (!shift || shift === 'WO') {
+            if (shift === 'Comp Off') {
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-violet-100 text-violet-900 border border-violet-500 shadow-sm roster-status-badge" title="Comp Off">Comp Off</span>`;
+            } else if (!shift || shift === 'WO') {
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-bold bg-slate-100 text-slate-700 border border-slate-300 shadow-sm">WO</span>`;
             } else if (shift === 'PTO') {
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-rose-600 text-white border border-rose-700 shadow-md roster-status-badge">PTO</span>`;
@@ -7270,12 +7273,20 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
 
         function normalizeExcelShiftCell(value, startValue, endValue) {
             if (value === undefined || value === null || String(value).trim() === '') return 'WO';
-            const raw = String(value).trim();
+            const raw = String(value).trim().replace(/\\s+/g, ' ');
             if (raw === '1' || raw === '1.0') {
                 const start = excelTimeToRoster(startValue), end = excelTimeToRoster(endValue);
                 return start && end ? `${start} - ${end}` : raw;
             }
             if (raw === '0' || raw.toLowerCase() === 'nan') return 'WO';
+            const status = raw.toLowerCase();
+            if (status === 'comp off' || status === 'comp. off' || status === 'compoff') return 'Comp Off';
+            if (status === 'pto') return 'PTO';
+            if (status === 'sl') return 'SL';
+            if (status === 'ph') return 'PH';
+            if (status === 'wo') return 'WO';
+            // Correct the common Excel typo without changing other custom text.
+            if (/^06:30 AM\\s*-\\s*03300 PM$/i.test(raw)) return '06:30 AM - 03:30 PM';
             return raw;
         }
 
@@ -7395,6 +7406,13 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                     const skill = clean(cellValue(r, metadataStartCol + 2));
                     const startValue = cellValue(r, metadataStartCol + 3);
                     const endValue = cellValue(r, metadataStartCol + 4);
+                    // Some ATS workbooks contain duplicate employee rows at the bottom of
+                    // the sheet with no shift cells. They are not roster records. If we let
+                    // those rows through, their blank cells become WO and overwrite the real
+                    // employee shifts during merge (this was affecting Gokul and Manisha).
+                    const hasAnyShiftCell = cols.some(col => String(cellValue(r, col) ?? '').trim() !== '');
+                    if (!hasAnyShiftCell) return;
+
                     const shifts = {};
 
                     cols.forEach((col, i) => {
@@ -7423,6 +7441,45 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             });
 
             return records;
+        }
+
+        function normalizeEmployeeMatchKey(value) {
+            return String(value ?? '').trim().toUpperCase().replace(/[^A-Z0-9]+/g, '');
+        }
+
+        // The portal's September roster is the authoritative employee list for Excel
+        // imports. Excel may contain old/new/non-portal rows, but those rows must never be
+        // added to the portal roster. Matching is by SG ID first and normalized name second.
+        function getSeptemberPortalEmployeeWhitelist() {
+            const allowedIds = new Set();
+            const allowedNames = new Set();
+            (rawRosterData || []).forEach(week => {
+                if (normalizeMonthName(week && week.month) !== 'September') return;
+                (week.employees || []).forEach(emp => {
+                    const id = String(emp && emp.sg_id || '').replace(/\\.0+$/, '').trim();
+                    const name = normalizeEmployeeMatchKey(emp && emp.name);
+                    if (id) allowedIds.add(id);
+                    if (name) allowedNames.add(name);
+                });
+            });
+            return { allowedIds, allowedNames };
+        }
+
+        function filterImportedRosterToPortalEmployees(importedRoster) {
+            const whitelist = getSeptemberPortalEmployeeWhitelist();
+            // If September is not available, do not silently discard the entire upload.
+            // In the normal portal roster September is always present and therefore this
+            // fallback is only a safety net for a malformed/partial published roster.
+            if (!whitelist.allowedIds.size && !whitelist.allowedNames.size) return importedRoster || [];
+
+            return (importedRoster || []).map(week => ({
+                ...week,
+                employees: (week.employees || []).filter(emp => {
+                    const id = String(emp && emp.sg_id || '').replace(/\\.0+$/, '').trim();
+                    const name = normalizeEmployeeMatchKey(emp && emp.name);
+                    return (id && whitelist.allowedIds.has(id)) || (name && whitelist.allowedNames.has(name));
+                })
+            })).filter(week => (week.employees || []).length > 0);
         }
 
         function importExcelData(event) {
@@ -7489,7 +7546,8 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                         return;
                     }
 
-                    const parsed = parseAndApplyImportedData(allRows);
+                    const parsedAll = parseAndApplyImportedData(allRows);
+                    const parsed = filterImportedRosterToPortalEmployees(parsedAll);
                     if (!parsed || !parsed.length || !parsed.some(w => (w.employees || []).length)) {
                         const sampleHeaders = Object.keys(allRows[0] || {}).filter(k => !k.startsWith('__')).slice(0, 12);
                         alert('No valid employee roster records could be detected from the active worksheet.\n\nDetected columns: ' +
@@ -7679,6 +7737,20 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                     merged.push(target);
                 } else if (Array.isArray(importedWeek.dates) && importedWeek.dates.length === 7) {
                     target.dates = importedWeek.dates.slice(0,7);
+                }
+
+                // For every week being refreshed from Excel, keep only employees that
+                // belong to the portal's September employee roster. This also cleans an older
+                // polluted October draft/public roster (for example Sunil) when the corrected
+                // workbook is uploaded.
+                const septemberWhitelist = getSeptemberPortalEmployeeWhitelist();
+                if (septemberWhitelist.allowedIds.size || septemberWhitelist.allowedNames.size) {
+                    target.employees = (target.employees || []).filter(emp => {
+                        const empId = String(emp && emp.sg_id || '').replace(/\\.0+$/, '').trim();
+                        const empName = normalizeEmployeeMatchKey(emp && emp.name);
+                        return (empId && septemberWhitelist.allowedIds.has(empId)) ||
+                               (empName && septemberWhitelist.allowedNames.has(empName));
+                    });
                 }
 
                 const existingById = new Map();
