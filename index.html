@@ -272,10 +272,18 @@
 
         /* Sabre Holiday Calendar — fixed columns and left-aligned Holiday Name */
         .holiday-calendar-table { table-layout: auto; width: 100%; }
-        .holiday-calendar-table .holiday-date-col { width: 12%; }
-        .holiday-calendar-table .holiday-day-col { width: 12%; }
-        .holiday-calendar-table .holiday-name-col { width: 43%; }
-        .holiday-calendar-table .holiday-office-col { width: 33%; }
+        .holiday-calendar-table .holiday-date-col { width: 110px; }
+        .holiday-calendar-table .holiday-day-col { width: 90px; }
+        .holiday-calendar-table .holiday-name-col { width: 430px; }
+        .holiday-calendar-table .holiday-office-col { width: 300px; }
+        @media (min-width: 768px) {
+            .holiday-calendar-table {
+                width: 930px;
+                max-width: 930px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
         .holiday-calendar-table th,
         .holiday-calendar-table td { vertical-align: middle !important; text-align: left !important; }
         .holiday-calendar-table th:nth-child(3),
