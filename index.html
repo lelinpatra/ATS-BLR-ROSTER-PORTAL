@@ -5192,8 +5192,9 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 // this session. A second live fetch could overwrite a newly published
                 // 11:00 AM / 12:00 PM shift with the older 08:00 AM cached content.
                 if (publishedRosterData && Array.isArray(publishedRosterData)) {
-                    rawRosterData = JSON.parse(JSON.stringify(publishedRosterData));
-                    backupRosterData = JSON.parse(JSON.stringify(publishedRosterData));
+                    const normalModeRoster = enforceOctoberExcelShiftCorrections(JSON.parse(JSON.stringify(publishedRosterData)));
+                    rawRosterData = normalModeRoster;
+                    backupRosterData = JSON.parse(JSON.stringify(normalModeRoster));
                 }
                 syncCloudCredentialsToLocal(rawRosterData);
                 syncPortalNotificationsFromCloud(rawRosterData);
@@ -5551,6 +5552,32 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             return minTime;
         }
 
+        async function enforceOctoberExcelShiftCorrections(roster) {
+            // October 2026 source-of-truth corrections from the uploaded Excel roster.
+            // Applied after every live/fallback load so Normal Mode cannot revert to older values.
+            if (!Array.isArray(roster)) return roster;
+            const OCTOBER_11AM_DATES = {
+                '223258': new Set(['05/10/26','06/10/26','07/10/26','08/10/26','09/10/26','12/10/26','15/10/26','16/10/26','19/10/26','20/10/26','21/10/26','22/10/26','23/10/26','26/10/26','27/10/26','28/10/26','29/10/26','30/10/26']),
+                '316092': new Set(['13/10/26','14/10/26']),
+                '227186': new Set(['07/10/26'])
+            };
+            roster.forEach(week => {
+                if (String(week?.month || '').toLowerCase() !== 'october') return;
+                const weekDates = Array.isArray(week?.dates) ? week.dates : [];
+                (week.employees || []).forEach(emp => {
+                    const datesForEmployee = OCTOBER_11AM_DATES[String(emp?.sg_id || '')];
+                    if (!datesForEmployee) return;
+                    emp.shifts = emp.shifts || {};
+                    weekDates.forEach((date, index) => {
+                        if (!datesForEmployee.has(String(date))) return;
+                        const day = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'][index];
+                        if (day) emp.shifts[day] = '11:00 AM - 08:00 PM';
+                    });
+                });
+            });
+            return roster;
+        }
+
         async function fetchLivePublicRoster() {
             try {
                 const liveRosterUrls = [
@@ -5579,6 +5606,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                     }
                 } catch (_) {}
                 if (authoritativeData && Array.isArray(authoritativeData) && authoritativeData.length > 0) {
+                    authoritativeData = enforceOctoberExcelShiftCorrections(authoritativeData);
                     rawRosterData = JSON.parse(JSON.stringify(authoritativeData));
                     publishedRosterData = JSON.parse(JSON.stringify(authoritativeData));
                     backupRosterData = JSON.parse(JSON.stringify(authoritativeData));
@@ -5587,9 +5615,9 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 }
             } catch (err) {
                 console.log("Using default fallback roster data:", err);
-                rawRosterData = JSON.parse(JSON.stringify(defaultHardcodedRosterData));
-                publishedRosterData = JSON.parse(JSON.stringify(defaultHardcodedRosterData));
-                backupRosterData = JSON.parse(JSON.stringify(defaultHardcodedRosterData));
+                rawRosterData = enforceOctoberExcelShiftCorrections(JSON.parse(JSON.stringify(defaultHardcodedRosterData)));
+                publishedRosterData = JSON.parse(JSON.stringify(rawRosterData));
+                backupRosterData = JSON.parse(JSON.stringify(rawRosterData));
                 initializeDefaultEmpCredentials();
             }
             initializePortal();
