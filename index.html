@@ -270,32 +270,22 @@
         .login-data-accent{color:#4f46e5}.login-sabre-mark{box-shadow:0 5px 14px rgba(15,23,42,.10)}.login-sabre-mark-large{padding:10px 16px;min-width:170px;justify-content:center}.login-input-wrap:focus-within{border-color:#6366f1;box-shadow:0 0 0 3px rgba(99,102,241,.12),0 5px 14px rgba(15,23,42,.05)}.login-submit{background:linear-gradient(135deg,#f59e0b 0%,#d97706 100%)}
         @media (max-width:767px){.login-card{min-height:0;max-height:calc(100vh - 28px);overflow-y:auto;border-radius:22px}.login-form-panel{padding:20px 18px}}
 
-        /* Sabre Holiday Calendar — fixed columns and left-aligned Holiday Name */
-        .holiday-calendar-table { table-layout: auto; width: 100%; }
-        .holiday-calendar-table .holiday-date-col { width: 110px; }
-        .holiday-calendar-table .holiday-day-col { width: 90px; }
-        .holiday-calendar-table .holiday-name-col { width: 430px; }
-        .holiday-calendar-table .holiday-office-col { width: 300px; }
-        @media (min-width: 768px) {
-            .holiday-calendar-table {
-                width: 930px;
-                max-width: 930px;
-                margin-left: auto;
-                margin-right: auto;
-            }
+        /* Sabre Holiday Calendar — compact month-card layout */
+        .holiday-calendar-grid { align-items: start; }
+        .holiday-month-card { min-width: 0; }
+        .holiday-month-item + .holiday-month-item { border-top-color: transparent; }
+        .holiday-month-item:hover .holiday-date-badge { transform: translateY(-1px); box-shadow: 0 5px 12px rgba(15,23,42,.08); }
+        .holiday-date-badge { transition: .18s ease; }
+        @media (min-width: 768px) and (max-width: 1279px) {
+            .holiday-calendar-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         }
-        .holiday-calendar-table th,
-        .holiday-calendar-table td { vertical-align: middle !important; text-align: left !important; }
-        .holiday-calendar-table th:nth-child(3),
-        .holiday-calendar-table td:nth-child(3) { text-align: left !important; }
-        .holiday-calendar-table th.holiday-name-header,
-        .holiday-calendar-table td.holiday-name-cell {
-            text-align: left !important;
-            text-align-last: left !important;
+        @media (min-width: 1280px) {
+            .holiday-calendar-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
         }
-        .holiday-calendar-table td.holiday-name-cell > * { text-align: left !important; }
         @media (max-width: 767px) {
-            .holiday-calendar-table { min-width: 680px; }
+            .holiday-calendar-grid { grid-template-columns: minmax(0, 1fr); gap: .75rem; }
+            .holiday-month-card { border-radius: 14px; }
+            .holiday-month-item { padding: .5rem .35rem; }
         }
 
         @media (max-width: 640px) {
@@ -6765,14 +6755,13 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             document.getElementById('holidayTabTitle').innerText = 'Sabre Global Holidays';
 
             let filteredHolidays = SABRE_HOLIDAYS.filter(h => {
-                const matchSearch = !searchQuery || 
-                    h.name.toLowerCase().includes(searchQuery) || 
+                const matchSearch = !searchQuery ||
+                    h.name.toLowerCase().includes(searchQuery) ||
                     h.day.toLowerCase().includes(searchQuery) ||
                     h.date.includes(searchQuery) ||
                     h.offices.some(o => o.toLowerCase().includes(searchQuery));
 
                 const matchOffice = selectedHolidayOffice === 'ALL' || h.offices.includes(selectedHolidayOffice);
-
                 return matchSearch && matchOffice;
             });
 
@@ -6797,33 +6786,74 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
 
             let filterButtonsHTML = `<div class="flex flex-wrap gap-2 mb-4">`;
             officeFilterBtns.forEach(btn => {
-                const activeClass = selectedHolidayOffice === btn.code 
-                    ? 'bg-indigo-600 text-white font-bold border-indigo-700 shadow-md' 
+                const activeClass = selectedHolidayOffice === btn.code
+                    ? 'bg-indigo-600 text-white font-bold border-indigo-700 shadow-md'
                     : 'bg-slate-100 text-slate-700 font-semibold hover:bg-slate-200 border-slate-300';
                 filterButtonsHTML += `<button onclick="filterHolidayOffice('${btn.code}')" class="px-3 py-1.5 rounded-lg text-xs border transition-all btn-3d ${activeClass}">${btn.label}</button>`;
             });
             filterButtonsHTML += `</div>`;
 
-            let tableRowsHTML = '';
-            if (filteredHolidays.length === 0) {
-                tableRowsHTML = `<tr><td colspan="4" class="p-8 text-center text-slate-400 text-xs sm:text-sm">No holidays found matching selected filter or search term.</td></tr>`;
-            } else {
-                filteredHolidays.forEach(h => {
-                    const formattedDate = formatDateToDDMMYY(h.date);
+            const monthNames = [
+                'January','February','March','April','May','June',
+                'July','August','September','October','November','December'
+            ];
+
+            const monthColors = [
+                'border-blue-200 bg-blue-50/40',
+                'border-violet-200 bg-violet-50/40',
+                'border-emerald-200 bg-emerald-50/40',
+                'border-amber-200 bg-amber-50/40'
+            ];
+
+            const monthGroups = {};
+            filteredHolidays.forEach(h => {
+                const monthIndex = Math.max(0, Math.min(11, parseInt(h.date.split('-')[1], 10) - 1));
+                if (!monthGroups[monthIndex]) monthGroups[monthIndex] = [];
+                monthGroups[monthIndex].push(h);
+            });
+
+            let calendarHTML = '';
+            for (let monthIndex = 0; monthIndex < 12; monthIndex++) {
+                const holidays = monthGroups[monthIndex] || [];
+                if (!holidays.length) continue;
+
+                holidays.sort((a, b) => a.date.localeCompare(b.date) || a.name.localeCompare(b.name));
+                const monthClass = monthColors[monthIndex % monthColors.length];
+
+                let holidayItems = '';
+                holidays.forEach(h => {
+                    const dateParts = h.date.split('-');
+                    const dayNumber = parseInt(dateParts[2], 10);
                     const badges = h.offices.map(o => {
                         const style = officeBadgeColors[o] || "bg-slate-100 text-slate-800 border-slate-300";
-                        return `<span class="inline-block px-2 py-0.5 text-[10px] font-extrabold rounded border ${style}">${o}</span>`;
-                    }).join(" ");
+                        return `<span class="inline-block px-1.5 py-0.5 text-[9px] font-extrabold rounded border ${style}">${o}</span>`;
+                    }).join('');
 
-                    tableRowsHTML += `
-                        <tr class="hover:bg-slate-50 border-b border-slate-200 transition-colors">
-                            <td class="px-2.5 py-2 sm:px-3 sm:py-2.5 text-xs font-mono-digital font-bold text-slate-900 text-left align-middle">${formattedDate}</td>
-                            <td class="px-2.5 py-2 sm:px-3 sm:py-2.5 text-xs font-semibold text-slate-600 text-left align-middle">${h.day}</td>
-                            <td class="holiday-name-cell px-2.5 py-2 sm:px-3 sm:py-2.5 text-xs sm:text-sm font-extrabold text-slate-950 text-left align-middle break-words" style="text-align:left!important; text-align-last:left!important;"><div class="w-full text-left" style="text-align:left!important;">${h.name}</div></td>
-                            <td class="px-2.5 py-2 sm:px-3 sm:py-2.5 text-left align-middle"><div class="flex flex-wrap gap-1">${badges}</div></td>
-                        </tr>
-                    `;
+                    holidayItems += `
+                        <div class="holiday-month-item group flex items-start gap-2.5 px-2.5 py-2 rounded-lg border border-transparent hover:border-slate-200 hover:bg-white transition-all">
+                            <div class="holiday-date-badge shrink-0 w-11 h-11 rounded-xl bg-white border border-slate-200 shadow-sm flex flex-col items-center justify-center leading-none">
+                                <span class="text-[9px] uppercase font-bold text-slate-400">${h.day.slice(0,3)}</span>
+                                <span class="text-lg font-black text-slate-900 mt-0.5">${dayNumber}</span>
+                            </div>
+                            <div class="min-w-0 flex-1 pt-0.5">
+                                <div class="text-[12px] font-extrabold leading-snug text-slate-900 break-words">${h.name}</div>
+                                <div class="flex flex-wrap gap-1 mt-1">${badges}</div>
+                            </div>
+                        </div>`;
                 });
+
+                calendarHTML += `
+                    <section class="holiday-month-card ${monthClass} rounded-2xl border shadow-sm overflow-hidden">
+                        <div class="px-3.5 py-2.5 bg-white/75 border-b border-inherit flex items-center justify-between">
+                            <h4 class="text-sm font-black text-slate-900">${monthNames[monthIndex]}</h4>
+                            <span class="text-[9px] font-extrabold uppercase tracking-wider text-slate-500 bg-white border border-slate-200 rounded-full px-2 py-1">${holidays.length} ${holidays.length === 1 ? 'Holiday' : 'Holidays'}</span>
+                        </div>
+                        <div class="p-1.5">${holidayItems}</div>
+                    </section>`;
+            }
+
+            if (!calendarHTML) {
+                calendarHTML = `<div class="col-span-full p-10 text-center text-slate-400 text-xs sm:text-sm bg-white rounded-xl border border-slate-200">No holidays found matching selected filter or search term.</div>`;
             }
 
             document.getElementById('mainDisplayArea').innerHTML = `
@@ -6831,7 +6861,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                     <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-200 pb-3 gap-2">
                         <div>
                             <h3 class="font-extrabold text-slate-900 text-base sm:text-lg flex items-center gap-2">
-                                <i data-lucide="globe" class="text-indigo-600 w-5 h-5"></i> Sabre 2026 Global Holiday Calendar
+                                <i data-lucide="calendar-days" class="text-indigo-600 w-5 h-5"></i> Sabre 2026 Global Holiday Calendar
                             </h3>
                             <p class="text-slate-500 text-xs mt-0.5">Official Sabre global observances across international office locations</p>
                         </div>
@@ -6840,31 +6870,13 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
 
                     ${filterButtonsHTML}
 
-                    <div class="bg-white rounded-xl table-3d overflow-hidden w-full">
-                        <div class="overflow-x-auto w-full">
-                            <table class="holiday-calendar-table w-full border-collapse text-left">
-                                <colgroup>
-                                    <col class="holiday-date-col">
-                                    <col class="holiday-day-col">
-                                    <col class="holiday-name-col">
-                                    <col class="holiday-office-col">
-                                </colgroup>
-                                <thead>
-                                    <tr class="bg-slate-900 text-white text-[10px] sm:text-xs uppercase font-semibold border-b border-slate-950">
-                                        <th class="px-2.5 py-2 sm:px-3 sm:py-2.5 text-left align-middle">Date</th>
-                                        <th class="px-2.5 py-2 sm:px-3 sm:py-2.5 text-left align-middle">Day</th>
-                                        <th class="holiday-name-header px-2.5 py-2 sm:px-3 sm:py-2.5 text-left align-middle" style="text-align:left!important; text-align-last:left!important;">Holiday Name</th>
-                                        <th class="px-2.5 py-2 sm:px-3 sm:py-2.5 text-left align-middle">Applicable Offices</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    ${tableRowsHTML}
-                                </tbody>
-                            </table>
-                        </div>
+                    <div class="holiday-calendar-grid grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-4 w-full">
+                        ${calendarHTML}
                     </div>
                 </div>
             `;
+
+            if (typeof lucide !== 'undefined') lucide.createIcons();
         }
 
         function filterHolidayOffice(code) {
