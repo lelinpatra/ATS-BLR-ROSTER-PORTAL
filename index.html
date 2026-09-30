@@ -2872,6 +2872,7 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
         let stagedExcelRosterData = null;
         let stagedExcelFileName = '';
         const ADMIN_DRAFT_STORAGE_KEY = 'ats_roster_admin_excel_draft_v1';
+        const PUBLISHED_ROSTER_CACHE_KEY = 'ats_roster_last_successful_publish_v3';
         const NOTIFICATION_READ_STORAGE_KEY = 'ats_roster_notifications_read_v1';
         const NOTIFICATION_READ_AT_STORAGE_KEY = 'ats_roster_notifications_read_at_v1';
         const NOTIFICATION_READ_RETENTION_MS = 7 * 24 * 60 * 60 * 1000;
@@ -5184,26 +5185,19 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 updateSavedDraftButton();
                 alert("Switched to Normal Roster Mode. Only the published roster is visible. Your saved Admin draft remains available when you return to Admin Mode.");
                 updateTopRightUserHeader();
-                // Refresh Normal Mode from the live published roster so it cannot display
-                // an older 08:00 AM value after an 11:00 AM shift has been published.
-                (async function refreshNormalModeFromPublishedRoster() {
-                    try {
-                        const response = await fetch('./roster.json?v=' + Date.now(), { cache: 'no-store' });
-                        if (response.ok) {
-                            const liveData = await response.json();
-                            if (Array.isArray(liveData) && liveData.length) {
-                                rawRosterData = JSON.parse(JSON.stringify(liveData));
-                                publishedRosterData = JSON.parse(JSON.stringify(liveData));
-                                backupRosterData = JSON.parse(JSON.stringify(liveData));
-                                syncCloudCredentialsToLocal(liveData);
-                                syncPortalNotificationsFromCloud(liveData);
-                            }
-                        }
-                    } catch (err) {
-                        console.warn('Normal Mode could not refresh published roster; using last published snapshot.', err);
-                    }
-                    renderView();
-                })();
+                // IMPORTANT: Do not immediately fetch roster.json again here.
+                // GitHub Pages/raw content can temporarily lag behind the successful
+                // GitHub commit. The publishedRosterData snapshot above is the exact
+                // data that was published from Admin Mode, so it is authoritative for
+                // this session. A second live fetch could overwrite a newly published
+                // 11:00 AM / 12:00 PM shift with the older 08:00 AM cached content.
+                if (publishedRosterData && Array.isArray(publishedRosterData)) {
+                    rawRosterData = JSON.parse(JSON.stringify(publishedRosterData));
+                    backupRosterData = JSON.parse(JSON.stringify(publishedRosterData));
+                }
+                syncCloudCredentialsToLocal(rawRosterData);
+                syncPortalNotificationsFromCloud(rawRosterData);
+                renderView();
             } else {
                 // Sub Admin must authorize with their own GitHub access before entering
                 // edit mode, because Save publishes directly to roster.json.
@@ -5559,16 +5553,37 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
 
         async function fetchLivePublicRoster() {
             try {
-                const response = await fetch('./roster.json?v=' + new Date().getTime());
-                if (response.ok) {
-                    const liveData = await response.json();
-                    if (liveData && Array.isArray(liveData) && liveData.length > 0) {
-                        rawRosterData = liveData;
-                        publishedRosterData = JSON.parse(JSON.stringify(liveData));
-                        backupRosterData = JSON.parse(JSON.stringify(liveData));
-                        syncCloudCredentialsToLocal(liveData);
-                        syncPortalNotificationsFromCloud(liveData);
+                const liveRosterUrls = [
+                    `https://raw.githubusercontent.com/${SUB_ADMIN_GITHUB_OWNER}/${SUB_ADMIN_GITHUB_REPO}/main/${SUB_ADMIN_GITHUB_PATH}?v=${Date.now()}`,
+                    `./roster.json?v=${Date.now()}`
+                ];
+                let liveData = null;
+                for (const liveUrl of liveRosterUrls) {
+                    try {
+                        const response = await fetch(liveUrl, { cache: 'no-store' });
+                        if (response.ok) {
+                            const candidate = await response.json();
+                            if (Array.isArray(candidate) && candidate.length > 0) {
+                                liveData = candidate;
+                                break;
+                            }
+                        }
+                    } catch (_) {}
+                }
+                let authoritativeData = liveData;
+                try {
+                    const cached = JSON.parse(localStorage.getItem(PUBLISHED_ROSTER_CACHE_KEY) || 'null');
+                    if (cached && Array.isArray(cached.roster) && cached.roster.length) {
+                        const age = Date.now() - Number(cached.savedAt || 0);
+                        if (age >= 0 && age < 15 * 60 * 1000) authoritativeData = cached.roster;
                     }
+                } catch (_) {}
+                if (authoritativeData && Array.isArray(authoritativeData) && authoritativeData.length > 0) {
+                    rawRosterData = JSON.parse(JSON.stringify(authoritativeData));
+                    publishedRosterData = JSON.parse(JSON.stringify(authoritativeData));
+                    backupRosterData = JSON.parse(JSON.stringify(authoritativeData));
+                    syncCloudCredentialsToLocal(authoritativeData);
+                    syncPortalNotificationsFromCloud(authoritativeData);
                 }
             } catch (err) {
                 console.log("Using default fallback roster data:", err);
@@ -5839,8 +5854,21 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 });
 
                 if (putRes.ok) {
-                    publishedRosterData = JSON.parse(JSON.stringify(rawRosterData));
-                    backupRosterData = JSON.parse(JSON.stringify(publishedRosterData));
+                    // IMPORTANT: Treat the exact payload sent to GitHub as the newly
+                    // published roster. Keep a browser cache as a short-lived fallback
+                    // while GitHub Pages/CDN catches up, so switching to Normal Mode in
+                    // the same session cannot revert a just-published 11 AM/12 PM shift.
+                    const publishedPayload = JSON.parse(JSON.stringify(rawRosterData));
+                    publishedRosterData = publishedPayload;
+                    backupRosterData = JSON.parse(JSON.stringify(publishedPayload));
+                    // Keep Normal Mode on the exact payload that was just committed.
+                    rawRosterData = JSON.parse(JSON.stringify(publishedPayload));
+                    try {
+                        localStorage.setItem(PUBLISHED_ROSTER_CACHE_KEY, JSON.stringify({
+                            savedAt: Date.now(),
+                            roster: publishedPayload
+                        }));
+                    } catch (_) {}
                     syncPortalNotificationsFromCloud(publishedRosterData);
                     clearPendingChangesState();
                     renderView();
