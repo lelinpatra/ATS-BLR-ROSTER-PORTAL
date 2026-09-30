@@ -5153,6 +5153,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             loadSavedLoginIdentity();
             
             updateTopRightUserHeader();
+            setPeriodNavigatorVisibility(activeCategory);
             renderView();
         }
 
@@ -6164,6 +6165,32 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             button.appendChild(circle);
         }
 
+        function setPeriodNavigatorVisibility(cat) {
+            const periodNavigator = document.getElementById('periodNavigator');
+            const weekNavigator = document.getElementById('weekNavigator');
+            if (!periodNavigator || !weekNavigator) return;
+
+            // Use explicit inline display states as well as Tailwind's hidden class.
+            // This prevents mobile portrait responsive rules from accidentally
+            // revealing Month/Week controls that should be hidden for a tab.
+            if (cat === 'individual') {
+                periodNavigator.classList.remove('hidden');
+                periodNavigator.style.display = 'flex';
+                weekNavigator.classList.add('hidden');
+                weekNavigator.style.display = 'none';
+            } else if (cat === 'holidays') {
+                periodNavigator.classList.add('hidden');
+                periodNavigator.style.display = 'none';
+                weekNavigator.classList.add('hidden');
+                weekNavigator.style.display = 'none';
+            } else {
+                periodNavigator.classList.remove('hidden');
+                periodNavigator.style.display = 'flex';
+                weekNavigator.classList.remove('hidden');
+                weekNavigator.style.display = 'flex';
+            }
+        }
+
         function switchCategory(cat, event) {
             if (event) {
                 createRipple(event);
@@ -6202,6 +6229,10 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 document.getElementById('chartSection').classList.add('hidden');
                 document.getElementById('kpiContainer').classList.add('hidden');
             }
+
+            // Enforce the tab-specific Month/Week visibility after all category logic.
+            // This is intentionally applied in every orientation, including mobile portrait.
+            setPeriodNavigatorVisibility(cat);
 
             // Rebuild the shared selectors after every tab change so all tabs reflect
             // the same global Month/Week state. The individual tab may additionally
