@@ -3042,6 +3042,9 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
                 };
                 isAdminMode = false;
                 pendingChangesExist = false;
+                // A restored session must also begin in Normal Mode; the user can
+                // explicitly enter Sub Admin Mode from their name menu.
+                document.getElementById('userProfileDropdown')?.classList.add('hidden');
                 updateTopRightUserHeader();
                 mobileTabletHiddenSince = document.visibilityState === 'hidden' ? Date.now() : null;
                 startMobileTabletInactivityTimer();
@@ -4960,6 +4963,9 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             isAdminMode = false;
             pendingChangesExist = false;
 
+            // Every login, including Deepak's Sub Admin login, starts in Normal Mode.
+            // Admin Mode can only be entered later from the signed-in user's name menu.
+            document.getElementById('userProfileDropdown')?.classList.add('hidden');
             updateTopRightUserHeader();
             grantPortalAccess();
         }
@@ -4981,6 +4987,15 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             const isAuthorizedAdmin = isPrivilegedPortalUser();
             if (switchBtn) {
                 switchBtn.classList.toggle('hidden', !isAuthorizedAdmin);
+                // Sub Admins always enter Normal Mode after login. Their mode switch
+                // is available only from the signed-in user's name menu.
+                if (activeUserSession.role === 'subadmin' && !isAdminMode) {
+                    switchBtnLabel.innerText = 'Switch to Admin Mode';
+                    switchBtn.title = 'Open Sub Admin Mode';
+                } else if (activeUserSession.role === 'subadmin' && isAdminMode) {
+                    switchBtnLabel.innerText = 'Switch to Normal Mode';
+                    switchBtn.title = 'Return to Normal Mode';
+                }
             }
 
             const adminBadge = document.getElementById('adminBadge');
@@ -5169,7 +5184,26 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 updateSavedDraftButton();
                 alert("Switched to Normal Roster Mode. Only the published roster is visible. Your saved Admin draft remains available when you return to Admin Mode.");
                 updateTopRightUserHeader();
-                renderView();
+                // Refresh Normal Mode from the live published roster so it cannot display
+                // an older 08:00 AM value after an 11:00 AM shift has been published.
+                (async function refreshNormalModeFromPublishedRoster() {
+                    try {
+                        const response = await fetch('./roster.json?v=' + Date.now(), { cache: 'no-store' });
+                        if (response.ok) {
+                            const liveData = await response.json();
+                            if (Array.isArray(liveData) && liveData.length) {
+                                rawRosterData = JSON.parse(JSON.stringify(liveData));
+                                publishedRosterData = JSON.parse(JSON.stringify(liveData));
+                                backupRosterData = JSON.parse(JSON.stringify(liveData));
+                                syncCloudCredentialsToLocal(liveData);
+                                syncPortalNotificationsFromCloud(liveData);
+                            }
+                        }
+                    } catch (err) {
+                        console.warn('Normal Mode could not refresh published roster; using last published snapshot.', err);
+                    }
+                    renderView();
+                })();
             } else {
                 // Sub Admin must authorize with their own GitHub access before entering
                 // edit mode, because Save publishes directly to roster.json.
