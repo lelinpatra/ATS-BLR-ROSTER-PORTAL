@@ -1947,6 +1947,11 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
 }
 </style>
 
+
+<style id="individual-india-holiday-style">
+.individual-india-holiday-day, .individual-india-holiday-date { display:inline; position:relative; top:-2px; color:#991b1b !important; background:#fee2e2 !important; border-radius:4px; padding:0 2px; line-height:inherit; cursor:help; box-shadow:0 0 0 1px #ef4444, 0 1px 2px rgba(127,29,29,.12); }
+.individual-india-holiday-day, .individual-india-holiday-date { vertical-align:baseline; }
+</style>
 </head>
 <body class="min-h-screen flex flex-col w-full overflow-x-hidden relative pb-16">
 
@@ -2968,10 +2973,15 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
             const idEl = document.getElementById('loginEmpId');
             if (!wrap || !pass) return;
 
-            // Only Rommel Munoz may omit the SG ID. All other users must continue
-            // to provide their Employee ID exactly as before.
+            // Only Rommel Munoz may omit the SG ID. Hide the complete SG ID row
+            // automatically when his email is entered. All other users keep the
+            // existing Email + SG ID login requirement.
             const isEmailOnlyLogin = email === EMAIL_ONLY_LOGIN_EMAIL;
-            if (idEl) idEl.required = !isEmailOnlyLogin;
+            if (idEl) {
+                idEl.required = !isEmailOnlyLogin;
+                const idFieldRow = idEl.parentElement?.parentElement;
+                if (idFieldRow) idFieldRow.classList.toggle('hidden', isEmailOnlyLogin);
+            }
 
             const isAdmin = isAdminLoginIdentity(email, sgId);
             wrap.classList.toggle('hidden', !isAdmin);
@@ -6821,15 +6831,19 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                                 <div class="grid grid-cols-7 gap-0.5 sm:gap-1 text-center no-scrollbar">`;
                         days.forEach((d, idx) => {
                             const dateLabel = dates[idx];
-                            const isToday = (dateLabel === TODAY_DATE_STR);
-                            const cellBg = isToday ? 'bg-sky-50 rounded' : '';
+                            const indiaHolidayNames = getSabreBLRHolidayNames(dateLabel);
+                            const isIndiaPublicHoliday = indiaHolidayNames.length > 0;
+                            const holidayTooltip = isIndiaPublicHoliday ? `India Public Holiday: ${indiaHolidayNames.join(' / ')}` : '';
+                            const holidayDayClass = isIndiaPublicHoliday ? 'individual-india-holiday-day' : '';
+                            const holidayDateClass = isIndiaPublicHoliday ? 'individual-india-holiday-date' : '';
+                            const holidayTitle = isIndiaPublicHoliday ? ` title="${escapeHtml(holidayTooltip)}" aria-label="${escapeHtml(holidayTooltip)}"` : '';
 
                             const shortDateLabel = dateLabel && dateLabel !== 'N/A'
                                 ? String(dateLabel).split('/').slice(0, 2).join('/')
                                 : '';
-                            html += `<div class="${cellBg} p-0.5">
-                                <div class="text-[10px] sm:text-[11px] text-slate-500 uppercase font-bold whitespace-nowrap">${d.substring(0,1)}</div>
-                                <div class="text-[9px] sm:text-[10px] text-slate-400 font-extrabold leading-none mt-0.5 whitespace-nowrap">${shortDateLabel}</div>
+                            html += `<div class="p-0.5">
+                                <div class="text-[10px] sm:text-[11px] text-slate-500 uppercase font-bold whitespace-nowrap"><span class="${holidayDayClass}"${holidayTitle}>${d.substring(0,1)}</span></div>
+                                <div class="text-[9px] sm:text-[10px] text-slate-400 font-extrabold leading-none mt-0.5 whitespace-nowrap"><span class="${holidayDateClass}"${holidayTitle}>${shortDateLabel}</span></div>
                                 <div class="mt-0.5 sm:mt-1">${getShiftBadge(w.shifts ? w.shifts[d] : 'WO')}</div>
                             </div>`;
                         });
