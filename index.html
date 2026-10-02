@@ -2905,6 +2905,11 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
         const ADMIN_SG_ID = '316092';
         const ADMIN_PASSWORD = '1Q2W3E4R';
 
+        // Login exception: Rommel Munoz may access the portal using his email alone.
+        // No other user's login requirements are changed.
+        const EMAIL_ONLY_LOGIN_EMAIL = 'rommel.x.munoz@sabre.com';
+        const EMAIL_ONLY_LOGIN_NAME = 'Rommel Munoz';
+
         // Privileged portal roles. Normal employees continue to use Public View.
         // Deepak K (SG ID 223255) is a Sub Admin: he can edit employee shift timings
         // and QM staff allocation, but cannot access the full Admin Management tools.
@@ -2960,7 +2965,14 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
             const sgId = cleanSgId(document.getElementById('loginEmpId')?.value);
             const wrap = document.getElementById('adminPasswordLoginWrap');
             const pass = document.getElementById('loginPassword');
+            const idEl = document.getElementById('loginEmpId');
             if (!wrap || !pass) return;
+
+            // Only Rommel Munoz may omit the SG ID. All other users must continue
+            // to provide their Employee ID exactly as before.
+            const isEmailOnlyLogin = email === EMAIL_ONLY_LOGIN_EMAIL;
+            if (idEl) idEl.required = !isEmailOnlyLogin;
+
             const isAdmin = isAdminLoginIdentity(email, sgId);
             wrap.classList.toggle('hidden', !isAdmin);
             pass.required = isAdmin;
@@ -3030,16 +3042,19 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
                     const exclusion = exclusionEmployees.find(ex => normalizeLoginEmail(ex.email) === email);
                     if (exclusion) sgId = cleanSgId(exclusion.sg_id);
                 }
-                if (!sgId) {
+
+                // Rommel's email-only session is valid without an SG ID.
+                const isEmailOnlyLogin = email === EMAIL_ONLY_LOGIN_EMAIL;
+                if (!sgId && !isEmailOnlyLogin) {
                     clearActivePortalSession();
                     return false;
                 }
 
-                try { matchedEmp = findEmployeeBySgId(sgId); } catch (_) { matchedEmp = null; }
+                try { matchedEmp = sgId ? findEmployeeBySgId(sgId) : null; } catch (_) { matchedEmp = null; }
                 const restoredRole = getPortalRole(email, sgId);
                 activeUserSession = {
                     sg_id: sgId,
-                    empName: getPortalLoginEmployeeName(sgId, matchedEmp),
+                    empName: isEmailOnlyLogin ? EMAIL_ONLY_LOGIN_NAME : getPortalLoginEmployeeName(sgId, matchedEmp),
                     email: email,
                     isAdmin: restoredRole === 'admin',
                     role: restoredRole
@@ -4793,25 +4808,37 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
 
             const mappedId = getMappedSgIdForEmail(inputEmail);
             const cleanId = cleanSgId(inputId);
+            const isEmailOnlyLogin = inputEmail === EMAIL_ONLY_LOGIN_EMAIL;
             const exclusion = Array.isArray(exclusionEmployees)
                 ? exclusionEmployees.find(ex => cleanSgId(ex.sg_id) === cleanId && normalizeLoginEmail(ex.email) === inputEmail)
                 : null;
 
-            // Email + SG ID must be a valid pair. No password is required for normal employees.
-            if (!mappedId && !exclusion) {
-                errorEl.innerText = 'Access Denied: This email address is not registered for ATS BLR Roster Portal access.';
-                errorEl.classList.remove('hidden');
-                return;
+            // Rommel Munoz is the only email-only login exception.
+            // Every other account continues to require a valid email + SG ID pair.
+            if (!isEmailOnlyLogin) {
+                if (!cleanId) {
+                    errorEl.innerText = 'Access Denied: Employee ID (SG ID) is required.';
+                    errorEl.classList.remove('hidden');
+                    return;
+                }
+
+                if (!mappedId && !exclusion) {
+                    errorEl.innerText = 'Access Denied: This email address is not registered for ATS BLR Roster Portal access.';
+                    errorEl.classList.remove('hidden');
+                    return;
+                }
+
+                if (mappedId && mappedId !== cleanId) {
+                    errorEl.innerText = 'Access Denied: Email address and Employee ID do not match.';
+                    errorEl.classList.remove('hidden');
+                    return;
+                }
             }
 
-            if (mappedId && mappedId !== cleanId) {
-                errorEl.innerText = 'Access Denied: Email address and Employee ID do not match.';
-                errorEl.classList.remove('hidden');
-                return;
-            }
-
-            const matchedEmp = findEmployeeBySgId(cleanId);
-            const loginEmployeeName = getPortalLoginEmployeeName(cleanId, matchedEmp);
+            const matchedEmp = cleanId ? findEmployeeBySgId(cleanId) : null;
+            const loginEmployeeName = isEmailOnlyLogin
+                ? EMAIL_ONLY_LOGIN_NAME
+                : getPortalLoginEmployeeName(cleanId, matchedEmp);
             const portalRole = getPortalRole(inputEmail, cleanId);
             const isAdmin = portalRole === 'admin';
 
@@ -4859,7 +4886,9 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
 
             document.getElementById('loggedInUserName').innerText = activeUserSession.empName;
             document.getElementById('userDropdownTitle').innerText = activeUserSession.empName;
-            document.getElementById('userDropdownSgId').innerText = `SG ID: ${activeUserSession.sg_id}`;
+            document.getElementById('userDropdownSgId').innerText = activeUserSession.sg_id
+                ? `SG ID: ${activeUserSession.sg_id}`
+                : 'Email-only access';
 
             const switchBtn = document.getElementById('switchModeBtn');
             const switchBtnIcon = document.getElementById('switchModeIcon');
