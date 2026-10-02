@@ -6214,18 +6214,25 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             // revealing Month/Week controls that should be hidden for a tab.
             if (cat === 'individual') {
                 periodNavigator.classList.remove('hidden');
+                periodNavigator.style.removeProperty('display');
                 periodNavigator.style.display = 'flex';
                 weekNavigator.classList.add('hidden');
+                weekNavigator.style.removeProperty('display');
                 weekNavigator.style.display = 'none';
             } else if (cat === 'holidays') {
                 periodNavigator.classList.add('hidden');
-                periodNavigator.style.display = 'none';
+                // Mobile portrait CSS uses display:grid !important for the shared
+                // navigator, so the normal inline display:none can be overridden.
+                // Use an inline !important only while the Holidays tab is active.
+                periodNavigator.style.setProperty('display', 'none', 'important');
                 weekNavigator.classList.add('hidden');
-                weekNavigator.style.display = 'none';
+                weekNavigator.style.setProperty('display', 'none', 'important');
             } else {
                 periodNavigator.classList.remove('hidden');
+                periodNavigator.style.removeProperty('display');
                 periodNavigator.style.display = 'flex';
                 weekNavigator.classList.remove('hidden');
+                weekNavigator.style.removeProperty('display');
                 weekNavigator.style.display = 'flex';
             }
         }
