@@ -264,6 +264,26 @@
     ],
     "_portal_notifications": [
       {
+        "id": "n_1791443922601_1_1j7bsb",
+        "createdAt": "2026-10-08T07:18:42.601Z",
+        "title": "Lelin Patra roster changed",
+        "message": "Lelin Patra shift/status changed on 22/10/26 from 10:00 AM - 07:00 PM to 06:00 AM - 03:00 PM.",
+        "type": "employee",
+        "month": "October",
+        "week": 3,
+        "employee": "Lelin Patra"
+      },
+      {
+        "id": "n_1791443922601_0_ng17t8",
+        "createdAt": "2026-10-08T07:18:42.601Z",
+        "title": "Deepak K roster changed",
+        "message": "Deepak K shift/status changed on 22/10/26 from 06:00 AM - 03:00 PM to PTO.",
+        "type": "employee",
+        "month": "October",
+        "week": 3,
+        "employee": "Deepak K"
+      },
+      {
         "id": "n_1791442495491_1_z6itxo",
         "createdAt": "2026-10-08T06:54:55.491Z",
         "title": "Sanjay Kumar roster changed",
@@ -1238,26 +1258,6 @@
         "createdAt": "2026-09-30T05:16:33.154Z",
         "title": "Gokul Krishna Lokesh roster changed",
         "message": "Gokul Krishna Lokesh shift/status changed on 15/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 2,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790745393154_14_l51pmi",
-        "createdAt": "2026-09-30T05:16:33.154Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 14/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 2,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790745393154_13_1xvb70",
-        "createdAt": "2026-09-30T05:16:33.154Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 13/10/26 from 06:00 AM - 03:00 PM to WO.",
         "type": "employee",
         "month": "October",
         "week": 2,
@@ -3233,7 +3233,7 @@
           "Monday": "06:00 AM - 03:00 PM",
           "Tuesday": "06:00 AM - 03:00 PM",
           "Wednesday": "06:00 AM - 03:00 PM",
-          "Thursday": "06:00 AM - 03:00 PM",
+          "Thursday": "PTO",
           "Friday": "06:00 AM - 03:00 PM",
           "Saturday": "WO",
           "Sunday": "WO"
@@ -3284,7 +3284,7 @@
           "Monday": "10:00 AM - 07:00 PM",
           "Tuesday": "10:00 AM - 07:00 PM",
           "Wednesday": "10:00 AM - 07:00 PM",
-          "Thursday": "10:00 AM - 07:00 PM",
+          "Thursday": "06:00 AM - 03:00 PM",
           "Friday": "10:00 AM - 07:00 PM",
           "Saturday": "WO",
           "Sunday": "WO"
@@ -3450,7 +3450,7 @@
       3,
       3,
       5,
-      4,
+      3,
       3,
       1,
       1
