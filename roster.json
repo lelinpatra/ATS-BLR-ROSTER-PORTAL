@@ -264,6 +264,26 @@
     ],
     "_portal_notifications": [
       {
+        "id": "n_1791442321117_1_0mw1so",
+        "createdAt": "2026-10-08T06:52:01.117Z",
+        "title": "Sanjay Kumar roster changed",
+        "message": "Sanjay Kumar shift/status changed on 18/10/26 from 06:30 AM - 03:30 PM to PTO.",
+        "type": "employee",
+        "month": "October",
+        "week": 2,
+        "employee": "Sanjay Kumar"
+      },
+      {
+        "id": "n_1791442321117_0_l7ikuj",
+        "createdAt": "2026-10-08T06:52:01.117Z",
+        "title": "Sanjay Kumar roster changed",
+        "message": "Sanjay Kumar shift/status changed on 17/10/26 from 06:00 AM - 03:00 PM to PTO.",
+        "type": "employee",
+        "month": "October",
+        "week": 2,
+        "employee": "Sanjay Kumar"
+      },
+      {
         "id": "n_1791442096203_8_ulgamh",
         "createdAt": "2026-10-08T06:48:16.203Z",
         "title": "Manisha Kumari roster changed",
@@ -1242,26 +1262,6 @@
         "month": "October",
         "week": 2,
         "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790745393154_12_0la2tm",
-        "createdAt": "2026-09-30T05:16:33.154Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 10/12/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 2,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790745393154_11_tlux7u",
-        "createdAt": "2026-09-30T05:16:33.154Z",
-        "title": "Sanjay Kumar roster changed",
-        "message": "Sanjay Kumar shift/status changed on 18/10/26 from 06:30 AM - 03:30 PM to 06:30 AM - 03300 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 2,
-        "employee": "Sanjay Kumar"
       }
     ],
     "_user_credentials": {
@@ -3005,8 +3005,8 @@
           "Wednesday": "10:00 AM - 07:00 PM",
           "Thursday": "10:00 AM - 07:00 PM",
           "Friday": "10:00 AM - 07:00 PM",
-          "Saturday": "06:00 AM - 03:00 PM",
-          "Sunday": "06:30 AM - 03:30 PM"
+          "Saturday": "PTO",
+          "Sunday": "PTO"
         }
       },
       {
@@ -3170,8 +3170,8 @@
       5,
       4,
       5,
-      2,
-      2
+      1,
+      1
     ],
     "total_headcount_8am": [
       2,
