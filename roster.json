@@ -264,6 +264,26 @@
     ],
     "_portal_notifications": [
       {
+        "id": "n_1791441878837_1_g7z27v",
+        "createdAt": "2026-10-08T06:44:38.837Z",
+        "title": "Lelin Patra roster changed",
+        "message": "Lelin Patra shift/status changed on 16/10/26 from 10:00 AM - 07:00 PM to 06:00 AM - 03:00 PM.",
+        "type": "employee",
+        "month": "October",
+        "week": 2,
+        "employee": "Lelin Patra"
+      },
+      {
+        "id": "n_1791441878837_0_r4wqd4",
+        "createdAt": "2026-10-08T06:44:38.837Z",
+        "title": "Deepak K roster changed",
+        "message": "Deepak K shift/status changed on 16/10/26 from 06:00 AM - 03:00 PM to PTO.",
+        "type": "employee",
+        "month": "October",
+        "week": 2,
+        "employee": "Deepak K"
+      },
+      {
         "id": "n_1791441837773_6_k636mh",
         "createdAt": "2026-10-08T06:43:57.773Z",
         "title": "Rupesh C P roster changed",
@@ -1242,26 +1262,6 @@
         "month": "October",
         "week": 1,
         "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790745393154_1_5vs12m",
-        "createdAt": "2026-09-30T05:16:33.154Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 10/05/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 1,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790745393154_0_n67n19",
-        "createdAt": "2026-09-30T05:16:33.154Z",
-        "title": "Sanjay Kumar roster changed",
-        "message": "Sanjay Kumar shift/status changed on 10/11/26 from 06:30 AM - 03:30 PM to 06:30 AM - 03300 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 1,
-        "employee": "Sanjay Kumar"
       }
     ],
     "_user_credentials": {
@@ -2970,7 +2970,7 @@
           "Tuesday": "06:00 AM - 03:00 PM",
           "Wednesday": "06:00 AM - 03:00 PM",
           "Thursday": "06:00 AM - 03:00 PM",
-          "Friday": "06:00 AM - 03:00 PM",
+          "Friday": "PTO",
           "Saturday": "WO",
           "Sunday": "WO"
         }
@@ -3021,7 +3021,7 @@
           "Tuesday": "11:00 AM - 08:00 PM",
           "Wednesday": "11:00 AM - 08:00 PM",
           "Thursday": "10:00 AM - 07:00 PM",
-          "Friday": "10:00 AM - 07:00 PM",
+          "Friday": "06:00 AM - 03:00 PM",
           "Saturday": "WO",
           "Sunday": "WO"
         }
@@ -3187,7 +3187,7 @@
       3,
       4,
       4,
-      3,
+      2,
       1,
       1
     ]
