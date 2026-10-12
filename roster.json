@@ -264,6 +264,26 @@
     ],
     "_portal_notifications": [
       {
+        "id": "n_1791768900034_1_ygeokr",
+        "createdAt": "2026-10-12T01:35:00.034Z",
+        "title": "Nidhi Taku roster changed",
+        "message": "Nidhi Taku shift/status changed on 10/09/26 from 08:00 AM - 05:00 PM to SL.",
+        "type": "employee",
+        "month": "October",
+        "week": 1,
+        "employee": "Nidhi Taku"
+      },
+      {
+        "id": "n_1791768900034_0_mvu5f5",
+        "createdAt": "2026-10-12T01:35:00.034Z",
+        "title": "Preethi P roster changed",
+        "message": "Preethi P shift/status changed on 10/05/26 from 06:00 AM - 03:00 PM to SL.",
+        "type": "employee",
+        "month": "October",
+        "week": 1,
+        "employee": "Preethi P"
+      },
+      {
         "id": "n_1791443922601_1_1j7bsb",
         "createdAt": "2026-10-08T07:18:42.601Z",
         "title": "Lelin Patra roster changed",
@@ -1242,26 +1262,6 @@
         "month": "October",
         "week": 2,
         "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790745393154_16_ngrcj3",
-        "createdAt": "2026-09-30T05:16:33.154Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 16/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 2,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790745393154_15_7noxnt",
-        "createdAt": "2026-09-30T05:16:33.154Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 15/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 2,
-        "employee": "Gokul Krishna Lokesh"
       }
     ],
     "_user_credentials": {
@@ -2804,7 +2804,7 @@
         "default_end": "03:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
         "shifts": {
-          "Monday": "06:00 AM - 03:00 PM",
+          "Monday": "SL",
           "Tuesday": "06:00 AM - 03:00 PM",
           "Wednesday": "06:00 AM - 03:00 PM",
           "Thursday": "06:00 AM - 03:00 PM",
@@ -2825,7 +2825,7 @@
           "Tuesday": "08:00 AM - 05:00 PM",
           "Wednesday": "08:00 AM - 05:00 PM",
           "Thursday": "08:00 AM - 05:00 PM",
-          "Friday": "08:00 AM - 05:00 PM",
+          "Friday": "SL",
           "Saturday": "WO",
           "Sunday": "WO"
         }
@@ -2901,7 +2901,7 @@
       "Sunday": "Rupesh C P"
     },
     "total_headcount_6am": [
-      5,
+      4,
       5,
       5,
       5,
@@ -2914,7 +2914,7 @@
       2,
       2,
       2,
-      2,
+      1,
       0,
       0
     ],
