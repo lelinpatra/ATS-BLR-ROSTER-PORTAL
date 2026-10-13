@@ -264,6 +264,46 @@
     ],
     "_portal_notifications": [
       {
+        "id": "n_1791884054208_3_0mzqak",
+        "createdAt": "2026-10-13T09:34:14.208Z",
+        "title": "Prathvi Shetty roster changed",
+        "message": "Prathvi Shetty shift/status changed on 24/10/26 from WO to 06:00 AM - 03:00 PM.",
+        "type": "employee",
+        "month": "October",
+        "week": 3,
+        "employee": "Prathvi Shetty"
+      },
+      {
+        "id": "n_1791884054208_2_3kxzxc",
+        "createdAt": "2026-10-13T09:34:14.208Z",
+        "title": "Prathvi Shetty roster changed",
+        "message": "Prathvi Shetty shift/status changed on 23/10/26 from 06:00 AM - 03:00 PM to WO.",
+        "type": "employee",
+        "month": "October",
+        "week": 3,
+        "employee": "Prathvi Shetty"
+      },
+      {
+        "id": "n_1791884054208_1_egwmuy",
+        "createdAt": "2026-10-13T09:34:14.208Z",
+        "title": "Preethi P roster changed",
+        "message": "Preethi P shift/status changed on 24/10/26 from 06:00 AM - 03:00 PM to WO.",
+        "type": "employee",
+        "month": "October",
+        "week": 3,
+        "employee": "Preethi P"
+      },
+      {
+        "id": "n_1791884054208_0_kc859n",
+        "createdAt": "2026-10-13T09:34:14.208Z",
+        "title": "Preethi P roster changed",
+        "message": "Preethi P shift/status changed on 23/10/26 from WO to 06:00 AM - 03:00 PM.",
+        "type": "employee",
+        "month": "October",
+        "week": 3,
+        "employee": "Preethi P"
+      },
+      {
         "id": "n_1791883838352_3_xygujd",
         "createdAt": "2026-10-13T09:30:38.352Z",
         "title": "Prathvi Shetty roster changed",
@@ -1222,46 +1262,6 @@
         "month": "October",
         "week": 3,
         "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790745393154_24_30eysw",
-        "createdAt": "2026-09-30T05:16:33.154Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 20/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 3,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790745393154_23_k1yahe",
-        "createdAt": "2026-09-30T05:16:33.154Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 19/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 3,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790745393154_22_hm7b05",
-        "createdAt": "2026-09-30T05:16:33.154Z",
-        "title": "Sanjay Kumar roster changed",
-        "message": "Sanjay Kumar shift/status changed on 25/10/26 from 06:30 AM - 03:30 PM to 06:30 AM - 03300 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 3,
-        "employee": "Sanjay Kumar"
-      },
-      {
-        "id": "n_1790745393154_21_c31yul",
-        "createdAt": "2026-09-30T05:16:33.154Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 16/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 2,
-        "employee": "Manisha Kumari"
       }
     ],
     "_user_credentials": {
