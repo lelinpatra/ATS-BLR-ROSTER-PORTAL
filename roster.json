@@ -264,6 +264,46 @@
     ],
     "_portal_notifications": [
       {
+        "id": "n_1791883838352_3_xygujd",
+        "createdAt": "2026-10-13T09:30:38.352Z",
+        "title": "Prathvi Shetty roster changed",
+        "message": "Prathvi Shetty shift/status changed on 24/10/26 from WO to 06:00 AM - 03:00 PM.",
+        "type": "employee",
+        "month": "October",
+        "week": 3,
+        "employee": "Prathvi Shetty"
+      },
+      {
+        "id": "n_1791883838352_2_cp5579",
+        "createdAt": "2026-10-13T09:30:38.352Z",
+        "title": "Prathvi Shetty roster changed",
+        "message": "Prathvi Shetty shift/status changed on 23/10/26 from 06:00 AM - 03:00 PM to WO.",
+        "type": "employee",
+        "month": "October",
+        "week": 3,
+        "employee": "Prathvi Shetty"
+      },
+      {
+        "id": "n_1791883838352_1_qkw28i",
+        "createdAt": "2026-10-13T09:30:38.352Z",
+        "title": "Preethi P roster changed",
+        "message": "Preethi P shift/status changed on 24/10/26 from 06:00 AM - 03:00 PM to WO.",
+        "type": "employee",
+        "month": "October",
+        "week": 3,
+        "employee": "Preethi P"
+      },
+      {
+        "id": "n_1791883838352_0_rohkx6",
+        "createdAt": "2026-10-13T09:30:38.352Z",
+        "title": "Preethi P roster changed",
+        "message": "Preethi P shift/status changed on 23/10/26 from WO to 06:00 AM - 03:00 PM.",
+        "type": "employee",
+        "month": "October",
+        "week": 3,
+        "employee": "Preethi P"
+      },
+      {
         "id": "n_1791768900034_1_ygeokr",
         "createdAt": "2026-10-12T01:35:00.034Z",
         "title": "Nidhi Taku roster changed",
@@ -1218,46 +1258,6 @@
         "createdAt": "2026-09-30T05:16:33.154Z",
         "title": "Manisha Kumari roster changed",
         "message": "Manisha Kumari shift/status changed on 16/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 2,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790745393154_20_iuw69m",
-        "createdAt": "2026-09-30T05:16:33.154Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 15/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 2,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790745393154_19_tuzayh",
-        "createdAt": "2026-09-30T05:16:33.154Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 14/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 2,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790745393154_18_f73vqr",
-        "createdAt": "2026-09-30T05:16:33.154Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 13/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 2,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790745393154_17_2in4lk",
-        "createdAt": "2026-09-30T05:16:33.154Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 10/12/26 from 06:00 AM - 03:00 PM to WO.",
         "type": "employee",
         "month": "October",
         "week": 2,
@@ -3336,8 +3336,8 @@
           "Tuesday": "06:00 AM - 03:00 PM",
           "Wednesday": "06:00 AM - 03:00 PM",
           "Thursday": "06:00 AM - 03:00 PM",
-          "Friday": "WO",
-          "Saturday": "06:00 AM - 03:00 PM",
+          "Friday": "06:00 AM - 03:00 PM",
+          "Saturday": "WO",
           "Sunday": "WO"
         }
       },
@@ -3404,8 +3404,8 @@
           "Tuesday": "06:00 AM - 03:00 PM",
           "Wednesday": "06:00 AM - 03:00 PM",
           "Thursday": "06:00 AM - 03:00 PM",
-          "Friday": "06:00 AM - 03:00 PM",
-          "Saturday": "WO",
+          "Friday": "WO",
+          "Saturday": "06:00 AM - 03:00 PM",
           "Sunday": "WO"
         }
       }
