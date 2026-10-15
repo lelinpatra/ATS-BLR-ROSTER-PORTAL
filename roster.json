@@ -264,6 +264,16 @@
     ],
     "_portal_notifications": [
       {
+        "id": "n_1792039268972_0_kiztgf",
+        "createdAt": "2026-10-15T04:41:08.972Z",
+        "title": "Rupesh C P roster changed",
+        "message": "Rupesh C P shift/status changed on 14/10/26 from 10:00 AM - 07:00 PM to PTO.",
+        "type": "employee",
+        "month": "October",
+        "week": 2,
+        "employee": "Rupesh C P"
+      },
+      {
         "id": "n_1791884054208_3_0mzqak",
         "createdAt": "2026-10-13T09:34:14.208Z",
         "title": "Prathvi Shetty roster changed",
@@ -1248,16 +1258,6 @@
         "createdAt": "2026-09-30T05:16:33.154Z",
         "title": "Gokul Krishna Lokesh roster changed",
         "message": "Gokul Krishna Lokesh shift/status changed on 22/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 3,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790745393154_25_f730r0",
-        "createdAt": "2026-09-30T05:16:33.154Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 21/10/26 from 06:00 AM - 03:00 PM to WO.",
         "type": "employee",
         "month": "October",
         "week": 3,
@@ -3053,7 +3053,7 @@
         "shifts": {
           "Monday": "10:00 AM - 07:00 PM",
           "Tuesday": "10:00 AM - 07:00 PM",
-          "Wednesday": "10:00 AM - 07:00 PM",
+          "Wednesday": "PTO",
           "Thursday": "WO",
           "Friday": "WO",
           "Saturday": "10:00 AM - 07:00 PM",
@@ -3185,7 +3185,7 @@
     "total_headcount_10am": [
       2,
       3,
-      4,
+      3,
       4,
       2,
       1,
