@@ -264,6 +264,16 @@
     ],
     "_portal_notifications": [
       {
+        "id": "n_1792170035951_0_k1xm6c",
+        "createdAt": "2026-10-16T17:00:35.951Z",
+        "title": "Bhargav R roster changed",
+        "message": "Bhargav R shift/status changed on 15/10/26 from 08:00 AM - 05:00 PM to 08:00 AM (2nd Half Off).",
+        "type": "employee",
+        "month": "October",
+        "week": 2,
+        "employee": "Bhargav R"
+      },
+      {
         "id": "n_1792039268972_0_kiztgf",
         "createdAt": "2026-10-15T04:41:08.972Z",
         "title": "Rupesh C P roster changed",
@@ -1248,16 +1258,6 @@
         "createdAt": "2026-09-30T05:16:33.154Z",
         "title": "Gokul Krishna Lokesh roster changed",
         "message": "Gokul Krishna Lokesh shift/status changed on 23/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 3,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790745393154_26_q3k79t",
-        "createdAt": "2026-09-30T05:16:33.154Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 22/10/26 from 06:00 AM - 03:00 PM to WO.",
         "type": "employee",
         "month": "October",
         "week": 3,
@@ -3122,7 +3122,7 @@
           "Monday": "08:00 AM - 05:00 PM",
           "Tuesday": "08:00 AM - 05:00 PM",
           "Wednesday": "08:00 AM - 05:00 PM",
-          "Thursday": "08:00 AM - 05:00 PM",
+          "Thursday": "08:00 AM (2nd Half Off)",
           "Friday": "08:00 AM - 05:00 PM",
           "Saturday": "WO",
           "Sunday": "WO"
