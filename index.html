@@ -8483,16 +8483,6 @@ body.ats-cinematic-active #mainDisplayArea .rounded-2xl:hover{transform:translat
   {id:'mint',name:'Mint',desc:'Soft teal modern interface',bg:'#e8faf7',surface:'#ffffff',surface2:'#f0fdfa',text:'#134e4a',muted:'#5f7f7b',primary:'#0f766e',accent:'#f97316',border:'#b7ebe4',header:'#134e4a'},
   {id:'rose',name:'Rose',desc:'Elegant rose enterprise theme',bg:'#fff0f4',surface:'#ffffff',surface2:'#fff7f9',text:'#4a1023',muted:'#8b6070',primary:'#be185d',accent:'#f59e0b',border:'#f3bfd2',header:'#4a1023'},
   {id:'terminal',name:'Terminal',desc:'High-contrast operations console',bg:'#07110b',surface:'#0b1a10',surface2:'#102217',text:'#dcfce7',muted:'#86efac',primary:'#22c55e',accent:'#facc15',border:'#166534',header:'#020a05'},
-  {id:'crystal-aqua',name:'Crystal Aqua Glass',desc:'Transparent aqua glass with cool cyan glow',bg:'#c8f5f5',surface:'rgba(255,255,255,.48)',surface2:'rgba(224,252,255,.42)',text:'#103b4a',muted:'#426d7b',primary:'#0891b2',accent:'#14b8a6',border:'rgba(8,145,178,.42)',header:'#075466'},
-  {id:'amethyst-glass',name:'Amethyst Glass',desc:'Translucent lavender glass with violet highlights',bg:'#e4d9ff',surface:'rgba(255,255,255,.48)',surface2:'rgba(245,239,255,.42)',text:'#35205d',muted:'#79658f',primary:'#8b5cf6',accent:'#ec4899',border:'rgba(139,92,246,.42)',header:'#38216a'},
-  {id:'glacier-blue',name:'Glacier Blue Glass',desc:'Icy blue transparency with a crisp silver-blue edge',bg:'#cfe8ff',surface:'rgba(255,255,255,.52)',surface2:'rgba(231,244,255,.44)',text:'#163858',muted:'#597b99',primary:'#2563eb',accent:'#06b6d4',border:'rgba(37,99,235,.38)',header:'#173b67'},
-  {id:'rose-quartz',name:'Rose Quartz Glass',desc:'Soft pink crystal with rose and pearl accents',bg:'#f9d9e6',surface:'rgba(255,255,255,.5)',surface2:'rgba(255,241,247,.42)',text:'#54243b',muted:'#93677c',primary:'#db2777',accent:'#fb7185',border:'rgba(219,39,119,.36)',header:'#702647'},
-  {id:'amber-glass',name:'Amber Glass',desc:'Warm golden glass with a polished amber glow',bg:'#f8dfb2',surface:'rgba(255,255,255,.48)',surface2:'rgba(255,248,226,.42)',text:'#513312',muted:'#8c704b',primary:'#b45309',accent:'#eab308',border:'rgba(180,83,9,.38)',header:'#663b0d'},
-  {id:'arctic-teal',name:'Arctic Teal Glass',desc:'Cool teal crystal with frosted mint surfaces',bg:'#c8eee8',surface:'rgba(255,255,255,.48)',surface2:'rgba(229,255,249,.42)',text:'#123f3d',muted:'#56817b',primary:'#0f766e',accent:'#2dd4bf',border:'rgba(15,118,110,.38)',header:'#104e4a'},
-  {id:'opal-pearl',name:'Opal Pearl Glass',desc:'Pearlescent translucent surfaces with subtle pastel accents',bg:'#e7e7f2',surface:'rgba(255,255,255,.56)',surface2:'rgba(248,247,255,.46)',text:'#292b45',muted:'#6b6e89',primary:'#6366f1',accent:'#d946ef',border:'rgba(99,102,241,.34)',header:'#303353'},
-  {id:'ruby-glass',name:'Ruby Glass',desc:'Deep ruby accents on elegant translucent panels',bg:'#f3cbd4',surface:'rgba(255,255,255,.46)',surface2:'rgba(255,237,242,.4)',text:'#4b1827',muted:'#8d5a69',primary:'#be123c',accent:'#fb7185',border:'rgba(190,18,60,.38)',header:'#641b31'},
-  {id:'nebula-glass',name:'Nebula Glass',desc:'Cosmic indigo glass with electric blue and magenta',bg:'#d9d5ff',surface:'rgba(255,255,255,.42)',surface2:'rgba(239,237,255,.38)',text:'#27204f',muted:'#70658f',primary:'#6366f1',accent:'#d946ef',border:'rgba(99,102,241,.42)',header:'#29245b'},
-  {id:'jade-crystal',name:'Jade Crystal Glass',desc:'Jade-green transparent glass with champagne accents',bg:'#d0ead7',surface:'rgba(255,255,255,.48)',surface2:'rgba(235,255,239,.42)',text:'#183d2c',muted:'#5c806a',primary:'#15803d',accent:'#ca8a04',border:'rgba(21,128,61,.38)',header:'#174a32'},
  ];
  const CINEMATIC_WALLPAPERS={
  };
@@ -8524,65 +8514,6 @@ body.ats-cinematic-active #mainDisplayArea .rounded-2xl:hover{transform:translat
  window.addEventListener('DOMContentLoaded',()=>{ensureFx();applyTheme(applied,true)});
 })();
 </script>
-<style id="ats-glass-theme-finishes">
-/* Ten additional transparent glass themes. Deliberately scoped to the logged-in portal. */
-body.ats-theme-active[data-theme="crystal-aqua"],
-body.ats-theme-active[data-theme="amethyst-glass"],
-body.ats-theme-active[data-theme="glacier-blue"],
-body.ats-theme-active[data-theme="rose-quartz"],
-body.ats-theme-active[data-theme="amber-glass"],
-body.ats-theme-active[data-theme="arctic-teal"],
-body.ats-theme-active[data-theme="opal-pearl"],
-body.ats-theme-active[data-theme="ruby-glass"],
-body.ats-theme-active[data-theme="nebula-glass"],
-body.ats-theme-active[data-theme="jade-crystal"] {
-  background-image:
-    radial-gradient(ellipse at 12% 8%, color-mix(in srgb,var(--theme-primary) 22%,transparent), transparent 42%),
-    radial-gradient(ellipse at 88% 20%, color-mix(in srgb,var(--theme-accent) 18%,transparent), transparent 38%),
-    linear-gradient(135deg,color-mix(in srgb,var(--theme-bg) 88%,white),var(--theme-bg) 55%,color-mix(in srgb,var(--theme-bg) 80%,var(--theme-primary))) !important;
-  background-attachment:fixed !important;
-}
-body.ats-theme-active[data-theme="crystal-aqua"] .card-3d,
-body.ats-theme-active[data-theme="amethyst-glass"] .card-3d,
-body.ats-theme-active[data-theme="glacier-blue"] .card-3d,
-body.ats-theme-active[data-theme="rose-quartz"] .card-3d,
-body.ats-theme-active[data-theme="amber-glass"] .card-3d,
-body.ats-theme-active[data-theme="arctic-teal"] .card-3d,
-body.ats-theme-active[data-theme="opal-pearl"] .card-3d,
-body.ats-theme-active[data-theme="ruby-glass"] .card-3d,
-body.ats-theme-active[data-theme="nebula-glass"] .card-3d,
-body.ats-theme-active[data-theme="jade-crystal"] .card-3d,
-body.ats-theme-active[data-theme="crystal-aqua"] .bg-white,
-body.ats-theme-active[data-theme="amethyst-glass"] .bg-white,
-body.ats-theme-active[data-theme="glacier-blue"] .bg-white,
-body.ats-theme-active[data-theme="rose-quartz"] .bg-white,
-body.ats-theme-active[data-theme="amber-glass"] .bg-white,
-body.ats-theme-active[data-theme="arctic-teal"] .bg-white,
-body.ats-theme-active[data-theme="opal-pearl"] .bg-white,
-body.ats-theme-active[data-theme="ruby-glass"] .bg-white,
-body.ats-theme-active[data-theme="nebula-glass"] .bg-white,
-body.ats-theme-active[data-theme="jade-crystal"] .bg-white {
-  -webkit-backdrop-filter:blur(16px) saturate(145%) !important;
-  backdrop-filter:blur(16px) saturate(145%) !important;
-  border-color:var(--theme-border) !important;
-  box-shadow:0 12px 30px color-mix(in srgb,var(--theme-header) 12%,transparent),inset 0 1px 0 rgba(255,255,255,.58) !important;
-}
-body.ats-theme-active[data-theme="crystal-aqua"] header,
-body.ats-theme-active[data-theme="amethyst-glass"] header,
-body.ats-theme-active[data-theme="glacier-blue"] header,
-body.ats-theme-active[data-theme="rose-quartz"] header,
-body.ats-theme-active[data-theme="amber-glass"] header,
-body.ats-theme-active[data-theme="arctic-teal"] header,
-body.ats-theme-active[data-theme="opal-pearl"] header,
-body.ats-theme-active[data-theme="ruby-glass"] header,
-body.ats-theme-active[data-theme="nebula-glass"] header,
-body.ats-theme-active[data-theme="jade-crystal"] header {
-  background:color-mix(in srgb,var(--theme-header) 86%,transparent) !important;
-  -webkit-backdrop-filter:blur(18px) saturate(150%) !important;
-  backdrop-filter:blur(18px) saturate(150%) !important;
-  border-bottom:1px solid color-mix(in srgb,var(--theme-primary) 35%,transparent);
-}
-</style>
 <style id="individual-profile-date-range-theme-fix">
 .individual-profile-date-range{display:block!important;line-height:1.25!important;white-space:nowrap!important;}
 body.ats-theme-active .individual-profile-date-range{color:var(--theme-muted)!important;opacity:1!important;}
