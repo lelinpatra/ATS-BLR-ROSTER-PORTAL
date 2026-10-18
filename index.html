@@ -6493,7 +6493,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 dayOptions.forEach(opt => {
                     const selected = (shift === opt) ? 'selected' : '';
                     if (selected) matchFound = true;
-                    optionsHtml += `<option value="${opt}" ${selected}>${opt}</option>`;
+                    optionsHtml += `<option value="${opt}" ${selected}>${opt.replace(/Half Off/g, "HO")}</option>`;
                 });
 
                 // HD SL remains a valid roster status for display, but it must never
@@ -6520,17 +6520,17 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             } else if (shift === 'SL' || shift === 'HD SL') {
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-rose-100 text-rose-800 border border-rose-300 shadow-sm roster-status-badge">${shift}</span>`;
             } else if (shift === '06:00 AM (1st Half Off)') {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-emerald-100 text-emerald-950 border border-emerald-500 shadow-sm" title="06:00 AM (1st Half Off)">06:00 AM (1st Half Off)</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-emerald-100 text-emerald-950 border border-emerald-500 shadow-sm" title="06:00 AM (1st Half Off)">06:00 AM (1st HO)</span>`;
             } else if (shift === '06:00 AM (2nd Half Off)') {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-green-100 text-green-950 border border-green-500 shadow-sm" title="06:00 AM (2nd Half Off)">06:00 AM (2nd Half Off)</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-green-100 text-green-950 border border-green-500 shadow-sm" title="06:00 AM (2nd Half Off)">06:00 AM (2nd HO)</span>`;
             } else if (shift === '08:00 AM (1st Half Off)') {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-blue-200 text-blue-950 border border-blue-600 shadow-sm" title="08:00 AM (1st Half Off)">08:00 AM (1st Half Off)</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-blue-200 text-blue-950 border border-blue-600 shadow-sm" title="08:00 AM (1st Half Off)">08:00 AM (1st HO)</span>`;
             } else if (shift === '08:00 AM (2nd Half Off)') {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-sky-200 text-sky-950 border border-sky-600 shadow-sm" title="08:00 AM (2nd Half Off)">08:00 AM (2nd Half Off)</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-sky-200 text-sky-950 border border-sky-600 shadow-sm" title="08:00 AM (2nd Half Off)">08:00 AM (2nd HO)</span>`;
             } else if (shift === '10:00 AM (1st Half Off)') {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-amber-100 text-amber-950 border border-amber-500 shadow-sm" title="10:00 AM (1st Half Off)">10:00 AM (1st Half Off)</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-amber-100 text-amber-950 border border-amber-500 shadow-sm" title="10:00 AM (1st Half Off)">10:00 AM (1st HO)</span>`;
             } else if (shift === '10:00 AM (2nd Half Off)') {
-                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-orange-100 text-orange-950 border border-orange-500 shadow-sm" title="10:00 AM (2nd Half Off)">10:00 AM (2nd Half Off)</span>`;
+                return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-orange-100 text-orange-950 border border-orange-500 shadow-sm" title="10:00 AM (2nd Half Off)">10:00 AM (2nd HO)</span>`;
             } else if (shift.includes("10:00")) {
                 return `<span class="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-md text-xs sm:text-sm font-extrabold bg-yellow-100 text-yellow-950 border border-yellow-500 shadow-sm" title="${shift}">10:00 AM</span>`;
             } else if (shift.includes("06:30") || shift.includes("6:30")) {
