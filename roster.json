@@ -264,6 +264,16 @@
     ],
     "_portal_notifications": [
       {
+        "id": "n_1792572031287_0_6p9cwf",
+        "createdAt": "2026-10-21T08:40:31.287Z",
+        "title": "Lelin Patra roster changed",
+        "message": "Lelin Patra shift/status changed on 19/10/26 from 10:00 AM - 07:00 PM to 10:00 AM (2nd Half Off).",
+        "type": "employee",
+        "month": "October",
+        "week": 3,
+        "employee": "Lelin Patra"
+      },
+      {
         "id": "n_1792170035951_0_k1xm6c",
         "createdAt": "2026-10-16T17:00:35.951Z",
         "title": "Bhargav R roster changed",
@@ -1252,16 +1262,6 @@
         "month": "October",
         "week": 3,
         "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790745393154_27_usz9xf",
-        "createdAt": "2026-09-30T05:16:33.154Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 23/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 3,
-        "employee": "Gokul Krishna Lokesh"
       }
     ],
     "_user_credentials": {
@@ -1733,7 +1733,7 @@
         "day": "Tuesday",
         "name": "Guru Nanak's Birthday",
         "offices": [
-          "BLR"
+          "DELHI"
         ]
       },
       {
@@ -3281,7 +3281,7 @@
         "default_end": "07:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
         "shifts": {
-          "Monday": "10:00 AM - 07:00 PM",
+          "Monday": "10:00 AM (2nd Half Off)",
           "Tuesday": "10:00 AM - 07:00 PM",
           "Wednesday": "10:00 AM - 07:00 PM",
           "Thursday": "06:00 AM - 03:00 PM",
