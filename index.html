@@ -3216,7 +3216,7 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
             { date: "2026-11-09", day: "Monday", name: "Deepavali (replacement)", offices: ["SGP"] },
             { date: "2026-11-10", day: "Tuesday", name: "Deepavali", offices: ["BLR"] },
             { date: "2026-11-11", day: "Wednesday", name: "Independence / Veterans Day", offices: ["US", "KRK"] },
-            { date: "2026-11-24", day: "Tuesday", name: "Guru Nanak's Birthday", offices: ["DEL"] },
+            { date: "2026-11-24", day: "Tuesday", name: "Guru Nanak's Birthday", offices: ["DELHI"] },
             { date: "2026-11-26", day: "Thursday", name: "Thanksgiving Day", offices: ["US"] },
             { date: "2026-11-27", day: "Friday", name: "Thanksgiving Friday", offices: ["US"] },
             { date: "2026-12-23", day: "Wednesday", name: "Boxing Day (observed)", offices: ["UK"] },
@@ -3593,8 +3593,8 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
                                 String(h && h.name || '').trim().toLowerCase() === "guru nanak's birthday"
                             ) {
                                 const offices = (Array.isArray(h.offices) ? h.offices : [])
-                                    .filter(o => String(o).toUpperCase() !== 'BLR' && String(o).toUpperCase() !== 'DEL');
-                                offices.push('DEL');
+                                    .filter(o => String(o).toUpperCase() !== 'BLR' && String(o).toUpperCase() !== 'DEL' && String(o).toUpperCase() !== 'DELHI');
+                                offices.push('DELHI');
                                 return { ...h, offices };
                             }
                             return h;
@@ -6985,7 +6985,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                     h.date.includes(searchQuery) ||
                     h.offices.some(o => o.toLowerCase().includes(searchQuery));
 
-                const matchOffice = selectedHolidayOffice === 'ALL' || h.offices.includes(selectedHolidayOffice);
+                const matchOffice = selectedHolidayOffice === 'ALL' || (selectedHolidayOffice === 'INDIA' ? h.offices.some(o => ['BLR', 'DEL', 'DELHI'].includes(String(o).toUpperCase())) : h.offices.includes(selectedHolidayOffice));
                 return matchSearch && matchOffice;
             });
 
@@ -6994,6 +6994,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 "UK": "bg-cyan-100 text-cyan-800 border-cyan-300",
                 "BLR": "bg-emerald-100 text-emerald-800 border-emerald-300",
                 "DEL": "bg-orange-100 text-orange-800 border-orange-300",
+                "DELHI": "bg-orange-100 text-orange-800 border-orange-300",
                 "KRK": "bg-purple-100 text-purple-800 border-purple-300",
                 "MVD": "bg-amber-100 text-amber-800 border-amber-300",
                 "SGP": "bg-rose-100 text-rose-800 border-rose-300"
@@ -7001,8 +7002,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
 
             const officeFilterBtns = [
                 { code: 'ALL', label: 'All Offices' },
-                { code: 'BLR', label: 'India (BLR)' },
-                { code: 'DEL', label: 'India (Delhi)' },
+                { code: 'INDIA', label: 'India' },
                 { code: 'US', label: 'United States' },
                 { code: 'UK', label: 'United Kingdom' },
                 { code: 'KRK', label: 'Poland (KRK)' },
