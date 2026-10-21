@@ -3587,7 +3587,18 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
                     // Keep the complete 2026 Sabre calendar when an older/stale
                     // cloud roster contains the previous incomplete 46-holiday set.
                     if (String(cloudYear) !== "2026" || cloudHolidays.length >= 55) {
-                        SABRE_HOLIDAYS = cloudHolidays;
+                        SABRE_HOLIDAYS = cloudHolidays.map(h => {
+                            if (
+                                String(h && h.date || '') === '2026-11-24' &&
+                                String(h && h.name || '').trim().toLowerCase() === "guru nanak's birthday"
+                            ) {
+                                const offices = (Array.isArray(h.offices) ? h.offices : [])
+                                    .filter(o => String(o).toUpperCase() !== 'BLR' && String(o).toUpperCase() !== 'DEL');
+                                offices.push('DEL');
+                                return { ...h, offices };
+                            }
+                            return h;
+                        });
                         dynamicHolidayYear = cloudYear;
                     }
                 }
@@ -6614,7 +6625,15 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             const iso = rosterDateToISO(dateValue);
             if (!iso || !Array.isArray(SABRE_HOLIDAYS)) return [];
             return SABRE_HOLIDAYS
-                .filter(h => String(h && h.date || '') === iso && Array.isArray(h.offices) && h.offices.some(o => String(o).toUpperCase() === 'BLR'))
+                .filter(h => {
+                    const isTargetDelhiOnlyHoliday =
+                        String(h && h.date || '') === '2026-11-24' &&
+                        String(h && h.name || '').trim().toLowerCase() === "guru nanak's birthday";
+                    if (isTargetDelhiOnlyHoliday) return false;
+                    return String(h && h.date || '') === iso &&
+                        Array.isArray(h.offices) &&
+                        h.offices.some(o => String(o).toUpperCase() === 'BLR');
+                })
                 .map(h => String(h.name || '').trim())
                 .filter(Boolean)
                 .filter((name, index, arr) => arr.indexOf(name) === index);
@@ -6974,6 +6993,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 "US": "bg-blue-100 text-blue-800 border-blue-300",
                 "UK": "bg-cyan-100 text-cyan-800 border-cyan-300",
                 "BLR": "bg-emerald-100 text-emerald-800 border-emerald-300",
+                "DEL": "bg-orange-100 text-orange-800 border-orange-300",
                 "KRK": "bg-purple-100 text-purple-800 border-purple-300",
                 "MVD": "bg-amber-100 text-amber-800 border-amber-300",
                 "SGP": "bg-rose-100 text-rose-800 border-rose-300"
@@ -6982,6 +7002,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             const officeFilterBtns = [
                 { code: 'ALL', label: 'All Offices' },
                 { code: 'BLR', label: 'India (BLR)' },
+                { code: 'DEL', label: 'India (Delhi)' },
                 { code: 'US', label: 'United States' },
                 { code: 'UK', label: 'United Kingdom' },
                 { code: 'KRK', label: 'Poland (KRK)' },
