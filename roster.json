@@ -264,6 +264,16 @@
     ],
     "_portal_notifications": [
       {
+        "id": "n_1792736204919_0_ftspt8",
+        "createdAt": "2026-10-23T06:16:44.919Z",
+        "title": "Sanjay Kumar roster changed",
+        "message": "Sanjay Kumar shift/status changed on 10/01/26 from 10:00 AM - 07:00 PM to SL.",
+        "type": "employee",
+        "month": "September",
+        "week": 4,
+        "employee": "Sanjay Kumar"
+      },
+      {
         "id": "n_1792572031287_0_6p9cwf",
         "createdAt": "2026-10-21T08:40:31.287Z",
         "title": "Lelin Patra roster changed",
@@ -1248,16 +1258,6 @@
         "createdAt": "2026-09-30T05:16:33.154Z",
         "title": "Manisha Kumari roster changed",
         "message": "Manisha Kumari shift/status changed on 20/10/26 from PH to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 3,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790745393154_28_lho6ic",
-        "createdAt": "2026-09-30T05:16:33.154Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 19/10/26 from 06:00 AM - 03:00 PM to WO.",
         "type": "employee",
         "month": "October",
         "week": 3,
@@ -2509,7 +2509,7 @@
           "Monday": "10:00 AM - 07:00 PM",
           "Tuesday": "10:00 AM - 07:00 PM",
           "Wednesday": "10:00 AM - 07:00 PM",
-          "Thursday": "10:00 AM - 07:00 PM",
+          "Thursday": "SL",
           "Friday": "PH",
           "Saturday": "WO",
           "Sunday": "WO"
@@ -2658,7 +2658,7 @@
       3,
       4,
       4,
-      4,
+      3,
       2,
       1,
       1
