@@ -7116,21 +7116,26 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 'border-amber-200 bg-amber-50/40'
             ];
 
+            // Group holidays by date so a date with multiple holiday names (for example,
+            // 29 October) is displayed only once, with all names and office badges together.
             const monthGroups = {};
             filteredHolidays.forEach(h => {
                 const monthIndex = Math.max(0, Math.min(11, parseInt(h.date.split('-')[1], 10) - 1));
-                if (!monthGroups[monthIndex]) monthGroups[monthIndex] = [];
-                monthGroups[monthIndex].push(h);
+                if (!monthGroups[monthIndex]) monthGroups[monthIndex] = {};
+                if (!monthGroups[monthIndex][h.date]) {
+                    monthGroups[monthIndex][h.date] = { date: h.date, day: h.day, names: [], offices: [] };
+                }
+                const item = monthGroups[monthIndex][h.date];
+                if (!item.names.includes(h.name)) item.names.push(h.name);
+                h.offices.forEach(o => { if (!item.offices.includes(o)) item.offices.push(o); });
             });
 
             let calendarHTML = '';
             for (let monthIndex = 0; monthIndex < 12; monthIndex++) {
-                const holidays = monthGroups[monthIndex] || [];
+                const holidays = Object.values(monthGroups[monthIndex] || {}).sort((a, b) => a.date.localeCompare(b.date));
                 if (!holidays.length) continue;
 
-                holidays.sort((a, b) => a.date.localeCompare(b.date) || a.name.localeCompare(b.name));
                 const monthClass = monthColors[monthIndex % monthColors.length];
-
                 let holidayItems = '';
                 holidays.forEach(h => {
                     const dateParts = h.date.split('-');
@@ -7139,6 +7144,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                         const style = officeBadgeColors[o] || "bg-slate-100 text-slate-800 border-slate-300";
                         return `<span class="inline-block px-1.5 py-0.5 text-[9px] font-extrabold rounded border ${style}">${o}</span>`;
                     }).join('');
+                    const namesHTML = h.names.map(name => `<div class="text-[12px] font-extrabold leading-snug text-slate-900 break-words">${name}</div>`).join('');
 
                     holidayItems += `
                         <div class="holiday-month-item group flex items-start gap-2.5 px-2.5 py-2 rounded-lg border border-transparent hover:border-slate-200 hover:bg-white transition-all">
@@ -7147,7 +7153,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                                 <span class="text-lg font-black text-slate-900 mt-0.5">${dayNumber}</span>
                             </div>
                             <div class="min-w-0 flex-1 pt-0.5">
-                                <div class="text-[12px] font-extrabold leading-snug text-slate-900 break-words">${h.name}</div>
+                                ${namesHTML}
                                 <div class="flex flex-wrap gap-1 mt-1">${badges}</div>
                             </div>
                         </div>`;
@@ -7157,7 +7163,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                     <section class="holiday-month-card ${monthClass} rounded-2xl border shadow-sm overflow-hidden">
                         <div class="px-3.5 py-2.5 bg-white/75 border-b border-inherit flex items-center justify-between">
                             <h4 class="text-sm font-black text-slate-900">${monthNames[monthIndex]}</h4>
-                            <span class="text-[9px] font-extrabold uppercase tracking-wider text-slate-500 bg-white border border-slate-200 rounded-full px-2 py-1">${holidays.length} ${holidays.length === 1 ? 'Holiday' : 'Holidays'}</span>
+                            <span class="text-[9px] font-extrabold uppercase tracking-wider text-slate-500 bg-white border border-slate-200 rounded-full px-2 py-1">${holidays.length} ${holidays.length === 1 ? 'Date' : 'Dates'}</span>
                         </div>
                         <div class="p-1.5">${holidayItems}</div>
                     </section>`;
