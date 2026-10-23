@@ -264,6 +264,16 @@
     ],
     "_portal_notifications": [
       {
+        "id": "n_1792742156526_0_epplxn",
+        "createdAt": "2026-10-23T07:55:56.526Z",
+        "title": "Sanjay Kumar roster changed",
+        "message": "Sanjay Kumar shift/status changed on 23/10/26 from 10:00 AM - 07:00 PM to SL.",
+        "type": "employee",
+        "month": "October",
+        "week": 3,
+        "employee": "Sanjay Kumar"
+      },
+      {
         "id": "n_1792736204919_0_ftspt8",
         "createdAt": "2026-10-23T06:16:44.919Z",
         "title": "Sanjay Kumar roster changed",
@@ -1248,16 +1258,6 @@
         "createdAt": "2026-09-30T05:16:33.154Z",
         "title": "Manisha Kumari roster changed",
         "message": "Manisha Kumari shift/status changed on 21/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 3,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790745393154_29_ajf79v",
-        "createdAt": "2026-09-30T05:16:33.154Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 20/10/26 from PH to WO.",
         "type": "employee",
         "month": "October",
         "week": 3,
@@ -3268,7 +3268,7 @@
           "Tuesday": "WO",
           "Wednesday": "10:00 AM - 07:00 PM",
           "Thursday": "10:00 AM - 07:00 PM",
-          "Friday": "10:00 AM - 07:00 PM",
+          "Friday": "SL",
           "Saturday": "PTO",
           "Sunday": "PTO"
         }
@@ -3451,7 +3451,7 @@
       3,
       5,
       3,
-      3,
+      2,
       1,
       1
     ]
