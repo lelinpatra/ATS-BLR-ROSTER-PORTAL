@@ -3654,7 +3654,7 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
                     // Keep the complete 2026 Sabre calendar when an older/stale
                     // cloud roster contains the previous incomplete 46-holiday set.
                     if (String(cloudYear) !== "2026" || cloudHolidays.length >= 55) {
-                        SABRE_HOLIDAYS = cloudHolidays.map(h => {
+                        const normalizedCloudHolidays = cloudHolidays.map(h => {
                             if (
                                 String(h && h.date || '') === '2026-11-24' &&
                                 String(h && h.name || '').trim().toLowerCase() === "guru nanak's birthday"
@@ -3666,6 +3666,23 @@ body.ats-theme-active #mainDisplayArea .roster-table tbody td:first-child {
                             }
                             return h;
                         });
+                        // Merge cloud-saved holidays with the bundled calendar so a
+                        // cloud roster containing only 2026 cannot hide the bundled 2027 calendar.
+                        const mergedHolidayMap = new Map();
+                        [...SABRE_HOLIDAYS, ...normalizedCloudHolidays].forEach(h => {
+                            const key = `${String(h.date || '')}|${String(h.name || '').trim().toLowerCase()}`;
+                            if (!mergedHolidayMap.has(key)) {
+                                mergedHolidayMap.set(key, { ...h, offices: Array.isArray(h.offices) ? [...h.offices] : [] });
+                            } else {
+                                const existing = mergedHolidayMap.get(key);
+                                (Array.isArray(h.offices) ? h.offices : []).forEach(off => {
+                                    if (!existing.offices.some(x => String(x).toUpperCase() === String(off).toUpperCase())) existing.offices.push(off);
+                                });
+                                // Keep cloud fields as the preferred version for matching records.
+                                mergedHolidayMap.set(key, { ...existing, ...h, offices: existing.offices });
+                            }
+                        });
+                        SABRE_HOLIDAYS = [...mergedHolidayMap.values()].sort((a, b) => String(a.date || '').localeCompare(String(b.date || '')));
                         dynamicHolidayYear = cloudYear;
                     }
                 }
@@ -7155,7 +7172,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                     <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-200 pb-3 gap-2">
                         <div>
                             <h3 class="font-extrabold text-slate-900 text-base sm:text-lg flex items-center gap-2">
-                                <i data-lucide="calendar-days" class="text-indigo-600 w-5 h-5"></i> Sabre 2026 Global Holiday Calendar
+                                <i data-lucide="calendar-days" class="text-indigo-600 w-5 h-5"></i> Sabre ${selectedHolidayYear} Global Holiday Calendar
                             </h3>
                             <p class="text-slate-500 text-xs mt-0.5">Official Sabre global observances across international office locations</p>
                         </div>
