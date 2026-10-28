@@ -264,6 +264,36 @@
     ],
     "_portal_notifications": [
       {
+        "id": "n_1793181165871_2_tclsmi",
+        "createdAt": "2026-10-28T09:52:45.871Z",
+        "title": "Md. Shahbaz roster changed",
+        "message": "Md. Shahbaz shift/status changed on 29/10/26 from 11:00 AM - 08:00 PM to PTO.",
+        "type": "employee",
+        "month": "October",
+        "week": 4,
+        "employee": "Md. Shahbaz"
+      },
+      {
+        "id": "n_1793181165871_1_or491m",
+        "createdAt": "2026-10-28T09:52:45.871Z",
+        "title": "Md. Shahbaz roster changed",
+        "message": "Md. Shahbaz shift/status changed on 28/10/26 from 11:00 AM - 08:00 PM to PTO.",
+        "type": "employee",
+        "month": "October",
+        "week": 4,
+        "employee": "Md. Shahbaz"
+      },
+      {
+        "id": "n_1793181165871_0_g4yg46",
+        "createdAt": "2026-10-28T09:52:45.871Z",
+        "title": "Srinivas Reddy roster changed",
+        "message": "Srinivas Reddy shift/status changed on 29/10/26 from 10:00 AM - 07:00 PM to 11:00 AM - 08:00 PM.",
+        "type": "employee",
+        "month": "October",
+        "week": 4,
+        "employee": "Srinivas Reddy"
+      },
+      {
         "id": "n_1793177247720_0_9c5w7y",
         "createdAt": "2026-10-28T08:47:27.720Z",
         "title": "November roster uploaded",
@@ -1228,36 +1258,6 @@
         "createdAt": "2026-09-30T05:16:33.154Z",
         "title": "Gokul Krishna Lokesh roster changed",
         "message": "Gokul Krishna Lokesh shift/status changed on 29/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 4,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790745393154_36_c0jrmp",
-        "createdAt": "2026-09-30T05:16:33.154Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 28/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 4,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790745393154_35_a2uaqb",
-        "createdAt": "2026-09-30T05:16:33.154Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 27/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 4,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790745393154_34_lwv6g8",
-        "createdAt": "2026-09-30T05:16:33.154Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 26/10/26 from 06:00 AM - 03:00 PM to WO.",
         "type": "employee",
         "month": "October",
         "week": 4,
@@ -4055,7 +4055,7 @@
           "Monday": "WO",
           "Tuesday": "10:00 AM - 07:00 PM",
           "Wednesday": "11:00 AM - 08:00 PM",
-          "Thursday": "10:00 AM - 07:00 PM",
+          "Thursday": "11:00 AM - 08:00 PM",
           "Friday": "10:00 AM - 07:00 PM",
           "Saturday": "10:00 AM - 07:00 PM",
           "Sunday": "WO"
@@ -4089,7 +4089,7 @@
           "Monday": "11:00 AM - 08:00 PM",
           "Tuesday": "11:00 AM - 08:00 PM",
           "Wednesday": "PTO",
-          "Thursday": "11:00 AM - 08:00 PM",
+          "Thursday": "PTO",
           "Friday": "11:00 AM - 08:00 PM",
           "Saturday": "WO",
           "Sunday": "WO"
@@ -4289,7 +4289,7 @@
       3,
       4,
       4,
-      5,
+      4,
       4,
       1,
       1
