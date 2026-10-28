@@ -264,6 +264,26 @@
     ],
     "_portal_notifications": [
       {
+        "id": "n_1793176903866_1_pdf553",
+        "createdAt": "2026-10-28T08:41:43.866Z",
+        "title": "Md. Shahbaz roster changed",
+        "message": "Md. Shahbaz shift/status changed on 28/10/26 from 11:00 AM - 08:00 PM to PTO.",
+        "type": "employee",
+        "month": "October",
+        "week": 4,
+        "employee": "Md. Shahbaz"
+      },
+      {
+        "id": "n_1793176903866_0_8ng3he",
+        "createdAt": "2026-10-28T08:41:43.866Z",
+        "title": "Srinivas Reddy roster changed",
+        "message": "Srinivas Reddy shift/status changed on 28/10/26 from 10:00 AM - 07:00 PM to 11:00 AM - 08:00 PM.",
+        "type": "employee",
+        "month": "October",
+        "week": 4,
+        "employee": "Srinivas Reddy"
+      },
+      {
         "id": "n_1792761098783_0_rf8517",
         "createdAt": "2026-10-23T13:11:38.783Z",
         "title": "Nidhi Taku roster changed",
@@ -1242,26 +1262,6 @@
         "month": "October",
         "week": 4,
         "employee": "Sanjay Kumar"
-      },
-      {
-        "id": "n_1790745393154_32_jj41zh",
-        "createdAt": "2026-09-30T05:16:33.154Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 23/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 3,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790745393154_31_k3mfvq",
-        "createdAt": "2026-09-30T05:16:33.154Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 22/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 3,
-        "employee": "Manisha Kumari"
       }
     ],
     "_user_credentials": {
@@ -4054,7 +4054,7 @@
         "shifts": {
           "Monday": "WO",
           "Tuesday": "10:00 AM - 07:00 PM",
-          "Wednesday": "10:00 AM - 07:00 PM",
+          "Wednesday": "11:00 AM - 08:00 PM",
           "Thursday": "10:00 AM - 07:00 PM",
           "Friday": "10:00 AM - 07:00 PM",
           "Saturday": "10:00 AM - 07:00 PM",
@@ -4088,7 +4088,7 @@
         "shifts": {
           "Monday": "11:00 AM - 08:00 PM",
           "Tuesday": "11:00 AM - 08:00 PM",
-          "Wednesday": "11:00 AM - 08:00 PM",
+          "Wednesday": "PTO",
           "Thursday": "11:00 AM - 08:00 PM",
           "Friday": "11:00 AM - 08:00 PM",
           "Saturday": "WO",
@@ -4288,7 +4288,7 @@
     "total_headcount_10am": [
       3,
       4,
-      5,
+      4,
       5,
       4,
       1,
