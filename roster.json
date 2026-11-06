@@ -264,6 +264,46 @@
     ],
     "_portal_notifications": [
       {
+        "id": "n_1793985182240_3_jhahcw",
+        "createdAt": "2026-11-06T17:13:02.240Z",
+        "title": "Prathvi Shetty roster changed",
+        "message": "Prathvi Shetty shift/status changed on 11/06/26 from 10:00 AM - 07:00 PM to SL.",
+        "type": "employee",
+        "month": "November",
+        "week": 1,
+        "employee": "Prathvi Shetty"
+      },
+      {
+        "id": "n_1793985182240_2_zow1f3",
+        "createdAt": "2026-11-06T17:13:02.240Z",
+        "title": "Prathvi Shetty roster changed",
+        "message": "Prathvi Shetty shift/status changed on 11/03/26 from 10:00 AM - 07:00 PM to SL.",
+        "type": "employee",
+        "month": "November",
+        "week": 1,
+        "employee": "Prathvi Shetty"
+      },
+      {
+        "id": "n_1793985182240_1_dvv2vx",
+        "createdAt": "2026-11-06T17:13:02.240Z",
+        "title": "Lelin Patra roster changed",
+        "message": "Lelin Patra shift/status changed on 11/06/26 from 06:00 AM - 07:00 PM to 06:00 AM (2nd Half Off).",
+        "type": "employee",
+        "month": "November",
+        "week": 1,
+        "employee": "Lelin Patra"
+      },
+      {
+        "id": "n_1793985182240_0_k5c92j",
+        "createdAt": "2026-11-06T17:13:02.240Z",
+        "title": "Lelin Patra roster changed",
+        "message": "Lelin Patra shift/status changed on 11/05/26 from 06:00 AM - 07:00 PM to 06:00 AM (2nd Half Off).",
+        "type": "employee",
+        "month": "November",
+        "week": 1,
+        "employee": "Lelin Patra"
+      },
+      {
         "id": "n_1793984831714_3_50fx0h",
         "createdAt": "2026-11-06T17:07:11.714Z",
         "title": "Prathvi Shetty roster changed",
@@ -1222,46 +1262,6 @@
         "month": "October",
         "week": 1,
         "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790745745885_6_hdiuef",
-        "createdAt": "2026-09-30T05:22:25.885Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 10/05/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 1,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790745745885_5_6f76bv",
-        "createdAt": "2026-09-30T05:22:25.885Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 10/09/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 1,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790745745885_4_6hd40f",
-        "createdAt": "2026-09-30T05:22:25.885Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 10/08/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 1,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790745745885_3_cwpgeb",
-        "createdAt": "2026-09-30T05:22:25.885Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 10/07/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 1,
-        "employee": "Gokul Krishna Lokesh"
       }
     ],
     "_user_credentials": {
@@ -4370,8 +4370,8 @@
           "Monday": "06:00 AM - 07:00 PM",
           "Tuesday": "06:00 AM - 07:00 PM",
           "Wednesday": "06:00 AM - 07:00 PM",
-          "Thursday": "06:00 AM - 07:00 PM",
-          "Friday": "06:00 AM - 07:00 PM",
+          "Thursday": "06:00 AM (2nd Half Off)",
+          "Friday": "06:00 AM (2nd Half Off)",
           "Saturday": "WO",
           "Sunday": "WO"
         }
@@ -4487,10 +4487,10 @@
         "days_office": "Mon/Tue/Wed/Thu/Fri",
         "shifts": {
           "Monday": "10:00 AM - 07:00 PM",
-          "Tuesday": "10:00 AM - 07:00 PM",
+          "Tuesday": "SL",
           "Wednesday": "10:00 AM - 07:00 PM",
           "Thursday": "10:00 AM - 07:00 PM",
-          "Friday": "10:00 AM - 07:00 PM",
+          "Friday": "SL",
           "Saturday": "WO",
           "Sunday": "WO"
         }
@@ -4534,10 +4534,10 @@
     ],
     "total_headcount_10am": [
       2,
+      2,
       3,
       3,
-      3,
-      3,
+      2,
       1,
       1
     ],
