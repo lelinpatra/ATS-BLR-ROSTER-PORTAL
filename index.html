@@ -232,6 +232,11 @@
             background-color: #1e293b !important;
             color: #38bdf8 !important;
         }
+        /* Challenge days use a subtle red tint across the complete roster column. */
+        .challenge-day-col { background-color: rgba(254, 226, 226, 0.58) !important; }
+        .challenge-day-header { background:linear-gradient(180deg,#7f1d1d 0%,#991b1b 100%) !important; color:#fff1f2 !important; border-bottom:2px solid #ef4444 !important; }
+        .challenge-day-label { display:inline-block; margin-top:4px; padding:2px 7px; border:1px solid rgba(220,38,38,.35); border-radius:999px; background:rgba(254,226,226,.95); color:#991b1b; font-size:8px; font-weight:900; letter-spacing:.08em; line-height:1.2; }
+
 
         .chart-container-wrapper {
             position: relative;
@@ -6801,13 +6806,15 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             days.forEach((d, idx) => {
                 const dateLabel = dates[idx] || d.substring(0,3);
                 const isToday = (dateLabel === TODAY_DATE_STR);
-                
-                const headerClass = isToday 
-                    ? 'p-2.5 sm:p-4 text-center border-r border-slate-800 current-day-header min-w-[100px] sm:min-w-0' 
-                    : 'p-2.5 sm:p-4 text-center border-r border-slate-800 min-w-[100px] sm:min-w-0';
-
+                const isChallengeDay = (weekData.challenge_dates || []).includes(dateLabel);
+                const headerClass = [
+                    'p-2.5 sm:p-4 text-center border-r border-slate-800 min-w-[100px] sm:min-w-0',
+                    isToday ? 'current-day-header' : '',
+                    isChallengeDay ? 'challenge-day-header' : ''
+                ].filter(Boolean).join(' ');
                 const holidayCapsule = renderSabreBLRHolidayCapsule(dateLabel);
-                headerHTML += `<th class="${headerClass} roster-day-date-header"><span class="roster-day-date-stack"><span class="roster-day-date-line">${d} (${dateLabel})</span>${holidayCapsule}</span></th>`;
+                const challengeLabel = isChallengeDay ? '<span class="challenge-day-label">CHALLENGE</span>' : '';
+                headerHTML += `<th class="${headerClass} roster-day-date-header"><span class="roster-day-date-stack"><span class="roster-day-date-line">${d} (${dateLabel})</span>${challengeLabel}${holidayCapsule}</span></th>`;
             });
 
             if (isFullAdminMode()) {
@@ -6838,11 +6845,12 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                     days.forEach((d, idx) => {
                         const dateLabel = dates[idx];
                         const isToday = (dateLabel === TODAY_DATE_STR);
-                        
-                        const cellClass = isToday 
-                            ? 'p-2.5 sm:p-4 text-center border-r border-slate-100 current-day-col' 
-                            : 'p-2.5 sm:p-4 text-center border-r border-slate-100';
-
+                        const isChallengeDay = (weekData.challenge_dates || []).includes(dateLabel);
+                        const cellClass = [
+                            'p-2.5 sm:p-4 text-center border-r border-slate-100',
+                            isToday ? 'current-day-col' : '',
+                            isChallengeDay ? 'challenge-day-col' : ''
+                        ].filter(Boolean).join(' ');
                         bodyHTML += `<td class="${cellClass} roster-shift-cell">${getShiftBadge(e.shifts ? e.shifts[d] : 'WO', e.sg_id, d)}</td>`;
                     });
 
@@ -7758,6 +7766,22 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
             // consecutive day columns followed by one spacer column. This deliberately
             // includes the FIRST block and the FINAL block even when their date cells are
             // formulas with no cached value.
+            // Read Challenge markers in Excel rows 1-2 and map them to the physical date columns.
+            const challengeDatesByGroup = {};
+            for (let markerRow = 0; markerRow < dateRow; markerRow++) {
+                for (let col = range.s.c; col <= range.e.c; col++) {
+                    if (!/challenge/i.test(clean(cellValue(markerRow, col)))) continue;
+                    const relativeCol = col - firstDateCol;
+                    if (relativeCol < 0) continue;
+                    const groupIndex = Math.floor(relativeCol / 8), dayIndex = relativeCol % 8;
+                    if (dayIndex > 6) continue;
+                    const d = new Date(firstDate.getFullYear(), firstDate.getMonth(), firstDate.getDate() + groupIndex * 7 + dayIndex);
+                    const dateText = formatDateForRoster(d);
+                    if (!challengeDatesByGroup[groupIndex]) challengeDatesByGroup[groupIndex] = [];
+                    if (!challengeDatesByGroup[groupIndex].includes(dateText)) challengeDatesByGroup[groupIndex].push(dateText);
+                }
+            }
+
             const groups = [];
             for (let groupIndex = 0; ; groupIndex++) {
                 const startCol = firstDateCol + groupIndex * 8;
@@ -7825,6 +7849,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                         default_end: excelTimeToRoster(endValue),
                         days_office: 'No',
                         shifts,
+                        challenge_dates: (challengeDatesByGroup[groupIndex] || []).slice(),
                         __sheet_name: sheetName
                     });
                 });
@@ -7987,11 +8012,12 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                     if(!month || !weekNum) return;
                     const key=`${month}_${weekNum}`;
                     if(!structuredMap[key]) structuredMap[key]={
-                        month,week_num:weekNum,dates:row.dates.slice(0,7),employeesMap:{},
+                        month,week_num:weekNum,dates:row.dates.slice(0,7),employeesMap:{},challenge_dates:[],
                         qm_staff_6am:{},qm_staff_10am:{}
                     };
                     const item=structuredMap[key];
                     row.dates.forEach((d,i)=>{if(d)item.dates[i]=d;});
+                    (row.challenge_dates || []).forEach(d => { if (d && !item.challenge_dates.includes(d)) item.challenge_dates.push(d); });
                     mergeEmployee(item,row);
                     return;
                 }
@@ -8005,7 +8031,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 const name=getRowValue(row,['name','emp_name','employee_name','employee','full_name'],'');
                 if(!month || !weekNum || (!sgId && !name)) return;
                 const key=`${month}_${weekNum}`;
-                if(!structuredMap[key]) structuredMap[key]={month,week_num:weekNum,dates:['','','','','','',''],employeesMap:{},qm_staff_6am:{},qm_staff_10am:{}};
+                if(!structuredMap[key]) structuredMap[key]={month,week_num:weekNum,dates:['','','','','','',''],employeesMap:{},challenge_dates:[],qm_staff_6am:{},qm_staff_10am:{}};
                 const item=structuredMap[key], dayNames=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
                 dayNames.forEach((day,i)=>{const d=getDateFromRow(row,[`${day.toLowerCase()}_date`,`${day.slice(0,3).toLowerCase()}_date`,`${day.toLowerCase()}date`]);if(d)item.dates[i]=formatDateForRoster(d);});
                 const employee={
@@ -8032,7 +8058,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                 .sort((a,b)=>(monthOrder.indexOf(a.month)-monthOrder.indexOf(b.month))||(a.week_num-b.week_num))
                 .map(item=>{
                     const weekObj={
-                        month:item.month,week_num:item.week_num,dates:item.dates,employees:Object.values(item.employeesMap),
+                        month:item.month,week_num:item.week_num,dates:item.dates,challenge_dates:item.challenge_dates || [],employees:Object.values(item.employeesMap),
                         qm_staff_6am:item.qm_staff_6am,qm_staff_10am:item.qm_staff_10am,
                         total_headcount_6am:[0,0,0,0,0,0,0],total_headcount_8am:[0,0,0,0,0,0,0],total_headcount_10am:[0,0,0,0,0,0,0]
                     };
@@ -8127,6 +8153,9 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorldTimeCompar
                     merged.push(target);
                 } else if (Array.isArray(importedWeek.dates) && importedWeek.dates.length === 7) {
                     target.dates = importedWeek.dates.slice(0,7);
+                }
+                if (Array.isArray(importedWeek.challenge_dates)) {
+                    target.challenge_dates = [...new Set(importedWeek.challenge_dates.filter(Boolean))];
                 }
 
                 // For every week being refreshed from Excel, keep only employees that
