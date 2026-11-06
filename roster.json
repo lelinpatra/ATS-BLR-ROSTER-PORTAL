@@ -264,6 +264,36 @@
     ],
     "_portal_notifications": [
       {
+        "id": "n_1793942288537_2_7r508k",
+        "createdAt": "2026-11-06T05:18:08.537Z",
+        "title": "Prathvi Shetty roster changed",
+        "message": "Prathvi Shetty shift/status changed on 11/06/26 from 10:00 AM - 07:00 PM to SL.",
+        "type": "employee",
+        "month": "November",
+        "week": 1,
+        "employee": "Prathvi Shetty"
+      },
+      {
+        "id": "n_1793942288537_1_sw711b",
+        "createdAt": "2026-11-06T05:18:08.537Z",
+        "title": "Lelin Patra roster changed",
+        "message": "Lelin Patra shift/status changed on 11/06/26 from 06:00 AM - 07:00 PM to 06:00 AM (2nd Half Off).",
+        "type": "employee",
+        "month": "November",
+        "week": 1,
+        "employee": "Lelin Patra"
+      },
+      {
+        "id": "n_1793942288537_0_zdvf8g",
+        "createdAt": "2026-11-06T05:18:08.537Z",
+        "title": "Lelin Patra roster changed",
+        "message": "Lelin Patra shift/status changed on 11/05/26 from 06:00 AM - 07:00 PM to 06:00 AM (2nd Half Off).",
+        "type": "employee",
+        "month": "November",
+        "week": 1,
+        "employee": "Lelin Patra"
+      },
+      {
         "id": "n_1793686791774_0_jgm2bh",
         "createdAt": "2026-11-03T06:19:51.774Z",
         "title": "Prathvi Shetty roster changed",
@@ -1228,36 +1258,6 @@
         "createdAt": "2026-09-30T05:16:33.154Z",
         "title": "Manisha Kumari roster changed",
         "message": "Manisha Kumari shift/status changed on 30/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 4,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790745393154_42_usokex",
-        "createdAt": "2026-09-30T05:16:33.154Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 29/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 4,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790745393154_41_qm0967",
-        "createdAt": "2026-09-30T05:16:33.154Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 28/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 4,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790745393154_40_ulkksk",
-        "createdAt": "2026-09-30T05:16:33.154Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 27/10/26 from 06:00 AM - 03:00 PM to WO.",
         "type": "employee",
         "month": "October",
         "week": 4,
@@ -4370,8 +4370,8 @@
           "Monday": "06:00 AM - 07:00 PM",
           "Tuesday": "06:00 AM - 07:00 PM",
           "Wednesday": "06:00 AM - 07:00 PM",
-          "Thursday": "06:00 AM - 07:00 PM",
-          "Friday": "06:00 AM - 07:00 PM",
+          "Thursday": "06:00 AM (2nd Half Off)",
+          "Friday": "06:00 AM (2nd Half Off)",
           "Saturday": "WO",
           "Sunday": "WO"
         }
@@ -4490,7 +4490,7 @@
           "Tuesday": "SL",
           "Wednesday": "10:00 AM - 07:00 PM",
           "Thursday": "10:00 AM - 07:00 PM",
-          "Friday": "10:00 AM - 07:00 PM",
+          "Friday": "SL",
           "Saturday": "WO",
           "Sunday": "WO"
         }
@@ -4537,7 +4537,7 @@
       2,
       3,
       3,
-      3,
+      2,
       1,
       1
     ]
