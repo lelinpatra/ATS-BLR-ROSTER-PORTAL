@@ -264,6 +264,46 @@
     ],
     "_portal_notifications": [
       {
+        "id": "n_1793984831714_3_50fx0h",
+        "createdAt": "2026-11-06T17:07:11.714Z",
+        "title": "Prathvi Shetty roster changed",
+        "message": "Prathvi Shetty shift/status changed on 11/06/26 from SL to 10:00 AM - 07:00 PM.",
+        "type": "employee",
+        "month": "November",
+        "week": 1,
+        "employee": "Prathvi Shetty"
+      },
+      {
+        "id": "n_1793984831714_2_ugttol",
+        "createdAt": "2026-11-06T17:07:11.714Z",
+        "title": "Prathvi Shetty roster changed",
+        "message": "Prathvi Shetty shift/status changed on 11/03/26 from SL to 10:00 AM - 07:00 PM.",
+        "type": "employee",
+        "month": "November",
+        "week": 1,
+        "employee": "Prathvi Shetty"
+      },
+      {
+        "id": "n_1793984831714_1_x341cm",
+        "createdAt": "2026-11-06T17:07:11.714Z",
+        "title": "Lelin Patra roster changed",
+        "message": "Lelin Patra shift/status changed on 11/06/26 from 06:00 AM (2nd Half Off) to 06:00 AM - 07:00 PM.",
+        "type": "employee",
+        "month": "November",
+        "week": 1,
+        "employee": "Lelin Patra"
+      },
+      {
+        "id": "n_1793984831714_0_8jfhz0",
+        "createdAt": "2026-11-06T17:07:11.714Z",
+        "title": "Lelin Patra roster changed",
+        "message": "Lelin Patra shift/status changed on 11/05/26 from 06:00 AM (2nd Half Off) to 06:00 AM - 07:00 PM.",
+        "type": "employee",
+        "month": "November",
+        "week": 1,
+        "employee": "Lelin Patra"
+      },
+      {
         "id": "n_1793942288537_2_7r508k",
         "createdAt": "2026-11-06T05:18:08.537Z",
         "title": "Prathvi Shetty roster changed",
@@ -1222,46 +1262,6 @@
         "month": "October",
         "week": 1,
         "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790745745885_2_mz5hz2",
-        "createdAt": "2026-09-30T05:22:25.885Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 10/06/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 1,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790745745885_1_ac3yir",
-        "createdAt": "2026-09-30T05:22:25.885Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 10/05/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 1,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790745745885_0_sq4rp7",
-        "createdAt": "2026-09-30T05:22:25.885Z",
-        "title": "Sanjay Kumar roster changed",
-        "message": "Sanjay Kumar shift/status changed on 10/11/26 from 06:30 AM - 03:30 PM to 06:30 AM - 03300 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 1,
-        "employee": "Sanjay Kumar"
-      },
-      {
-        "id": "n_1790745393154_43_zrgji2",
-        "createdAt": "2026-09-30T05:16:33.154Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 30/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 4,
-        "employee": "Manisha Kumari"
       }
     ],
     "_user_credentials": {
@@ -4370,8 +4370,8 @@
           "Monday": "06:00 AM - 07:00 PM",
           "Tuesday": "06:00 AM - 07:00 PM",
           "Wednesday": "06:00 AM - 07:00 PM",
-          "Thursday": "06:00 AM (2nd Half Off)",
-          "Friday": "06:00 AM (2nd Half Off)",
+          "Thursday": "06:00 AM - 07:00 PM",
+          "Friday": "06:00 AM - 07:00 PM",
           "Saturday": "WO",
           "Sunday": "WO"
         }
@@ -4487,10 +4487,10 @@
         "days_office": "Mon/Tue/Wed/Thu/Fri",
         "shifts": {
           "Monday": "10:00 AM - 07:00 PM",
-          "Tuesday": "SL",
+          "Tuesday": "10:00 AM - 07:00 PM",
           "Wednesday": "10:00 AM - 07:00 PM",
           "Thursday": "10:00 AM - 07:00 PM",
-          "Friday": "SL",
+          "Friday": "10:00 AM - 07:00 PM",
           "Saturday": "WO",
           "Sunday": "WO"
         }
@@ -4534,12 +4534,17 @@
     ],
     "total_headcount_10am": [
       2,
-      2,
       3,
       3,
-      2,
+      3,
+      3,
       1,
       1
+    ],
+    "challenge_dates": [
+      "02/11/26",
+      "05/11/26",
+      "06/11/26"
     ]
   },
   {
@@ -4787,6 +4792,10 @@
       3,
       1,
       1
+    ],
+    "challenge_dates": [
+      "10/11/26",
+      "09/11/26"
     ]
   },
   {
@@ -5034,6 +5043,11 @@
       3,
       1,
       1
+    ],
+    "challenge_dates": [
+      "16/11/26",
+      "19/11/26",
+      "20/11/26"
     ]
   },
   {
@@ -5281,6 +5295,11 @@
       2,
       1,
       1
+    ],
+    "challenge_dates": [
+      "23/11/26",
+      "24/11/26",
+      "27/11/26"
     ]
   },
   {
@@ -5528,6 +5547,7 @@
       3,
       1,
       1
-    ]
+    ],
+    "challenge_dates": []
   }
 ]
