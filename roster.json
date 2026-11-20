@@ -264,6 +264,26 @@
     ],
     "_portal_notifications": [
       {
+        "id": "n_1795143143023_1_97wevf",
+        "createdAt": "2026-11-20T02:52:23.023Z",
+        "title": "Gokul Krishna Lokesh roster changed",
+        "message": "Gokul Krishna Lokesh shift/status changed on 20/11/26 from 06:00 AM - 03:00 PM to SL.",
+        "type": "employee",
+        "month": "November",
+        "week": 3,
+        "employee": "Gokul Krishna Lokesh"
+      },
+      {
+        "id": "n_1795143143023_0_czhkvy",
+        "createdAt": "2026-11-20T02:52:23.023Z",
+        "title": "Sanjay Kumar roster changed",
+        "message": "Sanjay Kumar shift/status changed on 20/11/26 from 06:00 AM - 03:00 PM to SL.",
+        "type": "employee",
+        "month": "November",
+        "week": 3,
+        "employee": "Sanjay Kumar"
+      },
+      {
         "id": "n_1795069697839_0_e069c4",
         "createdAt": "2026-11-19T06:28:17.839Z",
         "title": "Sanjay Kumar roster changed",
@@ -1238,26 +1258,6 @@
         "createdAt": "2026-09-30T05:22:25.885Z",
         "title": "Gokul Krishna Lokesh roster changed",
         "message": "Gokul Krishna Lokesh shift/status changed on 14/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 2,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790745745885_13_xq7utq",
-        "createdAt": "2026-09-30T05:22:25.885Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 13/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 2,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790745745885_12_b3s77f",
-        "createdAt": "2026-09-30T05:22:25.885Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 10/12/26 from 06:00 AM - 03:00 PM to WO.",
         "type": "employee",
         "month": "October",
         "week": 2,
@@ -4862,7 +4862,7 @@
           "Tuesday": "SL",
           "Wednesday": "SL",
           "Thursday": "06:00 AM (2nd Half Off)",
-          "Friday": "06:00 AM - 03:00 PM",
+          "Friday": "SL",
           "Saturday": "PTO",
           "Sunday": "WO"
         }
@@ -4896,7 +4896,7 @@
           "Tuesday": "06:00 AM - 03:00 PM",
           "Wednesday": "06:00 AM - 03:00 PM",
           "Thursday": "06:00 AM - 03:00 PM",
-          "Friday": "06:00 AM - 03:00 PM",
+          "Friday": "SL",
           "Saturday": "WO",
           "Sunday": "WO"
         }
@@ -5027,7 +5027,7 @@
       4,
       4,
       4,
-      4,
+      2,
       1,
       1
     ],
