@@ -264,6 +264,16 @@
     ],
     "_portal_notifications": [
       {
+        "id": "n_1795148863084_0_pcdhe1",
+        "createdAt": "2026-11-20T04:27:43.084Z",
+        "title": "Rupesh C P roster changed",
+        "message": "Rupesh C P shift/status changed on 26/11/26 from 06:00 AM - 03:00 PM to Comp Off.",
+        "type": "employee",
+        "month": "November",
+        "week": 4,
+        "employee": "Rupesh C P"
+      },
+      {
         "id": "n_1795143143023_1_97wevf",
         "createdAt": "2026-11-20T02:52:23.023Z",
         "title": "Gokul Krishna Lokesh roster changed",
@@ -1248,16 +1258,6 @@
         "createdAt": "2026-09-30T05:22:25.885Z",
         "title": "Gokul Krishna Lokesh roster changed",
         "message": "Gokul Krishna Lokesh shift/status changed on 15/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 2,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790745745885_14_pz9ey1",
-        "createdAt": "2026-09-30T05:22:25.885Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 14/10/26 from 06:00 AM - 03:00 PM to WO.",
         "type": "employee",
         "month": "October",
         "week": 2,
@@ -5164,7 +5164,7 @@
           "Monday": "06:00 AM - 03:00 PM",
           "Tuesday": "06:00 AM - 03:00 PM",
           "Wednesday": "06:00 AM - 03:00 PM",
-          "Thursday": "06:00 AM - 03:00 PM",
+          "Thursday": "Comp Off",
           "Friday": "WO",
           "Saturday": "WO",
           "Sunday": "06:30 AM - 03:30 PM"
@@ -5278,7 +5278,7 @@
       4,
       4,
       5,
-      5,
+      4,
       4,
       1,
       1
