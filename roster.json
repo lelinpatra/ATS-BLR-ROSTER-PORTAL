@@ -264,6 +264,16 @@
     ],
     "_portal_notifications": [
       {
+        "id": "n_1795396223193_0_fughyd",
+        "createdAt": "2026-11-23T01:10:23.193Z",
+        "title": "Gokul Krishna Lokesh roster changed",
+        "message": "Gokul Krishna Lokesh shift/status changed on 23/11/26 from 06:00 AM - 03:00 PM to SL.",
+        "type": "employee",
+        "month": "November",
+        "week": 4,
+        "employee": "Gokul Krishna Lokesh"
+      },
+      {
         "id": "n_1795148863084_0_pcdhe1",
         "createdAt": "2026-11-20T04:27:43.084Z",
         "title": "Rupesh C P roster changed",
@@ -1248,16 +1258,6 @@
         "createdAt": "2026-09-30T05:22:25.885Z",
         "title": "Gokul Krishna Lokesh roster changed",
         "message": "Gokul Krishna Lokesh shift/status changed on 16/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 2,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790745745885_15_i4brkm",
-        "createdAt": "2026-09-30T05:22:25.885Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 15/10/26 from 06:00 AM - 03:00 PM to WO.",
         "type": "employee",
         "month": "October",
         "week": 2,
@@ -5144,7 +5144,7 @@
         "default_end": "05:00 PM",
         "days_office": "Mon/Tue/Wed/Thu/Fri",
         "shifts": {
-          "Monday": "06:00 AM - 03:00 PM",
+          "Monday": "SL",
           "Tuesday": "06:00 AM - 03:00 PM",
           "Wednesday": "06:00 AM - 03:00 PM",
           "Thursday": "06:00 AM - 03:00 PM",
@@ -5275,7 +5275,7 @@
       "Sunday": "Prathvi Shetty"
     },
     "total_headcount_6am": [
-      4,
+      3,
       4,
       5,
       4,
