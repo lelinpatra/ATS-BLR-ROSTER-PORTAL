@@ -264,6 +264,46 @@
     ],
     "_portal_notifications": [
       {
+        "id": "n_1795501952859_3_wckjaq",
+        "createdAt": "2026-11-24T06:32:32.859Z",
+        "title": "Sanjay Kumar roster changed",
+        "message": "Sanjay Kumar shift/status changed on 01/03/27 from 06:30 AM - 03:30 PM to 10:00 AM - 07:00 PM.",
+        "type": "employee",
+        "month": "December",
+        "week": 4,
+        "employee": "Sanjay Kumar"
+      },
+      {
+        "id": "n_1795501952859_2_cof3s5",
+        "createdAt": "2026-11-24T06:32:32.859Z",
+        "title": "Preethi P roster changed",
+        "message": "Preethi P shift/status changed on 27/12/26 from 06:30 AM - 03:30 PM to 06:00 AM - 03:00 PM.",
+        "type": "employee",
+        "month": "December",
+        "week": 3,
+        "employee": "Preethi P"
+      },
+      {
+        "id": "n_1795501952859_1_th28gh",
+        "createdAt": "2026-11-24T06:32:32.859Z",
+        "title": "Md. Shahbaz roster changed",
+        "message": "Md. Shahbaz shift/status changed on 20/12/26 from 06:30 AM - 03:30 PM to 06:00 AM - 03:00 PM.",
+        "type": "employee",
+        "month": "December",
+        "week": 2,
+        "employee": "Md. Shahbaz"
+      },
+      {
+        "id": "n_1795501952859_0_9fa9ss",
+        "createdAt": "2026-11-24T06:32:32.859Z",
+        "title": "Md. Shahbaz roster changed",
+        "message": "Md. Shahbaz shift/status changed on 13/12/26 from 06:30 AM - 03:30 PM to 06:00 AM - 03:00 PM.",
+        "type": "employee",
+        "month": "December",
+        "week": 1,
+        "employee": "Md. Shahbaz"
+      },
+      {
         "id": "n_1795501792857_0_osr95w",
         "createdAt": "2026-11-24T06:29:52.857Z",
         "title": "December roster uploaded",
@@ -1222,46 +1262,6 @@
         "month": "October",
         "week": 3,
         "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790745745885_25_ecmih0",
-        "createdAt": "2026-09-30T05:22:25.885Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 21/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 3,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790745745885_24_p5e6o6",
-        "createdAt": "2026-09-30T05:22:25.885Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 20/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 3,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790745745885_23_ursvmf",
-        "createdAt": "2026-09-30T05:22:25.885Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 19/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 3,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790745745885_22_n5yuwg",
-        "createdAt": "2026-09-30T05:22:25.885Z",
-        "title": "Sanjay Kumar roster changed",
-        "message": "Sanjay Kumar shift/status changed on 25/10/26 from 06:30 AM - 03:30 PM to 06:30 AM - 03300 PM.",
-        "type": "employee",
-        "month": "October",
-        "week": 3,
-        "employee": "Sanjay Kumar"
       }
     ],
     "_user_credentials": {
@@ -5599,7 +5599,7 @@
           "Thursday": "06:00 AM - 03:00 PM",
           "Friday": "WO",
           "Saturday": "WO",
-          "Sunday": "06:30 AM - 03:30 PM"
+          "Sunday": "06:00 AM - 03:00 PM"
         }
       },
       {
@@ -5850,7 +5850,7 @@
           "Thursday": "06:00 AM - 03:00 PM",
           "Friday": "WO",
           "Saturday": "WO",
-          "Sunday": "06:30 AM - 03:30 PM"
+          "Sunday": "06:00 AM - 03:00 PM"
         }
       },
       {
@@ -6188,7 +6188,7 @@
           "Thursday": "06:00 AM - 03:00 PM",
           "Friday": "WO",
           "Saturday": "06:00 AM - 03:00 PM",
-          "Sunday": "06:30 AM - 03:30 PM"
+          "Sunday": "06:00 AM - 03:00 PM"
         }
       },
       {
@@ -6372,7 +6372,7 @@
           "Thursday": "YEB",
           "Friday": "WO",
           "Saturday": "WO",
-          "Sunday": "06:30 AM - 03:30 PM"
+          "Sunday": "10:00 AM - 07:00 PM"
         }
       },
       {
@@ -6546,7 +6546,7 @@
       2,
       1,
       1,
-      1
+      0
     ],
     "total_headcount_8am": [
       1,
@@ -6564,7 +6564,7 @@
       1,
       1,
       1,
-      1
+      2
     ]
   }
 ]
