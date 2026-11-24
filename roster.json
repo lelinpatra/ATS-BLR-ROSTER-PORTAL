@@ -264,6 +264,46 @@
     ],
     "_portal_notifications": [
       {
+        "id": "n_1795503695638_3_l45i9z",
+        "createdAt": "2026-11-24T07:01:35.638Z",
+        "title": "Manisha Kumari roster changed",
+        "message": "Manisha Kumari shift/status changed on 24/12/26 from 08:00 AM - 05:00 PM to PTO.",
+        "type": "employee",
+        "month": "December",
+        "week": 3,
+        "employee": "Manisha Kumari"
+      },
+      {
+        "id": "n_1795503695638_2_ekjnp3",
+        "createdAt": "2026-11-24T07:01:35.638Z",
+        "title": "Manisha Kumari roster changed",
+        "message": "Manisha Kumari shift/status changed on 23/12/26 from 08:00 AM - 05:00 PM to PTO.",
+        "type": "employee",
+        "month": "December",
+        "week": 3,
+        "employee": "Manisha Kumari"
+      },
+      {
+        "id": "n_1795503695638_1_m1cp4c",
+        "createdAt": "2026-11-24T07:01:35.638Z",
+        "title": "Manisha Kumari roster changed",
+        "message": "Manisha Kumari shift/status changed on 12/11/26 from PTO to 08:00 AM - 05:00 PM.",
+        "type": "employee",
+        "month": "December",
+        "week": 1,
+        "employee": "Manisha Kumari"
+      },
+      {
+        "id": "n_1795503695638_0_vy2uqq",
+        "createdAt": "2026-11-24T07:01:35.638Z",
+        "title": "Manisha Kumari roster changed",
+        "message": "Manisha Kumari shift/status changed on 12/10/26 from PTO to 08:00 AM - 05:00 PM.",
+        "type": "employee",
+        "month": "December",
+        "week": 1,
+        "employee": "Manisha Kumari"
+      },
+      {
         "id": "n_1795503569292_6_5rxkyz",
         "createdAt": "2026-11-24T06:59:29.292Z",
         "title": "Bhargav R roster changed",
@@ -1218,46 +1258,6 @@
         "createdAt": "2026-09-30T05:22:25.885Z",
         "title": "Gokul Krishna Lokesh roster changed",
         "message": "Gokul Krishna Lokesh shift/status changed on 30/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 4,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790745745885_37_kvmb39",
-        "createdAt": "2026-09-30T05:22:25.885Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 29/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 4,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790745745885_36_7wt81f",
-        "createdAt": "2026-09-30T05:22:25.885Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 28/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 4,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790745745885_35_im8fix",
-        "createdAt": "2026-09-30T05:22:25.885Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 27/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 4,
-        "employee": "Gokul Krishna Lokesh"
-      },
-      {
-        "id": "n_1790745745885_34_1q71ka",
-        "createdAt": "2026-09-30T05:22:25.885Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 26/10/26 from 06:00 AM - 03:00 PM to WO.",
         "type": "employee",
         "month": "October",
         "week": 4,
@@ -5715,8 +5715,8 @@
           "Monday": "08:00 AM - 05:00 PM",
           "Tuesday": "08:00 AM - 05:00 PM",
           "Wednesday": "08:00 AM - 05:00 PM",
-          "Thursday": "PTO",
-          "Friday": "PTO",
+          "Thursday": "08:00 AM - 05:00 PM",
+          "Friday": "08:00 AM - 05:00 PM",
           "Saturday": "WO",
           "Sunday": "WO"
         }
@@ -5791,8 +5791,8 @@
       2,
       2,
       2,
-      1,
-      1,
+      2,
+      2,
       0,
       0
     ],
@@ -6218,8 +6218,8 @@
         "shifts": {
           "Monday": "08:00 AM - 05:00 PM",
           "Tuesday": "08:00 AM - 05:00 PM",
-          "Wednesday": "08:00 AM - 05:00 PM",
-          "Thursday": "08:00 AM - 05:00 PM",
+          "Wednesday": "PTO",
+          "Thursday": "PTO",
           "Friday": "PH",
           "Saturday": "WO",
           "Sunday": "WO"
@@ -6295,8 +6295,8 @@
     "total_headcount_8am": [
       2,
       2,
-      2,
-      2,
+      1,
+      1,
       1,
       0,
       0
