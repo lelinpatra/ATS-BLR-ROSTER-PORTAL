@@ -264,6 +264,36 @@
     ],
     "_portal_notifications": [
       {
+        "id": "n_1795512098390_2_r090ql",
+        "createdAt": "2026-11-24T09:21:38.390Z",
+        "title": "Preethi P roster changed",
+        "message": "Preethi P shift/status changed on 27/12/26 from 06:00 AM - 03:00 PM to 06:30 AM - 03:30 PM.",
+        "type": "employee",
+        "month": "December",
+        "week": 3,
+        "employee": "Preethi P"
+      },
+      {
+        "id": "n_1795512098390_1_zw58bf",
+        "createdAt": "2026-11-24T09:21:38.390Z",
+        "title": "Md. Shahbaz roster changed",
+        "message": "Md. Shahbaz shift/status changed on 20/12/26 from 06:00 AM - 03:00 PM to 06:30 AM - 03:30 PM.",
+        "type": "employee",
+        "month": "December",
+        "week": 2,
+        "employee": "Md. Shahbaz"
+      },
+      {
+        "id": "n_1795512098390_0_0mw0pg",
+        "createdAt": "2026-11-24T09:21:38.390Z",
+        "title": "Md. Shahbaz roster changed",
+        "message": "Md. Shahbaz shift/status changed on 13/12/26 from 06:00 AM - 03:00 PM to 06:30 AM - 03:30 PM.",
+        "type": "employee",
+        "month": "December",
+        "week": 1,
+        "employee": "Md. Shahbaz"
+      },
+      {
         "id": "n_1795503695638_3_l45i9z",
         "createdAt": "2026-11-24T07:01:35.638Z",
         "title": "Manisha Kumari roster changed",
@@ -1232,36 +1262,6 @@
         "month": "October",
         "week": 4,
         "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790745745885_40_ytwy67",
-        "createdAt": "2026-09-30T05:22:25.885Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 27/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 4,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790745745885_39_2cn06o",
-        "createdAt": "2026-09-30T05:22:25.885Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 26/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 4,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790745745885_38_yv7bjg",
-        "createdAt": "2026-09-30T05:22:25.885Z",
-        "title": "Gokul Krishna Lokesh roster changed",
-        "message": "Gokul Krishna Lokesh shift/status changed on 30/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 4,
-        "employee": "Gokul Krishna Lokesh"
       }
     ],
     "_user_credentials": {
@@ -5599,7 +5599,7 @@
           "Thursday": "06:00 AM - 03:00 PM",
           "Friday": "WO",
           "Saturday": "WO",
-          "Sunday": "06:00 AM - 03:00 PM"
+          "Sunday": "06:30 AM - 03:30 PM"
         }
       },
       {
@@ -5850,7 +5850,7 @@
           "Thursday": "06:00 AM - 03:00 PM",
           "Friday": "WO",
           "Saturday": "WO",
-          "Sunday": "06:00 AM - 03:00 PM"
+          "Sunday": "06:30 AM - 03:30 PM"
         }
       },
       {
@@ -6188,7 +6188,7 @@
           "Thursday": "06:00 AM - 03:00 PM",
           "Friday": "WO",
           "Saturday": "06:00 AM - 03:00 PM",
-          "Sunday": "06:00 AM - 03:00 PM"
+          "Sunday": "06:30 AM - 03:30 PM"
         }
       },
       {
