@@ -264,6 +264,16 @@
     ],
     "_portal_notifications": [
       {
+        "id": "n_1795483038192_0_6z2x8f",
+        "createdAt": "2026-11-24T01:17:18.192Z",
+        "title": "Gokul Krishna Lokesh roster changed",
+        "message": "Gokul Krishna Lokesh shift/status changed on 24/11/26 from 06:00 AM - 03:00 PM to SL.",
+        "type": "employee",
+        "month": "November",
+        "week": 4,
+        "employee": "Gokul Krishna Lokesh"
+      },
+      {
         "id": "n_1795409780328_3_ywlijz",
         "createdAt": "2026-11-23T04:56:20.328Z",
         "title": "Prathvi Shetty roster changed",
@@ -1248,16 +1258,6 @@
         "createdAt": "2026-09-30T05:22:25.885Z",
         "title": "Manisha Kumari roster changed",
         "message": "Manisha Kumari shift/status changed on 16/10/26 from 06:00 AM - 03:00 PM to WO.",
-        "type": "employee",
-        "month": "October",
-        "week": 2,
-        "employee": "Manisha Kumari"
-      },
-      {
-        "id": "n_1790745745885_20_hfnry4",
-        "createdAt": "2026-09-30T05:22:25.885Z",
-        "title": "Manisha Kumari roster changed",
-        "message": "Manisha Kumari shift/status changed on 15/10/26 from 06:00 AM - 03:00 PM to WO.",
         "type": "employee",
         "month": "October",
         "week": 2,
@@ -5145,7 +5145,7 @@
         "days_office": "Mon/Tue/Wed/Thu/Fri",
         "shifts": {
           "Monday": "SL",
-          "Tuesday": "06:00 AM - 03:00 PM",
+          "Tuesday": "SL",
           "Wednesday": "06:00 AM - 03:00 PM",
           "Thursday": "06:00 AM - 03:00 PM",
           "Friday": "06:00 AM - 03:00 PM",
@@ -5276,7 +5276,7 @@
     },
     "total_headcount_6am": [
       3,
-      4,
+      3,
       5,
       4,
       4,
